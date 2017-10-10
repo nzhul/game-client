@@ -21,7 +21,7 @@ namespace Assets.Scripts.Core.Network
 
 			yield return request.Send();
 
-			if (request.isError || request.responseCode != 200)
+			if (request.isNetworkError || request.responseCode != 200)
 			{
 				if (failCallback != null)
 				{
@@ -54,7 +54,7 @@ namespace Assets.Scripts.Core.Network
 
 			yield return request.Send();
 
-			if (request.isError || request.responseCode != 200)
+			if (request.isNetworkError || request.responseCode != 200)
 			{
 				if (failCallback != null)
 				{

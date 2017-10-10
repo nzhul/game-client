@@ -9,6 +9,5 @@ namespace Assets.Scripts.Core.Network
 		IEnumerator Post(string url, IDictionary<string, string> formData, Action<string> successCallback = null, Action<int, string> failCallback = null);
 
 		IEnumerator Get(string url, string token = null, Action<string> successCallback = null, Action<int, string> failCallback = null);
-		IEnumerator Get(string requestUrl, Action<string> onSuccess);
 	}
 }
