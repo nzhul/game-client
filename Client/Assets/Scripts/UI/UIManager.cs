@@ -22,7 +22,7 @@ namespace Assets.Scripts.UI
 			if (!string.IsNullOrEmpty(token))
 			{
 
-				string requestUrl = RequestManager.serverRootUrl + "/api/values/get";
+				string requestUrl = RequestManager.serverRootUrl + "/api/values";
 				StartCoroutine(this.requestManager.Get(requestUrl, token, OnSuccess));
 			}
 			else

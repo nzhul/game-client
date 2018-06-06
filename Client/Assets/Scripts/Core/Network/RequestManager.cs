@@ -8,7 +8,7 @@ namespace Assets.Scripts.Core.Network
 {
 	public class RequestManager : IRequestManager
 	{
-		public static string serverRootUrl = "http://server.com";
+		public static string serverRootUrl = "http://localhost:5000";
 
 		public IEnumerator Get(string url, string token = null, Action<string> successCallback = null, Action<int, string> failCallback = null)
 		{
