@@ -10,7 +10,7 @@ public class Register : MonoBehaviour
 	private const string passwordKey = "Password";
 	private const string confirmPasswordKey = "ConfirmPassword";
 	private const string emailKey = "Email";
-	private IRequestManager requestManager;
+	private RequestManager_Old requestManager;
 	private const string registrationEndpoint = "/api/account/register";
 
 	UserManager userManager;
@@ -20,7 +20,7 @@ public class Register : MonoBehaviour
 	void Start()
 	{
 		this.userManager = GameObject.FindObjectOfType<UserManager>();
-		this.requestManager = new RequestManager();
+		this.requestManager = new RequestManager_Old();
 
 		inputFields = new Dictionary<string, InputField>();
 
@@ -47,7 +47,7 @@ public class Register : MonoBehaviour
 		formData.Add(Register.confirmPasswordKey, confirmPassword);
 		formData.Add(Register.emailKey, email);
 
-		string requestUrl = RequestManager.serverRootUrl + Register.registrationEndpoint;
+		string requestUrl = RequestManager_Old.serverRootUrl + Register.registrationEndpoint;
 
 		StartCoroutine(this.requestManager.Post(requestUrl, formData));
 	}

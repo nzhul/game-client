@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class Login : MonoBehaviour {
 
-	private IRequestManager requestManager;
+	private RequestManager_Old requestManager;
 	private IDictionary<string, InputField> inputFields;
 	private const string userNameKey = "Username";
 	private const string passwordKey = "Password";
@@ -18,7 +18,7 @@ public class Login : MonoBehaviour {
 	void Start () {
 
 		this.userManager = GameObject.FindObjectOfType<UserManager>();
-		this.requestManager = new RequestManager();
+		this.requestManager = new RequestManager_Old();
 
 		this.inputFields = new Dictionary<string, InputField>();
 
@@ -42,7 +42,7 @@ public class Login : MonoBehaviour {
 		formData.Add(Login.passwordKey, password);
 		formData.Add("grant_type", "password");
 
-		string requestUrl = RequestManager.serverRootUrl + Login.tokenEndpoint;
+		string requestUrl = RequestManager_Old.serverRootUrl + Login.tokenEndpoint;
 
 		StartCoroutine(this.requestManager.Post(requestUrl, formData, OnSuccessLogin));
 	}

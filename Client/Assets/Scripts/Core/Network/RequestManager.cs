@@ -1,79 +1,77 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Text;
+using BestHTTP;
 using UnityEngine;
-using UnityEngine.Networking;
 
 namespace Assets.Scripts.Core.Network
 {
-	public class RequestManager : IRequestManager
-	{
-		public static string serverRootUrl = "http://localhost:5000";
+    public class RequestManager : MonoBehaviour
+    {
+        public static string SERVER_ROOT = "http://localhost:5000/";
 
-		public IEnumerator Get(string url, string token = null, Action<string> successCallback = null, Action<int, string> failCallback = null)
-		{
-			UnityWebRequest request = UnityWebRequest.Get(url);
+        private static RequestManager _instance;
 
-			if (!string.IsNullOrEmpty(token))
-			{
-				request.SetRequestHeader("Authorization", "Bearer " + token);
-			}
+        public static RequestManager Instance
+        {
+            get
+            {
+                return _instance;
+            }
+        }
 
-			yield return request.Send();
+        private void Awake()
+        {
+            if (_instance != null)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                _instance = this;
 
-			if (request.isNetworkError || request.responseCode != 200)
-			{
-				if (failCallback != null)
-				{
-					failCallback((int)request.responseCode, request.downloadHandler.text);
-				}
+                // for this to work the object must be on root level in the hierarchy
+                // TODO: this might cause bugs since i will have two/three stacks of menus, each for each scene
+                DontDestroyOnLoad(gameObject);
+            }
+        }
 
-				Debug.Log("Failed request | Error code: " + (int)request.responseCode + " | " + request.downloadHandler.text);
-			}
-			else
-			{
-				if (successCallback != null)
-				{
-					successCallback(request.downloadHandler.text);
-				}
+        public void Get(string endpoint, string[] @params, OnRequestFinishedDelegate callback)
+        {
+            endpoint = string.Format(endpoint, @params);
+            Uri uri = new Uri(SERVER_ROOT + endpoint);
 
-				Debug.Log("Successful request: " + request.downloadHandler.text);
-			}
-		}
+            HTTPRequest request = new HTTPRequest(uri, callback);
+            request.Send();
+        }
 
-		public IEnumerator Post(string url, IDictionary<string, string> formData, Action<string> successCallback = null, Action<int, string> failCallback = null)
-		{
-			WWWForm form = new WWWForm();
+        public void Post(string endpoint, IDictionary<string, string> formData, OnRequestFinishedDelegate callback)
+        {
+            Uri uri = new Uri(SERVER_ROOT + endpoint);
+            HTTPRequest request = new HTTPRequest(uri, HTTPMethods.Post, callback);
+            request.AddHeader("Content-Type", "application/json");
 
-			foreach (var item in formData)
-			{
-				form.AddField(item.Key, item.Value);
-			}
+            foreach (var item in formData)
+            {
+                request.AddField(item.Key, item.Value);
+            }
 
-			UnityWebRequest request = UnityWebRequest.Post(url, form);
+            request.Send();
+        }
 
-			yield return request.Send();
+        public void Post<T>(string endpoint, T inputModel, OnRequestFinishedDelegate callback)
+        {
+            Uri uri = new Uri(SERVER_ROOT + endpoint);
+            HTTPRequest request = new HTTPRequest(uri, HTTPMethods.Post, callback);
+            request.AddHeader("Content-Type", "application/json");
 
-			if (request.isNetworkError || request.responseCode != 200)
-			{
-				if (failCallback != null)
-				{
-					failCallback((int)request.responseCode, request.downloadHandler.text);
-				}
+            if (inputModel != null)
+            {
+                string payload = JsonUtility.ToJson(inputModel);
+                request.RawData = Encoding.UTF8.GetBytes(payload);
+            }
 
-				Debug.Log("Failed request | Error code: " + (int)request.responseCode + " | " + request.downloadHandler.text);
-			}
-			else
-			{
-				if (successCallback != null)
-				{
-					successCallback(request.downloadHandler.text);
-				}
-
-				Debug.Log("Successful request: " + request.downloadHandler.text);
-			}
-		}
-
-
-	}
+            request.Send();
+        }
+    }
 }

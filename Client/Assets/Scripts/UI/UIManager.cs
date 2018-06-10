@@ -10,31 +10,31 @@ namespace Assets.Scripts.UI
 {
 	public class UIManager : MonoBehaviour
 	{
-		private IRequestManager requestManager;
+		private RequestManager_Old requestManager;
 		UserManager userManager;
 
-		private void Start()
-		{
-			this.requestManager = new RequestManager();
-			this.userManager = GameObject.FindObjectOfType<UserManager>();
-			string token = this.userManager.GetUserToken();
+		//private void Start()
+		//{
+		//	this.requestManager = new RequestManager_Old();
+		//	this.userManager = GameObject.FindObjectOfType<UserManager>();
+		//	string token = this.userManager.GetUserToken();
 
-			if (!string.IsNullOrEmpty(token))
-			{
+		//	if (!string.IsNullOrEmpty(token))
+		//	{
 
-				string requestUrl = RequestManager.serverRootUrl + "/api/values";
-				StartCoroutine(this.requestManager.Get(requestUrl, token, OnSuccess));
-			}
-			else
-			{
-				// Load Login Screen
-				Debug.Log("Token not found! -> Loading Login  screen");
-			}
-		}
+		//		string requestUrl = RequestManager_Old.serverRootUrl + "/api/values";
+		//		StartCoroutine(this.requestManager.Get(requestUrl, token, OnSuccess));
+		//	}
+		//	else
+		//	{
+		//		// Load Login Screen
+		//		Debug.Log("Token not found! -> Loading Login  screen");
+		//	}
+		//}
 
-		private void OnSuccess(string response)
-		{
-			Debug.Log(response);
-		}
+		//private void OnSuccess(string response)
+		//{
+		//	Debug.Log(response);
+		//}
 	}
 }

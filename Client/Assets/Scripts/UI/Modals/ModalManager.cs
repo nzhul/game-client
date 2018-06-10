@@ -100,7 +100,20 @@ namespace Assets.Scripts.UI.Modals
 
         public void CloseModal()
         {
+            if (_modalStack.Count == 0)
+            {
+                Debug.LogWarning("MODALMANAGER CloseModal ERROR: No modals in stack!");
+                return;
+            }
 
+            Modal topMenu = _modalStack.Pop();
+            topMenu.gameObject.SetActive(false);
+
+            if (_modalStack.Count > 0)
+            {
+                Modal nextMenu = _modalStack.Peek();
+                nextMenu.gameObject.SetActive(true);
+            }
         }
     }
 }
