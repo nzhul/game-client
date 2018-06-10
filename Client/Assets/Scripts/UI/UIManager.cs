@@ -10,7 +10,7 @@ namespace Assets.Scripts.UI
 {
 	public class UIManager : MonoBehaviour
 	{
-		private RequestManager_Old requestManager;
+		//private RequestManager_Old requestManager;
 		UserManager userManager;
 
 		//private void Start()

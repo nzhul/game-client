@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.Core.Network;
 using Assets.Scripts.RequestModels.Users.Input;
@@ -16,36 +15,20 @@ namespace Assets.Scripts.UI.Modals.MainMenuModals
         private const string USERNAME_KEY = "UsernameField";
         private const string PASSWORD_KEY = "PasswordField";
 
+        // form fields
+        protected IDictionary<string, InputField> formInputs;
+        protected ICollection<Button> formButtons;
         public GameObject _form;
         public GameObject _loadingImage;
-
         public float loadingImageSpeed = 1f;
         public iTween.EaseType loadingImageEaseType = iTween.EaseType.easeInOutExpo;
-
         public Text errorMessageText;
 
-        private IDictionary<string, InputField> formInputs;
-        private ICollection<Button> formButtons;
-
-        protected override void Awake()
+        protected override void Start()
         {
-            base.Awake();
-        }
-
-        private void Start()
-        {
-            formInputs = new Dictionary<string, InputField>();
-
-            ICollection<InputField> fieldElements = _form.GetComponentsInChildren<InputField>();
-            foreach (var field in fieldElements)
-            {
-                if (!formInputs.ContainsKey(field.name))
-                {
-                    formInputs.Add(field.name, field);
-                }
-            }
-
-            formButtons = _form.GetComponentsInChildren<Button>();
+            FormData formData = FormUtilities.GenerateFormData(_form);
+            formButtons = formData.Buttons;
+            formInputs = formData.Inputs;
         }
 
         public void OnLoginPressed()
@@ -57,13 +40,13 @@ namespace Assets.Scripts.UI.Modals.MainMenuModals
         {
             yield return new WaitForSeconds(0);
 
-            DisableForm(true);
+            FormUtilities.DisableForm(true, formInputs, formButtons);
 
-            ShowLoadingIndicator();
+            FormUtilities.ShowLoadingIndicator(_loadingImage, loadingImageSpeed, loadingImageEaseType);
 
             LoginInput loginModel = GenerateInputData();
 
-            // TODO: validate loginModel
+            // TODO: validate loginModel - Server side or client side
 
             RequestManager.Instance.Post<LoginInput>("/api/auth/login", loginModel, OnRequestFinished);
         }
@@ -122,37 +105,8 @@ namespace Assets.Scripts.UI.Modals.MainMenuModals
                 errorMessageText.gameObject.SetActive(false);
             }
 
-            HideLoadingIndicator();
-            DisableForm(false);
-        }
-
-        private void ShowLoadingIndicator()
-        {
-            _loadingImage.SetActive(true);
-            iTween.RotateBy(_loadingImage, iTween.Hash(
-                    "z", loadingImageSpeed,
-                    "easetype", loadingImageEaseType,
-                    "looptype", iTween.LoopType.loop
-                ));
-        }
-
-        private void HideLoadingIndicator()
-        {
-            iTween.Stop(_loadingImage);
-            _loadingImage.SetActive(false);
-        }
-
-        private void DisableForm(bool disabled)
-        {
-            foreach (var field in formInputs)
-            {
-                field.Value.interactable = !disabled;
-            }
-
-            foreach (var button in formButtons)
-            {
-                button.interactable = !disabled;
-            }
+            FormUtilities.HideLoadingIndicator(_loadingImage);
+            FormUtilities.DisableForm(false, formInputs, formButtons);
         }
     }
 }

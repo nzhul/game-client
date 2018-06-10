@@ -26,6 +26,10 @@ namespace Assets.Scripts.UI.Modals
             }
         }
 
+        protected virtual void Start()
+        {
+        }
+
         protected virtual void OnDestroi()
         {
             _instance = null;

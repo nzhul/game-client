@@ -18,7 +18,10 @@ ff05dcdf90651c3d98a9cad3df5e471e UnityEngine.Timeline.dll:UnityEngine.Timeline.C
 30afa8783a8bbee2e465ec9ce1efaee2 UnityEngine.Timeline.dll:UnityEngine.Timeline.GroupTrack
 30afa8783a8bbee2e465ec9ce1efaee2 UnityEngine.Timeline.dll:UnityEngine.Timeline.PlayableTrack
 607d64d2c4bc76ac9876e6f7b9cc7edf UnityEngine.Timeline.dll:UnityEngine.Timeline.TimelineAsset
-05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:Assets.Scripts.UI.Modals.MainMenuModals.RegisterModal
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp-firstpass.dll:.SampleInfo
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:Assets.Scripts.UI.MainMenu.UIHotkeySelect
+609883ba9b3462e00c79080cdb51d119 Assembly-CSharp-firstpass.dll:.iTween
+536db8452450a4823efa25342d333abf Assembly-CSharp.dll:Assets.Scripts.UI.Modals.MainMenuModals.RegisterModal
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:Assets.Scripts.UI.MainMenu.SmallButtons
 a35dc9cca2faebc5f5f1aeb9e8e47bbe UnityEngine.UI.dll:UnityEngine.UI.AspectRatioFitter
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.UI.dll:UnityEngine.EventSystems.BaseInput
@@ -114,15 +117,15 @@ e9bdabf9265d758d56f01bb188916fa8 UnityEngine.Networking.dll:UnityEngine.Networki
 73843688b51256aed059f049c540bca8 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformChild
 528ea1fd7c01796fc60c4e2f172ea229 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformVisualizer
 9de3a22eca9aefadba2d10d5987cefe3 UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
-05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.Login
 322cb40e1e282f28af980cbef7922a90 UnityEngine.Analytics.dll:UnityEngine.Analytics.AnalyticsEventTracker
 dc07d7ad69b399a46e92c483bf1c04ca UnityEngine.Analytics.dll:UnityEngine.Analytics.AnalyticsTracker
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp-firstpass.dll:.MoveSample
 bc68edb0af574bf79f9550ead8ebae5c UnityEngine.HoloLens.dll:UnityEngine.Audio.AudioSpatializerMicrosoft
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.HoloLens.dll:UnityEngine.EventSystems.HoloLensInput
 463516d5b5fe8e67a0a24c48f2095b04 UnityEngine.HoloLens.dll:UnityEngine.EventSystems.HoloLensInputModule
 c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.SpatialMappingCollider
 45f3431f0103c41611e8d4eec3d439df UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.SpatialMappingRenderer
-05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.Register
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:Assets.Scripts.UI.Modals.MainMenuModals.SuccessRegistrationModal
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.AuthenticationSample
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.DemoHubSample
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:BestHTTP.Examples.AssetBundleSample
@@ -163,6 +166,7 @@ bc68edb0af574bf79f9550ead8ebae5c UnityEngine.HoloLens.dll:UnityEngine.Audio.Audi
 463516d5b5fe8e67a0a24c48f2095b04 UnityEngine.HoloLens.dll:UnityEngine.EventSystems.HoloLensInputModule
 c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.SpatialMappingCollider
 45f3431f0103c41611e8d4eec3d439df UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.SpatialMappingRenderer
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp-firstpass.dll:.RotateSample
 9de3a22eca9aefadba2d10d5987cefe3 UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.SampleSelector
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.ConnectionAPISample
@@ -170,7 +174,3 @@ c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.Spa
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:Assets.Scripts.Core.Network.RequestManager
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:BestHTTP.Examples.CacheMaintenanceSample
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.SimpleStreamingSample
-609883ba9b3462e00c79080cdb51d119 Assembly-CSharp-firstpass.dll:.iTween
-05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp-firstpass.dll:.SampleInfo
-05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp-firstpass.dll:.MoveSample
-05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp-firstpass.dll:.RotateSample
