@@ -22,13 +22,15 @@ namespace Assets.Scripts.UI.Modals.MainMenuModals
         public GameObject _loadingImage;
         public float loadingImageSpeed = 1f;
         public iTween.EaseType loadingImageEaseType = iTween.EaseType.easeInOutExpo;
-        public Text errorMessageText;
+        public GameObject errorMessagePanel;
+        private Text errorMessageText;
 
         protected override void Start()
         {
             FormData formData = FormUtilities.GenerateFormData(_form);
             formButtons = formData.Buttons;
             formInputs = formData.Inputs;
+            errorMessageText = errorMessagePanel.GetComponentInChildren<Text>();
         }
 
         public void OnLoginPressed()
@@ -83,9 +85,16 @@ namespace Assets.Scripts.UI.Modals.MainMenuModals
                             break;
                     }
                 }
+                else if (request != null && request.Exception != null)
+                {
+                    if (request.Exception.Message.Contains("No connection could be made"))
+                    {
+                        errorMessage = "Please check your internet connection!";
+                    }
+                }
 
                 errorMessageText.text = errorMessage;
-                errorMessageText.gameObject.SetActive(true);
+                errorMessagePanel.SetActive(true);
             }
             else
             {
@@ -102,7 +111,7 @@ namespace Assets.Scripts.UI.Modals.MainMenuModals
 
                 MainMenuManager.Instance.HideInitialButtons();
                 RealmSelectionModal.Open();
-                errorMessageText.gameObject.SetActive(false);
+                errorMessagePanel.SetActive(false);
             }
 
             FormUtilities.HideLoadingIndicator(_loadingImage);

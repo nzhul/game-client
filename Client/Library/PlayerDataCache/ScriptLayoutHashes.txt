@@ -21,7 +21,7 @@ ff05dcdf90651c3d98a9cad3df5e471e UnityEngine.Timeline.dll:UnityEngine.Timeline.C
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp-firstpass.dll:.SampleInfo
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:Assets.Scripts.UI.MainMenu.UIHotkeySelect
 609883ba9b3462e00c79080cdb51d119 Assembly-CSharp-firstpass.dll:.iTween
-536db8452450a4823efa25342d333abf Assembly-CSharp.dll:Assets.Scripts.UI.Modals.MainMenuModals.RegisterModal
+a206c4c8759bcfff17c9fa032ead2f52 Assembly-CSharp.dll:Assets.Scripts.UI.Modals.MainMenuModals.RegisterModal
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:Assets.Scripts.UI.MainMenu.SmallButtons
 a35dc9cca2faebc5f5f1aeb9e8e47bbe UnityEngine.UI.dll:UnityEngine.UI.AspectRatioFitter
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.UI.dll:UnityEngine.EventSystems.BaseInput
@@ -146,7 +146,7 @@ e9bdabf9265d758d56f01bb188916fa8 UnityEngine.Networking.dll:UnityEngine.Networki
 3f32f08a64daf40b09ed864d96fe3840 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransform
 73843688b51256aed059f049c540bca8 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformChild
 528ea1fd7c01796fc60c4e2f172ea229 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformVisualizer
-7673b2dab54616e4706537c01339037c Assembly-CSharp.dll:Assets.Scripts.UI.Modals.MainMenuModals.LoginModal
+53dbdbca42569431535e5a0036556b3d Assembly-CSharp.dll:Assets.Scripts.UI.Modals.MainMenuModals.LoginModal
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.ConnectionStatusSample
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.TestRunner.dll:UnityEngine.TestTools.TestRunner.Callbacks.PlayModeRunnerCallback
 f02726adeff0a3ec5905565234b372da UnityEngine.TestRunner.dll:UnityEngine.TestTools.TestRunner.PlaymodeTestsController

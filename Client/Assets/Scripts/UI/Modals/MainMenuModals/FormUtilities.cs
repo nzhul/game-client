@@ -73,7 +73,10 @@ namespace Assets.Scripts.UI.Modals.MainMenuModals
                 }
             }
 
-            //TODO: Refactor this brutal copy paste
+            // TODO: This shift with 65f is causing problems on different resolutions.
+            // consider just hiding the error messages and display them when needed instead of render them out of nothing every time.
+            // this will probably solve the issue
+            // TODO: Refactor this brutal copy paste
 
             if (errorModel.Username != null && errorModel.Username.Length > 0)
             {
