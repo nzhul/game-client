@@ -1,6 +1,6 @@
 WindowsStandalone
 PlayerPath?
-D:/UNITY3D/Builds/AW/AW.exe
+C:/Unity/Builds/AW/AW.exe
 SceneListBegin?
 Assets/Scenes/MainMenu.unity
 SceneListEnd?

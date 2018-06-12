@@ -56,7 +56,7 @@ namespace Assets.Scripts.UI.Modals.MainMenuModals
 
             // TODO: validate loginModel
 
-            RequestManager.Instance.Post<RegisterInput>("/api/auth/register", registerModel, OnRequestFinished);
+            RequestManager.Instance.Post<RegisterInput>("api/auth/register", registerModel, OnRequestFinished);
         }
 
         private void OnRequestFinished(HTTPRequest request, HTTPResponse response)

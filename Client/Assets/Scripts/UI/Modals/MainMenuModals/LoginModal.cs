@@ -50,7 +50,7 @@ namespace Assets.Scripts.UI.Modals.MainMenuModals
 
             // TODO: validate loginModel - Server side or client side
 
-            RequestManager.Instance.Post<LoginInput>("/api/auth/login", loginModel, OnRequestFinished);
+            RequestManager.Instance.Post<LoginInput>("api/auth/login", loginModel, OnRequestFinished);
         }
 
         private LoginInput GenerateInputData()
