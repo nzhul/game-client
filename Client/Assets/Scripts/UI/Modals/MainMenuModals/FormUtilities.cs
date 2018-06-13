@@ -62,60 +62,30 @@ namespace Assets.Scripts.UI.Modals.MainMenuModals
             }
         }
 
-        public static void DisplayErrorLabels(ErrorModel errorModel, IDictionary<string, InputField> formInputs, GameObject errorLabelPrefab)
+        public static void DisplayErrorLabels(ErrorModel errorModel, IDictionary<string, InputField> formInputs)
         {
             foreach (var item in formInputs)
             {
-                var oldLabel = item.Value.transform.Find("formErrorLabel(Clone)");
+                var oldLabel = item.Value.transform.Find("formErrorLabel");
                 if (oldLabel != null)
                 {
-                    GameObject.DestroyImmediate(oldLabel.gameObject);
+                    oldLabel.gameObject.SetActive(false);
                 }
             }
 
-            // TODO: This shift with 65f is causing problems on different resolutions.
-            // consider just hiding the error messages and display them when needed instead of render them out of nothing every time.
-            // this will probably solve the issue
-            // TODO: Refactor this brutal copy paste
-
-            if (errorModel.Username != null && errorModel.Username.Length > 0)
+            foreach (var property in errorModel.GetType().GetFields())
             {
-                InputField field = formInputs[USERNAME_KEY];
-                GameObject label = GameObject.Instantiate(errorLabelPrefab, 
-                    new Vector3(field.transform.position.x, field.transform.position.y + 65f, field.transform.position.z), 
-                    Quaternion.identity, field.transform);
-                Text labelText = label.GetComponentInChildren<Text>();
-                labelText.text = string.Join("! ", errorModel.Username);
-            }
+                string pName = property.Name;
+                string[] pValue = (string[])property.GetValue(errorModel);
 
-            if (errorModel.Email != null && errorModel.Email.Length > 0)
-            {
-                InputField field = formInputs[EMAIL_KEY];
-                GameObject label = GameObject.Instantiate(errorLabelPrefab,
-                    new Vector3(field.transform.position.x, field.transform.position.y + 65f, field.transform.position.z),
-                    Quaternion.identity, field.transform);
-                Text labelText = label.GetComponentInChildren<Text>();
-                labelText.text = string.Join("! ", errorModel.Email);
-            }
-
-            if (errorModel.Password != null && errorModel.Password.Length > 0)
-            {
-                InputField field = formInputs[PASSWORD_KEY];
-                GameObject label = GameObject.Instantiate(errorLabelPrefab,
-                    new Vector3(field.transform.position.x, field.transform.position.y + 65f, field.transform.position.z),
-                    Quaternion.identity, field.transform);
-                Text labelText = label.GetComponentInChildren<Text>();
-                labelText.text = string.Join("! ", errorModel.Password);
-            }
-
-            if (errorModel.ConfirmPassword != null && errorModel.ConfirmPassword.Length > 0)
-            {
-                InputField field = formInputs[CONFIRM_PASSWORD_KEY];
-                GameObject label = GameObject.Instantiate(errorLabelPrefab,
-                    new Vector3(field.transform.position.x, field.transform.position.y + 65f, field.transform.position.z),
-                    Quaternion.identity, field.transform);
-                Text labelText = label.GetComponentInChildren<Text>();
-                labelText.text = string.Join("! ", errorModel.ConfirmPassword);
+                if (pValue != null && pValue.Length > 0)
+                {
+                    InputField field = formInputs[pName + "Field"];
+                    Transform label = field.transform.Find("formErrorLabel");
+                    label.gameObject.SetActive(true);
+                    Text labelText = label.GetComponentInChildren<Text>();
+                    labelText.text = string.Join("! ", pValue);
+                }
             }
         }
     }

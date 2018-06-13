@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using Assets.Scripts.Core.Network;
@@ -23,7 +22,6 @@ namespace Assets.Scripts.UI.Modals.MainMenuModals
         public iTween.EaseType loadingImageEaseType = iTween.EaseType.easeInOutExpo;
         public GameObject errorMessagePanel;
         private Text errorMessageText;
-        public GameObject _errorLabelPrefab;
 
         public void OnBackToLoginPressed()
         {
@@ -78,7 +76,8 @@ namespace Assets.Scripts.UI.Modals.MainMenuModals
                             if (errorModel != null)
                             {
                                 //errorMessage = BuildServerErrorMessage(errorModel);
-                                FormUtilities.DisplayErrorLabels(errorModel, formInputs, _errorLabelPrefab);
+                                errorMessagePanel.SetActive(false);
+                                FormUtilities.DisplayErrorLabels(errorModel, formInputs);
                             }
                             break;
                         default:
