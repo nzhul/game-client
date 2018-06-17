@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Text;
-using Assets.Scripts.Core.Network;
-using Assets.Scripts.RequestModels.Users.Input;
-using Assets.Scripts.RequestModels.Users.View;
+using Assets.Scripts.Network;
+using Assets.Scripts.Network.RequestModels.Users.Input;
+using Assets.Scripts.Network.RequestModels.Users.View;
 using BestHTTP;
 using UnityEngine;
 using UnityEngine.UI;

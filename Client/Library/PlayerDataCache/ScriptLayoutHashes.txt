@@ -1,10 +1,9 @@
 WindowsStandalone
 PlayerPath?
-C:/Unity/Builds/AW/AW.exe
+D:/UNITY3D/Builds/AW/AW.exe
 SceneListBegin?
 Assets/Scenes/MainMenu.unity
 SceneListEnd?
-05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:Assets.Scripts.UI.UIManager
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:BestHTTP.Examples.LargeFileDownloadSample
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationPlayableAsset
 cf455f7a806648c6ed4c7d3e3f8a0e03 UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationTrack
@@ -21,7 +20,8 @@ ff05dcdf90651c3d98a9cad3df5e471e UnityEngine.Timeline.dll:UnityEngine.Timeline.C
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp-firstpass.dll:.SampleInfo
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:Assets.Scripts.UI.MainMenu.UIHotkeySelect
 609883ba9b3462e00c79080cdb51d119 Assembly-CSharp-firstpass.dll:.iTween
-a206c4c8759bcfff17c9fa032ead2f52 Assembly-CSharp.dll:Assets.Scripts.UI.Modals.MainMenuModals.RegisterModal
+53dbdbca42569431535e5a0036556b3d Assembly-CSharp.dll:Assets.Scripts.UI.Modals.MainMenuModals.RegisterModal
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:Assets.Scripts.Data.DataManager
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:Assets.Scripts.UI.MainMenu.SmallButtons
 a35dc9cca2faebc5f5f1aeb9e8e47bbe UnityEngine.UI.dll:UnityEngine.UI.AspectRatioFitter
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.UI.dll:UnityEngine.EventSystems.BaseInput
@@ -129,7 +129,6 @@ c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.Spa
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.AuthenticationSample
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.DemoHubSample
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:BestHTTP.Examples.AssetBundleSample
-05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:Assets.Scripts.Core.Users.UserManager
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.WebSocketSample
 aaf1b710c4460fe86ea87fa369775e23 Assembly-CSharp.dll:Assets.Scripts.UI.Modals.ModalManager
 fc1e0f4d8439d9928083474691511a13 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkAnimator
@@ -171,6 +170,7 @@ c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.Spa
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.SampleSelector
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.ConnectionAPISample
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.SocketIOWePlaySample
-05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:Assets.Scripts.Core.Network.RequestManager
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:Assets.Scripts.Network.RequestManager
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:BestHTTP.Examples.CacheMaintenanceSample
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.SimpleStreamingSample
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:Assets.Scripts.Utilities.DontDestroyOnLoad
