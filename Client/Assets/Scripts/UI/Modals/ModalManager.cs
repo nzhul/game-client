@@ -26,6 +26,8 @@ namespace Assets.Scripts.UI.Modals
             }
         }
 
+        public bool initializeModals = true;
+
         private void Awake()
         {
             if (_instance != null)
@@ -35,7 +37,11 @@ namespace Assets.Scripts.UI.Modals
             else
             {
                 _instance = this;
-                InitializeModals();
+
+                if (initializeModals)
+                {
+                    InitializeModals();
+                }
 
                 // for this to work the object must be on root level in the hierarchy
                 // TODO: this might cause bugs since i will have two/three stacks of menus, each for each scene
