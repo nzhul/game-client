@@ -38,8 +38,7 @@ namespace Assets.Scripts.UI.Modals.MainMenuModals
             formInputs = formData.Inputs;
             errorMessageText = errorMessagePanel.GetComponentInChildren<Text>();
 
-            _dataManager = FindObjectOfType<DataManager>();
-            _dataManager.Load();
+            _dataManager = DataManager.Instance;
 
             if (!string.IsNullOrEmpty(_dataManager.Token))
             {
@@ -77,7 +76,7 @@ namespace Assets.Scripts.UI.Modals.MainMenuModals
 
             // TODO: validate loginModel - Server side or client side
 
-            RequestManager.Instance.Post<LoginInput>("api/auth/login", loginModel, OnRequestFinished);
+            RequestManager.Instance.Post<LoginInput>("auth/login", loginModel, OnRequestFinished);
         }
 
         private LoginInput GenerateInputData()

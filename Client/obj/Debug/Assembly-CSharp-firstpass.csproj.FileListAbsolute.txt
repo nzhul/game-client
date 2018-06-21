@@ -334,3 +334,5 @@ C:\Github-public\game-client\Client\obj\Debug\Assembly-CSharp-firstpass.csproj.C
 C:\Github-public\game-client\Client\obj\Debug\Assembly-CSharp-firstpass.csproj.CopyComplete
 C:\Github-public\game-client\Client\obj\Debug\Assembly-CSharp-firstpass.dll
 C:\Github-public\game-client\Client\obj\Debug\Assembly-CSharp-firstpass.pdb
+C:\Users\nzhul\Documents\GitHub\game-client\Client\Temp\bin\Debug\Newtonsoft.Json.dll
+C:\Users\nzhul\Documents\GitHub\game-client\Client\Temp\bin\Debug\Newtonsoft.Json.xml

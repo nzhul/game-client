@@ -8,6 +8,16 @@ namespace Assets.Scripts.Data
         private SaveData _saveData;
         private JsonSaver _jsonSaver;
 
+        private static DataManager _instance;
+
+        public static DataManager Instance
+        {
+            get
+            {
+                return _instance;
+            }
+        }
+
         public string Token
         {
             get
@@ -127,8 +137,23 @@ namespace Assets.Scripts.Data
 
         private void Awake()
         {
+            if (_instance != null)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                _instance = this;
+
+                // for this to work the object must be on root level in the hierarchy
+                // TODO: this might cause bugs since i will have two/three stacks of menus, each for each scene
+                DontDestroyOnLoad(gameObject);
+            }
+
             _saveData = new SaveData();
             _jsonSaver = new JsonSaver();
+
+            Instance.Load();
         }
 
         public void Save()

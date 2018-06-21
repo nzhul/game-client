@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Assets.Scripts.Data;
 using BestHTTP;
 using UnityEngine;
 
@@ -8,7 +9,7 @@ namespace Assets.Scripts.Network
 {
     public class RequestManager : MonoBehaviour
     {
-        public static string SERVER_ROOT = "http://localhost:5000/";
+        public static string SERVER_ROOT = "http://localhost:5000/api/";
 
         private static RequestManager _instance;
 
@@ -42,6 +43,7 @@ namespace Assets.Scripts.Network
             Uri uri = new Uri(SERVER_ROOT + endpoint);
 
             HTTPRequest request = new HTTPRequest(uri, callback);
+            request.AddHeader("Authorization", "Bearer " + DataManager.Instance.Token);
             request.Send();
         }
 
