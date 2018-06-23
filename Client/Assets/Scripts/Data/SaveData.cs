@@ -9,6 +9,7 @@ namespace Assets.Scripts.Data
 
         public string token;
         public string id;
+        public string currentRealmId;
         public string username;
         public string created;
         public string lastActive;
@@ -23,6 +24,7 @@ namespace Assets.Scripts.Data
         {
             token = string.Empty;
             id = string.Empty;
+            currentRealmId = string.Empty;
             username = defaultUsername;
             created = string.Empty;
             lastActive = string.Empty;

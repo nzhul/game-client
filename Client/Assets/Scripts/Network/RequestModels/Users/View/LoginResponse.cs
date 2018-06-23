@@ -15,6 +15,7 @@ namespace Assets.Scripts.Network.RequestModels.Users.View
     {
         public int id;
         public string username;
+        public int currentRealmId;
         public string gender;
         public int age;
 

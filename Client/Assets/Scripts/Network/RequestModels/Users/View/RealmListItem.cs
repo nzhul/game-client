@@ -8,5 +8,7 @@ namespace Assets.Scripts.Network.RequestModels.Users.View
         public int id;
         public string name;
         public int avatarsCount;
+        public string resetDate;
+        public string realmType;
     }
 }

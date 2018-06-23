@@ -1,8 +1,11 @@
-﻿using Assets.Scripts.Network;
+﻿using Assets.Scripts.Data;
+using Assets.Scripts.Network;
+using Assets.Scripts.Network.RequestModels.Sorting;
 using Assets.Scripts.Network.RequestModels.Users.View;
 using Assets.Scripts.UI.MainMenu;
 using BestHTTP;
 using Newtonsoft.Json;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,23 +17,68 @@ namespace Assets.Scripts.UI.Modals.MainMenuModals
         public RectTransform _realmsContainer;
         public Button _realmBtnPrefab;
 
-        //Loading image
+        // Loading image
         public GameObject _loadingImage;
         public float loadingImageSpeed = 1f;
         public iTween.EaseType loadingImageEaseType = iTween.EaseType.linear;
 
+        // Sorting
+        public SortDirection sortDirection;
+        public RealmsSortType sortType;
+
+        private int _selectedRealmId;
+
         protected override void Start()
         {
             base.Start();
+            ReloadRealms();
+
+            _selectedRealmId = DataManager.Instance.CurrentRealmId;
+            Debug.Log(_selectedRealmId);
+
+            //TODO: Highlight the selected realm button
+
+            // use _dataManager.CurrentRealmId to mark this realm as selected.
+        }
+
+        public void OnNameSortBtnPressed()
+        {
+            sortDirection = sortDirection == SortDirection.Ascending ? SortDirection.Descending : SortDirection.Ascending;
+            sortType = RealmsSortType.Name;
+            ReloadRealms();
+        }
+
+        public void OnPopulationSortBtnPressed()
+        {
+            sortDirection = sortDirection == SortDirection.Ascending ? SortDirection.Descending : SortDirection.Ascending;
+            sortType = RealmsSortType.Population;
+            ReloadRealms();
+        }
+
+        public void OnTypeSortBtnPressed()
+        {
+            sortDirection = sortDirection == SortDirection.Ascending ? SortDirection.Descending : SortDirection.Ascending;
+            sortType = RealmsSortType.Type;
+            ReloadRealms();
+        }
+
+        public void OnResetDateSortBtnPressed()
+        {
+            sortDirection = sortDirection == SortDirection.Ascending ? SortDirection.Descending : SortDirection.Ascending;
+            sortType = RealmsSortType.ResetDate;
+            ReloadRealms();
+        }
+
+        private void ReloadRealms()
+        {
+            FormUtilities.Empty(_realmsContainer.transform);
 
             FormUtilities.ShowLoadingIndicator(_loadingImage, loadingImageSpeed, loadingImageEaseType);
 
             string endpoint = "realms?orderBy={0}&pageSize={1}&orderDirection={2}";
-            string[] @params = new string[] { "avatarsCount", "50", "descending"};
+            string[] @params = new string[] { sortType.ToString(), "50", sortDirection.ToString() };
 
             RequestManager.Instance.Get(endpoint, @params, OnGetRealmsRequestFinished);
-
-            // use _dataManager.CurrentRealmId to mark this realm as selected.
         }
 
         private void OnGetRealmsRequestFinished(HTTPRequest request, HTTPResponse response)
@@ -96,9 +144,23 @@ namespace Assets.Scripts.UI.Modals.MainMenuModals
             foreach (var realm in realms)
             {
                 Button realmButton = GameObject.Instantiate<Button>(_realmBtnPrefab, _realmsContainer.transform);
-                Text btnText = realmButton.transform.Find("Text").GetComponent<Text>();
-                btnText.text = realm.name + " -> " + realm.avatarsCount;
+                realmButton.name = realm.id.ToString() + "_" + realm.name;
+                realmButton.onClick.AddListener(delegate { OnRealmButtonPressed(realm.id); });
+
+                TextMeshProUGUI btnText = realmButton.transform.Find("Text").GetComponent<TextMeshProUGUI>();
+                btnText.text = realm.name
+                    + "<pos=25%>" + realm.avatarsCount
+                    + "<pos=51%>" + realm.realmType
+                    + "<pos=77.5%>" + realm.resetDate;
             }
+        }
+
+        private void OnRealmButtonPressed(int realmId)
+        {
+            _selectedRealmId = realmId;
+            Debug.Log(_selectedRealmId);
+
+            //TODO: Highlight the selected button
         }
 
         // build functionality to select realm by clicking on realm button

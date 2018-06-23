@@ -44,6 +44,19 @@ namespace Assets.Scripts.Data
             }
         }
 
+        public int CurrentRealmId
+        {
+            get
+            {
+                return int.Parse(_saveData.currentRealmId);
+            }
+
+            set
+            {
+                _saveData.currentRealmId = value.ToString();
+            }
+        }
+
         public string Username
         {
             get

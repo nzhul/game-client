@@ -168,6 +168,7 @@ namespace Assets.Scripts.UI.Modals.MainMenuModals
             _dataManager.LastActive = loginInfo.user.dateLastActive.Value;
             _dataManager.Gender = loginInfo.user.gender;
             _dataManager.Age = loginInfo.user.age;
+            _dataManager.CurrentRealmId = loginInfo.user.currentRealmId;
             _dataManager.Save();
         }
     }

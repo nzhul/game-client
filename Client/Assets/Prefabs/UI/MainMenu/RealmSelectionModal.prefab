@@ -388,7 +388,7 @@ GameObject:
   - component: {fileID: 114762829179311386}
   - component: {fileID: 114017640645552784}
   m_Layer: 5
-  m_Name: Start date
+  m_Name: Reset date
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -482,7 +482,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114762829179311386}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114976339261390704}
+        m_MethodName: OnResetDateSortBtnPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &114142739906835766
@@ -517,7 +528,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Start date
+  m_Text: Reset date
 --- !u!114 &114169566599397300
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -745,7 +756,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114311911211600368}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114976339261390704}
+        m_MethodName: OnTypeSortBtnPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &114398417160198600
@@ -1185,7 +1207,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114972927241756970}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114976339261390704}
+        m_MethodName: OnNameSortBtnPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &114814688105813840
@@ -1240,7 +1273,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114372034790381680}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114976339261390704}
+        m_MethodName: OnPopulationSortBtnPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &114834294431889006
@@ -1457,11 +1501,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _realmsContainer: {fileID: 224349553693192316}
-  _realmBtnPrefab: {fileID: 114196589834074822, guid: 65ca16179534d734484a790faccc713f,
+  _realmBtnPrefab: {fileID: 114401700401923328, guid: d3a5b6c0a6016f849a746cb2ea2fd2c0,
     type: 2}
   _loadingImage: {fileID: 1531008294281482}
   loadingImageSpeed: 1
   loadingImageEaseType: 21
+  sortDirection: 1
+  sortType: 1
 --- !u!114 &114981686721898974
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -12,9 +12,1344 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cacheType: 3
-  lastUpdatedAtString: 2018-06-22T00:08:56.339+03:00
-  initializedAtString: 2018-06-21T23:59:58.590+03:00
+  lastUpdatedAtString: 2018-06-23T23:37:01.931+03:00
+  initializedAtString: 2018-06-23T23:37:01.931+03:00
   log:
+  - commitID: 3d9d0207eb5fd4a2a538e0b49185787e00ccee1a
+    mergeA: 
+    mergeB: 
+    authorName: nzhul
+    authorEmail: dobromirivanov1@gmail.com
+    commitEmail: dobromirivanov1@gmail.com
+    commitName: nzhul
+    summary: add json.net github plugin and work on realm select window
+    description: add json.net github plugin and work on realm select window
+    timeString: 2018-06-22T00:22:21.000+03:00
+    commitTimeString: 2018-06-22T00:22:21.000+03:00
+    changes:
+    - path: Client\.vs\Client\v15\Server\sqlite3\storage.ide
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\.vs\Client\v15\Server\sqlite3\storage.ide
+      projectPath: .vs\Client\v15\Server\sqlite3\storage.ide
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Client\.vs\Client\v15\Server\sqlite3\storage.ide-shm
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\.vs\Client\v15\Server\sqlite3\storage.ide-shm
+      projectPath: .vs\Client\v15\Server\sqlite3\storage.ide-shm
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Client\.vs\Client\v15\Server\sqlite3\storage.ide-wal
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\.vs\Client\v15\Server\sqlite3\storage.ide-wal
+      projectPath: .vs\Client\v15\Server\sqlite3\storage.ide-wal
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Client\Assets\Best HTTP (Pro)\Examples\SampleSelector.unity
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Best HTTP
+        (Pro)\Examples\SampleSelector.unity
+      projectPath: Assets\Best HTTP (Pro)\Examples\SampleSelector.unity
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Client\Assets\JsonDotNet.meta
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\JsonDotNet.meta
+      projectPath: Assets\JsonDotNet.meta
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\JsonDotNet\Assemblies.meta
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\JsonDotNet\Assemblies.meta
+      projectPath: Assets\JsonDotNet\Assemblies.meta
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\JsonDotNet\Assemblies\AOT.meta
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\JsonDotNet\Assemblies\AOT.meta
+      projectPath: Assets\JsonDotNet\Assemblies\AOT.meta
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\JsonDotNet\Assemblies\AOT\Newtonsoft.Json.XML
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\JsonDotNet\Assemblies\AOT\Newtonsoft.Json.XML
+      projectPath: Assets\JsonDotNet\Assemblies\AOT\Newtonsoft.Json.XML
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\JsonDotNet\Assemblies\AOT\Newtonsoft.Json.XML.meta
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\JsonDotNet\Assemblies\AOT\Newtonsoft.Json.XML.meta
+      projectPath: Assets\JsonDotNet\Assemblies\AOT\Newtonsoft.Json.XML.meta
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\JsonDotNet\Assemblies\AOT\Newtonsoft.Json.dll
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\JsonDotNet\Assemblies\AOT\Newtonsoft.Json.dll
+      projectPath: Assets\JsonDotNet\Assemblies\AOT\Newtonsoft.Json.dll
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\JsonDotNet\Assemblies\AOT\Newtonsoft.Json.dll.meta
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\JsonDotNet\Assemblies\AOT\Newtonsoft.Json.dll.meta
+      projectPath: Assets\JsonDotNet\Assemblies\AOT\Newtonsoft.Json.dll.meta
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\JsonDotNet\Assemblies\Standalone.meta
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\JsonDotNet\Assemblies\Standalone.meta
+      projectPath: Assets\JsonDotNet\Assemblies\Standalone.meta
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\JsonDotNet\Assemblies\Standalone\Newtonsoft.Json.XML
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\JsonDotNet\Assemblies\Standalone\Newtonsoft.Json.XML
+      projectPath: Assets\JsonDotNet\Assemblies\Standalone\Newtonsoft.Json.XML
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\JsonDotNet\Assemblies\Standalone\Newtonsoft.Json.XML.meta
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\JsonDotNet\Assemblies\Standalone\Newtonsoft.Json.XML.meta
+      projectPath: Assets\JsonDotNet\Assemblies\Standalone\Newtonsoft.Json.XML.meta
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\JsonDotNet\Assemblies\Standalone\Newtonsoft.Json.dll
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\JsonDotNet\Assemblies\Standalone\Newtonsoft.Json.dll
+      projectPath: Assets\JsonDotNet\Assemblies\Standalone\Newtonsoft.Json.dll
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\JsonDotNet\Assemblies\Standalone\Newtonsoft.Json.dll.meta
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\JsonDotNet\Assemblies\Standalone\Newtonsoft.Json.dll.meta
+      projectPath: Assets\JsonDotNet\Assemblies\Standalone\Newtonsoft.Json.dll.meta
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\JsonDotNet\Assemblies\Windows.meta
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\JsonDotNet\Assemblies\Windows.meta
+      projectPath: Assets\JsonDotNet\Assemblies\Windows.meta
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\JsonDotNet\Assemblies\Windows\Newtonsoft.Json.XML
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\JsonDotNet\Assemblies\Windows\Newtonsoft.Json.XML
+      projectPath: Assets\JsonDotNet\Assemblies\Windows\Newtonsoft.Json.XML
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\JsonDotNet\Assemblies\Windows\Newtonsoft.Json.XML.meta
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\JsonDotNet\Assemblies\Windows\Newtonsoft.Json.XML.meta
+      projectPath: Assets\JsonDotNet\Assemblies\Windows\Newtonsoft.Json.XML.meta
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\JsonDotNet\Assemblies\Windows\Newtonsoft.Json.dll
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\JsonDotNet\Assemblies\Windows\Newtonsoft.Json.dll
+      projectPath: Assets\JsonDotNet\Assemblies\Windows\Newtonsoft.Json.dll
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\JsonDotNet\Assemblies\Windows\Newtonsoft.Json.dll.meta
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\JsonDotNet\Assemblies\Windows\Newtonsoft.Json.dll.meta
+      projectPath: Assets\JsonDotNet\Assemblies\Windows\Newtonsoft.Json.dll.meta
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\JsonDotNet\Documentation.meta
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\JsonDotNet\Documentation.meta
+      projectPath: Assets\JsonDotNet\Documentation.meta
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\JsonDotNet\Documentation\Json Net for Unity 2.0.1.pdf
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\JsonDotNet\Documentation\Json
+        Net for Unity 2.0.1.pdf
+      projectPath: Assets\JsonDotNet\Documentation\Json Net for Unity 2.0.1.pdf
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\JsonDotNet\Documentation\Json Net for Unity 2.0.1.pdf.meta
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\JsonDotNet\Documentation\Json
+        Net for Unity 2.0.1.pdf.meta
+      projectPath: Assets\JsonDotNet\Documentation\Json Net for Unity 2.0.1.pdf.meta
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\JsonDotNet\JsonDotNet201Source.zip
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\JsonDotNet\JsonDotNet201Source.zip
+      projectPath: Assets\JsonDotNet\JsonDotNet201Source.zip
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\JsonDotNet\JsonDotNet201Source.zip.meta
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\JsonDotNet\JsonDotNet201Source.zip.meta
+      projectPath: Assets\JsonDotNet\JsonDotNet201Source.zip.meta
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\JsonDotNet\link.xml
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\JsonDotNet\link.xml
+      projectPath: Assets\JsonDotNet\link.xml
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\JsonDotNet\link.xml.meta
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\JsonDotNet\link.xml.meta
+      projectPath: Assets\JsonDotNet\link.xml.meta
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\Plugins\GitHub.meta
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Plugins\GitHub.meta
+      projectPath: Assets\Plugins\GitHub.meta
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\Plugins\GitHub\Editor.meta
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Plugins\GitHub\Editor.meta
+      projectPath: Assets\Plugins\GitHub\Editor.meta
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\Plugins\GitHub\Editor\AsyncBridge.Net35.dll
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Plugins\GitHub\Editor\AsyncBridge.Net35.dll
+      projectPath: Assets\Plugins\GitHub\Editor\AsyncBridge.Net35.dll
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\Plugins\GitHub\Editor\AsyncBridge.Net35.dll.meta
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Plugins\GitHub\Editor\AsyncBridge.Net35.dll.meta
+      projectPath: Assets\Plugins\GitHub\Editor\AsyncBridge.Net35.dll.meta
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\Plugins\GitHub\Editor\GitHub.Api.dll
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Plugins\GitHub\Editor\GitHub.Api.dll
+      projectPath: Assets\Plugins\GitHub\Editor\GitHub.Api.dll
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\Plugins\GitHub\Editor\GitHub.Api.dll.mdb
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Plugins\GitHub\Editor\GitHub.Api.dll.mdb
+      projectPath: Assets\Plugins\GitHub\Editor\GitHub.Api.dll.mdb
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\Plugins\GitHub\Editor\GitHub.Api.dll.mdb.meta
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Plugins\GitHub\Editor\GitHub.Api.dll.mdb.meta
+      projectPath: Assets\Plugins\GitHub\Editor\GitHub.Api.dll.mdb.meta
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\Plugins\GitHub\Editor\GitHub.Api.dll.meta
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Plugins\GitHub\Editor\GitHub.Api.dll.meta
+      projectPath: Assets\Plugins\GitHub\Editor\GitHub.Api.dll.meta
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\Plugins\GitHub\Editor\GitHub.Logging.dll
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Plugins\GitHub\Editor\GitHub.Logging.dll
+      projectPath: Assets\Plugins\GitHub\Editor\GitHub.Logging.dll
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\Plugins\GitHub\Editor\GitHub.Logging.dll.mdb
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Plugins\GitHub\Editor\GitHub.Logging.dll.mdb
+      projectPath: Assets\Plugins\GitHub\Editor\GitHub.Logging.dll.mdb
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\Plugins\GitHub\Editor\GitHub.Logging.dll.mdb.meta
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Plugins\GitHub\Editor\GitHub.Logging.dll.mdb.meta
+      projectPath: Assets\Plugins\GitHub\Editor\GitHub.Logging.dll.mdb.meta
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\Plugins\GitHub\Editor\GitHub.Logging.dll.meta
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Plugins\GitHub\Editor\GitHub.Logging.dll.meta
+      projectPath: Assets\Plugins\GitHub\Editor\GitHub.Logging.dll.meta
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\Plugins\GitHub\Editor\GitHub.Unity.dll
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Plugins\GitHub\Editor\GitHub.Unity.dll
+      projectPath: Assets\Plugins\GitHub\Editor\GitHub.Unity.dll
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\Plugins\GitHub\Editor\GitHub.Unity.dll.mdb
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Plugins\GitHub\Editor\GitHub.Unity.dll.mdb
+      projectPath: Assets\Plugins\GitHub\Editor\GitHub.Unity.dll.mdb
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\Plugins\GitHub\Editor\GitHub.Unity.dll.mdb.meta
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Plugins\GitHub\Editor\GitHub.Unity.dll.mdb.meta
+      projectPath: Assets\Plugins\GitHub\Editor\GitHub.Unity.dll.mdb.meta
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\Plugins\GitHub\Editor\GitHub.Unity.dll.meta
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Plugins\GitHub\Editor\GitHub.Unity.dll.meta
+      projectPath: Assets\Plugins\GitHub\Editor\GitHub.Unity.dll.meta
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\Plugins\GitHub\Editor\ICSharpCode.SharpZipLib.dll
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Plugins\GitHub\Editor\ICSharpCode.SharpZipLib.dll
+      projectPath: Assets\Plugins\GitHub\Editor\ICSharpCode.SharpZipLib.dll
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\Plugins\GitHub\Editor\ICSharpCode.SharpZipLib.dll.meta
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Plugins\GitHub\Editor\ICSharpCode.SharpZipLib.dll.meta
+      projectPath: Assets\Plugins\GitHub\Editor\ICSharpCode.SharpZipLib.dll.meta
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\Plugins\GitHub\Editor\Mono.Posix.dll
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Plugins\GitHub\Editor\Mono.Posix.dll
+      projectPath: Assets\Plugins\GitHub\Editor\Mono.Posix.dll
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\Plugins\GitHub\Editor\Mono.Posix.dll.meta
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Plugins\GitHub\Editor\Mono.Posix.dll.meta
+      projectPath: Assets\Plugins\GitHub\Editor\Mono.Posix.dll.meta
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\Plugins\GitHub\Editor\QuickGuide.pdf
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Plugins\GitHub\Editor\QuickGuide.pdf
+      projectPath: Assets\Plugins\GitHub\Editor\QuickGuide.pdf
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\Plugins\GitHub\Editor\QuickGuide.pdf.meta
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Plugins\GitHub\Editor\QuickGuide.pdf.meta
+      projectPath: Assets\Plugins\GitHub\Editor\QuickGuide.pdf.meta
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\Plugins\GitHub\Editor\ReadOnlyCollectionsInterfaces.dll
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Plugins\GitHub\Editor\ReadOnlyCollectionsInterfaces.dll
+      projectPath: Assets\Plugins\GitHub\Editor\ReadOnlyCollectionsInterfaces.dll
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\Plugins\GitHub\Editor\ReadOnlyCollectionsInterfaces.dll.meta
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Plugins\GitHub\Editor\ReadOnlyCollectionsInterfaces.dll.meta
+      projectPath: Assets\Plugins\GitHub\Editor\ReadOnlyCollectionsInterfaces.dll.meta
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\Plugins\GitHub\Editor\System.Threading.dll
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Plugins\GitHub\Editor\System.Threading.dll
+      projectPath: Assets\Plugins\GitHub\Editor\System.Threading.dll
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\Plugins\GitHub\Editor\System.Threading.dll.meta
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Plugins\GitHub\Editor\System.Threading.dll.meta
+      projectPath: Assets\Plugins\GitHub\Editor\System.Threading.dll.meta
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\Plugins\GitHub\Editor\big-logo@2x.png
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Plugins\GitHub\Editor\big-logo@2x.png
+      projectPath: Assets\Plugins\GitHub\Editor\big-logo@2x.png
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\Plugins\GitHub\Editor\big-logo@2x.png.meta
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Plugins\GitHub\Editor\big-logo@2x.png.meta
+      projectPath: Assets\Plugins\GitHub\Editor\big-logo@2x.png.meta
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\Plugins\GitHub\Editor\credits.txt
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Plugins\GitHub\Editor\credits.txt
+      projectPath: Assets\Plugins\GitHub\Editor\credits.txt
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\Plugins\GitHub\Editor\credits.txt.meta
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Plugins\GitHub\Editor\credits.txt.meta
+      projectPath: Assets\Plugins\GitHub\Editor\credits.txt.meta
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\Plugins\GitHub\Editor\eula.txt
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Plugins\GitHub\Editor\eula.txt
+      projectPath: Assets\Plugins\GitHub\Editor\eula.txt
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\Plugins\GitHub\Editor\eula.txt.meta
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Plugins\GitHub\Editor\eula.txt.meta
+      projectPath: Assets\Plugins\GitHub\Editor\eula.txt.meta
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\Plugins\GitHub\Editor\libsfw.bundle
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Plugins\GitHub\Editor\libsfw.bundle
+      projectPath: Assets\Plugins\GitHub\Editor\libsfw.bundle
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\Plugins\GitHub\Editor\libsfw.bundle.meta
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Plugins\GitHub\Editor\libsfw.bundle.meta
+      projectPath: Assets\Plugins\GitHub\Editor\libsfw.bundle.meta
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\Plugins\GitHub\Editor\libsfw.so
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Plugins\GitHub\Editor\libsfw.so
+      projectPath: Assets\Plugins\GitHub\Editor\libsfw.so
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\Plugins\GitHub\Editor\libsfw.so.meta
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Plugins\GitHub\Editor\libsfw.so.meta
+      projectPath: Assets\Plugins\GitHub\Editor\libsfw.so.meta
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\Plugins\GitHub\Editor\sfw.net.dll
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Plugins\GitHub\Editor\sfw.net.dll
+      projectPath: Assets\Plugins\GitHub\Editor\sfw.net.dll
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\Plugins\GitHub\Editor\sfw.net.dll.meta
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Plugins\GitHub\Editor\sfw.net.dll.meta
+      projectPath: Assets\Plugins\GitHub\Editor\sfw.net.dll.meta
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\Plugins\GitHub\Editor\x64.meta
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Plugins\GitHub\Editor\x64.meta
+      projectPath: Assets\Plugins\GitHub\Editor\x64.meta
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\Plugins\GitHub\Editor\x64\pthreadVC2.dll
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Plugins\GitHub\Editor\x64\pthreadVC2.dll
+      projectPath: Assets\Plugins\GitHub\Editor\x64\pthreadVC2.dll
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\Plugins\GitHub\Editor\x64\pthreadVC2.dll.meta
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Plugins\GitHub\Editor\x64\pthreadVC2.dll.meta
+      projectPath: Assets\Plugins\GitHub\Editor\x64\pthreadVC2.dll.meta
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\Plugins\GitHub\Editor\x64\sfw_x64.dll
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Plugins\GitHub\Editor\x64\sfw_x64.dll
+      projectPath: Assets\Plugins\GitHub\Editor\x64\sfw_x64.dll
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\Plugins\GitHub\Editor\x64\sfw_x64.dll.meta
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Plugins\GitHub\Editor\x64\sfw_x64.dll.meta
+      projectPath: Assets\Plugins\GitHub\Editor\x64\sfw_x64.dll.meta
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\Plugins\GitHub\Editor\x86.meta
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Plugins\GitHub\Editor\x86.meta
+      projectPath: Assets\Plugins\GitHub\Editor\x86.meta
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\Plugins\GitHub\Editor\x86\pthreadVC2.dll
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Plugins\GitHub\Editor\x86\pthreadVC2.dll
+      projectPath: Assets\Plugins\GitHub\Editor\x86\pthreadVC2.dll
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\Plugins\GitHub\Editor\x86\pthreadVC2.dll.meta
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Plugins\GitHub\Editor\x86\pthreadVC2.dll.meta
+      projectPath: Assets\Plugins\GitHub\Editor\x86\pthreadVC2.dll.meta
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\Plugins\GitHub\Editor\x86\sfw_x86.dll
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Plugins\GitHub\Editor\x86\sfw_x86.dll
+      projectPath: Assets\Plugins\GitHub\Editor\x86\sfw_x86.dll
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\Plugins\GitHub\Editor\x86\sfw_x86.dll.meta
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Plugins\GitHub\Editor\x86\sfw_x86.dll.meta
+      projectPath: Assets\Plugins\GitHub\Editor\x86\sfw_x86.dll.meta
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\Prefabs\UI\MainMenu\LoginModal.prefab
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Prefabs\UI\MainMenu\LoginModal.prefab
+      projectPath: Assets\Prefabs\UI\MainMenu\LoginModal.prefab
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Client\Assets\Prefabs\UI\MainMenu\RealmButton.prefab
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Prefabs\UI\MainMenu\RealmButton.prefab
+      projectPath: Assets\Prefabs\UI\MainMenu\RealmButton.prefab
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Client\Assets\Prefabs\UI\MainMenu\RealmSelectionModal.prefab
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Prefabs\UI\MainMenu\RealmSelectionModal.prefab
+      projectPath: Assets\Prefabs\UI\MainMenu\RealmSelectionModal.prefab
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Client\Assets\Prefabs\UI\MainMenu\RegisterModal.prefab
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Prefabs\UI\MainMenu\RegisterModal.prefab
+      projectPath: Assets\Prefabs\UI\MainMenu\RegisterModal.prefab
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Client\Assets\Prefabs\UI\MainMenu\SuccessRegistrationModal.prefab
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Prefabs\UI\MainMenu\SuccessRegistrationModal.prefab
+      projectPath: Assets\Prefabs\UI\MainMenu\SuccessRegistrationModal.prefab
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Client\Assets\Prefabs\UI\MainMenu\formErrorLabel.prefab
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Prefabs\UI\MainMenu\formErrorLabel.prefab
+      projectPath: Assets\Prefabs\UI\MainMenu\formErrorLabel.prefab
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Client\Assets\Scenes\Battle.unity
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Scenes\Battle.unity
+      projectPath: Assets\Scenes\Battle.unity
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Client\Assets\Scenes\MainMenu.unity
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Scenes\MainMenu.unity
+      projectPath: Assets\Scenes\MainMenu.unity
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Client\Assets\Scripts\Data\DataManager.cs
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Scripts\Data\DataManager.cs
+      projectPath: Assets\Scripts\Data\DataManager.cs
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Client\Assets\Scripts\Network\RequestManager.cs
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Scripts\Network\RequestManager.cs
+      projectPath: Assets\Scripts\Network\RequestManager.cs
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Client\Assets\Scripts\UI\Modals\MainMenuModals\LoginModal.cs
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Scripts\UI\Modals\MainMenuModals\LoginModal.cs
+      projectPath: Assets\Scripts\UI\Modals\MainMenuModals\LoginModal.cs
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Client\Assets\Scripts\UI\Modals\MainMenuModals\RealmSelectionModal.cs
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Scripts\UI\Modals\MainMenuModals\RealmSelectionModal.cs
+      projectPath: Assets\Scripts\UI\Modals\MainMenuModals\RealmSelectionModal.cs
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Client\Assets\Scripts\UI\Modals\MainMenuModals\RegisterModal.cs
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Scripts\UI\Modals\MainMenuModals\RegisterModal.cs
+      projectPath: Assets\Scripts\UI\Modals\MainMenuModals\RegisterModal.cs
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Client\Assets\Scripts\Utilities\JsonHelper.cs
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Scripts\Utilities\JsonHelper.cs
+      projectPath: Assets\Scripts\Utilities\JsonHelper.cs
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Assets\Scripts\Utilities\JsonHelper.cs.meta
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Scripts\Utilities\JsonHelper.cs.meta
+      projectPath: Assets\Scripts\Utilities\JsonHelper.cs.meta
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\CurrentLayout.dwlt
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\CurrentLayout.dwlt
+      projectPath: Library\CurrentLayout.dwlt
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Client\Library\CurrentMaximizeLayout.dwlt
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\CurrentMaximizeLayout.dwlt
+      projectPath: Library\CurrentMaximizeLayout.dwlt
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Client\Library\ProjectSettings.asset
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\ProjectSettings.asset
+      projectPath: Library\ProjectSettings.asset
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Client\Library\ScriptAssemblies\Assembly-CSharp.dll
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\ScriptAssemblies\Assembly-CSharp.dll
+      projectPath: Library\ScriptAssemblies\Assembly-CSharp.dll
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Client\Library\ScriptAssemblies\Assembly-CSharp.dll.mdb
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\ScriptAssemblies\Assembly-CSharp.dll.mdb
+      projectPath: Library\ScriptAssemblies\Assembly-CSharp.dll.mdb
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Client\Library\assetDatabase3
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\assetDatabase3
+      projectPath: Library\assetDatabase3
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Client\Library\expandedItems
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\expandedItems
+      projectPath: Library\expandedItems
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Client\Library\gfu\cache\branches.yaml
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\gfu\cache\branches.yaml
+      projectPath: Library\gfu\cache\branches.yaml
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\gfu\cache\gitlocks.yaml
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\gfu\cache\gitlocks.yaml
+      projectPath: Library\gfu\cache\gitlocks.yaml
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\gfu\cache\gitlog.yaml
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\gfu\cache\gitlog.yaml
+      projectPath: Library\gfu\cache\gitlog.yaml
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\gfu\cache\gitstatusentries.yaml
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\gfu\cache\gitstatusentries.yaml
+      projectPath: Library\gfu\cache\gitstatusentries.yaml
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\gfu\cache\gittrackingstatus.yaml
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\gfu\cache\gittrackingstatus.yaml
+      projectPath: Library\gfu\cache\gittrackingstatus.yaml
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\gfu\cache\gituser.yaml
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\gfu\cache\gituser.yaml
+      projectPath: Library\gfu\cache\gituser.yaml
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\gfu\cache\repoinfo.yaml
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\gfu\cache\repoinfo.yaml
+      projectPath: Library\gfu\cache\repoinfo.yaml
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\01\0188ec438976e5849b40a2c1ce5f20f9
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\01\0188ec438976e5849b40a2c1ce5f20f9
+      projectPath: Library\metadata\01\0188ec438976e5849b40a2c1ce5f20f9
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\01\0188ec438976e5849b40a2c1ce5f20f9.info
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\01\0188ec438976e5849b40a2c1ce5f20f9.info
+      projectPath: Library\metadata\01\0188ec438976e5849b40a2c1ce5f20f9.info
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\01\01ef782d02bb1994dbe418b69432552b
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\01\01ef782d02bb1994dbe418b69432552b
+      projectPath: Library\metadata\01\01ef782d02bb1994dbe418b69432552b
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\01\01ef782d02bb1994dbe418b69432552b.info
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\01\01ef782d02bb1994dbe418b69432552b.info
+      projectPath: Library\metadata\01\01ef782d02bb1994dbe418b69432552b.info
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\06\06314f49bdda26043963578d60a0a7ee
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\06\06314f49bdda26043963578d60a0a7ee
+      projectPath: Library\metadata\06\06314f49bdda26043963578d60a0a7ee
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\06\06314f49bdda26043963578d60a0a7ee.info
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\06\06314f49bdda26043963578d60a0a7ee.info
+      projectPath: Library\metadata\06\06314f49bdda26043963578d60a0a7ee.info
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\13\136dc24f151211d438acee17aff4e934
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\13\136dc24f151211d438acee17aff4e934
+      projectPath: Library\metadata\13\136dc24f151211d438acee17aff4e934
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\13\136dc24f151211d438acee17aff4e934.info
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\13\136dc24f151211d438acee17aff4e934.info
+      projectPath: Library\metadata\13\136dc24f151211d438acee17aff4e934.info
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\14\1418141139a6ac443b18cb05c0643a29
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\14\1418141139a6ac443b18cb05c0643a29
+      projectPath: Library\metadata\14\1418141139a6ac443b18cb05c0643a29
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\14\1418141139a6ac443b18cb05c0643a29.info
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\14\1418141139a6ac443b18cb05c0643a29.info
+      projectPath: Library\metadata\14\1418141139a6ac443b18cb05c0643a29.info
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\14\14f21d7a1e53a8c4e87b25526a7eb63c
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\14\14f21d7a1e53a8c4e87b25526a7eb63c
+      projectPath: Library\metadata\14\14f21d7a1e53a8c4e87b25526a7eb63c
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\14\14f21d7a1e53a8c4e87b25526a7eb63c.info
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\14\14f21d7a1e53a8c4e87b25526a7eb63c.info
+      projectPath: Library\metadata\14\14f21d7a1e53a8c4e87b25526a7eb63c.info
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\15\151a1d946b98deb4b98445400983ba92
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\15\151a1d946b98deb4b98445400983ba92
+      projectPath: Library\metadata\15\151a1d946b98deb4b98445400983ba92
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\15\151a1d946b98deb4b98445400983ba92.info
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\15\151a1d946b98deb4b98445400983ba92.info
+      projectPath: Library\metadata\15\151a1d946b98deb4b98445400983ba92.info
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\15\15ca2bebf173f2d4484686a03a45b56d
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\15\15ca2bebf173f2d4484686a03a45b56d
+      projectPath: Library\metadata\15\15ca2bebf173f2d4484686a03a45b56d
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\15\15ca2bebf173f2d4484686a03a45b56d.info
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\15\15ca2bebf173f2d4484686a03a45b56d.info
+      projectPath: Library\metadata\15\15ca2bebf173f2d4484686a03a45b56d.info
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\16\1624888272de6ec44aa972f38344b446
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\16\1624888272de6ec44aa972f38344b446
+      projectPath: Library\metadata\16\1624888272de6ec44aa972f38344b446
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Client\Library\metadata\17\17aef65a15b471f468b5fbeb4ff0c6a1
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\17\17aef65a15b471f468b5fbeb4ff0c6a1
+      projectPath: Library\metadata\17\17aef65a15b471f468b5fbeb4ff0c6a1
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\17\17aef65a15b471f468b5fbeb4ff0c6a1.info
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\17\17aef65a15b471f468b5fbeb4ff0c6a1.info
+      projectPath: Library\metadata\17\17aef65a15b471f468b5fbeb4ff0c6a1.info
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\18\18e096a98c2704c40a818dd1214cd179
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\18\18e096a98c2704c40a818dd1214cd179
+      projectPath: Library\metadata\18\18e096a98c2704c40a818dd1214cd179
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\18\18e096a98c2704c40a818dd1214cd179.info
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\18\18e096a98c2704c40a818dd1214cd179.info
+      projectPath: Library\metadata\18\18e096a98c2704c40a818dd1214cd179.info
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\20\20d7eda7c1be45a4b8e97640de046617
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\20\20d7eda7c1be45a4b8e97640de046617
+      projectPath: Library\metadata\20\20d7eda7c1be45a4b8e97640de046617
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\20\20d7eda7c1be45a4b8e97640de046617.info
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\20\20d7eda7c1be45a4b8e97640de046617.info
+      projectPath: Library\metadata\20\20d7eda7c1be45a4b8e97640de046617.info
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\21\21206c65839f84d0e9ae14bc1fdc68db
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\21\21206c65839f84d0e9ae14bc1fdc68db
+      projectPath: Library\metadata\21\21206c65839f84d0e9ae14bc1fdc68db
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\21\21206c65839f84d0e9ae14bc1fdc68db.info
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\21\21206c65839f84d0e9ae14bc1fdc68db.info
+      projectPath: Library\metadata\21\21206c65839f84d0e9ae14bc1fdc68db.info
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\23\23c8bee69b591054094d32918f98facd
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\23\23c8bee69b591054094d32918f98facd
+      projectPath: Library\metadata\23\23c8bee69b591054094d32918f98facd
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\23\23c8bee69b591054094d32918f98facd.info
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\23\23c8bee69b591054094d32918f98facd.info
+      projectPath: Library\metadata\23\23c8bee69b591054094d32918f98facd.info
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\25\2590b98e5cafc4e32b61170d7b917ee6
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\25\2590b98e5cafc4e32b61170d7b917ee6
+      projectPath: Library\metadata\25\2590b98e5cafc4e32b61170d7b917ee6
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\25\2590b98e5cafc4e32b61170d7b917ee6.info
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\25\2590b98e5cafc4e32b61170d7b917ee6.info
+      projectPath: Library\metadata\25\2590b98e5cafc4e32b61170d7b917ee6.info
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\34\346ce5917ba5a8443b90d85fcfe119b7
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\34\346ce5917ba5a8443b90d85fcfe119b7
+      projectPath: Library\metadata\34\346ce5917ba5a8443b90d85fcfe119b7
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Client\Library\metadata\36\36f7323c55864364d8bb88c736e4bca6
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\36\36f7323c55864364d8bb88c736e4bca6
+      projectPath: Library\metadata\36\36f7323c55864364d8bb88c736e4bca6
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\36\36f7323c55864364d8bb88c736e4bca6.info
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\36\36f7323c55864364d8bb88c736e4bca6.info
+      projectPath: Library\metadata\36\36f7323c55864364d8bb88c736e4bca6.info
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\48\48c22d5d7479fcb49ab3be0cdd2ccec0
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\48\48c22d5d7479fcb49ab3be0cdd2ccec0
+      projectPath: Library\metadata\48\48c22d5d7479fcb49ab3be0cdd2ccec0
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\48\48c22d5d7479fcb49ab3be0cdd2ccec0.info
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\48\48c22d5d7479fcb49ab3be0cdd2ccec0.info
+      projectPath: Library\metadata\48\48c22d5d7479fcb49ab3be0cdd2ccec0.info
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\4e\4e7d9a07cc3f02a41a575406e7230846
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\4e\4e7d9a07cc3f02a41a575406e7230846
+      projectPath: Library\metadata\4e\4e7d9a07cc3f02a41a575406e7230846
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\4e\4e7d9a07cc3f02a41a575406e7230846.info
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\4e\4e7d9a07cc3f02a41a575406e7230846.info
+      projectPath: Library\metadata\4e\4e7d9a07cc3f02a41a575406e7230846.info
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\57\577d9725f58264943855b8ac185531fe
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\57\577d9725f58264943855b8ac185531fe
+      projectPath: Library\metadata\57\577d9725f58264943855b8ac185531fe
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\57\577d9725f58264943855b8ac185531fe.info
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\57\577d9725f58264943855b8ac185531fe.info
+      projectPath: Library\metadata\57\577d9725f58264943855b8ac185531fe.info
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\63\636d33ae594884e7d80b569f429d245d
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\63\636d33ae594884e7d80b569f429d245d
+      projectPath: Library\metadata\63\636d33ae594884e7d80b569f429d245d
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\63\636d33ae594884e7d80b569f429d245d.info
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\63\636d33ae594884e7d80b569f429d245d.info
+      projectPath: Library\metadata\63\636d33ae594884e7d80b569f429d245d.info
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\68\68c7e4565cde54155bb78d8e935f1dd4
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\68\68c7e4565cde54155bb78d8e935f1dd4
+      projectPath: Library\metadata\68\68c7e4565cde54155bb78d8e935f1dd4
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\68\68c7e4565cde54155bb78d8e935f1dd4.info
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\68\68c7e4565cde54155bb78d8e935f1dd4.info
+      projectPath: Library\metadata\68\68c7e4565cde54155bb78d8e935f1dd4.info
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\6a\6a3c684705042f345975d924f6983e36
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\6a\6a3c684705042f345975d924f6983e36
+      projectPath: Library\metadata\6a\6a3c684705042f345975d924f6983e36
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\6a\6a3c684705042f345975d924f6983e36.info
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\6a\6a3c684705042f345975d924f6983e36.info
+      projectPath: Library\metadata\6a\6a3c684705042f345975d924f6983e36.info
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\72\72f31e466374a9a48a49488178efdf19
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\72\72f31e466374a9a48a49488178efdf19
+      projectPath: Library\metadata\72\72f31e466374a9a48a49488178efdf19
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\72\72f31e466374a9a48a49488178efdf19.info
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\72\72f31e466374a9a48a49488178efdf19.info
+      projectPath: Library\metadata\72\72f31e466374a9a48a49488178efdf19.info
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\76\76f828f47ce26cc43991113c6a39dbbf
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\76\76f828f47ce26cc43991113c6a39dbbf
+      projectPath: Library\metadata\76\76f828f47ce26cc43991113c6a39dbbf
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\76\76f828f47ce26cc43991113c6a39dbbf.info
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\76\76f828f47ce26cc43991113c6a39dbbf.info
+      projectPath: Library\metadata\76\76f828f47ce26cc43991113c6a39dbbf.info
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\79\790749ba7e4b18141953e39cb13f1b79
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\79\790749ba7e4b18141953e39cb13f1b79
+      projectPath: Library\metadata\79\790749ba7e4b18141953e39cb13f1b79
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\79\790749ba7e4b18141953e39cb13f1b79.info
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\79\790749ba7e4b18141953e39cb13f1b79.info
+      projectPath: Library\metadata\79\790749ba7e4b18141953e39cb13f1b79.info
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\84\849c268e9c8317741b00fbf8b3db50e0
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\84\849c268e9c8317741b00fbf8b3db50e0
+      projectPath: Library\metadata\84\849c268e9c8317741b00fbf8b3db50e0
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Client\Library\metadata\86\868fbb4c41814baebc00f96e24ede2f8
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\86\868fbb4c41814baebc00f96e24ede2f8
+      projectPath: Library\metadata\86\868fbb4c41814baebc00f96e24ede2f8
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\86\868fbb4c41814baebc00f96e24ede2f8.info
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\86\868fbb4c41814baebc00f96e24ede2f8.info
+      projectPath: Library\metadata\86\868fbb4c41814baebc00f96e24ede2f8.info
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\99\99b48d4d4f6a66340ab06bd487d70a45
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\99\99b48d4d4f6a66340ab06bd487d70a45
+      projectPath: Library\metadata\99\99b48d4d4f6a66340ab06bd487d70a45
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\99\99b48d4d4f6a66340ab06bd487d70a45.info
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\99\99b48d4d4f6a66340ab06bd487d70a45.info
+      projectPath: Library\metadata\99\99b48d4d4f6a66340ab06bd487d70a45.info
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\9a\9a6f8c7c1ea72ce46831c5e1b6150d0c
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\9a\9a6f8c7c1ea72ce46831c5e1b6150d0c
+      projectPath: Library\metadata\9a\9a6f8c7c1ea72ce46831c5e1b6150d0c
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\9a\9a6f8c7c1ea72ce46831c5e1b6150d0c.info
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\9a\9a6f8c7c1ea72ce46831c5e1b6150d0c.info
+      projectPath: Library\metadata\9a\9a6f8c7c1ea72ce46831c5e1b6150d0c.info
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\9b\9b6ba260dada0ea4a871a42011f8b87d
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\9b\9b6ba260dada0ea4a871a42011f8b87d
+      projectPath: Library\metadata\9b\9b6ba260dada0ea4a871a42011f8b87d
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\9b\9b6ba260dada0ea4a871a42011f8b87d.info
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\9b\9b6ba260dada0ea4a871a42011f8b87d.info
+      projectPath: Library\metadata\9b\9b6ba260dada0ea4a871a42011f8b87d.info
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\a0\a0ded7adcc817ce489fec07977f16d13
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\a0\a0ded7adcc817ce489fec07977f16d13
+      projectPath: Library\metadata\a0\a0ded7adcc817ce489fec07977f16d13
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\a0\a0ded7adcc817ce489fec07977f16d13.info
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\a0\a0ded7adcc817ce489fec07977f16d13.info
+      projectPath: Library\metadata\a0\a0ded7adcc817ce489fec07977f16d13.info
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\a8\a83159a46d87d2a4f8cec651049b9231
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\a8\a83159a46d87d2a4f8cec651049b9231
+      projectPath: Library\metadata\a8\a83159a46d87d2a4f8cec651049b9231
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\a8\a83159a46d87d2a4f8cec651049b9231.info
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\a8\a83159a46d87d2a4f8cec651049b9231.info
+      projectPath: Library\metadata\a8\a83159a46d87d2a4f8cec651049b9231.info
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\aa\aa7d8a717e19d064a94071915d108c55
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\aa\aa7d8a717e19d064a94071915d108c55
+      projectPath: Library\metadata\aa\aa7d8a717e19d064a94071915d108c55
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Client\Library\metadata\aa\aadad8ac54f29e44583510294ac5c312
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\aa\aadad8ac54f29e44583510294ac5c312
+      projectPath: Library\metadata\aa\aadad8ac54f29e44583510294ac5c312
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\aa\aadad8ac54f29e44583510294ac5c312.info
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\aa\aadad8ac54f29e44583510294ac5c312.info
+      projectPath: Library\metadata\aa\aadad8ac54f29e44583510294ac5c312.info
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\b3\b3d6013a54ff23441b529bd681184b4e
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\b3\b3d6013a54ff23441b529bd681184b4e
+      projectPath: Library\metadata\b3\b3d6013a54ff23441b529bd681184b4e
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Client\Library\metadata\c5\c5c83d14802e712408f23409f3c59e26
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\c5\c5c83d14802e712408f23409f3c59e26
+      projectPath: Library\metadata\c5\c5c83d14802e712408f23409f3c59e26
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\c5\c5c83d14802e712408f23409f3c59e26.info
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\c5\c5c83d14802e712408f23409f3c59e26.info
+      projectPath: Library\metadata\c5\c5c83d14802e712408f23409f3c59e26.info
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\c7\c743ae24ee231884887054d20ccdd0ae
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\c7\c743ae24ee231884887054d20ccdd0ae
+      projectPath: Library\metadata\c7\c743ae24ee231884887054d20ccdd0ae
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\c7\c743ae24ee231884887054d20ccdd0ae.info
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\c7\c743ae24ee231884887054d20ccdd0ae.info
+      projectPath: Library\metadata\c7\c743ae24ee231884887054d20ccdd0ae.info
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\ca\cad92998c5182496e8b989b406d9f156
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\ca\cad92998c5182496e8b989b406d9f156
+      projectPath: Library\metadata\ca\cad92998c5182496e8b989b406d9f156
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\ca\cad92998c5182496e8b989b406d9f156.info
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\ca\cad92998c5182496e8b989b406d9f156.info
+      projectPath: Library\metadata\ca\cad92998c5182496e8b989b406d9f156.info
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\d5\d516f2a1bec6a9645a084ef8c9237132
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\d5\d516f2a1bec6a9645a084ef8c9237132
+      projectPath: Library\metadata\d5\d516f2a1bec6a9645a084ef8c9237132
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\d5\d516f2a1bec6a9645a084ef8c9237132.info
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\d5\d516f2a1bec6a9645a084ef8c9237132.info
+      projectPath: Library\metadata\d5\d516f2a1bec6a9645a084ef8c9237132.info
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\d6\d601ecb6855bb432bae2aa49d8fd82e8
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\d6\d601ecb6855bb432bae2aa49d8fd82e8
+      projectPath: Library\metadata\d6\d601ecb6855bb432bae2aa49d8fd82e8
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\d6\d601ecb6855bb432bae2aa49d8fd82e8.info
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\d6\d601ecb6855bb432bae2aa49d8fd82e8.info
+      projectPath: Library\metadata\d6\d601ecb6855bb432bae2aa49d8fd82e8.info
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\d6\d6807fedb8dcaf04682d2c84f0ab753f
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\d6\d6807fedb8dcaf04682d2c84f0ab753f
+      projectPath: Library\metadata\d6\d6807fedb8dcaf04682d2c84f0ab753f
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\d6\d6807fedb8dcaf04682d2c84f0ab753f.info
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\d6\d6807fedb8dcaf04682d2c84f0ab753f.info
+      projectPath: Library\metadata\d6\d6807fedb8dcaf04682d2c84f0ab753f.info
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\dd\ddb8611e748af425a82a497ac5a98c0c
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\dd\ddb8611e748af425a82a497ac5a98c0c
+      projectPath: Library\metadata\dd\ddb8611e748af425a82a497ac5a98c0c
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\dd\ddb8611e748af425a82a497ac5a98c0c.info
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\dd\ddb8611e748af425a82a497ac5a98c0c.info
+      projectPath: Library\metadata\dd\ddb8611e748af425a82a497ac5a98c0c.info
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\ec\ecfb28d906a32914d956497c8d3b3395
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\ec\ecfb28d906a32914d956497c8d3b3395
+      projectPath: Library\metadata\ec\ecfb28d906a32914d956497c8d3b3395
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\ec\ecfb28d906a32914d956497c8d3b3395.info
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\ec\ecfb28d906a32914d956497c8d3b3395.info
+      projectPath: Library\metadata\ec\ecfb28d906a32914d956497c8d3b3395.info
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\f8\f81094832d834c64d93b198cb16b6a3e
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\f8\f81094832d834c64d93b198cb16b6a3e
+      projectPath: Library\metadata\f8\f81094832d834c64d93b198cb16b6a3e
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\f8\f81094832d834c64d93b198cb16b6a3e.info
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\f8\f81094832d834c64d93b198cb16b6a3e.info
+      projectPath: Library\metadata\f8\f81094832d834c64d93b198cb16b6a3e.info
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\f9\f9fc9b08ecd899944adf9860b4abd6b6
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\f9\f9fc9b08ecd899944adf9860b4abd6b6
+      projectPath: Library\metadata\f9\f9fc9b08ecd899944adf9860b4abd6b6
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\f9\f9fc9b08ecd899944adf9860b4abd6b6.info
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\f9\f9fc9b08ecd899944adf9860b4abd6b6.info
+      projectPath: Library\metadata\f9\f9fc9b08ecd899944adf9860b4abd6b6.info
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\fe\fe5abeadcbe591e4fa9107fbc02f3998
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\fe\fe5abeadcbe591e4fa9107fbc02f3998
+      projectPath: Library\metadata\fe\fe5abeadcbe591e4fa9107fbc02f3998
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\metadata\fe\fe5abeadcbe591e4fa9107fbc02f3998.info
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\fe\fe5abeadcbe591e4fa9107fbc02f3998.info
+      projectPath: Library\metadata\fe\fe5abeadcbe591e4fa9107fbc02f3998.info
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Client\Library\shadercompiler-UnityShaderCompiler.exe0.log
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\shadercompiler-UnityShaderCompiler.exe0.log
+      projectPath: Library\shadercompiler-UnityShaderCompiler.exe0.log
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Client\ProjectSettings\AudioManager.asset
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\ProjectSettings\AudioManager.asset
+      projectPath: ProjectSettings\AudioManager.asset
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Client\ProjectSettings\ClusterInputManager.asset
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\ProjectSettings\ClusterInputManager.asset
+      projectPath: ProjectSettings\ClusterInputManager.asset
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Client\ProjectSettings\DynamicsManager.asset
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\ProjectSettings\DynamicsManager.asset
+      projectPath: ProjectSettings\DynamicsManager.asset
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Client\ProjectSettings\EditorBuildSettings.asset
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\ProjectSettings\EditorBuildSettings.asset
+      projectPath: ProjectSettings\EditorBuildSettings.asset
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Client\ProjectSettings\EditorSettings.asset
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\ProjectSettings\EditorSettings.asset
+      projectPath: ProjectSettings\EditorSettings.asset
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Client\ProjectSettings\GraphicsSettings.asset
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\ProjectSettings\GraphicsSettings.asset
+      projectPath: ProjectSettings\GraphicsSettings.asset
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Client\ProjectSettings\InputManager.asset
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\ProjectSettings\InputManager.asset
+      projectPath: ProjectSettings\InputManager.asset
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Client\ProjectSettings\NavMeshAreas.asset
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\ProjectSettings\NavMeshAreas.asset
+      projectPath: ProjectSettings\NavMeshAreas.asset
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Client\ProjectSettings\NetworkManager.asset
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\ProjectSettings\NetworkManager.asset
+      projectPath: ProjectSettings\NetworkManager.asset
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Client\ProjectSettings\Physics2DSettings.asset
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\ProjectSettings\Physics2DSettings.asset
+      projectPath: ProjectSettings\Physics2DSettings.asset
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Client\ProjectSettings\PresetManager.asset
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\ProjectSettings\PresetManager.asset
+      projectPath: ProjectSettings\PresetManager.asset
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Client\ProjectSettings\ProjectSettings.asset
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\ProjectSettings\ProjectSettings.asset
+      projectPath: ProjectSettings\ProjectSettings.asset
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Client\ProjectSettings\QualitySettings.asset
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\ProjectSettings\QualitySettings.asset
+      projectPath: ProjectSettings\QualitySettings.asset
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Client\ProjectSettings\TagManager.asset
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\ProjectSettings\TagManager.asset
+      projectPath: ProjectSettings\TagManager.asset
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Client\ProjectSettings\TimeManager.asset
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\ProjectSettings\TimeManager.asset
+      projectPath: ProjectSettings\TimeManager.asset
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Client\ProjectSettings\UnityConnectSettings.asset
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\ProjectSettings\UnityConnectSettings.asset
+      projectPath: ProjectSettings\UnityConnectSettings.asset
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Client\obj\Debug\Assembly-CSharp-firstpass.csproj.CoreCompileInputs.cache
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\obj\Debug\Assembly-CSharp-firstpass.csproj.CoreCompileInputs.cache
+      projectPath: obj\Debug\Assembly-CSharp-firstpass.csproj.CoreCompileInputs.cache
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Client\obj\Debug\Assembly-CSharp-firstpass.csproj.FileListAbsolute.txt
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\obj\Debug\Assembly-CSharp-firstpass.csproj.FileListAbsolute.txt
+      projectPath: obj\Debug\Assembly-CSharp-firstpass.csproj.FileListAbsolute.txt
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Client\obj\Debug\Assembly-CSharp-firstpass.csprojAssemblyReference.cache
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\obj\Debug\Assembly-CSharp-firstpass.csprojAssemblyReference.cache
+      projectPath: obj\Debug\Assembly-CSharp-firstpass.csprojAssemblyReference.cache
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Client\obj\Debug\Assembly-CSharp-firstpass.dll
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\obj\Debug\Assembly-CSharp-firstpass.dll
+      projectPath: obj\Debug\Assembly-CSharp-firstpass.dll
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Client\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache
+      projectPath: obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Client\obj\Debug\Assembly-CSharp.csproj.FileListAbsolute.txt
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\obj\Debug\Assembly-CSharp.csproj.FileListAbsolute.txt
+      projectPath: obj\Debug\Assembly-CSharp.csproj.FileListAbsolute.txt
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Client\obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache
+      projectPath: obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Client\obj\Debug\Assembly-CSharp.dll
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\obj\Debug\Assembly-CSharp.dll
+      projectPath: obj\Debug\Assembly-CSharp.dll
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Client\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache
+      fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache
+      projectPath: obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache
+      originalPath: 
+      status: 3
+      staged: 0
   - commitID: 0d615337d6e1333830211e86372e36127dc5f8f1
     mergeA: 
     mergeB: 

@@ -338,3 +338,5 @@ C:\Github-public\game-client\Client\obj\Debug\Assembly-CSharp.dll
 C:\Github-public\game-client\Client\obj\Debug\Assembly-CSharp.pdb
 C:\Users\nzhul\Documents\GitHub\game-client\Client\Temp\bin\Debug\Newtonsoft.Json.dll
 C:\Users\nzhul\Documents\GitHub\game-client\Client\Temp\bin\Debug\Newtonsoft.Json.xml
+C:\Users\nzhul\Documents\GitHub\game-client\Client\Temp\bin\Debug\TextMeshPro-2017.3-Editor.dll
+C:\Users\nzhul\Documents\GitHub\game-client\Client\Temp\bin\Debug\TextMeshPro-2017.3-Runtime.dll
