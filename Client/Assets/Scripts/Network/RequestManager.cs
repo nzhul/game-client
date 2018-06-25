@@ -33,7 +33,7 @@ namespace Assets.Scripts.Network
 
                 // for this to work the object must be on root level in the hierarchy
                 // TODO: this might cause bugs since i will have two/three stacks of menus, each for each scene
-                DontDestroyOnLoad(gameObject);
+                //DontDestroyOnLoad(gameObject);
             }
         }
 
@@ -72,6 +72,39 @@ namespace Assets.Scripts.Network
                 string payload = JsonUtility.ToJson(inputModel);
                 request.RawData = Encoding.UTF8.GetBytes(payload);
             }
+
+            request.Send();
+        }
+
+        // TODO: make overload method for this without inputModel
+        // It can be non-generic
+        public void Put<T>(string endpoint, T inputModel, OnRequestFinishedDelegate callback)
+        {
+            Uri uri = new Uri(SERVER_ROOT + endpoint);
+            HTTPRequest request = new HTTPRequest(uri, HTTPMethods.Put, callback);
+            request.AddHeader("Authorization", "Bearer " + DataManager.Instance.Token);
+            request.AddHeader("Content-Type", "application/json");
+
+            if (inputModel != null)
+            {
+                string payload = JsonUtility.ToJson(inputModel);
+                request.RawData = Encoding.UTF8.GetBytes(payload);
+            }
+            else
+            {
+                request.AddHeader("Content-Length", "0");
+            }
+
+            request.Send();
+        }
+
+        public void Put(string endpoint, OnRequestFinishedDelegate callback)
+        {
+            Uri uri = new Uri(SERVER_ROOT + endpoint);
+            HTTPRequest request = new HTTPRequest(uri, HTTPMethods.Put, callback);
+            request.AddHeader("Authorization", "Bearer " + DataManager.Instance.Token);
+            request.AddHeader("Content-Type", "application/json");
+            request.AddHeader("Content-Length", "0");
 
             request.Send();
         }

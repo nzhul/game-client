@@ -141,7 +141,7 @@ namespace Assets.Scripts.UI.Modals.MainMenuModals
                 }
 
                 MainMenuManager.Instance.HideInitialButtons();
-                RealmSelectionModal.Open();
+                RealmSelectionModal.Instance.Open();
                 errorMessagePanel.SetActive(false);
             }
 

@@ -9,7 +9,7 @@ namespace Assets.Scripts.UI.MainMenu
 
         public void OnRegisterAccountPressed()
         {
-            RegisterModal.Open();
+            RegisterModal.Instance.Open();
         }
 
         public void OnOptionsPressed()

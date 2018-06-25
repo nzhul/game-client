@@ -26,7 +26,7 @@ namespace Assets.Scripts.UI.Modals.MainMenuModals
         public void OnBackToLoginPressed()
         {
             base.OnClosePressed();
-            LoginModal.Open();
+            LoginModal.Instance.Open();
         }
 
         protected override void Start()
@@ -103,7 +103,7 @@ namespace Assets.Scripts.UI.Modals.MainMenuModals
                 string json = response.DataAsText;
                 RegistrationResponse registrationInfo = JsonUtility.FromJson<RegistrationResponse>(json);
 
-                SuccessRegistrationModal.Open();
+                SuccessRegistrationModal.Instance.Open();
                 errorMessagePanel.SetActive(false);
             }
 

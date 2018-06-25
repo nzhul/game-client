@@ -5,7 +5,7 @@
         public override void OnClosePressed()
         {
             base.OnClosePressed();
-            LoginModal.Open();
+            LoginModal.Instance.Open();
         }
     }
 }

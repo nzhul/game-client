@@ -1,4 +1,6 @@
-﻿using Assets.Scripts.Data;
+﻿using System;
+using Assets.Scripts.Data;
+using Assets.Scripts.LevelManagement;
 using Assets.Scripts.Network;
 using Assets.Scripts.Network.RequestModels.Sorting;
 using Assets.Scripts.Network.RequestModels.Users.View;
@@ -15,6 +17,7 @@ namespace Assets.Scripts.UI.Modals.MainMenuModals
     {
         private const float buttonHeight = 55f;
         public RectTransform _realmsContainer;
+        public Scrollbar _realmsScrollbar;
         public Button _realmBtnPrefab;
 
         // Loading image
@@ -26,19 +29,24 @@ namespace Assets.Scripts.UI.Modals.MainMenuModals
         public SortDirection sortDirection;
         public RealmsSortType sortType;
 
+        // Selected realm
         private int _selectedRealmId;
+        public Color selectedRealmColor;
+        public Color realmNormalColor;
+        public RealmListItem[] _realmsList;
 
-        protected override void Start()
+        public override void Open()
         {
-            base.Start();
-            ReloadRealms();
-
+            base.Open();
             _selectedRealmId = DataManager.Instance.CurrentRealmId;
-            Debug.Log(_selectedRealmId);
+            ReloadRealms();
+        }
 
-            //TODO: Highlight the selected realm button
-
-            // use _dataManager.CurrentRealmId to mark this realm as selected.
+        public override void OnClosePressed()
+        {
+            _selectedRealmId = 0;
+            MainMenuManager.Instance.ShowInitialButtons();
+            LoginModal.Instance.Open();
         }
 
         public void OnNameSortBtnPressed()
@@ -69,6 +77,29 @@ namespace Assets.Scripts.UI.Modals.MainMenuModals
             ReloadRealms();
         }
 
+        public void OnSelectRealmBtnPressed()
+        {
+            DataManager.Instance.CurrentRealmId = _selectedRealmId;
+
+            string endpoint = "realms/updateCurrentRealm/" + DataManager.Instance.Id + "/" + DataManager.Instance.CurrentRealmId;
+
+            RequestManager.Instance.Put(endpoint, OnUpdateCurrentRealmRequestFinished);
+
+            // FadeOut
+            // Load Character selection scene with FadeIn
+
+            // In the new scene onStart
+            // Do api call to check if the player has any heroes in this realm.
+            // if not -> Open character creation screen
+            // if true -> Open character selection screen.
+
+            Debug.Log("Loading next scene ...");
+
+            DataManager.Instance.Save();
+
+            LevelLoader.LoadNextLevel();
+        }
+
         private void ReloadRealms()
         {
             FormUtilities.Empty(_realmsContainer.transform);
@@ -81,8 +112,16 @@ namespace Assets.Scripts.UI.Modals.MainMenuModals
             RequestManager.Instance.Get(endpoint, @params, OnGetRealmsRequestFinished);
         }
 
+        private void OnUpdateCurrentRealmRequestFinished(HTTPRequest request, HTTPResponse response)
+        {
+            //TODO: Handle with the global request handler
+            Debug.Log("Update request finished");
+        }
+
         private void OnGetRealmsRequestFinished(HTTPRequest request, HTTPResponse response)
         {
+            //TODO: Handle with the global request handler
+
             if (response == null || response.StatusCode != 200)
             {
                 Debug.LogWarning("Get realms request failed");
@@ -127,6 +166,7 @@ namespace Assets.Scripts.UI.Modals.MainMenuModals
 
                 if (realms != null)
                 {
+                    _realmsList = realms;
                     InitializeRealmButtons(realms);
                 }
 
@@ -144,7 +184,7 @@ namespace Assets.Scripts.UI.Modals.MainMenuModals
             foreach (var realm in realms)
             {
                 Button realmButton = GameObject.Instantiate<Button>(_realmBtnPrefab, _realmsContainer.transform);
-                realmButton.name = realm.id.ToString() + "_" + realm.name;
+                realmButton.name = realm.id.ToString() + "_RealmBtn";
                 realmButton.onClick.AddListener(delegate { OnRealmButtonPressed(realm.id); });
 
                 TextMeshProUGUI btnText = realmButton.transform.Find("Text").GetComponent<TextMeshProUGUI>();
@@ -153,14 +193,60 @@ namespace Assets.Scripts.UI.Modals.MainMenuModals
                     + "<pos=51%>" + realm.realmType
                     + "<pos=77.5%>" + realm.resetDate;
             }
+
+            if (realms != null && realms.Length > 0 && _selectedRealmId != 0 && _realmsContainer != null)
+            {
+                HighlightSelectedRealm(true);
+            }
         }
 
         private void OnRealmButtonPressed(int realmId)
         {
             _selectedRealmId = realmId;
-            Debug.Log(_selectedRealmId);
+            HighlightSelectedRealm(false);
+        }
 
-            //TODO: Highlight the selected button
+        private void HighlightSelectedRealm(bool updateScrollbar)
+        {
+            //TODO: Foreach all buttons and set normal color to default;
+
+            foreach (Transform btnObject in _realmsContainer.transform)
+            {
+                Button btn = btnObject.GetComponent<Button>();
+                ColorBlock cb1 = btn.colors;
+                cb1.normalColor = realmNormalColor;
+                btn.colors = cb1;
+            }
+
+            int realmIndex = Array.FindIndex(_realmsList, r => r.id == _selectedRealmId);
+
+            Button selectedRealmBtn = _realmsContainer.Find(_selectedRealmId.ToString() + "_RealmBtn").GetComponent<Button>();
+            ColorBlock cb = selectedRealmBtn.colors;
+            cb.normalColor = selectedRealmColor;
+            selectedRealmBtn.colors = cb;
+
+            if (_realmsScrollbar != null && updateScrollbar)
+            {
+                _realmsScrollbar.value = CalculateScrollbarValue(_realmsList.Length, realmIndex);
+            }
+        }
+
+        private float CalculateScrollbarValue(int realmsCount, int realmIndex)
+        {
+            float middlePoint = (float)realmsCount / (float)2;
+            float scrollValue = 1 - (realmIndex * (0.5f / middlePoint));
+
+            if (scrollValue < 0.2f)
+            {
+                scrollValue = 0;
+            }
+
+            if (scrollValue > 0.8f)
+            {
+                scrollValue = 1;
+            }
+
+            return scrollValue;
         }
 
         // build functionality to select realm by clicking on realm button
@@ -170,11 +256,5 @@ namespace Assets.Scripts.UI.Modals.MainMenuModals
         // Do api call to check if the player has any heroes in this realm.
         // if not -> Open character creation screen
         // if true -> Open character selection screen.
-
-        public override void OnClosePressed()
-        {
-            MainMenuManager.Instance.ShowInitialButtons();
-            LoginModal.Open();
-        }
     }
 }

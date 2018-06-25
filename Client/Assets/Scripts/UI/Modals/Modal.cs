@@ -35,7 +35,7 @@ namespace Assets.Scripts.UI.Modals
             _instance = null;
         }
 
-        public static void Open()
+        public virtual void Open()
         {
             if (ModalManager.Instance != null && Instance != null)
             {

@@ -45,7 +45,9 @@ namespace Assets.Scripts.UI.Modals
 
                 // for this to work the object must be on root level in the hierarchy
                 // TODO: this might cause bugs since i will have two/three stacks of menus, each for each scene
-                DontDestroyOnLoad(gameObject);
+
+                // Uncomment this if you wish to keep modals between scenes
+                //DontDestroyOnLoad(gameObject);
             }
         }
 
@@ -65,7 +67,8 @@ namespace Assets.Scripts.UI.Modals
                 _modalParent = modalParentObject.transform;
             }
 
-            DontDestroyOnLoad(_modalParent.gameObject);
+            // Uncomment this if you wish to keep modals between scenes
+            // DontDestroyOnLoad(_modalParent.gameObject);
 
             foreach (Modal modal in Modals)
             {
