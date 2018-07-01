@@ -7,7 +7,7 @@ namespace Assets.Scripts.Data
 {
     public class JsonSaver
     {
-        private static readonly string _fileName = "saveData1.sav";
+        private static readonly string _fileName = "saveData1.json";
 
         public static string GetSaveFilename()
         {

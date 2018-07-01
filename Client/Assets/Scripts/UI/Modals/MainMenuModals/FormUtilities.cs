@@ -88,14 +88,6 @@ namespace Assets.Scripts.UI.Modals.MainMenuModals
                 }
             }
         }
-
-        public static void Empty(Transform parent)
-        {
-            foreach (Transform child in parent)
-            {
-                GameObject.Destroy(child.gameObject);
-            }
-        }
     }
 
     public class FormData

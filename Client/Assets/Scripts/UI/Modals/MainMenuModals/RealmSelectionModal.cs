@@ -1,10 +1,12 @@
 ﻿using System;
 using Assets.Scripts.Data;
+using Assets.Scripts.Data.Models;
 using Assets.Scripts.LevelManagement;
 using Assets.Scripts.Network;
 using Assets.Scripts.Network.RequestModels.Sorting;
 using Assets.Scripts.Network.RequestModels.Users.View;
 using Assets.Scripts.UI.MainMenu;
+using Assets.Scripts.Utilities;
 using BestHTTP;
 using Newtonsoft.Json;
 using TMPro;
@@ -77,32 +79,58 @@ namespace Assets.Scripts.UI.Modals.MainMenuModals
             ReloadRealms();
         }
 
+        //TODO: Loading animation on requests ?
         public void OnSelectRealmBtnPressed()
         {
             DataManager.Instance.CurrentRealmId = _selectedRealmId;
 
-            string endpoint = "realms/updateCurrentRealm/" + DataManager.Instance.Id + "/" + DataManager.Instance.CurrentRealmId;
+            string endpoint = "realms/{0}/users/{1}/updateCurrentRealm";
+            string[] @params = new string[] { DataManager.Instance.CurrentRealmId.ToString(), DataManager.Instance.Id.ToString() };
 
-            RequestManager.Instance.Put(endpoint, OnUpdateCurrentRealmRequestFinished);
+            RequestManager.Instance.Put(endpoint, @params, OnUpdateCurrentRealmRequestFinished);
 
-            // FadeOut
-            // Load Character selection scene with FadeIn
+            string avatarEndpoint = "realms/{0}/users/{1}/avatar";
+            RequestManager.Instance.Get(avatarEndpoint, @params, OnGetUserAvatarRequestFinished);
+        }
 
-            // In the new scene onStart
-            // Do api call to check if the player has any heroes in this realm.
-            // if not -> Open character creation screen
-            // if true -> Open character selection screen.
+        private void OnGetUserAvatarRequestFinished(HTTPRequest request, HTTPResponse response)
+        {
+            if (Common.RequestIsSuccessful(request, response))
+            {
+                string json = response.DataAsText;
+                UserAvatar userAvatar = JsonConvert.DeserializeObject<UserAvatar>(json);
 
-            Debug.Log("Loading next scene ...");
+                if (userAvatar != null)
+                {
+                    DataManager.Instance.Avatar = userAvatar;
+                    DataManager.Instance.Save();
 
-            DataManager.Instance.Save();
+                    if (userAvatar.heroes != null && userAvatar.heroes.Length > 0)
+                    {
+                        //TODO: Transitions
+                        LevelLoader.LoadLevel(LevelLoader.HERO_SELECTION_SCENE);
+                    }
+                    else
+                    {
+                        //TODO: Transitions
+                        LevelLoader.LoadLevel(LevelLoader.HERO_CREATION_SCENE);
+                    }
+                }
+                else
+                {
+                    // user is logging for the first time in this realm
+                    // in CharacterCreationMenuScene - check if DataManager.Instance.Avatar == null
+                    // if true - create new avatar for the user.
 
-            LevelLoader.LoadNextLevel();
+                    LevelLoader.LoadLevel(LevelLoader.HERO_CREATION_SCENE);
+                }
+            }
+
         }
 
         private void ReloadRealms()
         {
-            FormUtilities.Empty(_realmsContainer.transform);
+            Common.Empty(_realmsContainer.transform);
 
             FormUtilities.ShowLoadingIndicator(_loadingImage, loadingImageSpeed, loadingImageEaseType);
 
@@ -115,52 +143,12 @@ namespace Assets.Scripts.UI.Modals.MainMenuModals
         private void OnUpdateCurrentRealmRequestFinished(HTTPRequest request, HTTPResponse response)
         {
             //TODO: Handle with the global request handler
-            Debug.Log("Update request finished");
         }
 
         private void OnGetRealmsRequestFinished(HTTPRequest request, HTTPResponse response)
         {
-            //TODO: Handle with the global request handler
-
-            if (response == null || response.StatusCode != 200)
+            if (Common.RequestIsSuccessful(request, response))
             {
-                Debug.LogWarning("Get realms request failed");
-
-                string errorMessage = "Server error";
-
-                if (response != null)
-                {
-                    switch (response.StatusCode)
-                    {
-                        case 401:
-                            errorMessage = "Unauthorized";
-                            break;
-                        default:
-                            errorMessage = "Server error";
-                            break;
-                    }
-                }
-                else if (request != null && request.Exception != null)
-                {
-                    if (request.Exception.Message.Contains("No connection could be made"))
-                    {
-                        errorMessage = "Please check your internet connection!";
-                    }
-                }
-
-                Debug.LogWarning(errorMessage);
-
-                // TODO: create global error message handler.
-                // Something like popup that comes at the corner of the screen and disapears after a short period of time.
-                // ref. -> alertify js
-
-                //errorMessageText.text = errorMessage;
-                //errorMessagePanel.SetActive(true);
-            }
-            else
-            {
-                // on success:
-
                 string json = response.DataAsText;
                 RealmListItem[] realms = JsonConvert.DeserializeObject<RealmListItem[]>(json);
 
@@ -169,9 +157,6 @@ namespace Assets.Scripts.UI.Modals.MainMenuModals
                     _realmsList = realms;
                     InitializeRealmButtons(realms);
                 }
-
-
-                //errorMessagePanel.SetActive(false);
             }
 
             FormUtilities.HideLoadingIndicator(_loadingImage);

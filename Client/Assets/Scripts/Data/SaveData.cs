@@ -1,4 +1,5 @@
 ﻿using System;
+using Assets.Scripts.Data.Models;
 
 namespace Assets.Scripts.Data
 {
@@ -17,8 +18,8 @@ namespace Assets.Scripts.Data
         public string age;
         public string rememberMe;
         public string password;
-
         public string hashValue;
+        public UserAvatar avatar;
 
         public SaveData()
         {
@@ -33,6 +34,7 @@ namespace Assets.Scripts.Data
             hashValue = string.Empty;
             rememberMe = "false";
             password = string.Empty;
+            avatar = new UserAvatar();
         }
     }
 }

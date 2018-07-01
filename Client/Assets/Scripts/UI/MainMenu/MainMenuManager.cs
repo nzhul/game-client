@@ -4,6 +4,7 @@ namespace Assets.Scripts.UI.MainMenu
 {
     public class MainMenuManager : MonoBehaviour
     {
+        #region Singleton
         private static MainMenuManager _instance;
 
         public static MainMenuManager Instance
@@ -25,6 +26,7 @@ namespace Assets.Scripts.UI.MainMenu
                 _instance = this;
             }
         }
+        #endregion
 
         private void Start()
         {

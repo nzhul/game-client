@@ -1,4 +1,5 @@
 ﻿using System;
+using Assets.Scripts.Data.Models;
 using UnityEngine;
 
 namespace Assets.Scripts.Data
@@ -148,6 +149,18 @@ namespace Assets.Scripts.Data
             }
         }
 
+        public UserAvatar Avatar
+        {
+            get
+            {
+                return _saveData.avatar;
+            }
+            set
+            {
+                _saveData.avatar = value;
+            }
+        }
+
         private void Awake()
         {
             if (_instance != null)
@@ -160,7 +173,7 @@ namespace Assets.Scripts.Data
 
                 // for this to work the object must be on root level in the hierarchy
                 // TODO: this might cause bugs since i will have two/three stacks of menus, each for each scene
-                DontDestroyOnLoad(gameObject);
+                // DontDestroyOnLoad(gameObject);
             }
 
             _saveData = new SaveData();

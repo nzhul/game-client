@@ -98,9 +98,11 @@ namespace Assets.Scripts.Network
             request.Send();
         }
 
-        public void Put(string endpoint, OnRequestFinishedDelegate callback)
+        public void Put(string endpoint, string[] @params, OnRequestFinishedDelegate callback)
         {
+            endpoint = string.Format(endpoint, @params);
             Uri uri = new Uri(SERVER_ROOT + endpoint);
+
             HTTPRequest request = new HTTPRequest(uri, HTTPMethods.Put, callback);
             request.AddHeader("Authorization", "Bearer " + DataManager.Instance.Token);
             request.AddHeader("Content-Type", "application/json");

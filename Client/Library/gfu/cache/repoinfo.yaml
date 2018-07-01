@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cacheType: 1
-  lastUpdatedAtString: 2018-06-25T23:26:57.225+03:00
-  initializedAtString: 2018-06-25T21:41:22.842+03:00
+  lastUpdatedAtString: 2018-07-01T17:37:08.677+03:00
+  initializedAtString: 2018-07-01T11:48:04.805+03:00
   currentGitRemote:
     name: origin
     url: https://github.com/nzhul/game-client.git
@@ -34,4 +34,4 @@ MonoBehaviour:
   currentConfigRemote:
     name: origin
     url: https://github.com/nzhul/game-client.git
-  currentHead: bb1774b
+  currentHead: 53498d0

@@ -3,9 +3,13 @@ using UnityEngine.SceneManagement;
 
 namespace Assets.Scripts.LevelManagement
 {
-    public class LevelLoader : MonoBehaviour
+    public static class LevelLoader
     {
         private static int mainMenuIndex = 0;
+
+        public const string MAIN_MENU_SCENE = "01_MainMenu";
+        public const string HERO_SELECTION_SCENE = "02_HeroSelectionMenu";
+        public const string HERO_CREATION_SCENE = "03_HeroCreationMenu";
 
         public static void LoadLevel(string levelname)
         {
