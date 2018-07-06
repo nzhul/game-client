@@ -7,6 +7,8 @@ namespace Assets.Scripts.Data.Models
     {
         public int id;
         public string name;
+        public DateTime lastActivity;
+        public TimeSpan timePlayed;
         public int level;
         public int attack;
         public int defence;

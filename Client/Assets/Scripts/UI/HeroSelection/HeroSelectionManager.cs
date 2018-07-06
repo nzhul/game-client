@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Assets.Scripts.Data;
 using Assets.Scripts.Data.Models;
 using Assets.Scripts.LevelManagement;
@@ -13,17 +14,22 @@ namespace Assets.Scripts.UI.CharacterSelection
         private const int maxHeroCount = 11;
 
         // Hero
+        [Header("Hero selection panel:")]
         public RectTransform _heroContainer;
         public Button _heroBtnPrefab;
         public Image _emptySlotPrefab;
-
         public NamedSprite[] classIcons;
-
-        // Selecter hero
         private int _selectedHeroId;
         public Color selectedHeroColor;
         public Color heroNormalColor;
         private Hero[] _heroList;
+
+        // Current hero info panel
+        [Header("Current hero info panel:")]
+        public Image currentHeroClassIcon;
+        public Text currentHeroClassTypeText;
+        public Text currentHeroStatistics;
+        public NamedSprite[] classIconsTransparent;
 
         #region Singleton
         private static HeroSelectionManager _instance;
@@ -53,6 +59,7 @@ namespace Assets.Scripts.UI.CharacterSelection
         {
             DataManager.Instance.Load(); //TODO: Delete this after development is complete
 
+            // TODO: Heroes should be sorted by lastActivity(lastPlayed) starting from top
             InitializeHeroBtns();
         }
 
@@ -75,7 +82,7 @@ namespace Assets.Scripts.UI.CharacterSelection
                 {
                     Button heroBtn = GameObject.Instantiate<Button>(_heroBtnPrefab, _heroContainer);
                     heroBtn.name = hero.id + "_HeroBtn";
-                    heroBtn.onClick.AddListener(delegate { OnHeroButtonPressed(hero.id); });
+                    heroBtn.onClick.AddListener(delegate { OnHeroButtonPressed(heroBtn, hero.id); });
 
                     Text heroNameText = heroBtn.transform.Find("HeroName").GetComponent<Text>();
                     heroNameText.text = hero.name;
@@ -96,9 +103,74 @@ namespace Assets.Scripts.UI.CharacterSelection
             }
         }
 
-        private void OnHeroButtonPressed(int heroId)
+        private void OnHeroButtonPressed(Button target, int heroId)
         {
-            Debug.Log(heroId);
+            _selectedHeroId = heroId;
+
+            foreach (Transform btnObject in _heroContainer.transform)
+            {
+                Button btn = btnObject.GetComponent<Button>() as Button;
+                if (btn != null)
+                {
+                    ColorBlock cb1 = btn.colors;
+                    cb1.normalColor = heroNormalColor;
+                    btn.colors = cb1;
+                }
+            }
+
+            HighlightButton(target, selectedHeroColor);
+
+            UpdateHeroInfoPanel(heroId);
+
+            UpdateEnvironmentAnd3DModel(heroId);
+        }
+
+        private void UpdateHeroInfoPanel(int heroId)
+        {
+            Hero selectedHero = DataManager.Instance.Avatar.heroes.FirstOrDefault(h => h.id == heroId);
+            if (selectedHero != null)
+            {
+                currentHeroClassIcon.sprite = classIconsTransparent.FirstOrDefault(a => a.name == selectedHero.@class).image;
+                currentHeroClassIcon.SetNativeSize();
+                currentHeroClassTypeText.text = selectedHero.@class.ToUpper();
+
+                //TODO: use textmeshPro and improve the UI.
+                string infoTextTemplate = @"{0} - Level {1} {2}
+
+Play time: {3}
+
+?? dungeons cleared
+
+Best monster: ??
+
+Other statistics: ??";
+
+                string playTimeText = string.Format("{0} hours {1} minutes", selectedHero.timePlayed.Hours, selectedHero.timePlayed.Minutes);
+
+                string infoText = string.Format(infoTextTemplate, 
+                    selectedHero.name, 
+                    selectedHero.level, 
+                    selectedHero.@class,
+                    playTimeText);
+
+                currentHeroStatistics.text = infoText;
+            }
+            else
+            {
+                Debug.LogWarning("Hero with id " + heroId + " is not loaded in DataManager!");
+            }
+        }
+
+        private void UpdateEnvironmentAnd3DModel(int heroId)
+        {
+            // TODO ...
+        }
+
+        private void HighlightButton(Button button, Color color)
+        {
+            ColorBlock cb = button.colors;
+            cb.normalColor = color;
+            button.colors = cb;
         }
     }
 }
