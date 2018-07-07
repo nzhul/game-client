@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cacheType: 5
-  lastUpdatedAtString: 2018-07-05T08:49:23.161+03:00
-  initializedAtString: 2018-07-05T06:35:45.699+03:00
+  lastUpdatedAtString: 2018-07-08T00:42:24.846+03:00
+  initializedAtString: 2018-07-07T13:27:57.300+03:00
   entries:
   - path: Client\.vs\Client\v15\Server\sqlite3\storage.ide
     fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\.vs\Client\v15\Server\sqlite3\storage.ide
@@ -33,15 +33,33 @@ MonoBehaviour:
     originalPath: 
     status: 3
     staged: 0
-  - path: Client\Assets\Prefabs\UI\02_HeroSelection\HeroBtn.prefab
-    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Prefabs\UI\02_HeroSelection\HeroBtn.prefab
-    projectPath: Assets\Prefabs\UI\02_HeroSelection\HeroBtn.prefab
+  - path: Client\Assets\Prefabs\UI\03_HeroCreation.meta
+    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Prefabs\UI\03_HeroCreation.meta
+    projectPath: Assets\Prefabs\UI\03_HeroCreation.meta
     originalPath: 
-    status: 3
+    status: 1
+    staged: 0
+  - path: Client\Assets\Prefabs\UI\03_HeroCreation\HeroClassBtn.prefab
+    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Prefabs\UI\03_HeroCreation\HeroClassBtn.prefab
+    projectPath: Assets\Prefabs\UI\03_HeroCreation\HeroClassBtn.prefab
+    originalPath: 
+    status: 1
+    staged: 0
+  - path: Client\Assets\Prefabs\UI\03_HeroCreation\HeroClassBtn.prefab.meta
+    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Prefabs\UI\03_HeroCreation\HeroClassBtn.prefab.meta
+    projectPath: Assets\Prefabs\UI\03_HeroCreation\HeroClassBtn.prefab.meta
+    originalPath: 
+    status: 1
     staged: 0
   - path: Client\Assets\Scenes\02_HeroSelectionMenu.unity
     fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Scenes\02_HeroSelectionMenu.unity
     projectPath: Assets\Scenes\02_HeroSelectionMenu.unity
+    originalPath: 
+    status: 3
+    staged: 0
+  - path: Client\Assets\Scenes\03_HeroCreationMenu.unity
+    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Scenes\03_HeroCreationMenu.unity
+    projectPath: Assets\Scenes\03_HeroCreationMenu.unity
     originalPath: 
     status: 3
     staged: 0
@@ -51,93 +69,33 @@ MonoBehaviour:
     originalPath: 
     status: 3
     staged: 0
+  - path: Client\Assets\Scripts\UI\HeroCreation\FactionData.cs
+    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Scripts\UI\HeroCreation\FactionData.cs
+    projectPath: Assets\Scripts\UI\HeroCreation\FactionData.cs
+    originalPath: 
+    status: 1
+    staged: 0
+  - path: Client\Assets\Scripts\UI\HeroCreation\FactionData.cs.meta
+    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Scripts\UI\HeroCreation\FactionData.cs.meta
+    projectPath: Assets\Scripts\UI\HeroCreation\FactionData.cs.meta
+    originalPath: 
+    status: 1
+    staged: 0
+  - path: Client\Assets\Scripts\UI\HeroCreation\HeroCreationManager.cs
+    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Scripts\UI\HeroCreation\HeroCreationManager.cs
+    projectPath: Assets\Scripts\UI\HeroCreation\HeroCreationManager.cs
+    originalPath: 
+    status: 3
+    staged: 0
   - path: Client\Assets\Scripts\UI\HeroSelection\HeroSelectionManager.cs
     fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Scripts\UI\HeroSelection\HeroSelectionManager.cs
     projectPath: Assets\Scripts\UI\HeroSelection\HeroSelectionManager.cs
     originalPath: 
     status: 3
     staged: 0
-  - path: Client\Assets\Sprites\class-icons\01-knight-trans.png
-    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Sprites\class-icons\01-knight-trans.png
-    projectPath: Assets\Sprites\class-icons\01-knight-trans.png
-    originalPath: 
-    status: 1
-    staged: 0
-  - path: Client\Assets\Sprites\class-icons\01-knight-trans.png.meta
-    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Sprites\class-icons\01-knight-trans.png.meta
-    projectPath: Assets\Sprites\class-icons\01-knight-trans.png.meta
-    originalPath: 
-    status: 1
-    staged: 0
-  - path: Client\Assets\Sprites\class-icons\02-mercenary-trans.png
-    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Sprites\class-icons\02-mercenary-trans.png
-    projectPath: Assets\Sprites\class-icons\02-mercenary-trans.png
-    originalPath: 
-    status: 1
-    staged: 0
-  - path: Client\Assets\Sprites\class-icons\02-mercenary-trans.png.meta
-    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Sprites\class-icons\02-mercenary-trans.png.meta
-    projectPath: Assets\Sprites\class-icons\02-mercenary-trans.png.meta
-    originalPath: 
-    status: 1
-    staged: 0
-  - path: Client\Assets\Sprites\class-icons\03-sorcerer-trans.png
-    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Sprites\class-icons\03-sorcerer-trans.png
-    projectPath: Assets\Sprites\class-icons\03-sorcerer-trans.png
-    originalPath: 
-    status: 1
-    staged: 0
-  - path: Client\Assets\Sprites\class-icons\03-sorcerer-trans.png.meta
-    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Sprites\class-icons\03-sorcerer-trans.png.meta
-    projectPath: Assets\Sprites\class-icons\03-sorcerer-trans.png.meta
-    originalPath: 
-    status: 1
-    staged: 0
-  - path: Client\Assets\Sprites\class-icons\04-warlord-trans.png
-    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Sprites\class-icons\04-warlord-trans.png
-    projectPath: Assets\Sprites\class-icons\04-warlord-trans.png
-    originalPath: 
-    status: 1
-    staged: 0
-  - path: Client\Assets\Sprites\class-icons\04-warlord-trans.png.meta
-    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Sprites\class-icons\04-warlord-trans.png.meta
-    projectPath: Assets\Sprites\class-icons\04-warlord-trans.png.meta
-    originalPath: 
-    status: 1
-    staged: 0
-  - path: Client\Assets\Sprites\class-icons\05-witch-trans.png
-    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Sprites\class-icons\05-witch-trans.png
-    projectPath: Assets\Sprites\class-icons\05-witch-trans.png
-    originalPath: 
-    status: 1
-    staged: 0
-  - path: Client\Assets\Sprites\class-icons\05-witch-trans.png.meta
-    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Sprites\class-icons\05-witch-trans.png.meta
-    projectPath: Assets\Sprites\class-icons\05-witch-trans.png.meta
-    originalPath: 
-    status: 1
-    staged: 0
-  - path: Client\Assets\Sprites\class-icons\06-warg-trans.png
-    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Sprites\class-icons\06-warg-trans.png
-    projectPath: Assets\Sprites\class-icons\06-warg-trans.png
-    originalPath: 
-    status: 1
-    staged: 0
-  - path: Client\Assets\Sprites\class-icons\06-warg-trans.png.meta
-    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Sprites\class-icons\06-warg-trans.png.meta
-    projectPath: Assets\Sprites\class-icons\06-warg-trans.png.meta
-    originalPath: 
-    status: 1
-    staged: 0
   - path: Client\Library\assetDatabase3
     fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\assetDatabase3
     projectPath: Library\assetDatabase3
-    originalPath: 
-    status: 3
-    staged: 0
-  - path: Client\Library\CurrentLayout.dwlt
-    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\CurrentLayout.dwlt
-    projectPath: Library\CurrentLayout.dwlt
     originalPath: 
     status: 3
     staged: 0
@@ -189,66 +147,6 @@ MonoBehaviour:
     originalPath: 
     status: 3
     staged: 0
-  - path: Client\Library\LastBuild.buildreport
-    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\LastBuild.buildreport
-    projectPath: Library\LastBuild.buildreport
-    originalPath: 
-    status: 3
-    staged: 0
-  - path: Client\Library\LastSceneManagerSetup.txt
-    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\LastSceneManagerSetup.txt
-    projectPath: Library\LastSceneManagerSetup.txt
-    originalPath: 
-    status: 3
-    staged: 0
-  - path: Client\Library\PlayerDataCache\Data\globalgamemanagers
-    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\PlayerDataCache\Data\globalgamemanagers
-    projectPath: Library\PlayerDataCache\Data\globalgamemanagers
-    originalPath: 
-    status: 3
-    staged: 0
-  - path: Client\Library\PlayerDataCache\Data\globalgamemanagers.assets
-    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\PlayerDataCache\Data\globalgamemanagers.assets
-    projectPath: Library\PlayerDataCache\Data\globalgamemanagers.assets
-    originalPath: 
-    status: 3
-    staged: 0
-  - path: Client\Library\PlayerDataCache\Data\level0
-    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\PlayerDataCache\Data\level0
-    projectPath: Library\PlayerDataCache\Data\level0
-    originalPath: 
-    status: 3
-    staged: 0
-  - path: Client\Library\PlayerDataCache\Data\Managed\Assembly-CSharp.dll
-    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\PlayerDataCache\Data\Managed\Assembly-CSharp.dll
-    projectPath: Library\PlayerDataCache\Data\Managed\Assembly-CSharp.dll
-    originalPath: 
-    status: 3
-    staged: 0
-  - path: Client\Library\PlayerDataCache\Data\Managed\Assembly-CSharp-firstpass.dll
-    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\PlayerDataCache\Data\Managed\Assembly-CSharp-firstpass.dll
-    projectPath: Library\PlayerDataCache\Data\Managed\Assembly-CSharp-firstpass.dll
-    originalPath: 
-    status: 3
-    staged: 0
-  - path: Client\Library\PlayerDataCache\Data\sharedassets0.assets
-    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\PlayerDataCache\Data\sharedassets0.assets
-    projectPath: Library\PlayerDataCache\Data\sharedassets0.assets
-    originalPath: 
-    status: 3
-    staged: 0
-  - path: Client\Library\PlayerDataCache\Data\sharedassets0.assets.resS
-    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\PlayerDataCache\Data\sharedassets0.assets.resS
-    projectPath: Library\PlayerDataCache\Data\sharedassets0.assets.resS
-    originalPath: 
-    status: 3
-    staged: 0
-  - path: Client\Library\PlayerDataCache\ScriptLayoutHashes.txt
-    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\PlayerDataCache\ScriptLayoutHashes.txt
-    projectPath: Library\PlayerDataCache\ScriptLayoutHashes.txt
-    originalPath: 
-    status: 3
-    staged: 0
   - path: Client\Library\ScriptAssemblies\Assembly-CSharp.dll
     fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\ScriptAssemblies\Assembly-CSharp.dll
     projectPath: Library\ScriptAssemblies\Assembly-CSharp.dll
@@ -267,75 +165,9 @@ MonoBehaviour:
     originalPath: 
     status: 3
     staged: 0
-  - path: Client\Library\shadercompiler-UnityShaderCompiler.exe1.log
-    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\shadercompiler-UnityShaderCompiler.exe1.log
-    projectPath: Library\shadercompiler-UnityShaderCompiler.exe1.log
-    originalPath: 
-    status: 3
-    staged: 0
-  - path: Client\Library\shadercompiler-UnityShaderCompiler.exe2.log
-    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\shadercompiler-UnityShaderCompiler.exe2.log
-    projectPath: Library\shadercompiler-UnityShaderCompiler.exe2.log
-    originalPath: 
-    status: 3
-    staged: 0
-  - path: Client\Library\shadercompiler-UnityShaderCompiler.exe3.log
-    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\shadercompiler-UnityShaderCompiler.exe3.log
-    projectPath: Library\shadercompiler-UnityShaderCompiler.exe3.log
-    originalPath: 
-    status: 3
-    staged: 0
-  - path: Client\Library\shadercompiler-UnityShaderCompiler.exe4.log
-    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\shadercompiler-UnityShaderCompiler.exe4.log
-    projectPath: Library\shadercompiler-UnityShaderCompiler.exe4.log
-    originalPath: 
-    status: 3
-    staged: 0
-  - path: Client\Library\shadercompiler-UnityShaderCompiler.exe5.log
-    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\shadercompiler-UnityShaderCompiler.exe5.log
-    projectPath: Library\shadercompiler-UnityShaderCompiler.exe5.log
-    originalPath: 
-    status: 3
-    staged: 0
-  - path: Client\Library\shadercompiler-UnityShaderCompiler.exe6.log
-    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\shadercompiler-UnityShaderCompiler.exe6.log
-    projectPath: Library\shadercompiler-UnityShaderCompiler.exe6.log
-    originalPath: 
-    status: 3
-    staged: 0
-  - path: Client\Library\shadercompiler-UnityShaderCompiler.exe7.log
-    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\shadercompiler-UnityShaderCompiler.exe7.log
-    projectPath: Library\shadercompiler-UnityShaderCompiler.exe7.log
-    originalPath: 
-    status: 3
-    staged: 0
-  - path: Client\obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache
-    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache
-    projectPath: obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache
-    originalPath: 
-    status: 3
-    staged: 0
-  - path: Client\obj\Debug\Assembly-CSharp.dll
-    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\obj\Debug\Assembly-CSharp.dll
-    projectPath: obj\Debug\Assembly-CSharp.dll
-    originalPath: 
-    status: 3
-    staged: 0
-  - path: Client\obj\Debug\Assembly-CSharp-firstpass.csprojAssemblyReference.cache
-    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\obj\Debug\Assembly-CSharp-firstpass.csprojAssemblyReference.cache
-    projectPath: obj\Debug\Assembly-CSharp-firstpass.csprojAssemblyReference.cache
-    originalPath: 
-    status: 3
-    staged: 0
-  - path: Client\obj\Debug\Assembly-CSharp-firstpass.dll
-    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\obj\Debug\Assembly-CSharp-firstpass.dll
-    projectPath: obj\Debug\Assembly-CSharp-firstpass.dll
-    originalPath: 
-    status: 3
-    staged: 0
-  - path: Client\ProjectSettings\EditorBuildSettings.asset
-    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\ProjectSettings\EditorBuildSettings.asset
-    projectPath: ProjectSettings\EditorBuildSettings.asset
+  - path: Client\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache
+    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache
+    projectPath: obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache
     originalPath: 
     status: 3
     staged: 0

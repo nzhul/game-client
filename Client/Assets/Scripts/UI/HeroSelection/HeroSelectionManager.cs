@@ -57,7 +57,7 @@ namespace Assets.Scripts.UI.CharacterSelection
 
         private void Start()
         {
-            DataManager.Instance.Load(); //TODO: Delete this after development is complete
+            //DataManager.Instance.Load(); //TODO: Delete this after development is complete
 
             // TODO: Heroes should be sorted by lastActivity(lastPlayed) starting from top
             InitializeHeroBtns();
@@ -72,12 +72,14 @@ namespace Assets.Scripts.UI.CharacterSelection
         {
             Common.Empty(_heroContainer.transform);
 
-            if (DataManager.Instance.Avatar != null && 
+            if (DataManager.Instance != null && 
+                DataManager.Instance.Avatar != null && 
                 DataManager.Instance.Avatar.heroes != null && 
                 DataManager.Instance.Avatar.heroes.Length > 0)
             {
                 _heroList = DataManager.Instance.Avatar.heroes;
 
+                int index = 0;
                 foreach (var hero in _heroList)
                 {
                     Button heroBtn = GameObject.Instantiate<Button>(_heroBtnPrefab, _heroContainer);
@@ -92,6 +94,14 @@ namespace Assets.Scripts.UI.CharacterSelection
 
                     Text heroDescriptionText = heroBtn.transform.Find("Description").GetComponent<Text>();
                     heroDescriptionText.text = "Level " + hero.level + " " + hero.@class;
+
+                    if (index == 0)
+                    {
+                        //HighlightButton(heroBtn, selectedHeroColor);
+                        heroBtn.onClick.Invoke();
+                    }
+                    
+                    index++;
                 }
 
                 int emptySlotsCount = maxHeroCount - _heroList.Length;
