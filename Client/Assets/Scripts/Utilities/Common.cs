@@ -1,5 +1,8 @@
-﻿using BestHTTP;
+﻿using System;
+using System.Text.RegularExpressions;
+using BestHTTP;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.Utilities
 {
@@ -11,6 +14,24 @@ namespace Assets.Scripts.Utilities
             {
                 GameObject.Destroy(child.gameObject);
             }
+        }
+
+        public static void HighlightButton(Button button, Color highLightColor, Color normalColor, Transform container)
+        {
+            foreach (Transform btnObject in container.transform)
+            {
+                Button btn = btnObject.GetComponent<Button>() as Button;
+                if (btn != null)
+                {
+                    ColorBlock cb1 = btn.colors;
+                    cb1.normalColor = normalColor;
+                    btn.colors = cb1;
+                }
+            }
+
+            ColorBlock cb = button.colors;
+            cb.normalColor = highLightColor;
+            button.colors = cb;
         }
 
         public static bool RequestIsSuccessful(HTTPRequest request, HTTPResponse response)
@@ -56,6 +77,18 @@ namespace Assets.Scripts.Utilities
             }
 
             return status;
+        }
+
+        public static bool InputIsValid(InputField usernameInputField, string pattern)
+        {
+            if (usernameInputField != null && 
+                !string.IsNullOrEmpty(usernameInputField.text) &&
+                Regex.IsMatch(usernameInputField.text, pattern))
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

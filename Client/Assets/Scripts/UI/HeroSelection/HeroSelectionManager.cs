@@ -31,6 +31,10 @@ namespace Assets.Scripts.UI.CharacterSelection
         public Text currentHeroStatistics;
         public NamedSprite[] classIconsTransparent;
 
+        [Header("3D Model:")]
+        public Text model3DText;
+        public Text heroNameText;
+
         #region Singleton
         private static HeroSelectionManager _instance;
 
@@ -117,18 +121,7 @@ namespace Assets.Scripts.UI.CharacterSelection
         {
             _selectedHeroId = heroId;
 
-            foreach (Transform btnObject in _heroContainer.transform)
-            {
-                Button btn = btnObject.GetComponent<Button>() as Button;
-                if (btn != null)
-                {
-                    ColorBlock cb1 = btn.colors;
-                    cb1.normalColor = heroNormalColor;
-                    btn.colors = cb1;
-                }
-            }
-
-            HighlightButton(target, selectedHeroColor);
+            Common.HighlightButton(target, selectedHeroColor, heroNormalColor, _heroContainer);
 
             UpdateHeroInfoPanel(heroId);
 
@@ -174,13 +167,9 @@ Other statistics: ??";
         private void UpdateEnvironmentAnd3DModel(int heroId)
         {
             // TODO ...
-        }
-
-        private void HighlightButton(Button button, Color color)
-        {
-            ColorBlock cb = button.colors;
-            cb.normalColor = color;
-            button.colors = cb;
+            Hero hero = _heroList.FirstOrDefault(x => x.id == heroId);
+            model3DText.text = hero.name;
+            heroNameText.text = hero.name;
         }
     }
 }

@@ -67,6 +67,11 @@ namespace Assets.Scripts.Network
             HTTPRequest request = new HTTPRequest(uri, HTTPMethods.Post, callback);
             request.AddHeader("Content-Type", "application/json");
 
+            if (DataManager.Instance != null && !string.IsNullOrEmpty(DataManager.Instance.Token))
+            {
+                request.AddHeader("Authorization", "Bearer " + DataManager.Instance.Token);
+            }
+
             if (inputModel != null)
             {
                 string payload = JsonUtility.ToJson(inputModel);
