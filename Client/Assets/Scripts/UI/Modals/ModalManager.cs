@@ -27,6 +27,7 @@ namespace Assets.Scripts.UI.Modals
         }
 
         public bool initializeModals = true;
+        public bool openPrimaryModal = true;
 
         private void Awake()
         {
@@ -73,13 +74,21 @@ namespace Assets.Scripts.UI.Modals
             foreach (Modal modal in Modals)
             {
                 Modal modalInstance = Instantiate(modal, _modalParent);
-                if (modal != primaryModalPrefab)
+
+                if (openPrimaryModal)
                 {
-                    modalInstance.gameObject.SetActive(false);
+                    if (modal != primaryModalPrefab)
+                    {
+                        modalInstance.gameObject.SetActive(false);
+                    }
+                    else
+                    {
+                        OpenModal(modalInstance);
+                    }
                 }
                 else
                 {
-                    OpenModal(modalInstance);
+                    modalInstance.gameObject.SetActive(false);
                 }
             }
         }

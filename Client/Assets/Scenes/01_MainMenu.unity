@@ -1098,6 +1098,7 @@ MonoBehaviour:
   - {fileID: 114095249484273716, guid: 9381a6efc7ffa2142af9109ec48044b8, type: 2}
   _modalParent: {fileID: 0}
   initializeModals: 1
+  openPrimaryModal: 1
 --- !u!4 &1534193228
 Transform:
   m_ObjectHideFlags: 0

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cacheType: 5
-  lastUpdatedAtString: 2018-07-08T22:51:31.504+03:00
-  initializedAtString: 2018-07-08T09:19:10.298+03:00
+  lastUpdatedAtString: 2018-07-09T08:42:57.826+03:00
+  initializedAtString: 2018-07-09T07:32:44.435+03:00
   entries:
   - path: Client\.vs\Client\v15\Server\sqlite3\storage.ide
     fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\.vs\Client\v15\Server\sqlite3\storage.ide
@@ -33,21 +33,21 @@ MonoBehaviour:
     originalPath: 
     status: 3
     staged: 0
-  - path: Client\Assets\Prefabs\UI\03_HeroCreation\FactionBtn.prefab
-    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Prefabs\UI\03_HeroCreation\FactionBtn.prefab
-    projectPath: Assets\Prefabs\UI\03_HeroCreation\FactionBtn.prefab
+  - path: Client\Assets\Prefabs\UI\03_HeroCreation\ConfirmDeleteModal.prefab
+    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Prefabs\UI\03_HeroCreation\ConfirmDeleteModal.prefab
+    projectPath: Assets\Prefabs\UI\03_HeroCreation\ConfirmDeleteModal.prefab
     originalPath: 
     status: 1
     staged: 0
-  - path: Client\Assets\Prefabs\UI\03_HeroCreation\FactionBtn.prefab.meta
-    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Prefabs\UI\03_HeroCreation\FactionBtn.prefab.meta
-    projectPath: Assets\Prefabs\UI\03_HeroCreation\FactionBtn.prefab.meta
+  - path: Client\Assets\Prefabs\UI\03_HeroCreation\ConfirmDeleteModal.prefab.meta
+    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Prefabs\UI\03_HeroCreation\ConfirmDeleteModal.prefab.meta
+    projectPath: Assets\Prefabs\UI\03_HeroCreation\ConfirmDeleteModal.prefab.meta
     originalPath: 
     status: 1
     staged: 0
-  - path: Client\Assets\Prefabs\UI\03_HeroCreation\HeroClassBtn.prefab
-    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Prefabs\UI\03_HeroCreation\HeroClassBtn.prefab
-    projectPath: Assets\Prefabs\UI\03_HeroCreation\HeroClassBtn.prefab
+  - path: Client\Assets\Scenes\01_MainMenu.unity
+    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Scenes\01_MainMenu.unity
+    projectPath: Assets\Scenes\01_MainMenu.unity
     originalPath: 
     status: 3
     staged: 0
@@ -57,41 +57,17 @@ MonoBehaviour:
     originalPath: 
     status: 3
     staged: 0
-  - path: Client\Assets\Scenes\03_HeroCreationMenu.unity
-    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Scenes\03_HeroCreationMenu.unity
-    projectPath: Assets\Scenes\03_HeroCreationMenu.unity
-    originalPath: 
-    status: 3
-    staged: 0
-  - path: Client\Assets\Scripts\Network\RequestManager.cs
-    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Scripts\Network\RequestManager.cs
-    projectPath: Assets\Scripts\Network\RequestManager.cs
-    originalPath: 
-    status: 3
-    staged: 0
-  - path: Client\Assets\Scripts\Network\RequestModels\Realms.meta
-    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Scripts\Network\RequestModels\Realms.meta
-    projectPath: Assets\Scripts\Network\RequestModels\Realms.meta
+  - path: Client\Assets\Scripts\UI\HeroCreation\ConfirmDeleteModal.cs
+    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Scripts\UI\HeroCreation\ConfirmDeleteModal.cs
+    projectPath: Assets\Scripts\UI\HeroCreation\ConfirmDeleteModal.cs
     originalPath: 
     status: 1
     staged: 0
-  - path: Client\Assets\Scripts\Network\RequestModels\Realms\CreateHeroOrAvatarWithHeroInput.cs
-    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Scripts\Network\RequestModels\Realms\CreateHeroOrAvatarWithHeroInput.cs
-    projectPath: Assets\Scripts\Network\RequestModels\Realms\CreateHeroOrAvatarWithHeroInput.cs
+  - path: Client\Assets\Scripts\UI\HeroCreation\ConfirmDeleteModal.cs.meta
+    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Scripts\UI\HeroCreation\ConfirmDeleteModal.cs.meta
+    projectPath: Assets\Scripts\UI\HeroCreation\ConfirmDeleteModal.cs.meta
     originalPath: 
     status: 1
-    staged: 0
-  - path: Client\Assets\Scripts\Network\RequestModels\Realms\CreateHeroOrAvatarWithHeroInput.cs.meta
-    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Scripts\Network\RequestModels\Realms\CreateHeroOrAvatarWithHeroInput.cs.meta
-    projectPath: Assets\Scripts\Network\RequestModels\Realms\CreateHeroOrAvatarWithHeroInput.cs.meta
-    originalPath: 
-    status: 1
-    staged: 0
-  - path: Client\Assets\Scripts\UI\HeroCreation\HeroCreationManager.cs
-    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Scripts\UI\HeroCreation\HeroCreationManager.cs
-    projectPath: Assets\Scripts\UI\HeroCreation\HeroCreationManager.cs
-    originalPath: 
-    status: 3
     staged: 0
   - path: Client\Assets\Scripts\UI\HeroSelection\HeroSelectionManager.cs
     fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Scripts\UI\HeroSelection\HeroSelectionManager.cs
@@ -99,23 +75,11 @@ MonoBehaviour:
     originalPath: 
     status: 3
     staged: 0
-  - path: Client\Assets\Scripts\Utilities\Common.cs
-    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Scripts\Utilities\Common.cs
-    projectPath: Assets\Scripts\Utilities\Common.cs
+  - path: Client\Assets\Scripts\UI\Modals\ModalManager.cs
+    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Scripts\UI\Modals\ModalManager.cs
+    projectPath: Assets\Scripts\UI\Modals\ModalManager.cs
     originalPath: 
     status: 3
-    staged: 0
-  - path: Client\Assets\Sprites\underworld-icon.png
-    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Sprites\underworld-icon.png
-    projectPath: Assets\Sprites\underworld-icon.png
-    originalPath: 
-    status: 1
-    staged: 0
-  - path: Client\Assets\Sprites\underworld-icon.png.meta
-    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Assets\Sprites\underworld-icon.png.meta
-    projectPath: Assets\Sprites\underworld-icon.png.meta
-    originalPath: 
-    status: 1
     staged: 0
   - path: Client\Library\assetDatabase3
     fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\assetDatabase3
@@ -165,15 +129,9 @@ MonoBehaviour:
     originalPath: 
     status: 3
     staged: 0
-  - path: Client\Library\InspectorExpandedItems.asset
-    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\InspectorExpandedItems.asset
-    projectPath: Library\InspectorExpandedItems.asset
-    originalPath: 
-    status: 3
-    staged: 0
-  - path: Client\Library\metadata\84\849c268e9c8317741b00fbf8b3db50e0
-    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\84\849c268e9c8317741b00fbf8b3db50e0
-    projectPath: Library\metadata\84\849c268e9c8317741b00fbf8b3db50e0
+  - path: Client\Library\metadata\c4\c4160868e24e2a342ab659af2102e478
+    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\Library\metadata\c4\c4160868e24e2a342ab659af2102e478
+    projectPath: Library\metadata\c4\c4160868e24e2a342ab659af2102e478
     originalPath: 
     status: 3
     staged: 0
@@ -198,12 +156,6 @@ MonoBehaviour:
   - path: Client\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache
     fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache
     projectPath: obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache
-    originalPath: 
-    status: 3
-    staged: 0
-  - path: Client\obj\Debug\Assembly-CSharp.dll
-    fullPath: C:\Users\nzhul\Documents\GitHub\game-client\Client\obj\Debug\Assembly-CSharp.dll
-    projectPath: obj\Debug\Assembly-CSharp.dll
     originalPath: 
     status: 3
     staged: 0

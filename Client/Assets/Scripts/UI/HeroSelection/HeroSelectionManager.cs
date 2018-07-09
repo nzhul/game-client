@@ -3,6 +3,7 @@ using System.Linq;
 using Assets.Scripts.Data;
 using Assets.Scripts.Data.Models;
 using Assets.Scripts.LevelManagement;
+using Assets.Scripts.UI.HeroCreation;
 using Assets.Scripts.Utilities;
 using UnityEngine;
 using UnityEngine.UI;
@@ -70,6 +71,11 @@ namespace Assets.Scripts.UI.CharacterSelection
         public void OnBackBtnPressed()
         {
             LevelLoader.LoadLevel(LevelLoader.MAIN_MENU_SCENE);
+        }
+
+        public void OnDeleteBtnPressed()
+        {
+            ConfirmDeleteModal.Instance.Open();
         }
 
         private void InitializeHeroBtns()
