@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Assets.Scripts.Data;
 using Assets.Scripts.Data.Models;
 using Assets.Scripts.LevelManagement;
@@ -20,7 +19,7 @@ namespace Assets.Scripts.UI.CharacterSelection
         public Button _heroBtnPrefab;
         public Image _emptySlotPrefab;
         public NamedSprite[] classIcons;
-        private int _selectedHeroId;
+        public int selectedHeroId;
         public Color selectedHeroColor;
         public Color heroNormalColor;
         private Hero[] _heroList;
@@ -125,7 +124,7 @@ namespace Assets.Scripts.UI.CharacterSelection
 
         private void OnHeroButtonPressed(Button target, int heroId)
         {
-            _selectedHeroId = heroId;
+            selectedHeroId = heroId;
 
             Common.HighlightButton(target, selectedHeroColor, heroNormalColor, _heroContainer);
 

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Assets.Scripts.Data;
 using Assets.Scripts.LevelManagement;
 using Assets.Scripts.Network;
@@ -179,6 +178,8 @@ namespace Assets.Scripts.UI.HeroCreation
 
         private void OnCreateHeroOrAvatarWithHero(HTTPRequest request, HTTPResponse response)
         {
+            FormUtilities.HideLoadingIndicator(_loadingImage);
+
             if (Common.RequestIsSuccessful(request, response))
             {
                 Debug.Log("Request successful");

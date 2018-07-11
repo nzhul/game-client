@@ -81,7 +81,7 @@ namespace Assets.Scripts.Utilities
 
         public static bool InputIsValid(InputField usernameInputField, string pattern)
         {
-            if (usernameInputField != null && 
+            if (usernameInputField != null &&
                 !string.IsNullOrEmpty(usernameInputField.text) &&
                 Regex.IsMatch(usernameInputField.text, pattern))
             {

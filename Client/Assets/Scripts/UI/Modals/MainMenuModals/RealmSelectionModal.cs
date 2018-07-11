@@ -175,7 +175,7 @@ namespace Assets.Scripts.UI.Modals.MainMenuModals
                 TextMeshProUGUI btnText = realmButton.transform.Find("Text").GetComponent<TextMeshProUGUI>();
                 btnText.text = realm.name
                     + "<pos=25%>" + realm.avatarsCount
-                    + "<pos=51%>" + realm.realmType
+                    + "<pos=51.5%>" + realm.realmType
                     + "<pos=77.5%>" + realm.resetDate;
             }
 
