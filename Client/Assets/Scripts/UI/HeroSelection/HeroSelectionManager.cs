@@ -2,7 +2,7 @@
 using Assets.Scripts.Data;
 using Assets.Scripts.Data.Models;
 using Assets.Scripts.LevelManagement;
-using Assets.Scripts.UI.HeroCreation;
+using Assets.Scripts.UI.HeroSelection;
 using Assets.Scripts.Utilities;
 using UnityEngine;
 using UnityEngine.UI;

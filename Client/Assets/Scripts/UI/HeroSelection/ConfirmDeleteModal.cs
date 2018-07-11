@@ -1,13 +1,17 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Assets.Scripts.Data;
 using Assets.Scripts.Data.Models;
+using Assets.Scripts.Network;
 using Assets.Scripts.UI.CharacterSelection;
 using Assets.Scripts.UI.Modals;
 using Assets.Scripts.UI.Modals.MainMenuModals;
+using Assets.Scripts.Utilities;
+using BestHTTP;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Scripts.UI.HeroCreation
+namespace Assets.Scripts.UI.HeroSelection
 {
     public class ConfirmDeleteModal : Modal<ConfirmDeleteModal>
     {
@@ -37,8 +41,16 @@ namespace Assets.Scripts.UI.HeroCreation
             {
                 errorMessagePanel.SetActive(false);
 
-                // delete request
-                Debug.Log("Start Delete request");
+                string endpoint = "realms/{0}/users/{1}/avatar/{2}/heroes/{3}";
+                string[] @params = new string[]
+                {
+                    DataManager.Instance.CurrentRealmId.ToString(),
+                    DataManager.Instance.Id.ToString(),
+                    DataManager.Instance.Avatar.id.ToString(),
+                    _heroSelectionManager.selectedHeroId.ToString()
+                };
+
+                RequestManager.Instance.Delete(endpoint, @params, OnDeleteRequestFinished);
             }
             else
             {
@@ -49,6 +61,14 @@ namespace Assets.Scripts.UI.HeroCreation
                 FormUtilities.HideLoadingIndicator(_loadingImage);
                 confirmInput.interactable = true;
                 confirmDeleteBtn.interactable = true;
+            }
+        }
+
+        private void OnDeleteRequestFinished(HTTPRequest request, HTTPResponse response)
+        {
+            if (Common.RequestIsSuccessful(request, response))
+            {
+
             }
         }
 

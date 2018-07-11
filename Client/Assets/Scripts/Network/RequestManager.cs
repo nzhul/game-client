@@ -115,5 +115,15 @@ namespace Assets.Scripts.Network
 
             request.Send();
         }
+
+        public void Delete(string endpoint, string[] @params, OnRequestFinishedDelegate callback)
+        {
+            endpoint = string.Format(endpoint, @params);
+            Uri uri = new Uri(SERVER_ROOT + endpoint);
+
+            HTTPRequest request = new HTTPRequest(uri, HTTPMethods.Delete, callback);
+            request.AddHeader("Authorization", "Bearer " + DataManager.Instance.Token);
+            request.Send();
+        }
     }
 }
