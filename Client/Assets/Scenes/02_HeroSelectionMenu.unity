@@ -2491,6 +2491,7 @@ MonoBehaviour:
     image: {fileID: 21300000, guid: 542b7d2056977e6408bca3fd5b21b4df, type: 3}
   - name: Warg
     image: {fileID: 21300000, guid: caaecd4b7ffebd346ab42eb41b7f68e5, type: 3}
+  selectedHeroId: 0
   selectedHeroColor: {r: 0.6039216, g: 0.69803923, b: 0.7058824, a: 1}
   heroNormalColor: {r: 0.69803923, g: 0.69803923, b: 0.69803923, a: 1}
   currentHeroClassIcon: {fileID: 2145615179}
@@ -3303,7 +3304,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1853149037}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1105015948}
+        m_MethodName: OnCreateBtnPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1853149037

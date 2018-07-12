@@ -2,9 +2,9 @@
 {
     public class SuccessRegistrationModal : Modal<SuccessRegistrationModal>
     {
-        public override void OnClosePressed()
+        public override void Close()
         {
-            base.OnClosePressed();
+            base.Close();
             LoginModal.Instance.Open();
         }
     }

@@ -25,7 +25,7 @@ namespace Assets.Scripts.UI.Modals.MainMenuModals
 
         public void OnBackToLoginPressed()
         {
-            base.OnClosePressed();
+            base.Close();
             LoginModal.Instance.Open();
         }
 

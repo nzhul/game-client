@@ -44,7 +44,7 @@ namespace Assets.Scripts.UI.Modals.MainMenuModals
             ReloadRealms();
         }
 
-        public override void OnClosePressed()
+        public override void Close()
         {
             _selectedRealmId = 0;
             MainMenuManager.Instance.ShowInitialButtons();
@@ -105,7 +105,7 @@ namespace Assets.Scripts.UI.Modals.MainMenuModals
                     DataManager.Instance.Avatar = userAvatar;
                     DataManager.Instance.Save();
 
-                    if (userAvatar.heroes != null && userAvatar.heroes.Length > 0)
+                    if (userAvatar.heroes != null && userAvatar.heroes.Count > 0)
                     {
                         //TODO: Transitions
                         LevelLoader.LoadLevel(LevelLoader.HERO_SELECTION_SCENE);

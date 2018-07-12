@@ -49,7 +49,7 @@ namespace Assets.Scripts.UI.Modals
     [RequireComponent(typeof(Canvas))]
     public abstract class Modal : MonoBehaviour
     {
-        public virtual void OnClosePressed()
+        public virtual void Close()
         {
             if (ModalManager.Instance != null)
             {

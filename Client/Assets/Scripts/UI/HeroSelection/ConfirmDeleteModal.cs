@@ -2,6 +2,7 @@
 using System.Linq;
 using Assets.Scripts.Data;
 using Assets.Scripts.Data.Models;
+using Assets.Scripts.LevelManagement;
 using Assets.Scripts.Network;
 using Assets.Scripts.UI.CharacterSelection;
 using Assets.Scripts.UI.Modals;
@@ -29,6 +30,12 @@ namespace Assets.Scripts.UI.HeroSelection
             base.Start();
             _heroSelectionManager = FindObjectOfType<HeroSelectionManager>();
             errorMessageText = errorMessagePanel.GetComponentInChildren<Text>();
+        }
+
+        public override void Open()
+        {
+            base.Open();
+            confirmInput.ActivateInputField();
         }
 
         public void OnConfirmDeleteBtnPressed()
@@ -68,8 +75,30 @@ namespace Assets.Scripts.UI.HeroSelection
         {
             if (Common.RequestIsSuccessful(request, response))
             {
+                base.Close();
+                RemoveHero(_heroSelectionManager.selectedHeroId);
+                confirmInput.text = string.Empty;
 
+                if (DataManager.Instance.Avatar.heroes.Count == 0)
+                {
+                    LevelLoader.LoadLevel(LevelLoader.HERO_CREATION_SCENE);
+                }
+                else
+                {
+                    _heroSelectionManager.InitializeHeroBtns();
+
+                    FormUtilities.HideLoadingIndicator(_loadingImage);
+                    confirmInput.interactable = true;
+                    confirmDeleteBtn.interactable = true;
+                }
             }
+        }
+
+        private void RemoveHero(int heroId)
+        {
+            Hero heroToRemove = DataManager.Instance.Avatar.heroes.FirstOrDefault(h => h.id == heroId);
+            DataManager.Instance.Avatar.heroes.Remove(heroToRemove);
+            DataManager.Instance.Save();
         }
 
         private bool heroNamesAreEqual()
@@ -90,7 +119,7 @@ namespace Assets.Scripts.UI.HeroSelection
 
         public void OnOutsideClick()
         {
-            base.OnClosePressed();
+            base.Close();
         }
     }
 }

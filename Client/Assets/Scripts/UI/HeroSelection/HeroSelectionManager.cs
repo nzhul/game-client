@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Assets.Scripts.Data;
 using Assets.Scripts.Data.Models;
 using Assets.Scripts.LevelManagement;
@@ -22,7 +23,7 @@ namespace Assets.Scripts.UI.CharacterSelection
         public int selectedHeroId;
         public Color selectedHeroColor;
         public Color heroNormalColor;
-        private Hero[] _heroList;
+        private IList<Hero> _heroList;
 
         // Current hero info panel
         [Header("Current hero info panel:")]
@@ -64,6 +65,9 @@ namespace Assets.Scripts.UI.CharacterSelection
             //DataManager.Instance.Load(); //TODO: Delete this after development is complete
 
             // TODO: Heroes should be sorted by lastActivity(lastPlayed) starting from top
+
+            // TODO: if current hero count = 11 -> make the button disabled.
+            // user will have a maximum of 11 heroes per realm
             InitializeHeroBtns();
         }
 
@@ -77,14 +81,19 @@ namespace Assets.Scripts.UI.CharacterSelection
             ConfirmDeleteModal.Instance.Open();
         }
 
-        private void InitializeHeroBtns()
+        public void OnCreateBtnPressed()
+        {
+            LevelLoader.LoadLevel(LevelLoader.HERO_CREATION_SCENE);
+        }
+
+        public void InitializeHeroBtns()
         {
             Common.Empty(_heroContainer.transform);
 
-            if (DataManager.Instance != null && 
-                DataManager.Instance.Avatar != null && 
-                DataManager.Instance.Avatar.heroes != null && 
-                DataManager.Instance.Avatar.heroes.Length > 0)
+            if (DataManager.Instance != null &&
+                DataManager.Instance.Avatar != null &&
+                DataManager.Instance.Avatar.heroes != null &&
+                DataManager.Instance.Avatar.heroes.Count > 0)
             {
                 _heroList = DataManager.Instance.Avatar.heroes;
 
@@ -109,11 +118,11 @@ namespace Assets.Scripts.UI.CharacterSelection
                         //HighlightButton(heroBtn, selectedHeroColor);
                         heroBtn.onClick.Invoke();
                     }
-                    
+
                     index++;
                 }
 
-                int emptySlotsCount = maxHeroCount - _heroList.Length;
+                int emptySlotsCount = maxHeroCount - _heroList.Count;
 
                 for (int i = 0; i < emptySlotsCount; i++)
                 {
@@ -155,9 +164,9 @@ Other statistics: ??";
 
                 string playTimeText = string.Format("{0} hours {1} minutes", selectedHero.timePlayed.Hours, selectedHero.timePlayed.Minutes);
 
-                string infoText = string.Format(infoTextTemplate, 
-                    selectedHero.name, 
-                    selectedHero.level, 
+                string infoText = string.Format(infoTextTemplate,
+                    selectedHero.name,
+                    selectedHero.level,
                     selectedHero.@class,
                     playTimeText);
 

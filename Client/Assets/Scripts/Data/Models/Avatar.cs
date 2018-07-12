@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Assets.Scripts.Data.Models
 {
@@ -10,6 +11,6 @@ namespace Assets.Scripts.Data.Models
         public int ore;
         public int gold;
         public int gems;
-        public Hero[] heroes;
+        public IList<Hero> heroes;
     }
 }

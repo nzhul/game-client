@@ -1,11 +1,13 @@
 ﻿using System.Linq;
 using Assets.Scripts.Data;
+using Assets.Scripts.Data.Models;
 using Assets.Scripts.LevelManagement;
 using Assets.Scripts.Network;
 using Assets.Scripts.Network.RequestModels.Realms;
 using Assets.Scripts.UI.Modals.MainMenuModals;
 using Assets.Scripts.Utilities;
 using BestHTTP;
+using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -54,6 +56,7 @@ namespace Assets.Scripts.UI.HeroCreation
 
         private void Start()
         {
+            usernameInputField.ActivateInputField();
             InitializeFactionButtons(_selectedFaction);
         }
 
@@ -152,9 +155,6 @@ namespace Assets.Scripts.UI.HeroCreation
                 errorLabel.gameObject.SetActive(false);
                 FormUtilities.ShowLoadingIndicator(_loadingImage, loadingImageSpeed, loadingImageEaseType);
 
-                Debug.Log("Valid username -> proceed with API request!");
-                //TODO dont forget to set usernameInputField.interactable = true; after the request is complete
-
                 string[] @params = new string[] { DataManager.Instance.CurrentRealmId.ToString(), DataManager.Instance.Id.ToString() };
                 string endpoint = "realms/{0}/users/{1}/avatar";
                 endpoint = string.Format(endpoint, @params);
@@ -182,7 +182,23 @@ namespace Assets.Scripts.UI.HeroCreation
 
             if (Common.RequestIsSuccessful(request, response))
             {
-                Debug.Log("Request successful");
+                string json = response.DataAsText;
+                UserAvatar userAvatar = JsonConvert.DeserializeObject<UserAvatar>(json);
+
+                if (userAvatar != null)
+                {
+                    DataManager.Instance.Avatar = userAvatar;
+                    DataManager.Instance.Save();
+
+                    LevelLoader.LoadLevel(LevelLoader.HERO_SELECTION_SCENE);
+                }
+            }
+            else
+            {
+                createBtn.interactable = true;
+                usernameInputField.interactable = true;
+                errorLabel.gameObject.SetActive(true);
+                errorLabel.Find("Text").GetComponent<Text>().text = response.DataAsText;
             }
         }
 
