@@ -76,6 +76,11 @@ namespace Assets.Scripts.UI.CharacterSelection
             LevelLoader.LoadLevel(LevelLoader.MAIN_MENU_SCENE);
         }
 
+        public void OnEnterRealmBtnPressed()
+        {
+            LevelLoader.LoadLevel(LevelLoader.WORLD_SCENE);
+        }
+
         public void OnDeleteBtnPressed()
         {
             ConfirmDeleteModal.Instance.Open();

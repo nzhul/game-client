@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/03_HeroCreationMenu.unity
     guid: d06f6479b5d8f094596c7836057e1fdf
+  - enabled: 1
+    path: Assets/Scenes/04_World.unity
+    guid: aaeb7a31dff7c6243993607408b1561d
   m_configObjects: {}
