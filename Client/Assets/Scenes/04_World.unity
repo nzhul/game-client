@@ -377,10 +377,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   width: 128
   height: 72
-  seed: 0
-  useRandomSeed: 0
   borderSize: 5
-  randomFillPercent: 53
+  passageRadius: 1
+  minRoomSize: 50
+  minWallSize: 50
+  randomFillPercent: 50
+  seed: 0
+  useRandomSeed: 1
 --- !u!4 &1252740967
 Transform:
   m_ObjectHideFlags: 0
