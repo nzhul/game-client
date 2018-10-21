@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Assets.Scripts.Data.Models;
 
 namespace Assets.Scripts.Data
@@ -20,6 +21,7 @@ namespace Assets.Scripts.Data
         public string password;
         public string hashValue;
         public UserAvatar avatar;
+        public IList<Region> regions;
 
         public SaveData()
         {
@@ -35,6 +37,7 @@ namespace Assets.Scripts.Data
             rememberMe = "false";
             password = string.Empty;
             avatar = new UserAvatar();
+            regions = new List<Region>();
         }
     }
 }
