@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.Utilities
@@ -8,32 +8,30 @@ namespace Assets.Scripts.Utilities
     // https://jacksondunstan.com/articles/3303
     // for this to work i will have to change the API to return 
     // Single object with one property -> Items[]
-    public static class JsonHelper
+    public class JsonHelper
     {
-        public static T[] FromJson<T>(string json)
+        //Usage:
+        //YouObject[] objects = JsonHelper.getJsonArray<YouObject> (jsonString);
+        public static IList<T> GetJsonArray<T>(string json)
         {
-            Wrapper<T> wrapper = JsonUtility.FromJson<Wrapper<T>>(json);
-            return wrapper.Items;
+            string newJson = "{ \"array\": " + json + "}";
+            Wrapper<T> wrapper = JsonUtility.FromJson<Wrapper<T>>(newJson);
+            return wrapper.array;
         }
 
-        public static string ToJson<T>(T[] array)
+        //Usage:
+        //string jsonString = JsonHelper.arrayToJson<YouObject>(objects);
+        public static string ArrayToJson<T>(IList<T> array)
         {
             Wrapper<T> wrapper = new Wrapper<T>();
-            wrapper.Items = array;
+            wrapper.array = array;
             return JsonUtility.ToJson(wrapper);
         }
 
-        public static string ToJson<T>(T[] array, bool prettyPrint)
-        {
-            Wrapper<T> wrapper = new Wrapper<T>();
-            wrapper.Items = array;
-            return JsonUtility.ToJson(wrapper, prettyPrint);
-        }
-
-        [Serializable]
+        [System.Serializable]
         private class Wrapper<T>
         {
-            public T[] Items;
+            public IList<T> array;
         }
     }
 }

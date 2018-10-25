@@ -78,6 +78,7 @@ namespace Assets.Scripts.UI.Modals.MainMenuModals
                                 //errorMessage = BuildServerErrorMessage(errorModel);
                                 errorMessagePanel.SetActive(false);
                                 FormUtilities.DisplayErrorLabels(errorModel, formInputs);
+                                // TODO: display errors when errorModel.AltErrors != null and errorModel.AltErrors.Count > 0
                             }
                             break;
                         default:
@@ -133,13 +134,43 @@ namespace Assets.Scripts.UI.Modals.MainMenuModals
 
         private ErrorModel ParseErrorModel(string dataAsText)
         {
-            return JsonUtility.FromJson<ErrorModel>(dataAsText);
+            ErrorModel model = new ErrorModel();
+
+            // i am doing this shit only because JsonUtility cannot parse arrays and i dont wanna use Newtonosft.Json
+            // if i change my mind -> just download and use this asset -> https://assetstore.unity.com/packages/tools/input-management/json-net-for-unity-11347
+            if (dataAsText.IndexOf("DuplicateUserName") > -1 || dataAsText.IndexOf("DuplicateEmail") > -1 || dataAsText.IndexOf("InvalidUserName") > -1)
+            {
+                model.AltErrors = new List<AltError>();
+                if (dataAsText.IndexOf("DuplicateUserName") > -1)
+                {
+                    model.AltErrors.Add(new AltError() { Code = "DuplicateUserName", Description = "User name is already taken." });
+                }
+                if (dataAsText.IndexOf("DuplicateEmail") > -1)
+                {
+                    model.AltErrors.Add(new AltError() { Code = "DuplicateEmail", Description = "Email is already taken." });
+                }
+                if (dataAsText.IndexOf("InvalidUserName") > -1)
+                {
+                    model.AltErrors.Add(new AltError() { Code = "InvalidUserName", Description = "User name is invalid, can only contain letters or digits." });
+                }
+            }
+            else
+            {
+                model = JsonUtility.FromJson<ErrorModel>(dataAsText);
+            }
+
+            return model;
+        }
+
+        private AltError[] ParseAltErrors(string dataAsText)
+        {
+            return JsonUtility.FromJson<AltError[]>(dataAsText);
         }
 
         private RegisterInput GenerateInputData()
         {
             string username = formInputs[FormUtilities.USERNAME_KEY].text;
-            string email= formInputs[FormUtilities.EMAIL_KEY].text;
+            string email = formInputs[FormUtilities.EMAIL_KEY].text;
             string password = formInputs[FormUtilities.PASSWORD_KEY].text;
             string confirmPassword = formInputs[FormUtilities.CONFIRM_PASSWORD_KEY].text;
 
@@ -165,5 +196,12 @@ namespace Assets.Scripts.UI.Modals.MainMenuModals
 
         public string[] ConfirmPassword;
 
+        public IList<AltError> AltErrors;
+    }
+
+    public class AltError
+    {
+        public string Code;
+        public string Description;
     }
 }
