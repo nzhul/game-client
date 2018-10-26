@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Assets.Scripts.Utilities.Extensions;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -80,7 +81,7 @@ namespace Assets.Scripts.UI.Modals.MainMenuModals
 
                 if (pValue != null && pValue.Length > 0)
                 {
-                    InputField field = formInputs[pName + "Field"];
+                    InputField field = formInputs[pName.FirstLetterToUpper() + "Field"];
                     Transform label = field.transform.Find("formErrorLabel");
                     label.gameObject.SetActive(true);
                     Text labelText = label.GetComponentInChildren<Text>();

@@ -117,54 +117,24 @@ namespace Assets.Scripts.UI.Modals.MainMenuModals
         {
             StringBuilder sb = new StringBuilder("Server error: ");
 
-            if (errorModel.Username != null)
-                sb.AppendLine(string.Join(", ", errorModel.Username));
+            if (errorModel.username != null)
+                sb.AppendLine(string.Join(", ", errorModel.username));
 
-            if (errorModel.Email != null)
-                sb.AppendLine(string.Join(", ", errorModel.Email));
+            if (errorModel.email != null)
+                sb.AppendLine(string.Join(", ", errorModel.email));
 
-            if (errorModel.Password != null)
-                sb.AppendLine(string.Join(", ", errorModel.Password));
+            if (errorModel.password != null)
+                sb.AppendLine(string.Join(", ", errorModel.password));
 
-            if (errorModel.ConfirmPassword != null)
-                sb.AppendLine(string.Join(", ", errorModel.ConfirmPassword));
+            if (errorModel.confirmPassword != null)
+                sb.AppendLine(string.Join(", ", errorModel.confirmPassword));
 
             return sb.ToString();
         }
 
         private ErrorModel ParseErrorModel(string dataAsText)
         {
-            ErrorModel model = new ErrorModel();
-
-            // i am doing this shit only because JsonUtility cannot parse arrays and i dont wanna use Newtonosft.Json
-            // if i change my mind -> just download and use this asset -> https://assetstore.unity.com/packages/tools/input-management/json-net-for-unity-11347
-            if (dataAsText.IndexOf("DuplicateUserName") > -1 || dataAsText.IndexOf("DuplicateEmail") > -1 || dataAsText.IndexOf("InvalidUserName") > -1)
-            {
-                model.AltErrors = new List<AltError>();
-                if (dataAsText.IndexOf("DuplicateUserName") > -1)
-                {
-                    model.AltErrors.Add(new AltError() { Code = "DuplicateUserName", Description = "User name is already taken." });
-                }
-                if (dataAsText.IndexOf("DuplicateEmail") > -1)
-                {
-                    model.AltErrors.Add(new AltError() { Code = "DuplicateEmail", Description = "Email is already taken." });
-                }
-                if (dataAsText.IndexOf("InvalidUserName") > -1)
-                {
-                    model.AltErrors.Add(new AltError() { Code = "InvalidUserName", Description = "User name is invalid, can only contain letters or digits." });
-                }
-            }
-            else
-            {
-                model = JsonUtility.FromJson<ErrorModel>(dataAsText);
-            }
-
-            return model;
-        }
-
-        private AltError[] ParseAltErrors(string dataAsText)
-        {
-            return JsonUtility.FromJson<AltError[]>(dataAsText);
+            return JsonUtility.FromJson<ErrorModel>(dataAsText);
         }
 
         private RegisterInput GenerateInputData()
@@ -188,20 +158,12 @@ namespace Assets.Scripts.UI.Modals.MainMenuModals
 
     public class ErrorModel
     {
-        public string[] Username;
+        public string[] username;
 
-        public string[] Email;
+        public string[] email;
 
-        public string[] Password;
+        public string[] password;
 
-        public string[] ConfirmPassword;
-
-        public IList<AltError> AltErrors;
-    }
-
-    public class AltError
-    {
-        public string Code;
-        public string Description;
+        public string[] confirmPassword;
     }
 }
