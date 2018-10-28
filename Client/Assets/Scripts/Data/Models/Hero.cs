@@ -23,5 +23,6 @@ namespace Assets.Scripts.Data.Models
         public int magicResistance;
         public string faction;
         public string @class;
+        public int regionId;
     }
 }

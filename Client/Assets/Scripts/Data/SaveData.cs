@@ -20,6 +20,7 @@ namespace Assets.Scripts.Data
         public string rememberMe;
         public string password;
         public string hashValue;
+        public string activeHeroId;
         public UserAvatar avatar;
         public IList<Region> regions;
 

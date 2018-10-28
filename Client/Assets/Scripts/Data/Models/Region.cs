@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Assets.Scripts.Data.Models
 {
@@ -13,6 +10,7 @@ namespace Assets.Scripts.Data.Models
         public int realmId;
         public string matrixString;
         public IList<Room> rooms;
+        public IList<Hero> heroes;
         public IList<MonsterPack> monsterPacks;
         public IList<Dwelling> dwellings;
     }

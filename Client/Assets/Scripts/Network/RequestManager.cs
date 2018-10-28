@@ -47,6 +47,32 @@ namespace Assets.Scripts.Network
             request.Send();
         }
 
+        public void Get(string endpoint, string[] @params, IDictionary<string, string> queryParams, OnRequestFinishedDelegate callback)
+        {
+            string endpointWithQueryParams = this.AppendQueryParams(endpoint, queryParams);
+            this.Get(endpointWithQueryParams, @params, callback);
+        }
+
+        // INFO: I know this can be done better with Uri, but .net 2.0 (mono) doesn't have HttpUtilites which helps parsing the url.
+        // Maybe i can thing of a cleaver way in future.
+        private string AppendQueryParams(string endpoint, IDictionary<string, string> queryParams)
+        {
+            endpoint += "?";
+
+            int iteration = 0;
+            foreach (var queryParam in queryParams)
+            {
+                endpoint += queryParam.Key + "=" + queryParam.Value;
+                if (iteration != queryParams.Count - 1)
+                {
+                    endpoint += "&";
+                }
+                iteration++;
+            }
+
+            return endpoint;
+        }
+
         public void Post(string endpoint, IDictionary<string, string> formData, OnRequestFinishedDelegate callback)
         {
             Uri uri = new Uri(SERVER_ROOT + endpoint);

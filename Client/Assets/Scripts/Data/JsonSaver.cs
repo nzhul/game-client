@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Security.Cryptography;
 using System.Text;
+using Newtonsoft.Json;
 using UnityEngine;
 
 namespace Assets.Scripts.Data
@@ -18,11 +19,11 @@ namespace Assets.Scripts.Data
         {
             data.hashValue = string.Empty;
 
-            string json = JsonUtility.ToJson(data);
+            string json = JsonConvert.SerializeObject(data);
 
             data.hashValue = GetSHA256(json);
 
-            json = JsonUtility.ToJson(data);
+            json = JsonConvert.SerializeObject(data);
 
             string saveFilename = GetSaveFilename();
 
@@ -34,7 +35,7 @@ namespace Assets.Scripts.Data
             }
         }
 
-        public bool Load(SaveData data)
+        public bool Load(ref SaveData data)
         {
             string loadFilename = GetSaveFilename();
             if (File.Exists(loadFilename))
@@ -45,7 +46,8 @@ namespace Assets.Scripts.Data
 
                     if (CheckData(json))
                     {
-                        JsonUtility.FromJsonOverwrite(json, data);
+                        data = JsonConvert.DeserializeObject<SaveData>(json);
+                        //JsonUtility.FromJsonOverwrite(json, data);
                     }
                     else
                     {
@@ -59,13 +61,12 @@ namespace Assets.Scripts.Data
 
         private bool CheckData(string json)
         {
-            SaveData tempSaveData = new SaveData();
-            JsonUtility.FromJsonOverwrite(json, tempSaveData);
+            SaveData tempSaveData = JsonConvert.DeserializeObject<SaveData>(json);
 
             string oldHash = tempSaveData.hashValue;
             tempSaveData.hashValue = string.Empty;
 
-            string tempJson = JsonUtility.ToJson(tempSaveData);
+            string tempJson = JsonConvert.SerializeObject(tempSaveData);
             string newHash = GetSHA256(tempJson);
 
             return (oldHash == newHash);

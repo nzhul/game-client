@@ -78,6 +78,7 @@ namespace Assets.Scripts.UI.CharacterSelection
 
         public void OnEnterRealmBtnPressed()
         {
+            DataManager.Instance.Save(); // saving the activeHeroId
             LevelLoader.LoadLevel(LevelLoader.WORLD_SCENE);
         }
 
@@ -139,6 +140,7 @@ namespace Assets.Scripts.UI.CharacterSelection
         private void OnHeroButtonPressed(Button target, int heroId)
         {
             selectedHeroId = heroId;
+            DataManager.Instance.ActiveHeroId = selectedHeroId;
 
             Common.HighlightButton(target, selectedHeroColor, heroNormalColor, _heroContainer);
 

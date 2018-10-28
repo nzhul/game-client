@@ -59,6 +59,19 @@ namespace Assets.Scripts.Data
             }
         }
 
+        public int ActiveHeroId
+        {
+            get
+            {
+                return int.Parse(_saveData.activeHeroId);
+            }
+            
+            set
+            {
+                _saveData.activeHeroId = value.ToString();
+            }
+        }
+
         public string Username
         {
             get
@@ -202,7 +215,7 @@ namespace Assets.Scripts.Data
 
         public void Load()
         {
-            _jsonSaver.Load(_saveData);
+            _jsonSaver.Load(ref _saveData);
         }
     }
 }
