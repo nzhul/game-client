@@ -1,50 +1,56 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Node : IComparable<Node>
+public class Node : IHeapItem<Node>
 {
 
     public NodeType nodeType = NodeType.Open;
 
-    public int xIndex = -1;
-    public int yIndex = -1;
+    public bool walkable;
+    public Vector3 worldPosition;
+    public int gridX;
+    public int gridY;
 
-    public Vector3 position;
+    public int gCost;
+    public int hCost;
+    public Node parent;
+    int heapIndex;
 
-    public List<Node> neighbors = new List<Node>();
-
-    public float distanceTraveled = Mathf.Infinity;
-    public Node previous = null;
-
-    public float priority;
-
-    public Node(int xIndex, int yIndex, NodeType nodeType)
+    public Node(NodeType nodeType, Vector3 worldPos, int gridX, int gridY)
     {
-        this.xIndex = xIndex;
-        this.yIndex = yIndex;
         this.nodeType = nodeType;
+        walkable = nodeType == NodeType.Open;
+        worldPosition = worldPos;
+        this.gridX = gridX;
+        this.gridY = gridY;
     }
 
-    public int CompareTo(Node other)
+    public int fCost
     {
-        if (this.priority < other.priority)
+        get
         {
-            return -1;
-        }
-        else if (this.priority > other.priority)
-        {
-            return 1;
-        }
-        else
-        {
-            return 0;
+            return gCost + hCost;
         }
     }
 
-    public void Reset()
+    public int HeapIndex
     {
-        previous = null;
+        get
+        {
+            return heapIndex;
+        }
+        set
+        {
+            heapIndex = value;
+        }
     }
 
+    public int CompareTo(Node nodeToCompare)
+    {
+        int compare = fCost.CompareTo(nodeToCompare.fCost);
+        if (compare == 0)
+        {
+            compare = hCost.CompareTo(nodeToCompare.hCost);
+        }
+        return -compare;
+    }
 }

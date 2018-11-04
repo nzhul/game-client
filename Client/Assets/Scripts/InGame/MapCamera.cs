@@ -89,20 +89,20 @@ public class MapCamera : MonoBehaviour
     {
         // TODO: use the values of the actual map when we have real tiles
         // in order to limit the region where the camera can go.
-        float tilesCountX = 128;
-        float tilesCountZ = 72;
-        float tileSizeX = 5;
-        float tileSizeZ = 5;
+        float tilesCountX = 20;
+        float tilesCountZ = 20;
+        float tileSizeX = 1;
+        float tileSizeZ = 1;
 
         float xMax =
             (tilesCountX * tileSizeX - 0.5f) * // tilesCount * tileSize - 0.5f;
             (1f * 1);
-        position.x = Mathf.Clamp(position.x, 0f, xMax);
+        position.x = Mathf.Clamp(position.x, -xMax, xMax);
 
         float zMax =
             (tilesCountZ * tileSizeZ - 1) *
             (1f * 1);
-        position.z = Mathf.Clamp(position.z, 0f, zMax);
+        position.z = Mathf.Clamp(position.z, -zMax, zMax);
 
         return position;
     }

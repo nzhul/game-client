@@ -271,7 +271,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &420988468
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -490,6 +490,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1374080254}
   - component: {fileID: 1374080255}
+  - component: {fileID: 1374080256}
+  - component: {fileID: 1374080257}
   m_Layer: 0
   m_Name: MapManager
   m_TagString: Untagged
@@ -521,6 +523,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae4c46c321d111a4eb812d65ff8a5dac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _grid: {fileID: 0}
+  _gridView: {fileID: 0}
+--- !u!114 &1374080256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1374080253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ebb590eccfaa03438c264e530965c65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodeRadius: 0.66
+--- !u!114 &1374080257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1374080253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 468b6218974997048ab8e023a8bf274d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wallTilePrefab: {fileID: 1316009104556668, guid: b238f1e4b2656b44fa291e62866d2f4b,
+    type: 2}
+  walkableTilePrefab: {fileID: 1235781526437842, guid: 64ecb78c1c2aca64782fa8a7e9077b1b,
+    type: 2}
+  occupiedTilePrefab: {fileID: 1316088105934228, guid: 5ea08a113ff20884186a0d112c275b51,
+    type: 2}
+  contactPointTilePrefab: {fileID: 1427751667526950, guid: 5f43b76d7ee8b6e4f9da8c98b86085ae,
+    type: 2}
 --- !u!1 &1568310599
 GameObject:
   m_ObjectHideFlags: 0
@@ -623,7 +658,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stickMinZoom: -250
-  stickMaxZoom: -45
+  stickMaxZoom: -25
   swivelMinZoom: 90
   swivelMaxZoom: 45
   moveSpeedMinZoom: 400

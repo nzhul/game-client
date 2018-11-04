@@ -8,12 +8,19 @@ using BestHTTP;
 using Newtonsoft.Json;
 using UnityEngine;
 
+[RequireComponent(typeof(MapGrid))]
+[RequireComponent(typeof(MapGridView))]
 public class MapManager : MonoBehaviour
 {
     private DataManager _dm;
+    public MapGrid _grid;
+    public MapGridView _gridView;
 
     void Start()
     {
+        _grid = GetComponent<MapGrid>();
+        _gridView = GetComponent<MapGridView>();
+
         _dm = DataManager.Instance;
         _dm.Load();
 
@@ -23,11 +30,11 @@ public class MapManager : MonoBehaviour
 
             string endpoint = "realms/{0}/regions";
             string[] @params = new string[] { DataManager.Instance.CurrentRealmId.ToString() };
-            IDictionary<string, string> queryParams = new Dictionary<string, string>();
+            List<KeyValuePair<string, string>> queryParams = new List<KeyValuePair<string, string>>();
 
             for (int i = 0; i < regionsForLoading.Length; i++)
             {
-                queryParams.Add("regionIds", regionsForLoading[i].ToString());
+                queryParams.Add(new KeyValuePair<string, string>("regionIds", regionsForLoading[i].ToString()));
             }
 
             RequestManager.Instance.Get(endpoint, @params, queryParams, OnGetGetRegionsRequestFinished);
@@ -64,15 +71,10 @@ public class MapManager : MonoBehaviour
             return;
         }
 
-        Debug.Log(activeRegion.matrixString);
-
-        // TODO: Implement Graph, GraphView, Node, NodeView PathFinder, PriorityQueue
-        // See pathfinding-in-unity repo for reference.
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        if (_grid != null && _gridView != null)
+        {
+            _grid.Init(activeRegion.matrixString);
+            _gridView.RenderGrid(_grid.grid);
+        }
     }
 }
