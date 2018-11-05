@@ -6,6 +6,8 @@ namespace Assets.Scripts.Data.Models
     public class Hero
     {
         public int id;
+        public int x;
+        public int y;
         public string name;
         public DateTime lastActivity;
         public TimeSpan timePlayed;

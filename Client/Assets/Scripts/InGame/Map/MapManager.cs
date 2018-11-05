@@ -15,6 +15,7 @@ public class MapManager : MonoBehaviour
     private DataManager _dm;
     public MapGrid _grid;
     public MapGridView _gridView;
+    public Hero _activeHero;
 
     void Start()
     {
@@ -23,6 +24,8 @@ public class MapManager : MonoBehaviour
 
         _dm = DataManager.Instance;
         _dm.Load();
+
+        _activeHero = _dm.Avatar.heroes.FirstOrDefault(x => x.id == _dm.ActiveHeroId);
 
         if (_dm.Avatar != null && _dm.Avatar.heroes != null && _dm.Avatar.heroes.Count >= 1)
         {
@@ -74,7 +77,8 @@ public class MapManager : MonoBehaviour
         if (_grid != null && _gridView != null)
         {
             _grid.Init(activeRegion.matrixString);
-            _gridView.RenderGrid(_grid.grid);
+            _gridView.InitGrid(_grid.grid);
+            _gridView.InitHero(_activeHero, _grid.grid[_activeHero.y, _activeHero.x].worldPosition);
         }
     }
 }

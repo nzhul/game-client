@@ -525,6 +525,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _grid: {fileID: 0}
   _gridView: {fileID: 0}
+  _activeHero:
+    id: 0
+    x: 0
+    y: 0
+    name: 
+    level: 0
+    attack: 0
+    defence: 0
+    magic: 0
+    magicPower: 0
+    personalAttack: 0
+    personalDefense: 0
+    dodge: 0
+    health: 0
+    minDamage: 0
+    maxDamage: 0
+    magicResistance: 0
+    faction: 
+    class: 
+    regionId: 0
 --- !u!114 &1374080256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -555,6 +575,8 @@ MonoBehaviour:
   occupiedTilePrefab: {fileID: 1316088105934228, guid: 5ea08a113ff20884186a0d112c275b51,
     type: 2}
   contactPointTilePrefab: {fileID: 1427751667526950, guid: 5f43b76d7ee8b6e4f9da8c98b86085ae,
+    type: 2}
+  heroViewPrefab: {fileID: 1740733399635368, guid: 6f6f0b48371615743a0cd8cf577cb6e8,
     type: 2}
 --- !u!1 &1568310599
 GameObject:

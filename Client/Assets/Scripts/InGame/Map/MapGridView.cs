@@ -1,13 +1,19 @@
-﻿using UnityEngine;
+﻿using System;
+using Assets.Scripts.Data.Models;
+using UnityEngine;
 
 public class MapGridView : MonoBehaviour
 {
+    [Header("Tiles")]
     public GameObject wallTilePrefab;
     public GameObject walkableTilePrefab;
     public GameObject occupiedTilePrefab;
     public GameObject contactPointTilePrefab;
 
-    public void RenderGrid(Node[,] grid)
+    [Header("Hero")]
+    public GameObject heroViewPrefab;
+
+    public void InitGrid(Node[,] grid)
     {
         for (int row = 0; row < grid.GetLength(0); row++)
         {
@@ -17,6 +23,7 @@ public class MapGridView : MonoBehaviour
 
                 if (node.nodeType == NodeType.Wall)
                 {
+                    // TODO: Instantiate nodeView instead of actual prefab;
                     GameObject newWallObj = Instantiate(wallTilePrefab, node.worldPosition, Quaternion.identity);
                 }
 
@@ -36,5 +43,10 @@ public class MapGridView : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void InitHero(Hero hero, Vector3 worldPosition)
+    {
+        GameObject heroObj = Instantiate(heroViewPrefab, worldPosition, Quaternion.identity);
     }
 }
