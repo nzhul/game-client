@@ -10,7 +10,7 @@ public class HeroView : MonoBehaviour
 
     private void Start()
     {
-        MapGrid _grid = FindObjectOfType<MapGrid>();
+        _grid = FindObjectOfType<MapGrid>();
     }
 
     public void Init(Hero hero)

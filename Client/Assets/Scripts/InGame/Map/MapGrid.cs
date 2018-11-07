@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class MapGrid : MonoBehaviour
 {
-    Vector2 gridWorldSize;
     public float nodeRadius;
     public Node[,] grid;
 
+    Vector2 gridWorldSize;
     float nodeDiameter;
     int gridSizeX, gridSizeY;
+
 
     public int MaxSize
     {
