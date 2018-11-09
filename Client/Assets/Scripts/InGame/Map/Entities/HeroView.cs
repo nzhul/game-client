@@ -4,22 +4,26 @@ using UnityEngine;
 public class HeroView : MonoBehaviour
 {
     public GameObject graphic;
-    Hero _hero;
+    public Hero hero;
+    public Vector3 worldPosition;
 
-    MapGrid _grid;
-
-    private void Start()
-    {
-        _grid = FindObjectOfType<MapGrid>();
-    }
-
-    public void Init(Hero hero)
+    public void Init(Hero hero, Vector3 worldPosition)
     {
         if (graphic != null)
         {
+            this.hero = hero;
             gameObject.name = "Hero (" + hero.x + "," + hero.y + ")";
-            gameObject.transform.position = _grid.grid[hero.x, hero.y].worldPosition;
+            gameObject.transform.position = worldPosition;
+            this.worldPosition = worldPosition;
+
+            InitGraphic();
         }
+    }
+
+    private void InitGraphic()
+    {
+        // TODO: do something with this.graphic.
+        graphic.transform.localPosition = new Vector3(0, .3f, 0);
     }
 
     //TODO: add other methods related with hero visuals. Like coloring on hover

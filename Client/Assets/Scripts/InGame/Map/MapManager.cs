@@ -8,19 +8,19 @@ using BestHTTP;
 using Newtonsoft.Json;
 using UnityEngine;
 
-[RequireComponent(typeof(MapGrid))]
-[RequireComponent(typeof(MapGridView))]
+[RequireComponent(typeof(Graph))]
+[RequireComponent(typeof(GraphView))]
 public class MapManager : MonoBehaviour
 {
     private DataManager _dm;
-    public MapGrid _grid;
-    public MapGridView _gridView;
+    public Graph _graph;
+    public GraphView _graphView;
     public Hero _activeHero;
 
     void Start()
     {
-        _grid = GetComponent<MapGrid>();
-        _gridView = GetComponent<MapGridView>();
+        _graph = GetComponent<Graph>();
+        _graphView = GetComponent<GraphView>();
 
         _dm = DataManager.Instance;
         _dm.Load();
@@ -74,11 +74,11 @@ public class MapManager : MonoBehaviour
             return;
         }
 
-        if (_grid != null && _gridView != null)
+        if (_graph != null && _graphView != null)
         {
-            _grid.Init(activeRegion.matrixString);
-            _gridView.InitGrid(_grid.grid);
-            _gridView.InitHero(_activeHero, _grid.grid[_activeHero.y, _activeHero.x].worldPosition);
+            _graph.Init(activeRegion.matrixString);
+            _graphView.Init(_graph);
+            _graphView.InitHero(_activeHero, _graph.nodes[_activeHero.y, _activeHero.x].worldPosition);
         }
     }
 }
