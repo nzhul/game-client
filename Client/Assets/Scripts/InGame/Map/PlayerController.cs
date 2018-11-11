@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -7,21 +6,29 @@ public class PlayerController : MonoBehaviour
 {
     public LayerMask movementMask;
     public NodeView focusNodeView;
+    public HeroView activeHero;
+
     Camera cam;
     Graph _graph;
     GraphView _graphView;
-    // public HeroMotor activeHeroMotor; // current active hero of the player
-    // public Interactable focus; // current focus of the player (Node)
     Node[] path;
     List<NodeView> _pathView;
+    HeroView hero;
 
     private void Start()
     {
         _pathView = new List<NodeView>();
-        _graph = FindObjectOfType<Graph>();
-        _graphView = FindObjectOfType<GraphView>();
+        _graph = MapManager.Instance.graph;
+        _graphView = MapManager.Instance.graphView;
         cam = Camera.main;
-        // activeHeroMotor = GetActiveHeroMotor()...
+
+        MapManager.Instance.OnInitComplete += Hero_OnHeroInit;
+    }
+
+    private void Hero_OnHeroInit()
+    {
+        hero = MapManager.Instance.activeHero;
+        hero.motor.OnDestinationReached += Hero_OnDestinationReached;
     }
 
     private void Update()
@@ -38,28 +45,50 @@ public class PlayerController : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit, 1000f, movementMask))
             {
-                Node clickedNode = _graph.NodeFromWorldPoint(hit.point);
-                if (clickedNode != null)
-                {
-                    NodeView clickedNodeView = _graphView.nodeViews[clickedNode.gridX, clickedNode.gridY];
+                GameObject graphic = hit.collider.gameObject;
+                GameObject parent = graphic.transform.parent.gameObject;
+                NodeView nodeView = parent.GetComponent<NodeView>();
 
-                    if (clickedNodeView != focusNodeView)
+                if (nodeView != null && hero != null && !hero.isMoving)
+                {
+                    if (nodeView != focusNodeView)
                     {
-                        SetFocus(clickedNodeView);
-                        Vector3 start = _graphView.heroView.worldPosition;
-                        Vector3 end = clickedNodeView.node.worldPosition;
+                        // 1. PreviewPath
+                        SetFocus(nodeView);
+                        Vector3 start = MapManager.Instance.activeHero.worldPosition;
+                        Vector3 end = nodeView.node.worldPosition;
                         PathRequestManager.RequestPath(start, end, OnPathFound);
                     }
                     else
                     {
-                        // this is second click on the same node -> request path -> execute followPath.
+                        // if nodeView.node.nodeType == ContactPoint
+                        // remove last waypoint from the path.
+                        // modify Hero_OnDestinationReached so it:
+                        // checks if destination node is Contact point
+                        // if destination node is contact point ->
+                        // execute nodeView.InteractEntity.Interact().
+
+                        // 2. Execute Path
+                        if (path != null && path.Length > 0)
+                        {
+                            ExecutePath();
+                        }
                     }
                 }
-
-
-                //Debug.Log(string.Format("{0}:{1}", clickedNode.gridX, clickedNode.gridY));
-                // SetFocus
             }
+        }
+    }
+
+    private void Hero_OnDestinationReached(Node obj)
+    {
+        this.ClearPreviousPath();
+    }
+
+    private void ExecutePath()
+    {
+        if (hero != null && !hero.isMoving)
+        {
+            hero.motor.ExecuteFollowPath(path);
         }
     }
 

@@ -608,7 +608,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ebb590eccfaa03438c264e530965c65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nodeRadius: 0.66
+  nodeRadius: 1
   graphSizeX: 0
   graphSizeY: 0
 --- !u!114 &1374080257

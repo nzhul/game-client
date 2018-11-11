@@ -17,10 +17,29 @@ public class MapCamera : MonoBehaviour
 
     float rotationAngle;
 
+    int tilesCountX;
+    int tilesCountY;
+
     private void Awake()
     {
         swivel = transform.GetChild(0);
         stick = swivel.GetChild(0);
+    }
+
+    private void Start()
+    {
+        MapManager.Instance.OnInitComplete += Graph_OnGraphInitialized;
+    }
+
+    private void Graph_OnGraphInitialized()
+    {
+        Graph graph = MapManager.Instance.graph;
+
+        if (graph != null)
+        {
+            tilesCountX = graph.graphSizeX;
+            tilesCountY = graph.graphSizeY;
+        }
     }
 
     void Update()
@@ -89,19 +108,15 @@ public class MapCamera : MonoBehaviour
     {
         // TODO: use the values of the actual map when we have real tiles
         // in order to limit the region where the camera can go.
-        float tilesCountX = 20;
-        float tilesCountZ = 20;
-        float tileSizeX = 1;
-        float tileSizeZ = 1;
+        float tilesCountX = this.tilesCountX;
+        float tilesCountZ = this.tilesCountY;
+        float tileSizeX = 1f;
+        float tileSizeZ = 1f;
 
-        float xMax =
-            (tilesCountX * tileSizeX - 0.5f) * // tilesCount * tileSize - 0.5f;
-            (1f * 1);
+        float xMax = (tilesCountX * tileSizeX);
         position.x = Mathf.Clamp(position.x, -xMax, xMax);
 
-        float zMax =
-            (tilesCountZ * tileSizeZ - 1) *
-            (1f * 1);
+        float zMax = (tilesCountZ * tileSizeZ);
         position.z = Mathf.Clamp(position.z, -zMax, zMax);
 
         return position;

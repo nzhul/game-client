@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class NodeView : MonoBehaviour
@@ -74,14 +73,14 @@ public class NodeView : MonoBehaviour
     private void InitContact()
     {
         this.ChangeMaterial(contactMat);
-        graphic.transform.localScale = new Vector3(1, .5f, 1);
+        graphic.transform.localScale = new Vector3(1.8f, .5f, 1.8f);
         graphic.transform.localPosition = new Vector3(0, .2f, 0);
     }
 
     private void InitOccupied()
     {
         this.ChangeMaterial(occupiedMat);
-        graphic.transform.localScale = Vector3.one;
+        graphic.transform.localScale = new Vector3(1.8f, 1.8f, 1.8f);
         graphic.transform.localPosition = new Vector3(0, .4f, 0);
     }
 
@@ -120,6 +119,7 @@ public class NodeView : MonoBehaviour
 
     private int ResolveLayer(NodeType nodeType)
     {
+        //string layerName = (nodeType == NodeType.Open || nodeType == NodeType.ContactPoint) ? "Interactable" : "Default";
         string layerName = nodeType == NodeType.Open ? "Interactable" : "Default";
         return LayerMask.NameToLayer(layerName);
     }

@@ -1,11 +1,20 @@
-﻿using Assets.Scripts.Data.Models;
+﻿using System;
+using Assets.Scripts.Data.Models;
 using UnityEngine;
 
+[RequireComponent(typeof(HeroMotor))]
 public class HeroView : MonoBehaviour
 {
     public GameObject graphic;
     public Hero hero;
     public Vector3 worldPosition;
+    public HeroMotor motor;
+    public bool isMoving;
+
+    private void Awake()
+    {
+        motor = GetComponent<HeroMotor>();
+    }
 
     public void Init(Hero hero, Vector3 worldPosition)
     {
@@ -23,7 +32,7 @@ public class HeroView : MonoBehaviour
     private void InitGraphic()
     {
         // TODO: do something with this.graphic.
-        graphic.transform.localPosition = new Vector3(0, .3f, 0);
+        graphic.transform.localPosition = new Vector3(0, .5f, 0);
     }
 
     //TODO: add other methods related with hero visuals. Like coloring on hover

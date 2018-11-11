@@ -12,7 +12,11 @@ public class Pathfinding : MonoBehaviour
     private void Awake()
     {
         requestManager = GetComponent<PathRequestManager>();
-        graph = FindObjectOfType<Graph>();
+    }
+
+    private void Start()
+    {
+        graph = MapManager.Instance.graph;
     }
 
     public void StartFindPath(Vector3 start, Vector3 target)

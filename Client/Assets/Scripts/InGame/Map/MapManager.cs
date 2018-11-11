@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Data;
 using Assets.Scripts.Data.Models;
@@ -12,16 +13,44 @@ using UnityEngine;
 [RequireComponent(typeof(GraphView))]
 public class MapManager : MonoBehaviour
 {
+    #region Singleton
+    private static MapManager _instance;
+
+    public static MapManager Instance
+    {
+        get
+        {
+            return _instance;
+        }
+    }
+
+    private void Awake()
+    {
+        if (_instance != null)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            _instance = this;
+        }
+
+        graph = GetComponent<Graph>();
+        graphView = GetComponent<GraphView>();
+    }
+    #endregion
+
     private DataManager _dm;
-    public Graph _graph;
-    public GraphView _graphView;
-    public Hero _activeHero;
+    private Hero _activeHero;
+
+    public Graph graph;
+    public GraphView graphView;
+    public HeroView activeHero;
+
+    public event Action OnInitComplete;
 
     void Start()
     {
-        _graph = GetComponent<Graph>();
-        _graphView = GetComponent<GraphView>();
-
         _dm = DataManager.Instance;
         _dm.Load();
 
@@ -74,11 +103,16 @@ public class MapManager : MonoBehaviour
             return;
         }
 
-        if (_graph != null && _graphView != null)
+        if (graph != null && graphView != null)
         {
-            _graph.Init(activeRegion.matrixString);
-            _graphView.Init(_graph);
-            _graphView.InitHero(_activeHero, _graph.nodes[_activeHero.y, _activeHero.x].worldPosition);
+            graph.Init(activeRegion.matrixString);
+            graphView.Init(graph);
+            this.activeHero = graphView.InitHero(_activeHero, graph.nodes[_activeHero.y, _activeHero.x].worldPosition);
+
+            if (OnInitComplete != null)
+            {
+                OnInitComplete();
+            }
         }
     }
 }

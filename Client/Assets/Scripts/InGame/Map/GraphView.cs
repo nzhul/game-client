@@ -21,7 +21,6 @@ public class GraphView : MonoBehaviour
     GameObject wallPointsContainer;
 
     public NodeView[,] nodeViews;
-    public HeroView heroView; // TODO: change this to array of heroes. So we can support multiple heroes.
 
     private void Awake()
     {
@@ -87,7 +86,7 @@ public class GraphView : MonoBehaviour
         return parent;
     }
 
-    public void InitHero(Hero hero, Vector3 worldPosition)
+    public HeroView InitHero(Hero hero, Vector3 worldPosition)
     {
         Vector3 placementPosition = new Vector3(worldPosition.x, heroViewPrefab.transform.position.y, worldPosition.z);
         GameObject instance = Instantiate(heroViewPrefab, placementPosition, Quaternion.identity);
@@ -96,7 +95,8 @@ public class GraphView : MonoBehaviour
         if (heroView != null)
         {
             heroView.Init(hero, worldPosition);
-            this.heroView = heroView;
         }
+
+        return heroView;
     }
 }

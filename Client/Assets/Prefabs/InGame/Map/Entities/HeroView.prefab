@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4493711968874434}
   - component: {fileID: 114967078047933954}
+  - component: {fileID: 114230593201868532}
   m_Layer: 0
   m_Name: HeroView
   m_TagString: Untagged
@@ -53,7 +54,7 @@ Transform:
   m_GameObject: {fileID: 1615560866714482}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4493711968874434}
   m_RootOrder: 0
@@ -126,6 +127,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114230593201868532
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1463672758921370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9658026e65616664f82873b20e6e3578, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 20
 --- !u!114 &114967078047933954
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -138,3 +151,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   graphic: {fileID: 1615560866714482}
+  hero:
+    id: 0
+    x: 0
+    y: 0
+    name: 
+    level: 0
+    attack: 0
+    defence: 0
+    magic: 0
+    magicPower: 0
+    personalAttack: 0
+    personalDefense: 0
+    dodge: 0
+    health: 0
+    minDamage: 0
+    maxDamage: 0
+    magicResistance: 0
+    faction: 
+    class: 
+    regionId: 0
+  worldPosition: {x: 0, y: 0, z: 0}
+  motor: {fileID: 0}
+  isMoving: 0
