@@ -107,6 +107,8 @@ public class MapManager : MonoBehaviour
         {
             graph.Init(activeRegion.matrixString);
             graphView.Init(graph);
+            graphView.AddMonsters(activeRegion.monsterPacks);
+            //graphView.Dwellings();
             this.activeHero = graphView.InitHero(_activeHero, graph.nodes[_activeHero.y, _activeHero.x].worldPosition);
 
             if (OnInitComplete != null)

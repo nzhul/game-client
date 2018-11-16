@@ -1,4 +1,6 @@
-﻿using Assets.Scripts.Data.Models;
+﻿using System;
+using System.Collections.Generic;
+using Assets.Scripts.Data.Models;
 using UnityEngine;
 
 public class GraphView : MonoBehaviour
@@ -98,5 +100,26 @@ public class GraphView : MonoBehaviour
         }
 
         return heroView;
+    }
+
+    public void AddMonsters(IList<MonsterPack> monsterPacks)
+    {
+        foreach (var pack in monsterPacks)
+        {
+            NodeView nodeView = nodeViews[pack.y, pack.x]; // y = cols; x = rows
+
+            if (nodeView != null)
+            {
+                // GameObject instance = Instantiate(monsterViewPrefab, nodeView.node.worldPosition, Quaternion.identity);
+                // instance.transform.SetParent(nodeView.transform);
+                // MonsterView monsterView = instance.GetComponent<MonsterView>();
+
+                // if(monsterView != null)
+                // monsterView.Init()
+                // monsterViewsList.Add(monsterView);
+
+                // nodeView.slot = MonsterView -> MonsterView : SlotView
+            }
+        }
     }
 }
