@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.Data;
-using Assets.Scripts.Network;
 using Assets.Scripts.Network.RequestModels.Users.Input;
 using Assets.Scripts.Network.RequestModels.Users.View;
+using Assets.Scripts.Network.Services;
+using Assets.Scripts.Network.Shared.Http;
 using Assets.Scripts.UI.MainMenu;
 using BestHTTP;
 using UnityEngine;
@@ -19,6 +19,7 @@ namespace Assets.Scripts.UI.Modals.MainMenuModals
 
         private DataManager _dataManager;
         private LoginInput _loginModel;
+        private IUserService _userService;
 
         // form fields
         protected IDictionary<string, InputField> formInputs;
@@ -39,10 +40,11 @@ namespace Assets.Scripts.UI.Modals.MainMenuModals
             errorMessageText = errorMessagePanel.GetComponentInChildren<Text>();
 
             _dataManager = DataManager.Instance;
+            _userService = new UserService();
 
             if (!string.IsNullOrEmpty(_dataManager.Token))
             {
-                if (_dataManager.RememberMe 
+                if (_dataManager.RememberMe
                     && !string.IsNullOrEmpty(_dataManager.Username)
                     && !string.IsNullOrEmpty(_dataManager.Password))
                 {
@@ -139,6 +141,8 @@ namespace Assets.Scripts.UI.Modals.MainMenuModals
                 {
                     StoreUserData(loginInfo);
                 }
+
+                _userService.SendAuthRequest(loginInfo.user.id, loginInfo.user.username, loginInfo.tokenString);
 
                 MainMenuManager.Instance.HideInitialButtons();
                 RealmSelectionModal.Instance.Open();

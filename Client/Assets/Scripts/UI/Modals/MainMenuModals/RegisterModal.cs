@@ -4,6 +4,7 @@ using System.Text;
 using Assets.Scripts.Network;
 using Assets.Scripts.Network.RequestModels.Users.Input;
 using Assets.Scripts.Network.RequestModels.Users.View;
+using Assets.Scripts.Network.Shared.Http;
 using BestHTTP;
 using UnityEngine;
 using UnityEngine.UI;

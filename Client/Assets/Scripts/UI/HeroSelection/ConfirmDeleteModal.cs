@@ -1,13 +1,11 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Assets.Scripts.Data;
 using Assets.Scripts.Data.Models;
 using Assets.Scripts.LevelManagement;
-using Assets.Scripts.Network;
+using Assets.Scripts.Network.Shared.Http;
 using Assets.Scripts.UI.CharacterSelection;
 using Assets.Scripts.UI.Modals;
 using Assets.Scripts.UI.Modals.MainMenuModals;
-using Assets.Scripts.Utilities;
 using BestHTTP;
 using UnityEngine;
 using UnityEngine.UI;
@@ -57,7 +55,7 @@ namespace Assets.Scripts.UI.HeroSelection
                     _heroSelectionManager.selectedHeroId.ToString()
                 };
 
-                RequestManager.Instance.Delete(endpoint, @params, OnDeleteRequestFinished);
+                RequestManager.Instance.Delete(endpoint, @params, DataManager.Instance.Token, OnDeleteRequestFinished);
             }
             else
             {
@@ -73,7 +71,8 @@ namespace Assets.Scripts.UI.HeroSelection
 
         private void OnDeleteRequestFinished(HTTPRequest request, HTTPResponse response)
         {
-            if (Common.RequestIsSuccessful(request, response))
+            string errorMessage;
+            if (NetworkCommon.RequestIsSuccessful(request, response, out errorMessage))
             {
                 base.Close();
                 RemoveHero(_heroSelectionManager.selectedHeroId);

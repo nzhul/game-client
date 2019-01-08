@@ -1,4 +1,7 @@
-﻿public abstract class NetMessage
+﻿using System;
+
+[Serializable]
+public abstract class NetMessage
 {
     public byte OperationCode { get; set; }
 
@@ -14,9 +17,9 @@ public static class NetOperationCode
     public const int None = 0;
 
     // Client -> Server messages
-    public const int ConnectRequest = 2;
+    public const int AuthRequest = 2;
     public const int LoadRegionsRequest = 3;
 
     // Server -> Client messages
-    public const int OnConnectRequest = 4;
+    public const int OnAuthRequest = 4;
 }

@@ -2,8 +2,8 @@
 using Assets.Scripts.Data;
 using Assets.Scripts.Data.Models;
 using Assets.Scripts.LevelManagement;
-using Assets.Scripts.Network;
 using Assets.Scripts.Network.RequestModels.Realms;
+using Assets.Scripts.Network.Shared.Http;
 using Assets.Scripts.UI.Modals.MainMenuModals;
 using Assets.Scripts.Utilities;
 using BestHTTP;
@@ -165,7 +165,7 @@ namespace Assets.Scripts.UI.HeroCreation
                     heroName = usernameInputField.text,
                 };
 
-                RequestManager.Instance.Post<CreateHeroOrAvatarInput>(endpoint, input, OnCreateHeroOrAvatarWithHero);
+                RequestManager.Instance.Post<CreateHeroOrAvatarInput>(endpoint, input, DataManager.Instance.Token, OnCreateHeroOrAvatarWithHero);
             }
             else
             {
@@ -180,7 +180,8 @@ namespace Assets.Scripts.UI.HeroCreation
         {
             FormUtilities.HideLoadingIndicator(_loadingImage);
 
-            if (Common.RequestIsSuccessful(request, response))
+            string errorMessage;
+            if (NetworkCommon.RequestIsSuccessful(request, response, out errorMessage))
             {
                 string json = response.DataAsText;
                 UserAvatar userAvatar = JsonConvert.DeserializeObject<UserAvatar>(json);

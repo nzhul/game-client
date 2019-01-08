@@ -1,6 +1,4 @@
-﻿using System;
-using System.Text.RegularExpressions;
-using BestHTTP;
+﻿using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -34,50 +32,50 @@ namespace Assets.Scripts.Utilities
             button.colors = cb;
         }
 
-        public static bool RequestIsSuccessful(HTTPRequest request, HTTPResponse response)
-        {
-            bool status = false;
+        //public static bool RequestIsSuccessful(HTTPRequest request, HTTPResponse response)
+        //{
+        //    bool status = false;
 
-            if (response == null || (response.StatusCode != 200 && response.StatusCode != 204))
-            {
-                string errorMessage = "Server error";
+        //    if (response == null || (response.StatusCode != 200 && response.StatusCode != 204))
+        //    {
+        //        string errorMessage = "Server error";
 
-                if (response != null)
-                {
-                    switch (response.StatusCode)
-                    {
-                        case 401:
-                            errorMessage = "Unauthorized";
-                            break;
-                        default:
-                            errorMessage = "Server error";
-                            break;
-                    }
-                }
-                else if (request != null && request.Exception != null)
-                {
-                    if (request.Exception.Message.Contains("No connection could be made"))
-                    {
-                        errorMessage = "Please check your internet connection!";
-                    }
-                }
+        //        if (response != null)
+        //        {
+        //            switch (response.StatusCode)
+        //            {
+        //                case 401:
+        //                    errorMessage = "Unauthorized";
+        //                    break;
+        //                default:
+        //                    errorMessage = "Server error";
+        //                    break;
+        //            }
+        //        }
+        //        else if (request != null && request.Exception != null)
+        //        {
+        //            if (request.Exception.Message.Contains("No connection could be made"))
+        //            {
+        //                errorMessage = "Please check your internet connection!";
+        //            }
+        //        }
 
-                Debug.LogWarning(errorMessage);
+        //        Debug.LogWarning(errorMessage);
 
-                // TODO: create global error message handler.
-                // Something like popup that comes at the corner of the screen and disapears after a short period of time.
-                // ref. -> alertify js
+        //        // TODO: create global error message handler.
+        //        // Something like popup that comes at the corner of the screen and disapears after a short period of time.
+        //        // ref. -> alertify js
 
-                //errorMessageText.text = errorMessage;
-                //errorMessagePanel.SetActive(true);
-            }
-            else
-            {
-                status = true;
-            }
+        //        //errorMessageText.text = errorMessage;
+        //        //errorMessagePanel.SetActive(true);
+        //    }
+        //    else
+        //    {
+        //        status = true;
+        //    }
 
-            return status;
-        }
+        //    return status;
+        //}
 
         public static bool InputIsValid(InputField usernameInputField, string pattern)
         {

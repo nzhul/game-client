@@ -2,9 +2,9 @@
 using Assets.Scripts.Data;
 using Assets.Scripts.Data.Models;
 using Assets.Scripts.LevelManagement;
-using Assets.Scripts.Network;
 using Assets.Scripts.Network.RequestModels.Sorting;
 using Assets.Scripts.Network.RequestModels.Users.View;
+using Assets.Scripts.Network.Shared.Http;
 using Assets.Scripts.UI.MainMenu;
 using Assets.Scripts.Utilities;
 using BestHTTP;
@@ -87,15 +87,16 @@ namespace Assets.Scripts.UI.Modals.MainMenuModals
             string endpoint = "realms/{0}/users/{1}/updateCurrentRealm";
             string[] @params = new string[] { DataManager.Instance.CurrentRealmId.ToString(), DataManager.Instance.Id.ToString() };
 
-            RequestManager.Instance.Put(endpoint, @params, OnUpdateCurrentRealmRequestFinished);
+            RequestManager.Instance.Put(endpoint, @params, DataManager.Instance.Token, OnUpdateCurrentRealmRequestFinished);
 
             string avatarEndpoint = "realms/{0}/users/{1}/avatar";
-            RequestManager.Instance.Get(avatarEndpoint, @params, OnGetUserAvatarRequestFinished);
+            RequestManager.Instance.Get(avatarEndpoint, @params, DataManager.Instance.Token, OnGetUserAvatarRequestFinished);
         }
 
         private void OnGetUserAvatarRequestFinished(HTTPRequest request, HTTPResponse response)
         {
-            if (Common.RequestIsSuccessful(request, response))
+            string errorMessage;
+            if (NetworkCommon.RequestIsSuccessful(request, response, out errorMessage))
             {
                 string json = response.DataAsText;
                 UserAvatar userAvatar = JsonConvert.DeserializeObject<UserAvatar>(json);
@@ -137,7 +138,7 @@ namespace Assets.Scripts.UI.Modals.MainMenuModals
             string endpoint = "realms?orderBy={0}&pageSize={1}&orderDirection={2}";
             string[] @params = new string[] { sortType.ToString(), "50", sortDirection.ToString() };
 
-            RequestManager.Instance.Get(endpoint, @params, OnGetRealmsRequestFinished);
+            RequestManager.Instance.Get(endpoint, @params, DataManager.Instance.Token, OnGetRealmsRequestFinished);
         }
 
         private void OnUpdateCurrentRealmRequestFinished(HTTPRequest request, HTTPResponse response)
@@ -147,7 +148,8 @@ namespace Assets.Scripts.UI.Modals.MainMenuModals
 
         private void OnGetRealmsRequestFinished(HTTPRequest request, HTTPResponse response)
         {
-            if (Common.RequestIsSuccessful(request, response))
+            string errorMessage;
+            if (NetworkCommon.RequestIsSuccessful(request, response, out errorMessage))
             {
                 string json = response.DataAsText;
                 RealmListItem[] realms = JsonConvert.DeserializeObject<RealmListItem[]>(json);

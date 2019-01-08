@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts;
 using Assets.Scripts.Data;
 using Assets.Scripts.Data.Models;
-using Assets.Scripts.Network;
-using Assets.Scripts.Utilities;
+using Assets.Scripts.Network.Shared.Http;
 using BestHTTP;
 using Newtonsoft.Json;
 using UnityEngine;
@@ -69,7 +69,7 @@ public class MapManager : MonoBehaviour
                 queryParams.Add(new KeyValuePair<string, string>("regionIds", regionsForLoading[i].ToString()));
             }
 
-            RequestManager.Instance.Get(endpoint, @params, queryParams, OnGetGetRegionsRequestFinished);
+            RequestManager.Instance.Get(endpoint, @params, queryParams, DataManager.Instance.Token, OnGetGetRegionsRequestFinished);
         }
     }
 
@@ -78,8 +78,8 @@ public class MapManager : MonoBehaviour
         // TODO: Implement this
         // store the region information in a file (maybe a different file than the main one)
         // use region data to render the map!
-
-        if (Common.RequestIsSuccessful(request, response))
+        string errorMessage;
+        if (NetworkCommon.RequestIsSuccessful(request, response, out errorMessage))
         {
             string json = response.DataAsText;
             IList<Region> regions = JsonConvert.DeserializeObject<IList<Region>>(json);
