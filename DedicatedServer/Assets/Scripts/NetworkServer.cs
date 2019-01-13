@@ -1,6 +1,7 @@
 ﻿#pragma warning disable CS0618 // Type or member is obsolete
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using Assets.Scripts.Shared.NetMessages;
 using UnityEngine;
@@ -86,7 +87,16 @@ public class NetworkServer : MonoBehaviour
                 Debug.Log(string.Format("User {0} has connected throught host {1}", connectionId, recievingHostId));
                 break;
             case NetworkEventType.DisconnectEvent:
-                Debug.Log(string.Format("{0} has disconnected from the server!", _connections[connectionId].Username));
+                if (_connections.ContainsKey(connectionId))
+                {
+                    // TODO: Call the API at -> "/api/auth/logout/{userId}" to logout the user.
+                    Debug.Log(string.Format("{0} has disconnected from the server!", _connections[connectionId].Username));
+                    _connections.Remove(connectionId);
+                }
+                else
+                {
+                    Debug.Log("Someone disconnected from the server!");
+                }
                 break;
             case NetworkEventType.Nothing:
                 break;
