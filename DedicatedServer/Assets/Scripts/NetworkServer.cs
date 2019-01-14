@@ -1,9 +1,12 @@
 ﻿#pragma warning disable CS0618 // Type or member is obsolete
+using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
+using Assets.Scripts;
+using Assets.Scripts.Network.Shared.Http;
 using Assets.Scripts.Shared.NetMessages;
+using BestHTTP;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -89,8 +92,14 @@ public class NetworkServer : MonoBehaviour
             case NetworkEventType.DisconnectEvent:
                 if (_connections.ContainsKey(connectionId))
                 {
-                    // TODO: Call the API at -> "/api/auth/logout/{userId}" to logout the user.
-                    Debug.Log(string.Format("{0} has disconnected from the server!", _connections[connectionId].Username));
+                    var user = _connections[connectionId];
+                    Debug.Log(string.Format("{0} has disconnected from the server!", user.Username));
+
+                    string endpoint = "users/{0}/setoffline";
+                    string[] @params = new string[] { user.Id.ToString() };
+
+                    RequestManager.Instance.Put(endpoint, @params, user.Token, OnSetOffline);
+
                     _connections.Remove(connectionId);
                 }
                 else
@@ -104,6 +113,14 @@ public class NetworkServer : MonoBehaviour
                 break;
             default:
                 break;
+        }
+    }
+
+    private void OnSetOffline(HTTPRequest request, HTTPResponse response)
+    {
+        if (!NetworkCommon.RequestIsSuccessful(request, response, out string errorMessage))
+        {
+            Debug.LogWarning("Error setting user as offline in the API!");
         }
     }
 
@@ -142,6 +159,11 @@ public class NetworkServer : MonoBehaviour
                 Username = msg.Username
             });
 
+            string endpoint = "users/{0}/setonline/{1}";
+            string[] @params = new string[] { msg.Id.ToString(), connectionId.ToString() };
+
+            RequestManager.Instance.Put(endpoint, @params, msg.Token, OnSetOnline);
+
             Debug.Log(string.Format("{0} has connected to the server!", msg.Username));
         }
         else
@@ -151,6 +173,14 @@ public class NetworkServer : MonoBehaviour
         }
 
         SendClient(recievingHostId, connectionId, rmsg);
+    }
+
+    private void OnSetOnline(HTTPRequest request, HTTPResponse response)
+    {
+        if (!NetworkCommon.RequestIsSuccessful(request, response, out string errorMessage))
+        {
+            Debug.LogWarning("Error setting user as online in the API!");
+        }
     }
 
     private void SendClient(int recievingHostId, int connectionId, NetMessage msg)

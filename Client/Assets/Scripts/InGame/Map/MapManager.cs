@@ -4,6 +4,7 @@ using System.Linq;
 using Assets.Scripts;
 using Assets.Scripts.Data;
 using Assets.Scripts.Data.Models;
+using Assets.Scripts.Network.Services;
 using Assets.Scripts.Network.Shared.Http;
 using BestHTTP;
 using Newtonsoft.Json;
@@ -40,6 +41,8 @@ public class MapManager : MonoBehaviour
     }
     #endregion
 
+    private IWorldService _worldService;
+
     private DataManager _dm;
     private Hero _activeHero;
 
@@ -51,6 +54,8 @@ public class MapManager : MonoBehaviour
 
     void Start()
     {
+        _worldService = new WorldService();
+
         _dm = DataManager.Instance;
         _dm.Load();
 
@@ -70,6 +75,7 @@ public class MapManager : MonoBehaviour
             }
 
             RequestManager.Instance.Get(endpoint, @params, queryParams, DataManager.Instance.Token, OnGetGetRegionsRequestFinished);
+            _worldService.SendWorldEnterRequest(DataManager.Instance.Id, DataManager.Instance.CurrentRealmId, regionsForLoading);
         }
     }
 

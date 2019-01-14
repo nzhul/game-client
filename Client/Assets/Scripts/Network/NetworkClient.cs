@@ -120,6 +120,13 @@ namespace Assets.Scripts.Network
                 case NetOperationCode.OnAuthRequest:
                     Debug.Log("Client has authenticated to dedicated server!");
                     break;
+                case NetOperationCode.OnWorldEnter:
+                    // TODO: Raise static event. Map manager should wait for this event to occur before rendering the map.
+                    // All client server interaction should work in a similar way:
+                        // 1. Client send request to the server and enters "waiting state"
+                        // 2. Server sends back result message
+                        // 3. Client consumes the message by listening to the event and is no longer in waiting state
+                    break;
                 default:
                     break;
             }

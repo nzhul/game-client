@@ -13,13 +13,26 @@ public abstract class NetMessage
 
 public static class NetOperationCode
 {
-    // Shared messages
     public const int None = 0;
 
-    // Client -> Server messages
-    public const int AuthRequest = 2;
-    public const int LoadRegionsRequest = 3;
+    #region ClientServer
 
-    // Server -> Client messages
+    public const int AuthRequest = 1;
+    public const int LoadRegionsRequest = 2;
+
+    /// <summary>
+    /// World enter request will force the dedicated server to load all the information about the user avatar
+    /// together with the required regions
+    /// </summary>
+    public const int WorldEnterRequest = 3;
+    #endregion
+
+
+    #region ServerClient
+
     public const int OnAuthRequest = 4;
+
+    public const int OnWorldEnter = 5;
+
+    #endregion
 }
