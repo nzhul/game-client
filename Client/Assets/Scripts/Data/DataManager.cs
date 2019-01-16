@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Assets.Scripts.Data.Models;
+using Assets.Scripts.Shared.DataModels;
 using UnityEngine;
 
 namespace Assets.Scripts.Data
@@ -65,7 +65,7 @@ namespace Assets.Scripts.Data
             {
                 return int.Parse(_saveData.activeHeroId);
             }
-            
+
             set
             {
                 _saveData.activeHeroId = value.ToString();
@@ -95,7 +95,7 @@ namespace Assets.Scripts.Data
             set
             {
                 //TODO: check if this saves correctly, else use -> ToLongDateString or other
-                _saveData.created = value.ToString(); 
+                _saveData.created = value.ToString();
             }
         }
 
@@ -141,7 +141,7 @@ namespace Assets.Scripts.Data
         {
             get
             {
-                return Boolean.Parse(_saveData.rememberMe);
+                return bool.Parse(_saveData.rememberMe);
             }
 
             set

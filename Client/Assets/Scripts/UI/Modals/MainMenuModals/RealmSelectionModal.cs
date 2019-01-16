@@ -1,10 +1,10 @@
 ﻿using System;
 using Assets.Scripts.Data;
-using Assets.Scripts.Data.Models;
 using Assets.Scripts.LevelManagement;
 using Assets.Scripts.Network.RequestModels.Sorting;
 using Assets.Scripts.Network.RequestModels.Users.View;
 using Assets.Scripts.Network.Shared.Http;
+using Assets.Scripts.Shared.DataModels;
 using Assets.Scripts.UI.MainMenu;
 using Assets.Scripts.Utilities;
 using BestHTTP;
@@ -168,7 +168,7 @@ namespace Assets.Scripts.UI.Modals.MainMenuModals
         {
             _realmsContainer.sizeDelta = new Vector2(_realmsContainer.sizeDelta.x, realms.Length * buttonHeight);
 
-            foreach (var realm in realms)
+            foreach (RealmListItem realm in realms)
             {
                 Button realmButton = GameObject.Instantiate<Button>(_realmBtnPrefab, _realmsContainer.transform);
                 realmButton.name = realm.id.ToString() + "_RealmBtn";
@@ -220,7 +220,7 @@ namespace Assets.Scripts.UI.Modals.MainMenuModals
 
         private float CalculateScrollbarValue(int realmsCount, int realmIndex)
         {
-            float middlePoint = (float)realmsCount / (float)2;
+            float middlePoint = realmsCount / (float)2;
             float scrollValue = 1 - (realmIndex * (0.5f / middlePoint));
 
             if (scrollValue < 0.2f)

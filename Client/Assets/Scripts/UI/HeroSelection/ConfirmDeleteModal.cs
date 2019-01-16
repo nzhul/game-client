@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using Assets.Scripts.Data;
-using Assets.Scripts.Data.Models;
 using Assets.Scripts.LevelManagement;
 using Assets.Scripts.Network.Shared.Http;
+using Assets.Scripts.Shared.DataModels;
 using Assets.Scripts.UI.CharacterSelection;
 using Assets.Scripts.UI.Modals;
 using Assets.Scripts.UI.Modals.MainMenuModals;

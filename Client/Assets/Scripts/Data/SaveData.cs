@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Assets.Scripts.Data.Models;
+using Assets.Scripts.Shared.DataModels;
 
 namespace Assets.Scripts.Data
 {

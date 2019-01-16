@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts;
 using Assets.Scripts.Data;
-using Assets.Scripts.Data.Models;
 using Assets.Scripts.Network.Services;
 using Assets.Scripts.Network.Shared.Http;
+using Assets.Scripts.Shared.DataModels;
 using BestHTTP;
 using Newtonsoft.Json;
 using UnityEngine;
@@ -52,7 +52,7 @@ public class MapManager : MonoBehaviour
 
     public event Action OnInitComplete;
 
-    void Start()
+    private void Start()
     {
         _worldService = new WorldService();
 
@@ -95,7 +95,7 @@ public class MapManager : MonoBehaviour
                 _dm.Regions = regions;
                 _dm.Save();
 
-                this.RenderMap();
+                RenderMap();
             }
         }
     }
@@ -115,7 +115,7 @@ public class MapManager : MonoBehaviour
             graphView.Init(graph);
             graphView.AddMonsters(activeRegion.monsterPacks);
             //graphView.Dwellings();
-            this.activeHero = graphView.InitHero(_activeHero, graph.nodes[_activeHero.y, _activeHero.x].worldPosition);
+            activeHero = graphView.InitHero(_activeHero, graph.nodes[_activeHero.y, _activeHero.x].worldPosition);
 
             if (OnInitComplete != null)
             {

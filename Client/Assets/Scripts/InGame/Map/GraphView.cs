@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using Assets.Scripts.Data.Models;
+﻿using System.Collections.Generic;
+using Assets.Scripts.Shared.DataModels;
 using UnityEngine;
 
 public class GraphView : MonoBehaviour
@@ -15,12 +14,11 @@ public class GraphView : MonoBehaviour
 
     [Header("Hero")]
     public GameObject heroViewPrefab;
-
-    GameObject gridContainer;
-    GameObject contactPointsContainer;
-    GameObject occupiedPointsContainer;
-    GameObject openPointsContainer;
-    GameObject wallPointsContainer;
+    private GameObject gridContainer;
+    private GameObject contactPointsContainer;
+    private GameObject occupiedPointsContainer;
+    private GameObject openPointsContainer;
+    private GameObject wallPointsContainer;
 
     public NodeView[,] nodeViews;
 
@@ -50,7 +48,7 @@ public class GraphView : MonoBehaviour
                 Node node = graph.nodes[row, col];
 
                 GameObject instance = Instantiate(walkableTilePrefab, node.worldPosition, Quaternion.identity);
-                Transform parent = this.ResolveParent(node.nodeType);
+                Transform parent = ResolveParent(node.nodeType);
                 instance.transform.SetParent(parent);
                 NodeView nodeView = instance.GetComponent<NodeView>();
 
@@ -104,7 +102,7 @@ public class GraphView : MonoBehaviour
 
     public void AddMonsters(IList<MonsterPack> monsterPacks)
     {
-        foreach (var pack in monsterPacks)
+        foreach (MonsterPack pack in monsterPacks)
         {
             NodeView nodeView = nodeViews[pack.y, pack.x]; // y = cols; x = rows
 

@@ -1,9 +1,9 @@
 ﻿using System.Linq;
 using Assets.Scripts.Data;
-using Assets.Scripts.Data.Models;
 using Assets.Scripts.LevelManagement;
 using Assets.Scripts.Network.RequestModels.Realms;
 using Assets.Scripts.Network.Shared.Http;
+using Assets.Scripts.Shared.DataModels;
 using Assets.Scripts.UI.Modals.MainMenuModals;
 using Assets.Scripts.Utilities;
 using BestHTTP;
@@ -65,7 +65,7 @@ namespace Assets.Scripts.UI.HeroCreation
             Common.Empty(_factionContainer.transform);
 
             int index = 0;
-            foreach (var faction in factionData)
+            foreach (FactionData faction in factionData)
             {
                 Button factionBtn = GameObject.Instantiate<Button>(_factionBtnPrefab, _factionContainer);
                 factionBtn.name = faction.name + "_FactionBtn";
@@ -90,7 +90,7 @@ namespace Assets.Scripts.UI.HeroCreation
             FactionData faction = factionData.FirstOrDefault(f => f.name == selectedFaction);
 
             int index = 0;
-            foreach (var @class in faction.heroes)
+            foreach (FactionClass @class in faction.heroes)
             {
                 Button classBtn = GameObject.Instantiate<Button>(_classBtnPrefab, _classContainer);
                 classBtn.name = @class.name + "_HeroBtn";

@@ -1,5 +1,4 @@
-﻿using System;
-using Assets.Scripts.Data.Models;
+﻿using Assets.Scripts.Shared.DataModels;
 using UnityEngine;
 
 [RequireComponent(typeof(HeroMotor))]

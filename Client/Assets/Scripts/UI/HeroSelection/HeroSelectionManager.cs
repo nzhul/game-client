@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Data;
-using Assets.Scripts.Data.Models;
 using Assets.Scripts.LevelManagement;
+using Assets.Scripts.Shared.DataModels;
 using Assets.Scripts.UI.HeroSelection;
 using Assets.Scripts.Utilities;
 using UnityEngine;
@@ -104,7 +104,7 @@ namespace Assets.Scripts.UI.CharacterSelection
                 _heroList = DataManager.Instance.Avatar.heroes;
 
                 int index = 0;
-                foreach (var hero in _heroList)
+                foreach (Hero hero in _heroList)
                 {
                     Button heroBtn = GameObject.Instantiate<Button>(_heroBtnPrefab, _heroContainer);
                     heroBtn.name = hero.id + "_HeroBtn";
