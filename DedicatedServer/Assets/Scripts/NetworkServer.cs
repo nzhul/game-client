@@ -2,11 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
-using Assets.Scripts;
 using Assets.Scripts.MessageHandlers;
-using Assets.Scripts.Network.Shared.Http;
 using Assets.Scripts.Shared.DataModels;
-using BestHTTP;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -28,9 +25,11 @@ public class NetworkServer : MonoBehaviour
 
     private Dictionary<int, IMessageHandler> _messageHandlers;
 
-    public Dictionary<int, ServerConnection> connections = new Dictionary<int, ServerConnection>();
+    private DisconnectEventHandler _disconnectEventHandler;
 
-    public Dictionary<int, Region> regions = new Dictionary<int, Region>();
+    public Dictionary<int, ServerConnection> Connections = new Dictionary<int, ServerConnection>();
+
+    public Dictionary<int, Region> Regions = new Dictionary<int, Region>();
 
     private void Start()
     {
@@ -61,10 +60,12 @@ public class NetworkServer : MonoBehaviour
 
     private void RegisterMessageHandlers()
     {
+        _disconnectEventHandler = new DisconnectEventHandler();
         _messageHandlers = new Dictionary<int, IMessageHandler>
         {
             { NetOperationCode.AuthRequest, new AuthRequestHandler() },
-            { NetOperationCode.WorldEnterRequest, new WorldEnterRequestHandler() }
+            { NetOperationCode.WorldEnterRequest, new WorldEnterRequestHandler() },
+            { NetOperationCode.MapMovementRequest, new MapMovementRequestHandler() }
         };
     }
 
@@ -99,22 +100,7 @@ public class NetworkServer : MonoBehaviour
                 Debug.Log(string.Format("User {0} has connected throught host {1}", connectionId, recievingHostId));
                 break;
             case NetworkEventType.DisconnectEvent:
-                if (connections.ContainsKey(connectionId))
-                {
-                    ServerConnection user = connections[connectionId];
-                    Debug.Log(string.Format("{0} has disconnected from the server!", user.Username));
-
-                    string endpoint = "users/{0}/setoffline";
-                    string[] @params = new string[] { user.Id.ToString() };
-
-                    RequestManager.Instance.Put(endpoint, @params, user.Token, OnSetOffline);
-
-                    connections.Remove(connectionId);
-                }
-                else
-                {
-                    Debug.Log("Someone disconnected from the server!");
-                }
+                _disconnectEventHandler.Handle(connectionId);
                 break;
             case NetworkEventType.Nothing:
                 break;
@@ -122,14 +108,6 @@ public class NetworkServer : MonoBehaviour
                 break;
             default:
                 break;
-        }
-    }
-
-    private void OnSetOffline(HTTPRequest request, HTTPResponse response)
-    {
-        if (!NetworkCommon.RequestIsSuccessful(request, response, out string errorMessage))
-        {
-            Debug.LogWarning("Error setting user as offline in the API!");
         }
     }
 

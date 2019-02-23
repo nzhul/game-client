@@ -75,6 +75,8 @@ public class MapManager : MonoBehaviour
             }
 
             RequestManager.Instance.Get(endpoint, @params, queryParams, DataManager.Instance.Token, OnGetGetRegionsRequestFinished);
+
+
             _worldService.SendWorldEnterRequest(DataManager.Instance.Id, DataManager.Instance.CurrentRealmId, regionsForLoading);
         }
     }

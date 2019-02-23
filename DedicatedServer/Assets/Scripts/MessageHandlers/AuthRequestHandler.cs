@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Network.Shared.Http;
+﻿using System;
+using Assets.Scripts.Network.Shared.Http;
 using Assets.Scripts.Shared.NetMessages;
 using BestHTTP;
 using UnityEngine;
@@ -7,6 +8,8 @@ namespace Assets.Scripts.MessageHandlers
 {
     public class AuthRequestHandler : IMessageHandler
     {
+        public static event Action<ServerConnection> OnAuth;
+
         /// <summary>
         /// The user will authenticate directly throu the API.
         /// Then he will send his token and username to the dedicated server.
@@ -21,12 +24,16 @@ namespace Assets.Scripts.MessageHandlers
             {
                 rmsg.Success = 1;
                 rmsg.ConnectionId = connectionId;
-                NetworkServer.Instance.connections.Add(connectionId, new ServerConnection
+
+                ServerConnection connection = new ServerConnection
                 {
-                    Id = msg.Id,
+                    ConnectionId = connectionId,
+                    UserId = msg.Id,
                     Token = msg.Token,
                     Username = msg.Username
-                });
+                };
+
+                NetworkServer.Instance.Connections.Add(connectionId, connection);
 
                 string endpoint = "users/{0}/setonline/{1}";
                 string[] @params = new string[] { msg.Id.ToString(), connectionId.ToString() };
@@ -34,6 +41,7 @@ namespace Assets.Scripts.MessageHandlers
                 RequestManager.Instance.Put(endpoint, @params, msg.Token, OnSetOnline);
 
                 Debug.Log(string.Format("{0} has connected to the server!", msg.Username));
+                OnAuth?.Invoke(connection);
             }
             else
             {

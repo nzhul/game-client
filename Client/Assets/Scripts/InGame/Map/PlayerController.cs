@@ -1,19 +1,50 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using Assets.Scripts.Network;
+using Assets.Scripts.Shared.NetMessages.World;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class PlayerController : MonoBehaviour
 {
+    #region Singleton
+    private static PlayerController _instance;
+
+    public static PlayerController Instance
+    {
+        get
+        {
+            return _instance;
+        }
+    }
+
+    private void Awake()
+    {
+        if (_instance != null)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            _instance = this;
+        }
+
+        NetworkClient.OnWorldEnter += NetworkClient_OnWorldEnter;
+        NetworkClient.OnMapMovement += NetworkClient_OnMapMovement;
+    }
+    #endregion
+
     public LayerMask movementMask;
     public NodeView focusNodeView;
     public HeroView activeHero;
+    private Camera cam;
+    private Graph _graph;
+    private GraphView _graphView;
+    private Node[] path;
+    private List<NodeView> _pathView;
+    private HeroView hero;
 
-    Camera cam;
-    Graph _graph;
-    GraphView _graphView;
-    Node[] path;
-    List<NodeView> _pathView;
-    HeroView hero;
+    public bool InputEnabled { get; set; }
 
     private void Start()
     {
@@ -23,6 +54,23 @@ public class PlayerController : MonoBehaviour
         cam = Camera.main;
 
         MapManager.Instance.OnInitComplete += Hero_OnHeroInit;
+    }
+
+    private void NetworkClient_OnWorldEnter(Net_OnWorldEnter msg)
+    {
+        if (msg.Success == 1)
+        {
+            Debug.Log("Inputs ENABLED!");
+            InputEnabled = true;
+        }
+    }
+
+    private void NetworkClient_OnMapMovement(Net_OnMapMovement msg)
+    {
+        if (path != null && path.Length > 0 && msg.HeroUpdates.Any(h => h.HeroId == hero.hero.id))
+        {
+            ExecutePath();
+        }
     }
 
     private void Hero_OnHeroInit()
@@ -38,7 +86,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && InputEnabled)
         {
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -69,10 +117,20 @@ public class PlayerController : MonoBehaviour
                         // execute nodeView.InteractEntity.Interact().
 
                         // 2. Execute Path
-                        if (path != null && path.Length > 0)
+                        //if (path != null && path.Length > 0)
+                        //{
+                        //    ExecutePath();
+                        //}
+
+                        // 2. Send Map movement request to the server
+                        Net_MapMovementRequest msg = new Net_MapMovementRequest
                         {
-                            ExecutePath();
-                        }
+                            HeroId = hero.hero.id,
+                            NewX = hero.hero.x,
+                            NewY = hero.hero.y,
+                            RegionId = hero.hero.regionId
+                        };
+                        NetworkClient.Instance.SendServer(msg);
                     }
                 }
             }
@@ -81,7 +139,7 @@ public class PlayerController : MonoBehaviour
 
     private void Hero_OnDestinationReached(Node obj)
     {
-        this.ClearPreviousPath();
+        ClearPreviousPath();
     }
 
     private void ExecutePath()
@@ -97,8 +155,8 @@ public class PlayerController : MonoBehaviour
         if (pathSuccessful)
         {
             path = newPath;
-            this.ClearPreviousPath();
-            this.HighlightPath();
+            ClearPreviousPath();
+            HighlightPath();
         }
     }
 
@@ -106,7 +164,7 @@ public class PlayerController : MonoBehaviour
     {
         if (_pathView != null && _pathView.Count > 0)
         {
-            foreach (var nodeView in _pathView)
+            foreach (NodeView nodeView in _pathView)
             {
                 nodeView.ResetGraphics();
             }
@@ -115,7 +173,7 @@ public class PlayerController : MonoBehaviour
 
     private void HighlightPath()
     {
-        if (this.path != null && this.path.Length > 0)
+        if (path != null && path.Length > 0)
         {
             for (int i = 0; i < path.Length; i++)
             {

@@ -1,0 +1,30 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace Assets.Scripts.Shared.NetMessages.World
+{
+    [Serializable]
+    public class Net_OnMapMovement : NetMessage
+    {
+        public Net_OnMapMovement()
+        {
+            OperationCode = NetOperationCode.OnMapMovement;
+        }
+
+        public string Error { get; set; }
+
+        public byte Success { get; set; }
+
+        public IList<HeroUpdate> HeroUpdates { get; set; }
+    }
+
+    [Serializable]
+    public class HeroUpdate
+    {
+        public int HeroId { get; set; }
+
+        public int NewX { get; set; }
+
+        public int NewY { get; set; }
+    }
+}

@@ -1,7 +1,9 @@
 ﻿#pragma warning disable CS0618 // Type or member is obsolete
 
+using System;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using Assets.Scripts.Shared.NetMessages.World;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -23,7 +25,12 @@ namespace Assets.Scripts.Network
         private int hostId;
         private byte error;
 
-        private bool isStarted;
+        public bool IsStarted;
+
+        #region Server Events
+        public static event Action<Net_OnWorldEnter> OnWorldEnter;
+        public static event Action<Net_OnMapMovement> OnMapMovement;
+        #endregion
 
         private void Start()
         {
@@ -41,12 +48,12 @@ namespace Assets.Scripts.Network
             NetworkTransport.Init();
 
             ConnectionConfig connectionConfig = new ConnectionConfig();
-            this.reliableChannel = connectionConfig.AddChannel(QosType.Reliable);
+            reliableChannel = connectionConfig.AddChannel(QosType.Reliable);
 
             HostTopology topo = new HostTopology(connectionConfig, MAX_USER);
 
             // Client only code
-            this.hostId = NetworkTransport.AddHost(topo, 0);
+            hostId = NetworkTransport.AddHost(topo, 0);
 
 #if UNITY_WEBGL && !UNITY_EDITOR
         // Web Client
@@ -60,18 +67,18 @@ namespace Assets.Scripts.Network
 
             Debug.Log(string.Format("Attempting to connect on {0} ...", SERVER_IP));
 
-            isStarted = true;
+            IsStarted = true;
         }
 
         public void ShutDown()
         {
-            isStarted = false;
+            IsStarted = false;
             NetworkTransport.Shutdown();
         }
 
         public void UpdateMessagePump()
         {
-            if (!isStarted)
+            if (!IsStarted)
             {
                 return;
             }
@@ -121,11 +128,21 @@ namespace Assets.Scripts.Network
                     Debug.Log("Client has authenticated to dedicated server!");
                     break;
                 case NetOperationCode.OnWorldEnter:
+                    if (OnWorldEnter != null)
+                    {
+                        OnWorldEnter((Net_OnWorldEnter)msg);
+                    }
                     // TODO: Raise static event. Map manager should wait for this event to occur before rendering the map.
                     // All client server interaction should work in a similar way:
-                        // 1. Client send request to the server and enters "waiting state"
-                        // 2. Server sends back result message
-                        // 3. Client consumes the message by listening to the event and is no longer in waiting state
+                    // 1. Client send request to the server and enters "waiting state"
+                    // 2. Server sends back result message
+                    // 3. Client consumes the message by listening to the event and is no longer in waiting state
+                    break;
+                case NetOperationCode.OnMapMovement:
+                    if (OnMapMovement != null)
+                    {
+                        OnMapMovement((Net_OnMapMovement)msg);
+                    }
                     break;
                 default:
                     break;
