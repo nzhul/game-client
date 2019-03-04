@@ -31,6 +31,16 @@ public static class NetOperationCode
     /// Do validation and if success -> send OnMovement message that contains the updated coordinates.
     /// </summary>
     public const int MapMovementRequest = 4;
+
+    /// <summary>
+    /// Sends request for teleport to the dedicated server.
+    /// 1. DDServer validates the request and sends back OnTeleport message.
+    /// 2. Client listens for OnTeleport messages and execute the teleport.
+    ///     - Cases:
+    ///         1. self teleport -> the requester is the one that is teleporting
+    ///         2. other player -> a player teleports in or out of our map.
+    /// </summary>
+    public const int TeleportRequest = 5;
     #endregion
 
 

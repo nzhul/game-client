@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Assets.Scripts.Shared.DataModels;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GraphView : MonoBehaviour
 {
@@ -21,6 +23,12 @@ public class GraphView : MonoBehaviour
     private GameObject wallPointsContainer;
 
     public NodeView[,] nodeViews;
+
+    [SerializeField]
+    public Canvas labelsCanvas;
+
+    [SerializeField]
+    private Text labelPrefab;
 
     private void Awake()
     {
@@ -57,8 +65,36 @@ public class GraphView : MonoBehaviour
                     nodeView.Init(node);
                     nodeViews[node.gridX, node.gridY] = nodeView;
                 }
+
+                InitLabel(node);
             }
         }
+    }
+
+    private void InitLabel(Node node)
+    {
+        Color labelColor = Color.black;
+        float yShift = 0.2f;
+        switch (node.nodeType)
+        {
+            case NodeType.Open:
+                break;
+            case NodeType.Wall:
+                labelColor = Color.white;
+                break;
+            case NodeType.ContactPoint:
+                yShift = 0.5f;
+                break;
+            case NodeType.Occupied:
+                yShift = 1.5f;
+                break;
+            default:
+                break;
+        }
+        Text label = Instantiate(labelPrefab, new Vector3(node.worldPosition.x, node.worldPosition.y + yShift, node.worldPosition.z), labelsCanvas.transform.rotation);
+        label.color = labelColor;
+        label.text = "X:" + node.gridX + Environment.NewLine + "Y:" + node.gridY;
+        label.transform.SetParent(labelsCanvas.transform);
     }
 
     private Transform ResolveParent(NodeType nodeType)
@@ -104,7 +140,7 @@ public class GraphView : MonoBehaviour
     {
         foreach (MonsterPack pack in monsterPacks)
         {
-            NodeView nodeView = nodeViews[pack.y, pack.x]; // y = cols; x = rows
+            NodeView nodeView = nodeViews[pack.x, pack.y]; // x = cols; y = rows
 
             if (nodeView != null)
             {

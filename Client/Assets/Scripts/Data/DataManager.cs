@@ -59,6 +59,18 @@ namespace Assets.Scripts.Data
             }
         }
 
+        public int ActiveRegionId
+        {
+            get
+            {
+                return _saveData.activeRegionId;
+            }
+            set
+            {
+                _saveData.activeRegionId = value;
+            }
+        }
+
         public int ActiveHeroId
         {
             get

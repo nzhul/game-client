@@ -1,5 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.Utilities
@@ -30,6 +31,11 @@ namespace Assets.Scripts.Utilities
             ColorBlock cb = button.colors;
             cb.normalColor = highLightColor;
             button.colors = cb;
+        }
+
+        public static bool IsMouseOverUI()
+        {
+            return EventSystem.current.IsPointerOverGameObject();
         }
 
         //public static bool RequestIsSuccessful(HTTPRequest request, HTTPResponse response)

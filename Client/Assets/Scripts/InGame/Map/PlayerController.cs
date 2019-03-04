@@ -67,10 +67,13 @@ public class PlayerController : MonoBehaviour
 
     private void NetworkClient_OnMapMovement(Net_OnMapMovement msg)
     {
+        //1. If in the MapMovement message there is our hero Id - we execute his path.
         if (path != null && path.Length > 0 && msg.HeroUpdates.Any(h => h.HeroId == hero.hero.id))
         {
             ExecutePath();
         }
+
+        //2. Find all other heroes and execute their paths aswell.
     }
 
     private void Hero_OnHeroInit()
@@ -126,8 +129,8 @@ public class PlayerController : MonoBehaviour
                         Net_MapMovementRequest msg = new Net_MapMovementRequest
                         {
                             HeroId = hero.hero.id,
-                            NewX = hero.hero.x,
-                            NewY = hero.hero.y,
+                            NewX = nodeView.node.gridX,
+                            NewY = nodeView.node.gridY,
                             RegionId = hero.hero.regionId
                         };
                         NetworkClient.Instance.SendServer(msg);

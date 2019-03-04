@@ -21,6 +21,7 @@ namespace Assets.Scripts.Data
         public string password;
         public string hashValue;
         public string activeHeroId;
+        public int activeRegionId;
         public UserAvatar avatar;
         public IList<Region> regions;
 

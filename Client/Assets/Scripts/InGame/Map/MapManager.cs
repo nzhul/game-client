@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts;
 using Assets.Scripts.Data;
+using Assets.Scripts.InGame.Console;
 using Assets.Scripts.Network.Services;
 using Assets.Scripts.Network.Shared.Http;
 using Assets.Scripts.Shared.DataModels;
@@ -81,6 +82,14 @@ public class MapManager : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.L) && !DeveloperConsole.ConsoleIsOpen)
+        {
+            graphView.labelsCanvas.gameObject.SetActive(!graphView.labelsCanvas.gameObject.activeInHierarchy);
+        }
+    }
+
     private void OnGetGetRegionsRequestFinished(HTTPRequest request, HTTPResponse response)
     {
         // TODO: Implement this
@@ -95,21 +104,24 @@ public class MapManager : MonoBehaviour
             if (regions != null && regions.Count >= 1)
             {
                 _dm.Regions = regions;
+                Region activeRegion = _dm.Regions.FirstOrDefault(r => r.heroes.Any(h => h.id == _dm.ActiveHeroId));
+                _dm.ActiveRegionId = activeRegion.id;
                 _dm.Save();
 
-                RenderMap();
+                RenderMap(activeRegion);
             }
         }
     }
 
-    private void RenderMap()
+    private void RenderMap(Region activeRegion)
     {
-        Region activeRegion = _dm.Regions.FirstOrDefault(r => r.heroes.Any(h => h.id == _dm.ActiveHeroId));
         if (activeRegion == null)
         {
             Debug.LogWarning("Cannot find region for the current active hero with ID: " + _dm.ActiveHeroId);
             return;
         }
+
+
 
         if (graph != null && graphView != null)
         {
@@ -117,7 +129,7 @@ public class MapManager : MonoBehaviour
             graphView.Init(graph);
             graphView.AddMonsters(activeRegion.monsterPacks);
             //graphView.Dwellings();
-            activeHero = graphView.InitHero(_activeHero, graph.nodes[_activeHero.y, _activeHero.x].worldPosition);
+            activeHero = graphView.InitHero(_activeHero, graph.nodes[_activeHero.x, _activeHero.y].worldPosition);
 
             if (OnInitComplete != null)
             {

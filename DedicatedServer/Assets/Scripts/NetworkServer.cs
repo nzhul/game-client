@@ -65,7 +65,8 @@ public class NetworkServer : MonoBehaviour
         {
             { NetOperationCode.AuthRequest, new AuthRequestHandler() },
             { NetOperationCode.WorldEnterRequest, new WorldEnterRequestHandler() },
-            { NetOperationCode.MapMovementRequest, new MapMovementRequestHandler() }
+            { NetOperationCode.MapMovementRequest, new MapMovementRequestHandler() },
+            { NetOperationCode.TeleportRequest, new TeleportRequestHandler() }
         };
     }
 

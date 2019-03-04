@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Utilities;
+using UnityEngine;
 
 public class MapCamera : MonoBehaviour
 {
@@ -10,15 +11,11 @@ public class MapCamera : MonoBehaviour
     public float moveSpeedMinZoom, moveSpeedMaxZoom;
 
     public float rotationSpeed;
-
-    Transform swivel, stick;
-
-    float zoom = 1f;
-
-    float rotationAngle;
-
-    int tilesCountX;
-    int tilesCountY;
+    private Transform swivel, stick;
+    private float zoom = 1f;
+    private float rotationAngle;
+    private int tilesCountX;
+    private int tilesCountY;
 
     private void Awake()
     {
@@ -42,29 +39,32 @@ public class MapCamera : MonoBehaviour
         }
     }
 
-    void Update()
+    private void Update()
     {
-        float zoomDelta = Input.GetAxis("Mouse ScrollWheel");
-        if (zoomDelta != 0f)
+        if (!Common.IsMouseOverUI())
         {
-            AdjustZoom(zoomDelta);
-        }
+            float zoomDelta = Input.GetAxis("Mouse ScrollWheel");
+            if (zoomDelta != 0f)
+            {
+                AdjustZoom(zoomDelta);
+            }
 
-        float rotationDelta = Input.GetAxis("Rotation");
-        if (rotationDelta != 0f)
-        {
-            AdjustRotation(rotationDelta);
-        }
+            float rotationDelta = Input.GetAxis("Rotation");
+            if (rotationDelta != 0f)
+            {
+                AdjustRotation(rotationDelta);
+            }
 
-        float xDelta = Input.GetAxis("Horizontal");
-        float zDelta = Input.GetAxis("Vertical");
-        if (xDelta != 0f || zDelta != 0f)
-        {
-            AdjustPosition(xDelta, zDelta);
+            float xDelta = Input.GetAxis("Horizontal");
+            float zDelta = Input.GetAxis("Vertical");
+            if (xDelta != 0f || zDelta != 0f)
+            {
+                AdjustPosition(xDelta, zDelta);
+            }
         }
     }
 
-    void AdjustZoom(float delta)
+    private void AdjustZoom(float delta)
     {
         zoom = Mathf.Clamp01(zoom + delta);
 
@@ -75,7 +75,7 @@ public class MapCamera : MonoBehaviour
         swivel.localRotation = Quaternion.Euler(angle, 0f, 0f);
     }
 
-    void AdjustRotation(float delta)
+    private void AdjustRotation(float delta)
     {
         rotationAngle += delta * rotationSpeed * Time.deltaTime;
         if (rotationAngle < 0f)
@@ -89,7 +89,7 @@ public class MapCamera : MonoBehaviour
         transform.localRotation = Quaternion.Euler(0f, rotationAngle, 0f);
     }
 
-    void AdjustPosition(float xDelta, float zDelta)
+    private void AdjustPosition(float xDelta, float zDelta)
     {
         Vector3 direction =
             transform.localRotation *
@@ -104,7 +104,7 @@ public class MapCamera : MonoBehaviour
         transform.localPosition = ClampPosition(position);
     }
 
-    Vector3 ClampPosition(Vector3 position)
+    private Vector3 ClampPosition(Vector3 position)
     {
         // TODO: use the values of the actual map when we have real tiles
         // in order to limit the region where the camera can go.
