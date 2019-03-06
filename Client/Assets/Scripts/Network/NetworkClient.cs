@@ -1,9 +1,9 @@
 ﻿#pragma warning disable CS0618 // Type or member is obsolete
 
-using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
-using Assets.Scripts.Shared.NetMessages.World;
+using Assets.Scripts.Network.MessageHandlers;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -28,14 +28,28 @@ namespace Assets.Scripts.Network
         public bool IsStarted;
 
         #region Server Events
-        public static event Action<Net_OnWorldEnter> OnWorldEnter;
-        public static event Action<Net_OnMapMovement> OnMapMovement;
+
+        private DisconnectEventHandler _disconnectEventHandler;
+        private Dictionary<int, IMessageHandler> _messageHandlers;
+
         #endregion
 
         private void Start()
         {
             Instance = this;
             Init();
+            RegisterMessageHandlers();
+        }
+
+        private void RegisterMessageHandlers()
+        {
+            _disconnectEventHandler = new DisconnectEventHandler();
+            _messageHandlers = new Dictionary<int, IMessageHandler>
+        {
+            { NetOperationCode.OnAuthRequest, new OnAuthRequestHandler() },
+            { NetOperationCode.OnWorldEnter, new OnWorldEnterRequestHandler() },
+            { NetOperationCode.OnMapMovement, new OnMapMovementRequestHandler() }
+        };
         }
 
         private void Update()
@@ -95,17 +109,13 @@ namespace Assets.Scripts.Network
             switch (type)
             {
                 case NetworkEventType.DataEvent:
-                    BinaryFormatter formatter = new BinaryFormatter();
-                    MemoryStream ms = new MemoryStream(recBuffer);
-                    NetMessage msg = (NetMessage)formatter.Deserialize(ms);
-
-                    OnData(connectionId, channelId, recievingHostId, msg);
+                    OnData(connectionId, channelId, recievingHostId, recBuffer);
                     break;
                 case NetworkEventType.ConnectEvent:
                     Debug.Log("We have connected to the server");
                     break;
                 case NetworkEventType.DisconnectEvent:
-                    Debug.Log("We have been disconnected");
+                    _disconnectEventHandler.Handle(connectionId);
                     break;
                 case NetworkEventType.Nothing:
                     break;
@@ -117,36 +127,42 @@ namespace Assets.Scripts.Network
             }
         }
 
-        private void OnData(int connectionId, int channelId, int recievingHostId, NetMessage msg)
+        private void OnData(int connectionId, int channelId, int recievingHostId, byte[] recBuffer)
         {
-            switch (msg.OperationCode)
-            {
-                case NetOperationCode.None:
-                    Debug.Log("Unexpected NETOperationCode");
-                    break;
-                case NetOperationCode.OnAuthRequest:
-                    Debug.Log("Client has authenticated to dedicated server!");
-                    break;
-                case NetOperationCode.OnWorldEnter:
-                    if (OnWorldEnter != null)
-                    {
-                        OnWorldEnter((Net_OnWorldEnter)msg);
-                    }
-                    // TODO: Raise static event. Map manager should wait for this event to occur before rendering the map.
-                    // All client server interaction should work in a similar way:
-                    // 1. Client send request to the server and enters "waiting state"
-                    // 2. Server sends back result message
-                    // 3. Client consumes the message by listening to the event and is no longer in waiting state
-                    break;
-                case NetOperationCode.OnMapMovement:
-                    if (OnMapMovement != null)
-                    {
-                        OnMapMovement((Net_OnMapMovement)msg);
-                    }
-                    break;
-                default:
-                    break;
-            }
+            BinaryFormatter formatter = new BinaryFormatter();
+            MemoryStream ms = new MemoryStream(recBuffer);
+            NetMessage msg = (NetMessage)formatter.Deserialize(ms);
+
+            _messageHandlers[msg.OperationCode].Handle(connectionId, channelId, recievingHostId, msg);
+
+            //switch (msg.OperationCode)
+            //{
+            //    case NetOperationCode.None:
+            //        Debug.Log("Unexpected NETOperationCode");
+            //        break;
+            //    case NetOperationCode.OnAuthRequest:
+            //        Debug.Log("Client has authenticated to dedicated server!");
+            //        break;
+            //    case NetOperationCode.OnWorldEnter:
+            //        if (OnWorldEnter != null)
+            //        {
+            //            OnWorldEnter((Net_OnWorldEnter)msg);
+            //        }
+            //        // TODO: Raise static event. Map manager should wait for this event to occur before rendering the map.
+            //        // All client server interaction should work in a similar way:
+            //        // 1. Client send request to the server and enters "waiting state"
+            //        // 2. Server sends back result message
+            //        // 3. Client consumes the message by listening to the event and is no longer in waiting state
+            //        break;
+            //    case NetOperationCode.OnMapMovement:
+            //        if (OnMapMovement != null)
+            //        {
+            //            OnMapMovement((Net_OnMapMovement)msg);
+            //        }
+            //        break;
+            //    default:
+            //        break;
+            //}
         }
 
         public void SendServer(NetMessage msg)

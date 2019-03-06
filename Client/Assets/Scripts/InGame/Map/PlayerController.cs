@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Network;
+using Assets.Scripts.Network.MessageHandlers;
 using Assets.Scripts.Shared.NetMessages.World;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -29,8 +30,7 @@ public class PlayerController : MonoBehaviour
             _instance = this;
         }
 
-        NetworkClient.OnWorldEnter += NetworkClient_OnWorldEnter;
-        NetworkClient.OnMapMovement += NetworkClient_OnMapMovement;
+        OnMapMovementRequestHandler.OnMapMovement += NetworkClient_OnMapMovement;
     }
     #endregion
 
@@ -56,13 +56,10 @@ public class PlayerController : MonoBehaviour
         MapManager.Instance.OnInitComplete += Hero_OnHeroInit;
     }
 
-    private void NetworkClient_OnWorldEnter(Net_OnWorldEnter msg)
+    public void EnableInputs()
     {
-        if (msg.Success == 1)
-        {
-            Debug.Log("Inputs ENABLED!");
-            InputEnabled = true;
-        }
+        Debug.Log("Inputs ENABLED!");
+        InputEnabled = true;
     }
 
     private void NetworkClient_OnMapMovement(Net_OnMapMovement msg)
