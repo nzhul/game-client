@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Assets.Scripts;
+﻿using Assets.Scripts;
 using Assets.Scripts.Data;
 using Assets.Scripts.InGame.Console;
 using Assets.Scripts.Network.Services;
@@ -9,6 +6,9 @@ using Assets.Scripts.Network.Shared.Http;
 using Assets.Scripts.Shared.DataModels;
 using BestHTTP;
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(Graph))]
@@ -45,11 +45,9 @@ public class MapManager : MonoBehaviour
     private IWorldService _worldService;
 
     private DataManager _dm;
-    private Hero _activeHero;
 
     public Graph graph;
     public GraphView graphView;
-    public HeroView activeHero;
 
     public event Action OnInitComplete;
 
@@ -59,8 +57,6 @@ public class MapManager : MonoBehaviour
 
         _dm = DataManager.Instance;
         _dm.Load();
-
-        _activeHero = _dm.Avatar.heroes.FirstOrDefault(x => x.id == _dm.ActiveHeroId);
 
         if (_dm.Avatar != null && _dm.Avatar.heroes != null && _dm.Avatar.heroes.Count >= 1)
         {
@@ -125,16 +121,20 @@ public class MapManager : MonoBehaviour
 
         if (graph != null && graphView != null)
         {
-            graph.Init(activeRegion.matrixString);
+            graph.Init(activeRegion.MatrixString);
             graphView.Init(graph);
             graphView.AddMonsters(activeRegion.monsterPacks);
+            graphView.AddHeroes(activeRegion.heroes);
+            PlayerController.Instance.SetActiveHero(DataManager.Instance.ActiveHeroId);
             //graphView.Dwellings();
-            activeHero = graphView.InitHero(_activeHero, graph.nodes[_activeHero.x, _activeHero.y].worldPosition);
+            //activeHero = graphView.InitHero(_activeHero, graph.nodes[_activeHero.x, _activeHero.y].worldPosition);
 
-            if (OnInitComplete != null)
-            {
-                OnInitComplete();
-            }
+            OnInitComplete?.Invoke();
         }
+    }
+
+    public Vector3 GetNodeWorldPosition(int x, int y)
+    {
+        return graph.nodes[x, y].worldPosition;
     }
 }

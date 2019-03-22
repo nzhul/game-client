@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Scripts.Shared.NetMessages.World.Models;
+using System;
 
 namespace Assets.Scripts.Shared.NetMessages.World
 {
@@ -14,9 +15,11 @@ namespace Assets.Scripts.Shared.NetMessages.World
 
         public int RegionId { get; set; }
 
-        public int NewX { get; set; }
+        //public int NewX { get; set; }
 
-        public int NewY { get; set; }
+        //public int NewY { get; set; }
+
+        public Coord Destination { get; set; }
     }
 }
 

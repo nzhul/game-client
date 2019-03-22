@@ -50,10 +50,9 @@ public static class NetOperationCode
 
     public const int OnWorldEnter = 101;
 
-    /// <summary>
-    /// Sends a collection of entities what need to be moved.
-    /// </summary>
     public const int OnMapMovement = 102;
+
+    public const int OnTeleport = 103;
 
     #endregion
 }

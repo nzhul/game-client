@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Assets.Scripts.InGame;
 using Assets.Scripts.Shared.NetMessages.World;
+using System;
+using System.Linq;
+using UnityEngine;
 
 namespace Assets.Scripts.Network.MessageHandlers
 {
@@ -11,16 +14,24 @@ namespace Assets.Scripts.Network.MessageHandlers
         {
             //1. Raise event
             var msg = (Net_OnMapMovement)input;
-            if (OnMapMovement != null)
-            {
-                OnMapMovement(msg);
-            }
+            OnMapMovement?.Invoke(msg);
 
-            // I need to create HeroesManager class that will store a collection of all heroes on the map
-            // Then i will be able to invoke HeroesManager.Instance.Heroes[heroId].MoveToNode(x, y)
-            // .MoveToNode(x, y) will check if the current hero have cached path.
-            // if cached path exist -> execute the path and clear the cache
-            // if not -> find path, execute and clear.
+            if (HeroesManager.Instance.Heroes != null && HeroesManager.Instance.Heroes.Count > 0)
+            {
+                var hero = HeroesManager.Instance.Heroes.FirstOrDefault(x => x.hero.id == msg.HeroId);
+                if (hero != null && !hero.isMoving)
+                {
+                    hero.MoveToNode(msg.Destination);
+                }
+                else
+                {
+                    Debug.LogWarning("Cannot find hero to move!");
+                }
+            }
+            else
+            {
+                Debug.LogWarning("Heroes collection is null or empty!");
+            }
         }
     }
 }

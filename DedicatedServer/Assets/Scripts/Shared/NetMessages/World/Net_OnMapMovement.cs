@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Assets.Scripts.Shared.NetMessages.World.Models;
+using System;
 
 namespace Assets.Scripts.Shared.NetMessages.World
 {
@@ -15,16 +15,12 @@ namespace Assets.Scripts.Shared.NetMessages.World
 
         public byte Success { get; set; }
 
-        public IList<HeroUpdate> HeroUpdates { get; set; }
-    }
-
-    [Serializable]
-    public class HeroUpdate
-    {
         public int HeroId { get; set; }
 
-        public int NewX { get; set; }
+        //public int NewX { get; set; }
 
-        public int NewY { get; set; }
+        //public int NewY { get; set; }
+
+        public Coord Destination { get; set; }
     }
 }

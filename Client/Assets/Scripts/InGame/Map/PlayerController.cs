@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using Assets.Scripts.InGame;
 using Assets.Scripts.Network;
-using Assets.Scripts.Network.MessageHandlers;
 using Assets.Scripts.Shared.NetMessages.World;
+using Assets.Scripts.Shared.NetMessages.World.Models;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -29,31 +30,26 @@ public class PlayerController : MonoBehaviour
         {
             _instance = this;
         }
-
-        OnMapMovementRequestHandler.OnMapMovement += NetworkClient_OnMapMovement;
     }
     #endregion
 
     public LayerMask movementMask;
     public NodeView focusNodeView;
-    public HeroView activeHero;
     private Camera cam;
-    private Graph _graph;
     private GraphView _graphView;
-    private Node[] path;
+    private Node[] hightlightPath;
     private List<NodeView> _pathView;
-    private HeroView hero;
+    private HeroView activeHero;
 
     public bool InputEnabled { get; set; }
 
     private void Start()
     {
         _pathView = new List<NodeView>();
-        _graph = MapManager.Instance.graph;
         _graphView = MapManager.Instance.graphView;
         cam = Camera.main;
 
-        MapManager.Instance.OnInitComplete += Hero_OnHeroInit;
+        MapManager.Instance.OnInitComplete += Hero_OnHeroInit; // TODO: this will fail if i switch active hero!
     }
 
     public void EnableInputs()
@@ -62,21 +58,14 @@ public class PlayerController : MonoBehaviour
         InputEnabled = true;
     }
 
-    private void NetworkClient_OnMapMovement(Net_OnMapMovement msg)
+    public void SetActiveHero(int heroId)
     {
-        //1. If in the MapMovement message there is our hero Id - we execute his path.
-        if (path != null && path.Length > 0 && msg.HeroUpdates.Any(h => h.HeroId == hero.hero.id))
-        {
-            ExecutePath();
-        }
-
-        //2. Find all other heroes and execute their paths aswell.
+        activeHero = HeroesManager.Instance.Heroes.FirstOrDefault(h => h.hero.id == heroId);
     }
 
     private void Hero_OnHeroInit()
     {
-        hero = MapManager.Instance.activeHero;
-        hero.motor.OnDestinationReached += Hero_OnDestinationReached;
+        activeHero.motor.OnDestinationReached += Hero_OnDestinationReached;
     }
 
     private void Update()
@@ -97,15 +86,15 @@ public class PlayerController : MonoBehaviour
                 GameObject parent = graphic.transform.parent.gameObject;
                 NodeView nodeView = parent.GetComponent<NodeView>();
 
-                if (nodeView != null && hero != null && !hero.isMoving)
+                if (nodeView != null && activeHero != null && !activeHero.isMoving)
                 {
                     if (nodeView != focusNodeView)
                     {
                         // 1. PreviewPath
                         SetFocus(nodeView);
-                        Vector3 start = MapManager.Instance.activeHero.worldPosition;
+                        Vector3 start = activeHero.transform.position;
                         Vector3 end = nodeView.node.worldPosition;
-                        PathRequestManager.RequestPath(start, end, OnPathFound);
+                        PathRequestManager.RequestPath(start, end, activeHero, OnPathFound);
                     }
                     else
                     {
@@ -125,10 +114,13 @@ public class PlayerController : MonoBehaviour
                         // 2. Send Map movement request to the server
                         Net_MapMovementRequest msg = new Net_MapMovementRequest
                         {
-                            HeroId = hero.hero.id,
-                            NewX = nodeView.node.gridX,
-                            NewY = nodeView.node.gridY,
-                            RegionId = hero.hero.regionId
+                            HeroId = activeHero.hero.id,
+                            Destination = new Coord
+                            {
+                                X = nodeView.node.gridX,
+                                Y = nodeView.node.gridY,
+                            },
+                            RegionId = activeHero.hero.regionId
                         };
                         NetworkClient.Instance.SendServer(msg);
                     }
@@ -142,19 +134,11 @@ public class PlayerController : MonoBehaviour
         ClearPreviousPath();
     }
 
-    private void ExecutePath()
-    {
-        if (hero != null && !hero.isMoving)
-        {
-            hero.motor.ExecuteFollowPath(path);
-        }
-    }
-
     public void OnPathFound(Node[] newPath, bool pathSuccessful)
     {
         if (pathSuccessful)
         {
-            path = newPath;
+            hightlightPath = newPath;
             ClearPreviousPath();
             HighlightPath();
         }
@@ -173,11 +157,11 @@ public class PlayerController : MonoBehaviour
 
     private void HighlightPath()
     {
-        if (path != null && path.Length > 0)
+        if (hightlightPath != null && hightlightPath.Length > 0)
         {
-            for (int i = 0; i < path.Length; i++)
+            for (int i = 0; i < hightlightPath.Length; i++)
             {
-                Node node = path[i];
+                Node node = hightlightPath[i];
                 NodeView nodeView = _graphView.nodeViews[node.gridX, node.gridY];
                 if (nodeView != null)
                 {

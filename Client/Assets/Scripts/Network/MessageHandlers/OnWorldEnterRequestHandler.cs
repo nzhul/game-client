@@ -10,10 +10,7 @@ namespace Assets.Scripts.Network.MessageHandlers
         {
             //1. Raise event
             var msg = (Net_OnWorldEnter)input;
-            if (OnWorldEnter != null)
-            {
-                OnWorldEnter(msg);
-            }
+            OnWorldEnter?.Invoke(msg);
 
             //2. Enable player inputs
 

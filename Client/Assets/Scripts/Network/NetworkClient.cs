@@ -48,7 +48,8 @@ namespace Assets.Scripts.Network
         {
             { NetOperationCode.OnAuthRequest, new OnAuthRequestHandler() },
             { NetOperationCode.OnWorldEnter, new OnWorldEnterRequestHandler() },
-            { NetOperationCode.OnMapMovement, new OnMapMovementRequestHandler() }
+            { NetOperationCode.OnMapMovement, new OnMapMovementRequestHandler() },
+            { NetOperationCode.OnTeleport, new OnTeleportRequestRequestHandler() }
         };
         }
 

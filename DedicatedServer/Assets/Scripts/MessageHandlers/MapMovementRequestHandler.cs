@@ -1,42 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
-using Assets.Scripts.Network.Shared.Http;
-using Assets.Scripts.Shared.NetMessages.World;
-using BestHTTP;
-using UnityEngine;
+﻿using Assets.Scripts.Shared.NetMessages.World;
+using Assets.Scripts.Shared.NetMessages.World.Models;
+using System.Linq;
 
 namespace Assets.Scripts.MessageHandlers
 {
-    public class MapMovementRequestHandler : IMessageHandler
+    public class MapMovementRequestHandler : MovementHandlerBase, IMessageHandler
     {
         public void Handle(int connectionId, int channelId, int recievingHostId, NetMessage input)
         {
             Net_MapMovementRequest msg = (Net_MapMovementRequest)input;
             Net_OnMapMovement rmsg = new Net_OnMapMovement();
 
-            
+
             // 1. Validate the new position
             if (IsNewPositionValid(msg))
             {
                 rmsg.Success = 1;
-                rmsg.HeroUpdates = new List<HeroUpdate>
+                rmsg.HeroId = msg.HeroId;
+                rmsg.Destination = new Coord
                 {
-                    new HeroUpdate
-                    {
-                        HeroId = msg.HeroId,
-                        NewX = msg.NewX,
-                        NewY = msg.NewY
-                    }
+                    X = msg.Destination.X,
+                    Y = msg.Destination.Y
                 };
 
-                // 2. Notify the requester
-                NetworkServer.Instance.SendClient(recievingHostId, connectionId, rmsg);
+                var movingHero = NetworkServer.Instance.Connections[connectionId]?.Avatar?.heroes?.FirstOrDefault(h => h.id == msg.HeroId);
 
-                // 3. Notify the interested clients ( must exclude the requester )
-                NotifyAllInterestedClients();
+                // 2. Notify the interested clients ( must exclude the requester )
+                base.NotifyAllInterestedClients(movingHero, recievingHostId, rmsg);
 
-                // 4. Update the database
-                UpdateDatabase(connectionId, msg);
+                // 3. Update hero position here in the dedicated server cache.
+                base.UpdateCache(movingHero, msg.Destination);
+
+                // 5. Update the database.
+                base.UpdateDatabase(connectionId, msg.HeroId, msg.Destination);
+
+                // Note: Both UpdateCached and UpdateDatabase is happening after client notification.
+                // That is done on purpose so we do not slow down the response to the client after we know that the request is valid.
             }
             else
             {
@@ -44,29 +43,6 @@ namespace Assets.Scripts.MessageHandlers
                 rmsg.Success = 0;
                 NetworkServer.Instance.SendClient(recievingHostId, connectionId, rmsg);
             }
-        }
-
-        private static void UpdateDatabase(int connectionId, Net_MapMovementRequest msg)
-        {
-            string token = NetworkServer.Instance.Connections[connectionId].Token;
-            string endpoint = "realms/heroes/{0}/{1}/{2}";
-            string[] @params = new string[] { msg.HeroId.ToString(), msg.NewX.ToString(), msg.NewY.ToString() };
-            RequestManager.Instance.Put(endpoint, @params, token, OnUpdateHeroPosition);
-        }
-
-        private static void OnUpdateHeroPosition(HTTPRequest request, HTTPResponse response)
-        {
-            if (!NetworkCommon.RequestIsSuccessful(request, response, out string errorMessage))
-            {
-                Debug.LogWarning("Error updating hero position in the API!");
-            }
-        }
-
-        private void NotifyAllInterestedClients()
-        {
-            // 1. Get a list of all ServerConnections that have a region that contain our hero
-            //    var connectionsToNotify = ...
-            // 2. foreach connection -> SendClient(recievingHostId, clientConnectionId, rmsg);
         }
 
         private bool IsNewPositionValid(Net_MapMovementRequest msg)

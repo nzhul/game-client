@@ -1,5 +1,5 @@
-﻿using System;
-using Assets.Scripts.Shared.NetMessages;
+﻿using Assets.Scripts.Shared.NetMessages;
+using System;
 using UnityEngine;
 
 namespace Assets.Scripts.Network.MessageHandlers
@@ -12,10 +12,7 @@ namespace Assets.Scripts.Network.MessageHandlers
         {
             var msg = (Net_OnAuthRequest)input;
 
-            if (OnAuthRequest != null)
-            {
-                OnAuthRequest(msg);
-            }
+            OnAuthRequest?.Invoke(msg);
 
             Debug.Log("Client has authenticated to dedicated server!");
         }

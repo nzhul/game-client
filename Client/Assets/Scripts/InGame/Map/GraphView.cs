@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using Assets.Scripts.Data;
+using Assets.Scripts.InGame;
 using Assets.Scripts.Shared.DataModels;
 using UnityEngine;
 using UnityEngine.UI;
@@ -122,8 +125,18 @@ public class GraphView : MonoBehaviour
         return parent;
     }
 
-    public HeroView InitHero(Hero hero, Vector3 worldPosition)
+    public void AddHeroes(IList<Hero> heroes)
     {
+        foreach (var hero in heroes)
+        {
+            var heroView = InitHero(hero);
+            HeroesManager.Instance.Heroes.Add(heroView);
+        }
+    }
+
+    public HeroView InitHero(Hero hero)
+    {
+        Vector3 worldPosition = MapManager.Instance.GetNodeWorldPosition(hero.x, hero.y);
         Vector3 placementPosition = new Vector3(worldPosition.x, heroViewPrefab.transform.position.y, worldPosition.z);
         GameObject instance = Instantiate(heroViewPrefab, placementPosition, Quaternion.identity);
         HeroView heroView = instance.GetComponent<HeroView>();

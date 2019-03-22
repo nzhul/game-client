@@ -60,8 +60,8 @@ public class WaypointSelector : MonoBehaviour
 
     private void OnWaypointButtonPressed(Button target, Waypoint waypoint)
     {
-        Debug.Log("Teleporting to " + waypoint.regionName);
         _worldService.SendTeleportRequest(DataManager.Instance.ActiveHeroId, waypoint.regionId, waypoint.id);
+        this.CloseModal();
     }
 
     private void Update()
@@ -70,5 +70,10 @@ public class WaypointSelector : MonoBehaviour
         {
             _waypointsPanel.gameObject.SetActive(!_waypointsPanel.gameObject.activeInHierarchy);
         }
+    }
+
+    private void CloseModal()
+    {
+        _waypointsPanel.gameObject.SetActive(false);
     }
 }

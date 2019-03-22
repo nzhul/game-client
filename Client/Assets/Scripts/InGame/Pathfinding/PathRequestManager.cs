@@ -1,16 +1,15 @@
-﻿using System;
+﻿using Assets.Scripts.InGame.Pathfinding;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PathRequestManager : MonoBehaviour
 {
-    Queue<PathRequest> pathRequestQueue = new Queue<PathRequest>();
-    PathRequest currentPathRequest;
-
-    static PathRequestManager instance;
-    Pathfinding pathfinding;
-
-    bool isProcessingPath;
+    private Queue<PathRequest> pathRequestQueue = new Queue<PathRequest>();
+    private PathRequest currentPathRequest;
+    private static PathRequestManager instance;
+    private Pathfinding pathfinding;
+    private bool isProcessingPath;
 
     private void Awake()
     {
@@ -18,9 +17,9 @@ public class PathRequestManager : MonoBehaviour
         pathfinding = GetComponent<Pathfinding>();
     }
 
-    public static void RequestPath(Vector3 start, Vector3 end, Action<Node[], bool> callback)
+    public static void RequestPath(Vector3 start, Vector3 end, IPathRequester pathRequester, Action<Node[], bool> callback)
     {
-        PathRequest newRequest = new PathRequest(start, end, callback);
+        PathRequest newRequest = new PathRequest(start, end, pathRequester, callback);
         instance.pathRequestQueue.Enqueue(newRequest);
         instance.TryProccessNext();
     }
@@ -39,18 +38,21 @@ public class PathRequestManager : MonoBehaviour
     {
         public Vector3 start;
         public Vector3 end;
+        public IPathRequester pathRequester;
         public Action<Node[], bool> callback;
 
-        public PathRequest(Vector3 _start, Vector3 _end, Action<Node[], bool> _callback)
+        public PathRequest(Vector3 _start, Vector3 _end, IPathRequester _pathRequester, Action<Node[], bool> _callback)
         {
             start = _start;
             end = _end;
+            pathRequester = _pathRequester;
             callback = _callback;
         }
     }
 
     internal void FinishedProcessingPath(Node[] path, bool success)
     {
+        currentPathRequest.pathRequester.OnPathFound(path);
         currentPathRequest.callback(path, success);
         isProcessingPath = false;
         TryProccessNext();
