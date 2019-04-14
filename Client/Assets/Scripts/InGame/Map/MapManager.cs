@@ -4,6 +4,7 @@ using Assets.Scripts.InGame.Console;
 using Assets.Scripts.Network.Services;
 using Assets.Scripts.Network.Shared.Http;
 using Assets.Scripts.Shared.DataModels;
+using Assets.Scripts.Shared.NetMessages.World.Models;
 using BestHTTP;
 using Newtonsoft.Json;
 using System;
@@ -109,6 +110,12 @@ public class MapManager : MonoBehaviour
         }
     }
 
+    public void LoadHero(int heroId, Coord destination)
+    {
+        var loader = new HeroLoader();
+        loader.Load(heroId, destination);
+    }
+
     private void RenderMap(Region activeRegion)
     {
         if (activeRegion == null)
@@ -136,5 +143,36 @@ public class MapManager : MonoBehaviour
     public Vector3 GetNodeWorldPosition(int x, int y)
     {
         return graph.nodes[x, y].worldPosition;
+    }
+
+    public class HeroLoader
+    {
+        public int HeroId { get; set; }
+        public Coord Destination { get; set; }
+
+        public void Load(int heroId, Coord destination)
+        {
+            this.HeroId = heroId;
+            this.Destination = destination;
+
+            string endpoint = "realms/heroes/{0}";
+            string[] @params = new string[] { this.HeroId.ToString() };
+            RequestManager.Instance.Get(endpoint, @params, DataManager.Instance.Token, OnHeroLoadComplete);
+        }
+
+        private void OnHeroLoadComplete(HTTPRequest request, HTTPResponse response)
+        {
+            if (NetworkCommon.RequestIsSuccessful(request, response, out string errorMessage))
+            {
+                string json = response.DataAsText;
+                var newHero = JsonConvert.DeserializeObject<Hero>(json);
+
+                MapManager.Instance.graphView.AddHero(newHero, true);
+            }
+            else
+            {
+                Debug.LogWarning("Error fetching hero data from the API on EnemyIn teleport request!");
+            }
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.InGame;
 using Assets.Scripts.Shared.NetMessages.World;
+using Newtonsoft.Json;
 using System;
 using System.Linq;
 using UnityEngine;
@@ -15,6 +16,8 @@ namespace Assets.Scripts.Network.MessageHandlers
             //1. Raise event
             var msg = (Net_OnMapMovement)input;
             OnMapMovement?.Invoke(msg);
+
+            Debug.Log("Map movement request recieved: " + JsonConvert.SerializeObject(msg));
 
             if (HeroesManager.Instance.Heroes != null && HeroesManager.Instance.Heroes.Count > 0)
             {

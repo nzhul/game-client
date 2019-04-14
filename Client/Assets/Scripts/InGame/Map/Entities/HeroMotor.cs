@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Shared.NetMessages.World.Models;
+﻿using Assets.Scripts.InGame;
+using Assets.Scripts.Shared.NetMessages.World.Models;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -52,6 +53,20 @@ public class HeroMotor : MonoBehaviour
         }
     }
 
+    public void ExecuteTeleportOut()
+    {
+        StopCoroutine(TeleportOutRoutine());
+        StartCoroutine(TeleportOutRoutine());
+    }
+
+    private IEnumerator TeleportOutRoutine()
+    {
+        selfView.PlayTeleportEffect(HeroView.TeleportType.Out);
+        yield return new WaitForSeconds(.4f);
+        HeroesManager.Instance.Heroes.Remove(selfView);
+        Destroy(selfView.gameObject);
+    }
+
     private void ClearPath()
     {
         this.Path = null;
@@ -87,10 +102,13 @@ public class HeroMotor : MonoBehaviour
         this.ClearPath();
 
         // 2. Teleport In
+        MapCamera.Instance.StartFollowTarget(this.transform.position);
         selfView.PlayTeleportEffect(HeroView.TeleportType.In);
         yield return new WaitForSeconds(.4f);
         selfView.graphic.SetActive(true);
 
         // TODO: Smooth camera follow!
+
+        
     }
 }

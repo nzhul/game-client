@@ -73,9 +73,13 @@ namespace Assets.Scripts.MessageHandlers
             this.Rmsg.Destination = this.CalculateDestination();
             //NetworkServer.Instance.SendClient(this.RecievingHostId, this.ConnectionId, this.Rmsg);
 
-            base.NotifyAllInterestedClients(this.MovingHero, this.RecievingHostId, this.Rmsg);
-            base.UpdateCache(this.MovingHero, this.Rmsg.Destination);
-            this.UpdateDatabase(this.ConnectionId, this.MovingHero.id, this.Rmsg.Destination);
+            int oldRegionId = this.MovingHero.regionId;
+            int newRegionId = this.Rmsg.RegionId;
+
+            base.UpdateCache(this.MovingHero, this.Rmsg.Destination, this.Rmsg.RegionId);
+            base.NotifyClientsInRegion(newRegionId, this.RecievingHostId, this.Rmsg);
+            base.NotifyClientsInRegion(oldRegionId, this.RecievingHostId, this.Rmsg);
+            this.UpdateDatabase(this.ConnectionId, this.MovingHero.id, this.Rmsg.Destination, this.Rmsg.RegionId);
 
             // TODO: DO the same stuff as in MapMovementRequestHandler: UpdateCache, Database, NotifyAllInterestedClients.
             // Consider extracting this common logic into class or something...

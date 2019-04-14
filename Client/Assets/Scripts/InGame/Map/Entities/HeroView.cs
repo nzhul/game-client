@@ -44,6 +44,11 @@ public class HeroView : MonoBehaviour, IPathRequester
         this.motor.ExecuteBlink(destination);
     }
 
+    public void TeleportOut()
+    {
+        this.motor.ExecuteTeleportOut();
+    }
+
     public void Init(Hero hero, Vector3 worldPosition)
     {
         if (graphic != null)

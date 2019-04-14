@@ -3,6 +3,32 @@ using UnityEngine;
 
 public class MapCamera : MonoBehaviour
 {
+    #region Singleton
+    private static MapCamera _instance;
+
+    public static MapCamera Instance
+    {
+        get
+        {
+            return _instance;
+        }
+    }
+
+    private void Awake()
+    {
+        if (_instance != null)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            _instance = this;
+        }
+
+        swivel = transform.GetChild(0);
+        stick = swivel.GetChild(0);
+    }
+    #endregion
 
     public float stickMinZoom, stickMaxZoom;
 
@@ -17,11 +43,17 @@ public class MapCamera : MonoBehaviour
     private int tilesCountX;
     private int tilesCountY;
 
-    private void Awake()
-    {
-        swivel = transform.GetChild(0);
-        stick = swivel.GetChild(0);
-    }
+    // Following
+    private Vector3 followTarget;
+    private bool isFollowingTarget;
+    private float smoothSpeed = 0.3f;
+    private Vector3 velocity = Vector3.zero;
+
+    //private void Awake()
+    //{
+    //    swivel = transform.GetChild(0);
+    //    stick = swivel.GetChild(0);
+    //}
 
     private void Start()
     {
@@ -62,6 +94,32 @@ public class MapCamera : MonoBehaviour
                 AdjustPosition(xDelta, zDelta);
             }
         }
+
+        if (this.isFollowingTarget && followTarget != Vector3.zero)
+        {
+            FollowTarget();
+        }
+    }
+
+    private void FollowTarget()
+    {
+        Vector3 desiredPosition = followTarget;
+        Vector3 smoothedPosition = Vector3.SmoothDamp(transform.position, desiredPosition, ref velocity, smoothSpeed);
+        this.transform.position = smoothedPosition;
+
+        Vector3 epsilon = desiredPosition - this.transform.position;
+
+        if (Mathf.Abs(epsilon.x) < 0.5 && Mathf.Abs(epsilon.z) < 0.5)
+        {
+            this.isFollowingTarget = false;
+            this.followTarget = Vector3.zero;
+        }
+    }
+
+    public void StartFollowTarget(Vector3 target)
+    {
+        this.isFollowingTarget = true;
+        this.followTarget = new Vector3(target.x, this.transform.position.y, target.z);
     }
 
     private void AdjustZoom(float delta)

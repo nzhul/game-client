@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Assets.Scripts.Data;
-using Assets.Scripts.InGame;
+﻿using Assets.Scripts.InGame;
 using Assets.Scripts.Shared.DataModels;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -129,17 +127,27 @@ public class GraphView : MonoBehaviour
     {
         foreach (var hero in heroes)
         {
-            var heroView = InitHero(hero);
-            HeroesManager.Instance.Heroes.Add(heroView);
+            this.AddHero(hero, false);
         }
     }
 
-    public HeroView InitHero(Hero hero)
+    public void AddHero(Hero hero, bool playSpawnEffect)
+    {
+        var heroView = InitHero(hero, playSpawnEffect);
+        HeroesManager.Instance.Heroes.Add(heroView);
+    }
+
+    public HeroView InitHero(Hero hero, bool playSpawnEffect)
     {
         Vector3 worldPosition = MapManager.Instance.GetNodeWorldPosition(hero.x, hero.y);
         Vector3 placementPosition = new Vector3(worldPosition.x, heroViewPrefab.transform.position.y, worldPosition.z);
         GameObject instance = Instantiate(heroViewPrefab, placementPosition, Quaternion.identity);
         HeroView heroView = instance.GetComponent<HeroView>();
+
+        if (playSpawnEffect)
+        {
+            heroView.PlayTeleportEffect(HeroView.TeleportType.In);
+        }
 
         if (heroView != null)
         {

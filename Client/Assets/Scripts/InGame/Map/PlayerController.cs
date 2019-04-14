@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     public LayerMask movementMask;
-    public NodeView focusNodeView;
+    private NodeView focusNodeView;
     private Camera cam;
     private GraphView _graphView;
     private Node[] hightlightPath;
@@ -123,6 +123,7 @@ public class PlayerController : MonoBehaviour
                             RegionId = activeHero.hero.regionId
                         };
                         NetworkClient.Instance.SendServer(msg);
+                        this.ClearFocus();
                     }
                 }
             }
@@ -181,5 +182,10 @@ public class PlayerController : MonoBehaviour
 
         focusNodeView = newFocus;
         newFocus.OnFocused();
+    }
+
+    public void ClearFocus()
+    {
+        focusNodeView = null;
     }
 }

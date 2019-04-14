@@ -104,10 +104,9 @@ public class NodeView : MonoBehaviour
     public void OnFocused()
     {
         isFocus = true;
-        this.MarkAsFocused();
     }
 
-    private void MarkAsFocused()
+    private void MarkAsHovered()
     {
         mr.material.color = Color.green;
     }

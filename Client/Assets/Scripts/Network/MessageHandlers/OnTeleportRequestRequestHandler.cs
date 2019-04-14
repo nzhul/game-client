@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Data;
 using Assets.Scripts.InGame;
+using Assets.Scripts.LevelManagement;
 using Assets.Scripts.Shared.NetMessages.World;
 using System;
 using System.Linq;
@@ -18,20 +19,24 @@ namespace Assets.Scripts.Network.MessageHandlers
             OnTeleport?.Invoke(msg);
 
             TeleportScenario scenario = ResolveScenarioType(msg);
-            HeroView hero;
-            if (HeroesManager.Instance.Heroes != null && HeroesManager.Instance.Heroes.Count > 0)
+            HeroView hero = null;
+
+            if (scenario != TeleportScenario.EnemyIn)
             {
-                hero = HeroesManager.Instance.Heroes.FirstOrDefault(x => x.hero.id == msg.HeroId);
-                if (hero == null || hero.isMoving)
+                if (HeroesManager.Instance.Heroes != null && HeroesManager.Instance.Heroes.Count > 0)
                 {
-                    Debug.LogWarning("Cannot find hero to teleport!");
+                    hero = HeroesManager.Instance.Heroes.FirstOrDefault(x => x.hero.id == msg.HeroId);
+                    if (hero == null || hero.isMoving)
+                    {
+                        Debug.LogWarning("Cannot find hero to teleport!");
+                        return;
+                    }
+                }
+                else
+                {
+                    Debug.LogWarning("Heroes collection is null or empty!");
                     return;
                 }
-            }
-            else
-            {
-                Debug.LogWarning("Heroes collection is null or empty!");
-                return;
             }
 
             switch (scenario)
@@ -45,12 +50,15 @@ namespace Assets.Scripts.Network.MessageHandlers
                     this.HandleBlink(hero, msg);
                     break;
                 case TeleportScenario.PlayerOut:
+                    this.HandlePlayerOut(hero, msg);
                     break;
                 case TeleportScenario.EnemyOut:
+                    this.HandleEnemyOut(hero, msg);
                     break;
                 case TeleportScenario.PlayerIn:
                     break;
                 case TeleportScenario.EnemyIn:
+                    this.HandleEnemyIn(msg);
                     break;
                 default:
                     break;
@@ -65,6 +73,25 @@ namespace Assets.Scripts.Network.MessageHandlers
             // 6. Enemy TELEPORT IN -> Hero is enemy hero so we need to spawn it on our map!
         }
 
+        private void HandleEnemyIn(Net_OnTeleport msg)
+        {
+            MapManager.Instance.LoadHero(msg.HeroId, msg.Destination);
+        }
+
+        private void HandleEnemyOut(HeroView hero, Net_OnTeleport msg)
+        {
+            hero.TeleportOut();
+        }
+
+        private void HandlePlayerOut(HeroView hero, Net_OnTeleport msg)
+        {
+            // TODO: play particle effect and delay 1-2 seconds before switching scenes
+            DataManager.Instance.ActiveRegionId = msg.RegionId;
+            DataManager.Instance.Avatar.heroes.FirstOrDefault(h => h.id == hero.hero.id).regionId = msg.RegionId;
+            DataManager.Instance.Save();
+            LevelLoader.LoadLevel(LevelLoader.WORLD_SCENE);
+        }
+
         private void HandleBlink(HeroView hero, Net_OnTeleport msg)
         {
             hero.Blink(msg.Destination);
@@ -75,6 +102,28 @@ namespace Assets.Scripts.Network.MessageHandlers
             if (DataManager.Instance.ActiveRegionId == msg.RegionId && DataManager.Instance.ActiveHeroId == msg.HeroId)
             {
                 return TeleportScenario.PlayerBlink;
+            }
+
+            if (DataManager.Instance.ActiveRegionId != msg.RegionId && DataManager.Instance.Avatar.heroes.Any(h => h.id == msg.HeroId))
+            {
+                return TeleportScenario.PlayerOut;
+            }
+
+            if (DataManager.Instance.ActiveRegionId == msg.RegionId && !DataManager.Instance.Avatar.heroes.Any(h => h.id == msg.HeroId))
+            {
+                if (HeroesManager.Instance.Heroes.Any(h => h.hero.id == msg.HeroId))
+                {
+                    return TeleportScenario.EnemyBlink;
+                }
+                else
+                {
+                    return TeleportScenario.EnemyIn;
+                }
+            }
+
+            if (DataManager.Instance.ActiveRegionId != msg.RegionId && !DataManager.Instance.Avatar.heroes.Any(h => h.id == msg.HeroId))
+            {
+                return TeleportScenario.EnemyOut;
             }
 
             return TeleportScenario.Unknown;
