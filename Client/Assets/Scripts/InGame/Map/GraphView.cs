@@ -67,7 +67,7 @@ public class GraphView : MonoBehaviour
                     nodeViews[node.gridX, node.gridY] = nodeView;
                 }
 
-                InitLabel(node);
+                // InitLabel(node);
             }
         }
     }
