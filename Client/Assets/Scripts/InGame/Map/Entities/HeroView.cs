@@ -1,7 +1,7 @@
-﻿using System;
-using Assets.Scripts.InGame.Pathfinding;
+﻿using Assets.Scripts.InGame.Pathfinding;
 using Assets.Scripts.Shared.DataModels;
 using Assets.Scripts.Shared.NetMessages.World.Models;
+using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(HeroMotor))]
@@ -11,6 +11,8 @@ public class HeroView : MonoBehaviour, IPathRequester
     public Hero hero;
     public HeroMotor motor;
     public bool isMoving;
+    public NodeView targetNode; // the node that is clicked
+    public Node destinationNode; // the node at the end of the path
 
     [SerializeField]
     private GameObject teleportOutEffect;
@@ -64,12 +66,41 @@ public class HeroView : MonoBehaviour, IPathRequester
     private void InitGraphic()
     {
         // TODO: do something with this.graphic.
-        graphic.transform.localPosition = new Vector3(0, .5f, 0);
+        graphic.transform.localPosition = new Vector3(0, .6f, 0);
     }
 
     public void OnPathFound(Node[] newPath)
     {
         this.motor.Path = newPath;
+
+        if (this.targetNode != null)
+        {
+            if (this.targetNode.node.nodeType == NodeType.ContactPoint)
+            {
+                this.targetNode.node.walkable = false;
+                if (newPath != null && newPath.Length > 1)
+                {
+                    // If we are targeting contact point and the path is longer than 1, remove the last node
+                    this.motor.Path = newPath.Take(newPath.Length - 1).ToArray();
+                }
+                else if (newPath != null && newPath.Length == 1)
+                {
+                    // if we are targeting contact point and the path is exactly one 
+                    // - we are setting the destination to be equal to the position of the hero.
+                    this.motor.Path = null;
+                    this.destinationNode = MapManager.Instance.GetNode(this.hero.x, this.hero.y);
+                }
+                else
+                {
+                    this.motor.Path = null;
+                }
+            }
+        }
+
+        if (this.motor.Path != null && this.motor.Path.Length > 0)
+        {
+            this.destinationNode = this.motor.Path.Last();
+        }
     }
 
     private void ExecutePathImmediate(Node[] path, bool success)

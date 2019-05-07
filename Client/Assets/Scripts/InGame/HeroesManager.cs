@@ -32,5 +32,7 @@ namespace Assets.Scripts.InGame
         #endregion
 
         public List<HeroView> Heroes { get; private set; }
+
+        // TODO: Move everything related with map heroes here. Extract out of MapManager.
     }
 }

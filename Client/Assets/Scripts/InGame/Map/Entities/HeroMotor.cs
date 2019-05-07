@@ -10,7 +10,7 @@ public class HeroMotor : MonoBehaviour
     private int targetIndex;
     public float speed = 20;
     private HeroView selfView;
-    public event Action<Node> OnDestinationReached;
+    public event Action<Node, HeroView> OnDestinationReached;
 
     public Node[] Path { get; set; }
 
@@ -27,29 +27,38 @@ public class HeroMotor : MonoBehaviour
 
     private IEnumerator FollowPath(Node[] waypoints)
     {
-        Vector3 currentWaypoint = waypoints[0].worldPosition;
-        targetIndex = 0;
-        selfView.isMoving = true;
-
-        while (true)
+        if (waypoints.Length > 0)
         {
-            if (transform.position == currentWaypoint)
-            {
-                targetIndex++;
-                if (targetIndex >= waypoints.Length)
-                {
-                    selfView.hero.x = waypoints[targetIndex - 1].gridX;
-                    selfView.hero.y = waypoints[targetIndex - 1].gridY;
-                    selfView.isMoving = false;
-                    this.ClearPath();
-                    OnDestinationReached?.Invoke(waypoints[targetIndex - 1]);
-                    yield break;
-                }
-                currentWaypoint = waypoints[targetIndex].worldPosition;
-            }
+            Vector3 currentWaypoint = waypoints[0].worldPosition;
+            targetIndex = 0;
+            selfView.isMoving = true;
 
-            transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
-            yield return null;
+            while (true)
+            {
+                if (transform.position == currentWaypoint)
+                {
+                    targetIndex++;
+                    if (targetIndex >= waypoints.Length)
+                    {
+                        selfView.hero.x = waypoints[targetIndex - 1].gridX;
+                        selfView.hero.y = waypoints[targetIndex - 1].gridY;
+                        selfView.isMoving = false;
+                        this.ClearPath();
+                        OnDestinationReached?.Invoke(waypoints[targetIndex - 1], selfView);
+                        yield break;
+                    }
+                    currentWaypoint = waypoints[targetIndex].worldPosition;
+                }
+
+                transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
+                yield return null;
+            }
+        }
+        else
+        {
+            selfView.isMoving = false;
+            this.ClearPath();
+            OnDestinationReached?.Invoke(null, selfView);
         }
     }
 
@@ -109,6 +118,6 @@ public class HeroMotor : MonoBehaviour
 
         // TODO: Smooth camera follow!
 
-        
+
     }
 }

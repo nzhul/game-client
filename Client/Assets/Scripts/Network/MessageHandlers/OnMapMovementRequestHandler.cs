@@ -17,7 +17,7 @@ namespace Assets.Scripts.Network.MessageHandlers
             var msg = (Net_OnMapMovement)input;
             OnMapMovement?.Invoke(msg);
 
-            Debug.Log("Map movement request recieved: " + JsonConvert.SerializeObject(msg));
+            //Debug.Log("Map movement request recieved: " + JsonConvert.SerializeObject(msg));
 
             if (HeroesManager.Instance.Heroes != null && HeroesManager.Instance.Heroes.Count > 0)
             {

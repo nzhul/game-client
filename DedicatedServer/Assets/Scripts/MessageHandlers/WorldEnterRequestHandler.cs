@@ -97,7 +97,7 @@ namespace Assets.Scripts.MessageHandlers
                 {
                     Success = 1
                 };
-                Debug.Log("Sending OnWorldEnter msg with Success: " + rmsg.Success);
+                // Debug.Log("Sending OnWorldEnter msg with Success: " + rmsg.Success);
                 NetworkServer.Instance.SendClient(RecievingHostId, ConnectionId, rmsg);
             }
             else
@@ -143,7 +143,7 @@ namespace Assets.Scripts.MessageHandlers
                 rmsg.ErrorMessage = "Error fetching User regions from the API";
             }
 
-            Debug.Log("Sending OnWorldEnter msg with Success: " + rmsg.Success);
+            // Debug.Log("Sending OnWorldEnter msg with Success: " + rmsg.Success);
             NetworkServer.Instance.SendClient(RecievingHostId, ConnectionId, rmsg);
         }
     }

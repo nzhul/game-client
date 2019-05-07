@@ -1,4 +1,6 @@
-﻿namespace Assets.Scripts.Shared.DataModels
+﻿using System;
+
+namespace Assets.Scripts.Shared.DataModels
 {
     public class MonsterPack
     {
@@ -15,5 +17,7 @@
         public int troopsRewardQuantity;
         public string occupiedTilesString; // parse
         public string name;
+        public DateTime lastDefeat;
+        public bool isLocked;
     }
 }

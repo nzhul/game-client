@@ -17,7 +17,7 @@ namespace Assets.Scripts.InGame.Console
             string addMessage = " command has been added to the console.";
 
             DeveloperConsole.AddCommandsToConsole(Command, this);
-            Debug.Log(Name + addMessage);
+            // Debug.Log(Name + addMessage);
         }
 
         public abstract void RunCommand(string[] arguments);

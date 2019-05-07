@@ -4,6 +4,7 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using Assets.Scripts.MessageHandlers;
 using Assets.Scripts.Shared.DataModels;
+using Assets.Scripts.Shared.NetMessages.Battle.Models;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -30,6 +31,8 @@ public class NetworkServer : MonoBehaviour
     public Dictionary<int, ServerConnection> Connections = new Dictionary<int, ServerConnection>();
 
     public Dictionary<int, Region> Regions = new Dictionary<int, Region>();
+
+    public List<Battle> ActiveBattles = new List<Battle>();
 
     private void Start()
     {
@@ -66,7 +69,8 @@ public class NetworkServer : MonoBehaviour
             { NetOperationCode.AuthRequest, new AuthRequestHandler() },
             { NetOperationCode.WorldEnterRequest, new WorldEnterRequestHandler() },
             { NetOperationCode.MapMovementRequest, new MapMovementRequestHandler() },
-            { NetOperationCode.TeleportRequest, new TeleportRequestHandler() }
+            { NetOperationCode.TeleportRequest, new TeleportRequestHandler() },
+            { NetOperationCode.StartBattleRequest, new StartBattleRequestHandler() }
         };
     }
 

@@ -576,6 +576,49 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 0
+--- !u!1 &302754383
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 302754384}
+  - component: {fileID: 302754385}
+  m_Layer: 0
+  m_Name: MonstersManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &302754384
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 302754383}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1581462920}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &302754385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 302754383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3b37e5ec34cdb14cbbea3c96718c56b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &308604490
 GameObject:
   m_ObjectHideFlags: 0
@@ -2272,15 +2315,11 @@ MonoBehaviour:
   movementMask:
     serializedVersion: 2
     m_Bits: 0
-  wallTilePrefab: {fileID: 1316009104556668, guid: b238f1e4b2656b44fa291e62866d2f4b,
-    type: 2}
   walkableTilePrefab: {fileID: 1142955616043194, guid: 3766e68f848a4254f88abd025dabf596,
     type: 3}
-  occupiedTilePrefab: {fileID: 1316088105934228, guid: 5ea08a113ff20884186a0d112c275b51,
-    type: 2}
-  contactPointTilePrefab: {fileID: 1427751667526950, guid: 5f43b76d7ee8b6e4f9da8c98b86085ae,
-    type: 2}
   heroViewPrefab: {fileID: 1463672758921370, guid: ba0b4319df1d3ac4a839f1de34b2d0f2,
+    type: 3}
+  monsterViewPrefab: {fileID: 8845990794757844399, guid: 232dc6bf2304ed241838c69f62b0a004,
     type: 3}
   labelsCanvas: {fileID: 1187331278}
   labelPrefab: {fileID: 947007785008285412, guid: 8998be928c0b09849a7fc8a99bc322ce,
@@ -2487,7 +2526,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24f20774a339d0544ad4c3bad28df87f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementMask:
+  interactableMask:
     serializedVersion: 2
     m_Bits: 256
 --- !u!1 &1498716760
@@ -2731,6 +2770,7 @@ Transform:
   - {fileID: 1496829741}
   - {fileID: 359849480}
   - {fileID: 1473860089}
+  - {fileID: 302754384}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

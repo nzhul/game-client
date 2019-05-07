@@ -1,8 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using Assets.Scripts.InGame.Map.Entities;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class NodeView : MonoBehaviour
 {
+    public IInteractable Slot;
     public GameObject graphic; // main graphic
     public Node node;
 
@@ -118,8 +121,16 @@ public class NodeView : MonoBehaviour
 
     private int ResolveLayer(NodeType nodeType)
     {
-        //string layerName = (nodeType == NodeType.Open || nodeType == NodeType.ContactPoint) ? "Interactable" : "Default";
-        string layerName = nodeType == NodeType.Open ? "Interactable" : "Default";
+        string layerName = (nodeType == NodeType.Open || nodeType == NodeType.ContactPoint) ? "Interactable" : "Default";
+        // string layerName = nodeType == NodeType.Open ? "Interactable" : "Default";
         return LayerMask.NameToLayer(layerName);
+    }
+
+    public void TriggerInteraction(HeroView interactingHero)
+    {
+        if (this.Slot != null)
+        {
+            this.Slot.Interact(interactingHero);
+        }
     }
 }

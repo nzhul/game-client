@@ -10,18 +10,18 @@ public class GraphView : MonoBehaviour
     public LayerMask movementMask;
 
     [Header("Tiles")]
-    public GameObject wallTilePrefab;
     public GameObject walkableTilePrefab;
-    public GameObject occupiedTilePrefab;
-    public GameObject contactPointTilePrefab;
 
-    [Header("Hero")]
+    [Header("Heroes")]
     public GameObject heroViewPrefab;
     private GameObject gridContainer;
     private GameObject contactPointsContainer;
     private GameObject occupiedPointsContainer;
     private GameObject openPointsContainer;
     private GameObject wallPointsContainer;
+
+    [Header("Monsters")]
+    public GameObject monsterViewPrefab;
 
     public NodeView[,] nodeViews;
 
@@ -157,14 +157,42 @@ public class GraphView : MonoBehaviour
         return heroView;
     }
 
+    public MonsterView AddMonster(MonsterPack monster)
+    {
+        var monsterView = InitMonster(monster);
+        MonstersManager.Instance.Monsters.Add(monsterView);
+
+        return monsterView;
+    }
+
+    private MonsterView InitMonster(MonsterPack monster)
+    {
+        Vector3 worldPosition = MapManager.Instance.GetNodeWorldPosition(monster.x, monster.y);
+        Vector3 placementPosition = new Vector3(worldPosition.x, monsterViewPrefab.transform.position.y, worldPosition.z);
+        GameObject instance = Instantiate(monsterViewPrefab, placementPosition, Quaternion.identity);
+        MonsterView monsterView = instance.GetComponent<MonsterView>();
+
+        if (monsterView != null)
+        {
+            monsterView.Init(monster, worldPosition);
+        }
+
+        return monsterView;
+    }
+
     public void AddMonsters(IList<MonsterPack> monsterPacks)
     {
-        foreach (MonsterPack pack in monsterPacks)
+        foreach (MonsterPack monster in monsterPacks)
         {
-            NodeView nodeView = nodeViews[pack.x, pack.y]; // x = cols; y = rows
+            MonsterView newMonster = this.AddMonster(monster);
+
+            NodeView nodeView = nodeViews[monster.x, monster.y]; // x = cols; y = rows
 
             if (nodeView != null)
             {
+                newMonster.transform.SetParent(nodeView.transform);
+                nodeView.Slot = newMonster;
+
                 // GameObject instance = Instantiate(monsterViewPrefab, nodeView.node.worldPosition, Quaternion.identity);
                 // instance.transform.SetParent(nodeView.transform);
                 // MonsterView monsterView = instance.GetComponent<MonsterView>();

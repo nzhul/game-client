@@ -145,6 +145,11 @@ public class MapManager : MonoBehaviour
         return graph.nodes[x, y].worldPosition;
     }
 
+    public Node GetNode(int x, int y)
+    {
+        return graph.nodes[x, y];
+    }
+
     public class HeroLoader
     {
         public int HeroId { get; set; }

@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
     }
     #endregion
 
-    public LayerMask movementMask;
+    public LayerMask interactableMask;
     private NodeView focusNodeView;
     private Camera cam;
     private GraphView _graphView;
@@ -65,7 +65,7 @@ public class PlayerController : MonoBehaviour
 
     private void Hero_OnHeroInit()
     {
-        activeHero.motor.OnDestinationReached += Hero_OnDestinationReached;
+        activeHero.motor.OnDestinationReached += PlayerHero_OnDestinationReached;
     }
 
     private void Update()
@@ -80,7 +80,7 @@ public class PlayerController : MonoBehaviour
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit, 1000f, movementMask))
+            if (Physics.Raycast(ray, out hit, 1000f, interactableMask))
             {
                 GameObject graphic = hit.collider.gameObject;
                 GameObject parent = graphic.transform.parent.gameObject;
@@ -94,6 +94,13 @@ public class PlayerController : MonoBehaviour
                         SetFocus(nodeView);
                         Vector3 start = activeHero.transform.position;
                         Vector3 end = nodeView.node.worldPosition;
+                        activeHero.targetNode = nodeView;
+
+                        if (nodeView.node.nodeType == NodeType.ContactPoint)
+                        {
+                            nodeView.node.walkable = true;
+                        }
+
                         PathRequestManager.RequestPath(start, end, activeHero, OnPathFound);
                     }
                     else
@@ -117,8 +124,8 @@ public class PlayerController : MonoBehaviour
                             HeroId = activeHero.hero.id,
                             Destination = new Coord
                             {
-                                X = nodeView.node.gridX,
-                                Y = nodeView.node.gridY,
+                                X = activeHero.destinationNode.gridX,
+                                Y = activeHero.destinationNode.gridY,
                             },
                             RegionId = activeHero.hero.regionId
                         };
@@ -130,9 +137,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Hero_OnDestinationReached(Node obj)
+    private void PlayerHero_OnDestinationReached(Node node, HeroView heroView)
     {
         ClearPreviousPath();
+        if (this.activeHero.targetNode.node.nodeType == NodeType.ContactPoint)
+        {
+            this.activeHero.targetNode.TriggerInteraction(this.activeHero);
+        }
     }
 
     public void OnPathFound(Node[] newPath, bool pathSuccessful)

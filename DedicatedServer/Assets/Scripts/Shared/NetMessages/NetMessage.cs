@@ -41,6 +41,13 @@ public static class NetOperationCode
     ///         2. other player -> a player teleports in or out of our map.
     /// </summary>
     public const int TeleportRequest = 5;
+
+    /// <summary>
+    /// Sends request for starting a battle to the dedicated server.
+    /// 1. DDServer checks if the monster pack is not locked and sends back OnStartBattle message.
+    /// 2. Client listens for this message and starts the battle by loading separate "battle" scene.
+    /// </summary>
+    public const int StartBattleRequest = 6;
     #endregion
 
 
@@ -53,6 +60,8 @@ public static class NetOperationCode
     public const int OnMapMovement = 102;
 
     public const int OnTeleport = 103;
+
+    public const int OnStartBattle = 104;
 
     #endregion
 }
