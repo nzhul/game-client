@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &469406971
 Transform:
   m_ObjectHideFlags: 0
@@ -4769,7 +4769,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2066058669
 Transform:
   m_ObjectHideFlags: 0
@@ -9552,28 +9552,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   graphic: {fileID: 1615560866714482}
-  hero:
-    id: 0
-    x: 0
-    y: 0
-    name: 
-    level: 0
-    attack: 0
-    defence: 0
-    magic: 0
-    magicPower: 0
-    personalAttack: 0
-    personalDefense: 0
-    dodge: 0
-    health: 0
-    minDamage: 0
-    maxDamage: 0
-    magicResistance: 0
-    faction: 
-    class: 
-    regionId: 0
-  motor: {fileID: 0}
   isMoving: 0
+  targetNode: {fileID: 0}
+  destinationNode:
+    nodeType: 0
+    walkable: 0
+    worldPosition: {x: 0, y: 0, z: 0}
+    gridX: 0
+    gridY: 0
+    gCost: 0
+    hCost: 0
+  friendlyHeroMat: {fileID: 2100000, guid: 35c6723c0e57b364bb8b1d9a41574259, type: 2}
+  enemyHeroMat: {fileID: 2100000, guid: 0a99cd9e678b75348a4027fe3fb30856, type: 2}
   teleportOutEffect: {fileID: 469406970}
   teleportInEffect: {fileID: 2066058668}
 --- !u!114 &114230593201868532

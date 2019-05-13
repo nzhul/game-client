@@ -1,6 +1,8 @@
-﻿using Assets.Scripts.InGame.Pathfinding;
+﻿using Assets.Scripts.Data;
+using Assets.Scripts.InGame.Pathfinding;
 using Assets.Scripts.Shared.DataModels;
 using Assets.Scripts.Shared.NetMessages.World.Models;
+using System;
 using System.Linq;
 using UnityEngine;
 
@@ -8,20 +10,28 @@ using UnityEngine;
 public class HeroView : MonoBehaviour, IPathRequester
 {
     public GameObject graphic;
+
+    [NonSerialized]
     public Hero hero;
+
+    [NonSerialized]
     public HeroMotor motor;
+
     public bool isMoving;
     public NodeView targetNode; // the node that is clicked
     public Node destinationNode; // the node at the end of the path
 
-    [SerializeField]
-    private GameObject teleportOutEffect;
+    public Material friendlyHeroMat;
+    public Material enemyHeroMat;
 
-    [SerializeField]
-    private GameObject teleportInEffect;
+    public GameObject teleportOutEffect;
+    public GameObject teleportInEffect;
+
+    private MeshRenderer mr;
 
     private void Awake()
     {
+        mr = graphic.GetComponent<MeshRenderer>();
         motor = GetComponent<HeroMotor>();
     }
 
@@ -67,6 +77,20 @@ public class HeroView : MonoBehaviour, IPathRequester
     {
         // TODO: do something with this.graphic.
         graphic.transform.localPosition = new Vector3(0, .6f, 0);
+
+        if (this.IsFriendlyHero(this.hero))
+        {
+            this.mr.sharedMaterial = friendlyHeroMat;
+        }
+        else
+        {
+            this.mr.sharedMaterial = enemyHeroMat;
+        }
+    }
+
+    private bool IsFriendlyHero(Hero hero)
+    {
+        return DataManager.Instance.Avatar.heroes.Any(h => h.id == hero.id);
     }
 
     public void OnPathFound(Node[] newPath)
@@ -107,7 +131,7 @@ public class HeroView : MonoBehaviour, IPathRequester
     {
         if (success)
         {
-            this.motor.ExecuteFollowPath(path);
+            this.motor.ExecuteFollowPath(path); 
         }
     }
 

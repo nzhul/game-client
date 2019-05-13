@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -140,7 +141,7 @@ namespace Assets.Scripts.UI.MainMenu
 
         private void SortSelectables()
         {
-            List<Selectable> originalSelectables = Selectable.allSelectables;
+            List<Selectable> originalSelectables = Selectable.allSelectablesArray.ToList(); 
             int totalSelectables = originalSelectables.Count;
             m_orderedSelectables = new List<Selectable>(totalSelectables);
             for (int index = 0; index < totalSelectables; ++index)

@@ -27,11 +27,11 @@ namespace Assets.Scripts.InGame
                 _instance = this;
             }
 
-            this.Heroes = new List<HeroView>();
+            this.Heroes = new Dictionary<int, HeroView>();
         }
         #endregion
 
-        public List<HeroView> Heroes { get; private set; }
+        public Dictionary<int, HeroView> Heroes { get; private set; }
 
         // TODO: Move everything related with map heroes here. Extract out of MapManager.
     }

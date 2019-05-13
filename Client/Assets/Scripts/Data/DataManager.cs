@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Assets.Scripts.Data.Models;
 using Assets.Scripts.Shared.DataModels;
 using UnityEngine;
 
@@ -184,6 +185,18 @@ namespace Assets.Scripts.Data
             set
             {
                 _saveData.avatar = value;
+            }
+        }
+
+        public BattleData BattleData
+        {
+            get
+            {
+                return _saveData.battleData;
+            }
+            set
+            {
+                _saveData.battleData = value;
             }
         }
 

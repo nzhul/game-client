@@ -11,6 +11,8 @@ namespace Assets.Scripts.Shared.NetMessages.Battle.Models
             this.Log = new List<string>();
         }
 
+        public Guid Id { get; set; }
+
         public int AttackerId { get; set; }
 
         public int DefenderId { get; set; }

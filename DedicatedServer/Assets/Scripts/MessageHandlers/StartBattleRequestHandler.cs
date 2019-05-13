@@ -1,10 +1,13 @@
 ﻿using Assets.Scripts.Shared.NetMessages.Battle.Models;
 using Assets.Scripts.Shared.NetMessages.World;
+using System;
 
 namespace Assets.Scripts.MessageHandlers
 {
     public class StartBattleRequestHandler : IMessageHandler
     {
+        public static event Action<Battle> OnBattleStarted;
+
         public void Handle(int connectionId, int channelId, int recievingHostId, NetMessage input)
         {
             Net_StartBattleRequest msg = (Net_StartBattleRequest)input;
@@ -29,6 +32,7 @@ namespace Assets.Scripts.MessageHandlers
 
                 NetworkServer.Instance.ActiveBattles.Add(newBattle);
                 NetworkServer.Instance.SendClient(recievingHostId, connectionId, rmsg);
+                OnBattleStarted?.Invoke(newBattle);
             }
         }
     }

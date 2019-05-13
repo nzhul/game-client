@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Assets.Scripts.MessageHandlers;
 using Assets.Scripts.Shared.DataModels;
+using Assets.Scripts.Shared.NetMessages.Battle.Models;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,6 +17,9 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private RectTransform activeRegionsContainer;
 
+    [SerializeField]
+    private RectTransform activeBattlesContainer;
+
     private static UIManager _instance;
 
     public static UIManager Instance => _instance;
@@ -22,6 +27,8 @@ public class UIManager : MonoBehaviour
     private Dictionary<int, GameObject> PlayerButtons = new Dictionary<int, GameObject>();
 
     private Dictionary<int, GameObject> RegionButtons = new Dictionary<int, GameObject>();
+
+    private Dictionary<Guid, GameObject> BattleButtons = new Dictionary<Guid, GameObject>();
 
     private void Awake()
     {
@@ -38,6 +45,17 @@ public class UIManager : MonoBehaviour
         DisconnectEventHandler.OnDisconnect += OnDisconnect;
         InnerWERHandler.OnRegionLoaded += OnRegionLoaded;
         DisconnectEventHandler.OnRegionUnload += OnRegionUnload;
+        StartBattleRequestHandler.OnBattleStarted += OnBattleStarted;
+    }
+
+    private void OnBattleStarted(Battle battle)
+    {
+        Button btn = Instantiate<Button>(activeEntityBtn, activeBattlesContainer.transform);
+        btn.name = battle.AttackerId + "_" + battle.DefenderId;
+
+        var btnText = btn.GetComponentInChildren<Text>();
+        btnText.text = btn.name;
+        this.BattleButtons.Add(battle.Id, btn.gameObject);
     }
 
     private void OnRegionUnload(int regionId)

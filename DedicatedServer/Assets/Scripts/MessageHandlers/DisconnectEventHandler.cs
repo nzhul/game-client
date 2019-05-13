@@ -27,7 +27,7 @@ namespace Assets.Scripts.MessageHandlers
 
                 OnDisconnect?.Invoke(connection);
 
-                RemoveUnusedRegions(connection);
+                // RemoveUnusedRegions(connection);
 
                 // TODO: remove all this.Regions that are not currently used
                 // When user disconnects check if he is the only one using this realm
@@ -52,11 +52,17 @@ namespace Assets.Scripts.MessageHandlers
 
                     if (!anyUsersWithThisRegion)
                     {
+                        Debug.Log($"Region with Id {regionId} unloaded!");
                         NetworkServer.Instance.Regions.Remove(regionId);
                         OnRegionUnload?.Invoke(regionId);
                     }
                 }
             }
+        }
+
+        public static void InvokeRegionUnloadEvent(int regionId)
+        {
+            OnRegionUnload?.Invoke(regionId);
         }
 
         private void OnSetOffline(HTTPRequest request, HTTPResponse response)

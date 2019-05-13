@@ -27,10 +27,10 @@ namespace Assets.Scripts.InGame
                 _instance = this;
             }
 
-            this.Monsters = new List<MonsterView>();
+            this.Monsters = new Dictionary<int, MonsterView>();
         }
         #endregion
 
-        public List<MonsterView> Monsters { get; private set; }
+        public Dictionary<int, MonsterView> Monsters { get; private set; }
     }
 }

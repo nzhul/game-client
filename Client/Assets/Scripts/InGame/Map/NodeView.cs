@@ -1,5 +1,4 @@
 ﻿using Assets.Scripts.InGame.Map.Entities;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,19 +13,21 @@ public class NodeView : MonoBehaviour
     public Material contactMat;
     public Material occupiedMat;
 
-    bool isFocus = false;
-    MeshRenderer mr;
+    // bool isFocus = false;
+    private MeshRenderer mr;
 
     private Dictionary<NodeType, Material> materials;
 
     private void Awake()
     {
         mr = graphic.GetComponent<MeshRenderer>();
-        materials = new Dictionary<NodeType, Material>();
-        materials.Add(NodeType.Open, openMat);
-        materials.Add(NodeType.Wall, wallMat);
-        materials.Add(NodeType.ContactPoint, contactMat);
-        materials.Add(NodeType.Occupied, occupiedMat);
+        materials = new Dictionary<NodeType, Material>
+        {
+            { NodeType.Open, openMat },
+            { NodeType.Wall, wallMat },
+            { NodeType.ContactPoint, contactMat },
+            { NodeType.Occupied, occupiedMat }
+        };
     }
 
     public void Init(Node node)
@@ -95,7 +96,7 @@ public class NodeView : MonoBehaviour
 
     public void OnDefocused()
     {
-        isFocus = false;
+        // isFocus = false;
         this.ResetGraphics();
     }
 
@@ -106,7 +107,7 @@ public class NodeView : MonoBehaviour
 
     public void OnFocused()
     {
-        isFocus = true;
+        // isFocus = true;
     }
 
     private void MarkAsHovered()

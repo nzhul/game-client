@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Assets.Scripts.Data.Models;
 using Assets.Scripts.Shared.DataModels;
 
 namespace Assets.Scripts.Data
@@ -24,6 +25,7 @@ namespace Assets.Scripts.Data
         public int activeRegionId;
         public UserAvatar avatar;
         public IList<Region> regions;
+        public BattleData battleData;
 
         public SaveData()
         {
@@ -40,6 +42,7 @@ namespace Assets.Scripts.Data
             password = string.Empty;
             avatar = new UserAvatar();
             regions = new List<Region>();
+            battleData = new BattleData();
         }
     }
 }

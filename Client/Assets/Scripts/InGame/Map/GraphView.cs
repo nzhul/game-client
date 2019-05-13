@@ -18,7 +18,7 @@ public class GraphView : MonoBehaviour
     private GameObject contactPointsContainer;
     private GameObject occupiedPointsContainer;
     private GameObject openPointsContainer;
-    private GameObject wallPointsContainer;
+    private GameObject wallPointsContainer; 
 
     [Header("Monsters")]
     public GameObject monsterViewPrefab;
@@ -29,7 +29,7 @@ public class GraphView : MonoBehaviour
     public Canvas labelsCanvas;
 
     [SerializeField]
-    private Text labelPrefab;
+    public Text labelPrefab;
 
     private void Awake()
     {
@@ -134,7 +134,7 @@ public class GraphView : MonoBehaviour
     public void AddHero(Hero hero, bool playSpawnEffect)
     {
         var heroView = InitHero(hero, playSpawnEffect);
-        HeroesManager.Instance.Heroes.Add(heroView);
+        HeroesManager.Instance.Heroes.Add(hero.id, heroView);
     }
 
     public HeroView InitHero(Hero hero, bool playSpawnEffect)
@@ -160,7 +160,7 @@ public class GraphView : MonoBehaviour
     public MonsterView AddMonster(MonsterPack monster)
     {
         var monsterView = InitMonster(monster);
-        MonstersManager.Instance.Monsters.Add(monsterView);
+        MonstersManager.Instance.Monsters.Add(monster.id, monsterView);
 
         return monsterView;
     }

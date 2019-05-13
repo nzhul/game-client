@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour
 
     public void SetActiveHero(int heroId)
     {
-        activeHero = HeroesManager.Instance.Heroes.FirstOrDefault(h => h.hero.id == heroId);
+        activeHero = HeroesManager.Instance.Heroes[heroId];
     }
 
     private void Hero_OnHeroInit()

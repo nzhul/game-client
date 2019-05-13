@@ -1,7 +1,5 @@
 ﻿using Assets.Scripts.InGame.Map.Entities;
-using Assets.Scripts.Network;
 using Assets.Scripts.Shared.DataModels;
-using Assets.Scripts.Shared.NetMessages.World;
 using UnityEngine;
 
 public class MonsterView : MonoBehaviour, IInteractable
@@ -17,14 +15,8 @@ public class MonsterView : MonoBehaviour, IInteractable
             return;
         }
 
-        // 2. Send StartBattleRequest message to the server.
-        Net_StartBattleRequest msg = new Net_StartBattleRequest
-        {
-            HeroId = interactingHero.hero.id,
-            MonsterId = this.monster.id
-        };
-
-        NetworkClient.Instance.SendServer(msg);
+        // 2. Open ConfirmBattle modal
+        ConfirmBattleModal.Instance.Open(interactingHero, this.monster);
     }
 
     public void Init(MonsterPack monster, Vector3 worldPosition)

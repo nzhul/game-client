@@ -25,7 +25,7 @@ namespace Assets.Scripts.Network.MessageHandlers
             {
                 if (HeroesManager.Instance.Heroes != null && HeroesManager.Instance.Heroes.Count > 0)
                 {
-                    hero = HeroesManager.Instance.Heroes.FirstOrDefault(x => x.hero.id == msg.HeroId);
+                    hero = HeroesManager.Instance.Heroes[msg.HeroId];
                     if (hero == null || hero.isMoving)
                     {
                         Debug.LogWarning("Cannot find hero to teleport!");
@@ -111,7 +111,7 @@ namespace Assets.Scripts.Network.MessageHandlers
 
             if (DataManager.Instance.ActiveRegionId == msg.RegionId && !DataManager.Instance.Avatar.heroes.Any(h => h.id == msg.HeroId))
             {
-                if (HeroesManager.Instance.Heroes.Any(h => h.hero.id == msg.HeroId))
+                if (HeroesManager.Instance.Heroes.ContainsKey(msg.HeroId))
                 {
                     return TeleportScenario.EnemyBlink;
                 }

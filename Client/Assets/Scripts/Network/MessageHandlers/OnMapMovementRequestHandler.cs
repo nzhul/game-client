@@ -21,7 +21,7 @@ namespace Assets.Scripts.Network.MessageHandlers
 
             if (HeroesManager.Instance.Heroes != null && HeroesManager.Instance.Heroes.Count > 0)
             {
-                var hero = HeroesManager.Instance.Heroes.FirstOrDefault(x => x.hero.id == msg.HeroId);
+                var hero = HeroesManager.Instance.Heroes[msg.HeroId];
                 if (hero != null && !hero.isMoving)
                 {
                     hero.MoveToNode(msg.Destination);

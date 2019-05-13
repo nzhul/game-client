@@ -12,13 +12,13 @@ using UnityEngine.UI;
 public class WaypointSelector : MonoBehaviour
 {
     [SerializeField]
-    private RectTransform _waypointsPanel;
+    public RectTransform _waypointsPanel;
 
     [SerializeField]
-    private RectTransform _waypointBtnsContainer;
+    public RectTransform _waypointBtnsContainer;
 
     [SerializeField]
-    private Button _waypointBtnPrefab;
+    public Button _waypointBtnPrefab;
 
     private IWorldService _worldService;
 

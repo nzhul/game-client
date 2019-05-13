@@ -20,10 +20,10 @@ namespace Assets.Scripts.Network.RequestModels.Users.View
         public int age;
 
         [SerializeField]
-        private string created;
+        private string created = null;
 
         [SerializeField]
-        private string lastActive;
+        private string lastActive = null; 
 
         public string interests;
         public string city;

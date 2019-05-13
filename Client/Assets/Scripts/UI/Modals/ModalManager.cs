@@ -6,7 +6,7 @@ namespace Assets.Scripts.UI.Modals
     public class ModalManager : MonoBehaviour
     {
         [SerializeField]
-        private Modal primaryModalPrefab;
+        private Modal primaryModalPrefab = null;
 
         [SerializeField]
         public Modal[] Modals;
@@ -14,7 +14,7 @@ namespace Assets.Scripts.UI.Modals
         [SerializeField]
         private Transform _modalParent;
 
-        private Stack<Modal> _modalStack = new Stack<Modal>();
+        private Stack<Modal> _modalStack = new Stack<Modal>(); 
 
         private static ModalManager _instance;
 

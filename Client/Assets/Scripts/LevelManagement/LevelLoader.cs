@@ -11,6 +11,7 @@ namespace Assets.Scripts.LevelManagement
         public const string HERO_SELECTION_SCENE = "02_HeroSelectionMenu";
         public const string HERO_CREATION_SCENE = "03_HeroCreationMenu";
         public const string WORLD_SCENE = "04_World";
+        public const string BATTLE_SCENE = "05_Battle";
 
         public static void LoadLevel(string levelname)
         {

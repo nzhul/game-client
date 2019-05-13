@@ -72,7 +72,7 @@ public class HeroMotor : MonoBehaviour
     {
         selfView.PlayTeleportEffect(HeroView.TeleportType.Out);
         yield return new WaitForSeconds(.4f);
-        HeroesManager.Instance.Heroes.Remove(selfView);
+        HeroesManager.Instance.Heroes.Remove(selfView.hero.id);
         Destroy(selfView.gameObject);
     }
 
