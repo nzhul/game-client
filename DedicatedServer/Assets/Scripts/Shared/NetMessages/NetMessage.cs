@@ -48,6 +48,12 @@ public static class NetOperationCode
     /// 2. Client listens for this message and starts the battle by loading separate "battle" scene.
     /// </summary>
     public const int StartBattleRequest = 6;
+
+    /// <summary>
+    /// Each player should send this message after he is done loading the battle scene.
+    /// Then we know that the battle can start.
+    /// </summary>
+    public const int ConfirmLoadingBattleScene = 7;
     #endregion
 
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Scripts.Shared.NetMessages.World.Models;
+using System;
 
 namespace Assets.Scripts.Shared.NetMessages.World
 {
@@ -10,9 +11,17 @@ namespace Assets.Scripts.Shared.NetMessages.World
             this.OperationCode = NetOperationCode.OnStartBattle;
         }
 
-        public int HeroId { get; set; }
+        public Guid BattleId { get; set; }
 
-        public int MonsterId { get; set; }
+        public int AttackerId { get; set; }
+
+        public int DefenderId { get; set; }
+
+        public PlayerType AttackerType { get; set; }
+
+        public PlayerType DefenderType { get; set; }
+
+        public BattleScenario BattleScenario { get; set; }
 
         public string Error { get; set; }
 

@@ -2368,7 +2368,7 @@ MonoBehaviour:
     type: 3}
   heroViewPrefab: {fileID: 1463672758921370, guid: ba0b4319df1d3ac4a839f1de34b2d0f2,
     type: 3}
-  monsterViewPrefab: {fileID: 8845990794757844399, guid: 232dc6bf2304ed241838c69f62b0a004,
+  monsterViewPrefab: {fileID: 726259910671950605, guid: c4c7b2e2815fadb4d90c5a8baedf8673,
     type: 3}
   labelsCanvas: {fileID: 1187331278}
   labelPrefab: {fileID: 947007785008285412, guid: 8998be928c0b09849a7fc8a99bc322ce,

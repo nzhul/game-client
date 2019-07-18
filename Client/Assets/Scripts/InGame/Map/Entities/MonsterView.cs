@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.InGame.Map.Entities;
 using Assets.Scripts.Shared.DataModels;
+using Assets.Scripts.Shared.NetMessages.World.Models;
 using UnityEngine;
 
 public class MonsterView : MonoBehaviour, IInteractable
@@ -16,7 +17,7 @@ public class MonsterView : MonoBehaviour, IInteractable
         }
 
         // 2. Open ConfirmBattle modal
-        ConfirmBattleModal.Instance.Open(interactingHero, this.monster);
+        ConfirmBattleModal.Instance.Open(BattleScenario.HUvsMonsterAI, interactingHero.hero, null, null, this.monster);
     }
 
     public void Init(MonsterPack monster, Vector3 worldPosition)

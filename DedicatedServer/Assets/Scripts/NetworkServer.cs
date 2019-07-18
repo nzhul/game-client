@@ -70,7 +70,8 @@ public class NetworkServer : MonoBehaviour
             { NetOperationCode.WorldEnterRequest, new WorldEnterRequestHandler() },
             { NetOperationCode.MapMovementRequest, new MapMovementRequestHandler() },
             { NetOperationCode.TeleportRequest, new TeleportRequestHandler() },
-            { NetOperationCode.StartBattleRequest, new StartBattleRequestHandler() }
+            { NetOperationCode.StartBattleRequest, new StartBattleRequestHandler() },
+            { NetOperationCode.ConfirmLoadingBattleScene, new ConfirmLoadingBattleSceneHandler() }
         };
     }
 
