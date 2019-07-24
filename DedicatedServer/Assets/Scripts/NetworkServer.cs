@@ -1,6 +1,7 @@
 ﻿#pragma warning disable CS0618 // Type or member is obsolete
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using Assets.Scripts.MessageHandlers;
 using Assets.Scripts.Shared.DataModels;
@@ -71,7 +72,8 @@ public class NetworkServer : MonoBehaviour
             { NetOperationCode.MapMovementRequest, new MapMovementRequestHandler() },
             { NetOperationCode.TeleportRequest, new TeleportRequestHandler() },
             { NetOperationCode.StartBattleRequest, new StartBattleRequestHandler() },
-            { NetOperationCode.ConfirmLoadingBattleScene, new ConfirmLoadingBattleSceneHandler() }
+            { NetOperationCode.ConfirmLoadingBattleScene, new ConfirmLoadingBattleSceneHandler() },
+            { NetOperationCode.EndTurnRequest, new EndTurnRequestHandler() }
         };
     }
 
@@ -141,6 +143,20 @@ public class NetworkServer : MonoBehaviour
         else
         {
             NetworkTransport.Send(webHostId, connectionId, reliableChannel, buffer, BYTE_SIZE, out error);
+        }
+    }
+
+    public int GetConnectionIdByHeroId(int heroId)
+    {
+        var pair = this.Connections.FirstOrDefault(c => c.Value.Avatar.heroes.Any(h => h.id == heroId));
+
+        if (!pair.Equals(default(KeyValuePair<int, ServerConnection>))) // null check for keyValuePair
+        {
+            return pair.Value.ConnectionId;
+        }
+        else
+        {
+            return 0;
         }
     }
 }

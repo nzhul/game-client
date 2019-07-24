@@ -54,6 +54,14 @@ public static class NetOperationCode
     /// Then we know that the battle can start.
     /// </summary>
     public const int ConfirmLoadingBattleScene = 7;
+
+    /// <summary>
+    /// A player that currently have an active turn can send an EndTurnRequest 
+    /// to end his turn befire his time expires
+    /// The player should not be able to send such request if current turn is not 
+    /// his or there is X time left from his turn.
+    /// </summary>
+    public const int EndTurnRequest = 8;
     #endregion
 
 
@@ -68,6 +76,8 @@ public static class NetOperationCode
     public const int OnTeleport = 103;
 
     public const int OnStartBattle = 104;
+
+    public const int SwitchTurnEvent = 105;
 
     #endregion
 }

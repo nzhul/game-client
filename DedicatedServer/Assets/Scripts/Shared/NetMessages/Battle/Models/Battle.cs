@@ -16,7 +16,11 @@ namespace Assets.Scripts.Shared.NetMessages.Battle.Models
 
         public int AttackerId { get; set; }
 
+        public int AttackerConnectionId { get; set; }
+
         public int DefenderId { get; set; }
+
+        public int DefenderConnectionId { get; set; }
 
         public int CurrentPlayerId { get; set; }
 

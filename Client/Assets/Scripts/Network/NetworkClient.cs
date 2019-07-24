@@ -50,7 +50,8 @@ namespace Assets.Scripts.Network
             { NetOperationCode.OnWorldEnter, new OnWorldEnterRequestHandler() },
             { NetOperationCode.OnMapMovement, new OnMapMovementRequestHandler() },
             { NetOperationCode.OnTeleport, new OnTeleportRequestRequestHandler() },
-            { NetOperationCode.OnStartBattle, new OnStartBattleRequestHandler() }
+            { NetOperationCode.OnStartBattle, new OnStartBattleRequestHandler() },
+            { NetOperationCode.SwitchTurnEvent, new OnSwitchTurnEventHandler() }
         };
         }
 

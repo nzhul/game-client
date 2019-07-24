@@ -12,11 +12,27 @@ namespace Assets.Scripts.Network.Services
                 return;
             }
 
-            Net_ConfirmLoadingBattleScene msg = new Net_ConfirmLoadingBattleScene
+            Net_ConfirmLoadingBattleSceneRequest msg = new Net_ConfirmLoadingBattleSceneRequest
             {
                 BattleId = battleId,
                 HeroId = heroId,
                 IsReady = true
+            };
+
+            NetworkClient.Instance.SendServer(msg);
+        }
+
+        public void SendEndTurnRequest(Guid battleId, int currentPlayerId)
+        {
+            if (NetworkClient.Instance == null || !NetworkClient.Instance.IsStarted)
+            {
+                return;
+            }
+
+            Net_EndTurnRequest msg = new Net_EndTurnRequest
+            {
+                BattleId = battleId,
+                RequesterHeroId = currentPlayerId
             };
 
             NetworkClient.Instance.SendServer(msg);

@@ -3,9 +3,9 @@
 namespace Assets.Scripts.Shared.NetMessages.Battle
 {
     [Serializable]
-    public class Net_ConfirmLoadingBattleScene : NetMessage
+    public class Net_ConfirmLoadingBattleSceneRequest : NetMessage
     {
-        public Net_ConfirmLoadingBattleScene()
+        public Net_ConfirmLoadingBattleSceneRequest()
         {
             OperationCode = NetOperationCode.ConfirmLoadingBattleScene;
         }

@@ -2,6 +2,7 @@
 using Assets.Scripts.Shared.NetMessages.World;
 using Assets.Scripts.Shared.NetMessages.World.Models;
 using System;
+using UnityEngine;
 
 namespace Assets.Scripts.MessageHandlers
 {
@@ -30,14 +31,18 @@ namespace Assets.Scripts.MessageHandlers
                     Id = Guid.NewGuid(),
                     AttackerId = msg.AttackerId,
                     DefenderId = msg.DefenderId,
+                    CurrentPlayerId = msg.AttackerId,
                     AttackerType = msg.AttackerType,
                     DefenderType = msg.DefenderType,
-                    BattleScenario = scenario
+                    BattleScenario = scenario,
+                    LastTurnStartTime = Time.time
                 };
 
                 rmsg.BattleId = newBattle.Id;
 
                 this.ConfigurePlayerReady(newBattle, scenario);
+                newBattle.AttackerConnectionId = NetworkServer.Instance.GetConnectionIdByHeroId(newBattle.AttackerId);
+                newBattle.DefenderConnectionId = NetworkServer.Instance.GetConnectionIdByHeroId(newBattle.DefenderId);
 
                 NetworkServer.Instance.ActiveBattles.Add(newBattle);
                 NetworkServer.Instance.SendClient(recievingHostId, connectionId, rmsg);

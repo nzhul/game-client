@@ -8,7 +8,7 @@ namespace Assets.Scripts.MessageHandlers
     {
         public void Handle(int connectionId, int channelId, int recievingHostId, NetMessage input)
         {
-            Net_ConfirmLoadingBattleScene msg = (Net_ConfirmLoadingBattleScene)input;
+            Net_ConfirmLoadingBattleSceneRequest msg = (Net_ConfirmLoadingBattleSceneRequest)input;
 
             if (msg.IsValid())
             {

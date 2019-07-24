@@ -15,15 +15,16 @@ namespace Assets.Scripts.Network.MessageHandlers
 
         public void Handle(int connectionId, int channelId, int recievingHostId, NetMessage input)
         {
-            // 1. Raise event
+            // 1. Parse the input
             var msg = (Net_OnStartBattle)input;
 
-            OnStartBattle?.Invoke(msg);
-
-            // 3. Load them into new BattleDataManager (not destroyed on load)
+            // 2. Load them into new BattleDataManager (not destroyed on load)
             DataManager.Instance.BattleData = this.ResolveBattleData(msg);
 
-            // 3. Load new scene 5_Battle 
+            // 3. Raise event
+            OnStartBattle?.Invoke(msg);
+
+            // 4. Load new scene 5_Battle 
             LevelLoader.LoadLevel(LevelLoader.BATTLE_SCENE);
 
             // TODO: LoadSceneAsync and show loading animation while the scene is loading.
@@ -73,20 +74,23 @@ namespace Assets.Scripts.Network.MessageHandlers
                 // MonsterAIvsHUAI
             }
 
-            var bdata = new BattleData();
-            bdata.BattleScenario = msg.BattleScenario;
-            bdata.AttackerType = attackerType;
-            bdata.DefenderType = defenderType;
-            bdata.AttackerHero = attackHero;
-            bdata.DefenderHero = defenderHero;
-            bdata.AttackerMonster = attackerMonster;
-            bdata.DefenderMonster = defenderMonster;
-            bdata.AttackerId = msg.AttackerId;
-            bdata.DefenderId = msg.DefenderId;
-            bdata.CurrentPlayerId = currentPlayerId;
-            bdata.BattleId = msg.BattleId;
+            var bd = new BattleData();
+            bd.BattleScenario = msg.BattleScenario;
+            bd.AttackerType = attackerType;
+            bd.DefenderType = defenderType;
+            bd.AttackerHero = attackHero;
+            bd.DefenderHero = defenderHero;
+            bd.AttackerMonster = attackerMonster;
+            bd.DefenderMonster = defenderMonster;
+            bd.AttackerId = msg.AttackerId;
+            bd.DefenderId = msg.DefenderId;
+            bd.CurrentPlayerId = currentPlayerId;
+            bd.BattleId = msg.BattleId;
+            bd.Turn = Turn.Attacker;
+            bd.RemainingTimeForThisTurn = BattleManager.TURN_DURATION;
+            bd.ActionsEnabled = true;
 
-            return bdata;
+            return bd;
         }
     }
 }

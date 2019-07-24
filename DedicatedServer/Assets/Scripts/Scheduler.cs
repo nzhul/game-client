@@ -1,15 +1,17 @@
 ﻿using Assets.Scripts.MessageHandlers;
+using Assets.Scripts.Services;
 using Assets.Scripts.Shared.NetMessages.Battle.Models;
-using Assets.Scripts.Shared.NetMessages.World.Models;
 using System.Linq;
 using UnityEngine;
 
 public class Scheduler : MonoBehaviour
 {
-    private const int TURN_DURATION = 10; // seconds
+    private const int TURN_DURATION = 20; // seconds
+    private IBattleService battleService;
 
     private void Start()
     {
+        this.battleService = new BattleService();
         InvokeRepeating("ClearRegions", 5, 5);
         InvokeRepeating("SwitchBattleTurns", 5, 1);
     }
@@ -25,32 +27,13 @@ public class Scheduler : MonoBehaviour
 
             if (battle.LastTurnStartTime + TURN_DURATION < Time.time)
             {
-                this.SwitchTurn(battle);
+                this.battleService.SwitchTurn(battle);
             }
             //else
             //{
             //    Debug.Log("Remaining: " + ((battle.LastTurnStartTime + TURN_DURATION) - Time.time).ToString());
             //}
         }
-    }
-
-    private void SwitchTurn(Battle battle)
-    {
-        Debug.Log("Turn time expired - switching turns!");
-        battle.LastTurnStartTime = Time.time;
-        if (battle.Turn == Turn.Attacker)
-        {
-            battle.Turn = Turn.Defender;
-            battle.CurrentPlayerId = battle.DefenderId;
-        }
-        else
-        {
-            battle.Turn = Turn.Attacker;
-            battle.CurrentPlayerId = battle.AttackerId;
-        }
-        // 1. set LastTurnStartTime = Time.time;
-        // 2. set CurrentPlayerId
-        // 3. log
     }
 
     private void ClearRegions()
