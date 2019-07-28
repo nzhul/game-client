@@ -8,6 +8,7 @@ namespace Assets.Scripts.Shared.DataModels
         public int id;
         public int x;
         public int y;
+        public HeroType type;
         public string name;
         public DateTime lastActivity;
         public TimeSpan timePlayed;
@@ -26,5 +27,7 @@ namespace Assets.Scripts.Shared.DataModels
         public string faction;
         public string @class;
         public int regionId;
+        public NPCData npcData;
+        public bool isNPC;
     }
 }

@@ -28,10 +28,15 @@ namespace Assets.Scripts.InGame
             }
 
             this.Heroes = new Dictionary<int, HeroView>();
+            this.NPCs = new Dictionary<int, NPCView>();
         }
         #endregion
 
         public Dictionary<int, HeroView> Heroes { get; private set; }
+
+        public Dictionary<int, NPCView> NPCs { get; private set; }
+
+        
 
         // TODO: Move everything related with map heroes here. Extract out of MapManager.
     }

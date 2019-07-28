@@ -1,11 +1,15 @@
 ﻿#pragma warning disable CS0618 // Type or member is obsolete
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
+using Assets.Scripts.Configuration;
 using Assets.Scripts.MessageHandlers;
+using Assets.Scripts.Network.Shared.Http;
 using Assets.Scripts.Shared.DataModels;
 using Assets.Scripts.Shared.NetMessages.Battle.Models;
+using BestHTTP;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -29,6 +33,10 @@ public class NetworkServer : MonoBehaviour
 
     private DisconnectEventHandler _disconnectEventHandler;
 
+    public ServerConfiguration ServerConfiguration;
+
+    public LoginResponse Admin;
+
     public Dictionary<int, ServerConnection> Connections = new Dictionary<int, ServerConnection>();
 
     public Dictionary<int, Region> Regions = new Dictionary<int, Region>();
@@ -39,7 +47,47 @@ public class NetworkServer : MonoBehaviour
     {
         Instance = this;
         DontDestroyOnLoad(gameObject);
+        this.ServerConfiguration = this.LoadServerConfiguration();
+        this.LogInAdmin();
         Init();
+    }
+
+    private void LogInAdmin()
+    {
+        var loginInput = new LoginInput
+        {
+            username = this.ServerConfiguration.AName,
+            password = this.ServerConfiguration.AKey
+        };
+
+        RequestManager.Instance.Post<LoginInput>("auth/login", loginInput, OnLoginRequestFinished);
+    }
+
+    private void OnLoginRequestFinished(HTTPRequest request, HTTPResponse response)
+    {
+        if (response == null || response.StatusCode != 200)
+        {
+            Debug.LogError("Admin login request failed!");
+            return;
+        }
+
+        string json = response.DataAsText;
+        LoginResponse loginInfo = JsonUtility.FromJson<LoginResponse>(json);
+
+        if (loginInfo == null)
+        {
+            Debug.LogError("Cannot parse admin login information!");
+            return;
+        }
+
+        Debug.Log("Admin authenticated successfully!");
+        this.Admin = loginInfo;
+    }
+
+    private ServerConfiguration LoadServerConfiguration()
+    {
+        TextAsset json = Resources.Load("Config") as TextAsset;
+        return JsonUtility.FromJson<ServerConfiguration>(json.text);
     }
 
     private void Init()

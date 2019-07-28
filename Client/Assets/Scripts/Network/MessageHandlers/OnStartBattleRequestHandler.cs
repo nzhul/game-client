@@ -37,8 +37,6 @@ namespace Assets.Scripts.Network.MessageHandlers
 
             Hero attackHero = null;
             Hero defenderHero = null;
-            MonsterPack attackerMonster = null;
-            MonsterPack defenderMonster = null;
             int currentPlayerId = 0;
             PlayerType attackerType = PlayerType.Human;
             PlayerType defenderType = PlayerType.MonsterAI;
@@ -46,7 +44,7 @@ namespace Assets.Scripts.Network.MessageHandlers
             if (msg.BattleScenario == BattleScenario.HUvsMonsterAI)
             {
                 attackHero = HeroesManager.Instance.Heroes[msg.AttackerId].hero;
-                defenderMonster = MonstersManager.Instance.Monsters[msg.DefenderId].monster;
+                defenderHero = HeroesManager.Instance.NPCs[msg.DefenderId].npc;
                 currentPlayerId = msg.AttackerId;
                 attackerType = PlayerType.Human;
                 defenderType = PlayerType.MonsterAI;
@@ -54,7 +52,7 @@ namespace Assets.Scripts.Network.MessageHandlers
             else if (msg.BattleScenario == BattleScenario.HUAIvsMonsterAI)
             {
                 attackHero = HeroesManager.Instance.Heroes[msg.AttackerId].hero;
-                MonsterPack monsterPack = MonstersManager.Instance.Monsters[msg.DefenderId].monster;
+                defenderHero = HeroesManager.Instance.NPCs[msg.DefenderId].npc;
                 currentPlayerId = msg.AttackerId;
                 attackerType = PlayerType.HumanAI;
                 defenderType = PlayerType.MonsterAI;
@@ -80,8 +78,6 @@ namespace Assets.Scripts.Network.MessageHandlers
             bd.DefenderType = defenderType;
             bd.AttackerHero = attackHero;
             bd.DefenderHero = defenderHero;
-            bd.AttackerMonster = attackerMonster;
-            bd.DefenderMonster = defenderMonster;
             bd.AttackerId = msg.AttackerId;
             bd.DefenderId = msg.DefenderId;
             bd.CurrentPlayerId = currentPlayerId;

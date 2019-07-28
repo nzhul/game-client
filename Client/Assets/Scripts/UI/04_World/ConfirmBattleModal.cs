@@ -12,8 +12,6 @@ public class ConfirmBattleModal : Modal<ConfirmBattleModal>
     private BattleScenario scenario;
     private Hero attackingHero;
     private Hero defendingHero;
-    private MonsterPack attackingMonster;
-    private MonsterPack defendingMonster;
 
     public Toggle autoCombatToggle;
 
@@ -27,24 +25,21 @@ public class ConfirmBattleModal : Modal<ConfirmBattleModal>
     private Net_StartBattleRequest BuildRequest()
     {
         var msg = new Net_StartBattleRequest();
+        msg.AttackerId = this.attackingHero.id;
+        msg.DefenderId = this.defendingHero.id;
 
         switch (this.scenario)
         {
             case BattleScenario.HUvsMonsterAI:
-                msg.AttackerId = this.attackingHero.id;
-                msg.DefenderId = this.defendingMonster.id;
                 msg.AttackerType = PlayerType.Human;
                 msg.DefenderType = PlayerType.MonsterAI;
                 break;
             case BattleScenario.HUAIvsMonsterAI:
-                msg.AttackerId = this.attackingHero.id;
-                msg.DefenderId = this.defendingMonster.id;
+
                 msg.AttackerType = PlayerType.HumanAI;
                 msg.DefenderType = PlayerType.MonsterAI;
                 break;
             case BattleScenario.HUvsHU:
-                msg.AttackerId = this.attackingHero.id;
-                msg.DefenderId = this.defendingHero.id;
                 msg.AttackerType = PlayerType.Human;
                 msg.DefenderType = PlayerType.Human;
                 break;
@@ -63,16 +58,12 @@ public class ConfirmBattleModal : Modal<ConfirmBattleModal>
 
     public void Open(BattleScenario scenario,
         Hero attackingHero = null,
-        Hero defendingHero = null,
-        MonsterPack attackingMonster = null,
-        MonsterPack defendingMonster = null)
+        Hero defendingHero = null)
     {
         this._dm = DataManager.Instance;
         this.scenario = scenario;
         this.attackingHero = attackingHero;
         this.defendingHero = defendingHero;
-        this.attackingMonster = attackingMonster;
-        this.defendingMonster = defendingMonster;
         this.autoCombatToggle.isOn = this._dm.BattleData.UseAutoBattles;
         this.autoCombatToggle.onValueChanged.AddListener(delegate
         {

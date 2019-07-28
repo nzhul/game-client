@@ -23,10 +23,6 @@ namespace Assets.Scripts.Data.Models
 
         public Hero DefenderHero { get; set; }
 
-        public MonsterPack AttackerMonster { get; set; }
-
-        public MonsterPack DefenderMonster { get; set; }
-
         public Guid BattleId { get; set; }
 
         public int AttackerId { get; set; }

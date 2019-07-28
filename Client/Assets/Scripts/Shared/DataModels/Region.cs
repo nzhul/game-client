@@ -13,7 +13,7 @@ namespace Assets.Scripts.Shared.DataModels
         //public string matrixString;
         public IList<Room> rooms;
         public IList<Hero> heroes;
-        public IList<MonsterPack> monsterPacks;
+        public IList<Hero> npcHeroes;
         public IList<Dwelling> dwellings;
 
         private string _matrixString;

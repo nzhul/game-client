@@ -157,20 +157,20 @@ public class GraphView : MonoBehaviour
         return heroView;
     }
 
-    public MonsterView AddMonster(MonsterPack monster)
+    public NPCView AddNPC(Hero npc)
     {
-        var monsterView = InitMonster(monster);
-        MonstersManager.Instance.Monsters.Add(monster.id, monsterView);
+        var npcView = InitNPC(npc);
+        HeroesManager.Instance.NPCs.Add(npc.id, npcView);
 
-        return monsterView;
+        return npcView;
     }
 
-    private MonsterView InitMonster(MonsterPack monster)
+    private NPCView InitNPC(Hero monster)
     {
         Vector3 worldPosition = MapManager.Instance.GetNodeWorldPosition(monster.x, monster.y);
         Vector3 placementPosition = new Vector3(worldPosition.x, monsterViewPrefab.transform.position.y, worldPosition.z);
         GameObject instance = Instantiate(monsterViewPrefab, placementPosition, Quaternion.identity);
-        MonsterView monsterView = instance.GetComponent<MonsterView>();
+        NPCView monsterView = instance.GetComponent<NPCView>();
 
         if (monsterView != null)
         {
@@ -180,18 +180,18 @@ public class GraphView : MonoBehaviour
         return monsterView;
     }
 
-    public void AddMonsters(IList<MonsterPack> monsterPacks)
+    public void AddNPCs(IList<Hero> npcHeroes)
     {
-        foreach (MonsterPack monster in monsterPacks)
+        foreach (Hero npcHero in npcHeroes)
         {
-            MonsterView newMonster = this.AddMonster(monster);
+            NPCView newNpc = this.AddNPC(npcHero);
 
-            NodeView nodeView = nodeViews[monster.x, monster.y]; // x = cols; y = rows
+            NodeView nodeView = nodeViews[npcHero.x, npcHero.y]; // x = cols; y = rows
 
             if (nodeView != null)
             {
-                newMonster.transform.SetParent(nodeView.transform);
-                nodeView.Slot = newMonster;
+                newNpc.transform.SetParent(nodeView.transform);
+                nodeView.Slot = newNpc;
 
                 // GameObject instance = Instantiate(monsterViewPrefab, nodeView.node.worldPosition, Quaternion.identity);
                 // instance.transform.SetParent(nodeView.transform);

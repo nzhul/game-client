@@ -2,7 +2,6 @@
 using Assets.Scripts.Data.Models;
 using Assets.Scripts.Network.MessageHandlers;
 using Assets.Scripts.Shared.NetMessages.Battle;
-using Assets.Scripts.Shared.NetMessages.World.Models;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -60,32 +59,8 @@ public class BattleUIManager : MonoBehaviour
     private void OnStartBattle()
     {
         var bd = DataManager.Instance.BattleData;
-        string attackerName = string.Empty;
-        string defenderName = string.Empty;
-
-        switch (bd.BattleScenario)
-        {
-            case BattleScenario.HUvsMonsterAI:
-                attackerName = bd.AttackerHero.name;
-                defenderName = bd.DefenderMonster.name;
-                break;
-            case BattleScenario.HUAIvsMonsterAI:
-                // no need
-                break;
-            case BattleScenario.HUvsHU:
-                attackerName = bd.AttackerHero.name;
-                defenderName = bd.DefenderHero.name;
-                break;
-            case BattleScenario.MonsterAIvsHU:
-                attackerName = bd.AttackerMonster.name;
-                defenderName = bd.DefenderHero.name;
-                break;
-            case BattleScenario.MonsterAIvsHUAI:
-                // no need
-                break;
-            default:
-                break;
-        }
+        var attackerName = bd.AttackerHero.name;
+        var defenderName = bd.DefenderHero.name;
 
         this.Attacker.text = string.Format(attackerTemplate, attackerName);
         this.Defender.text = string.Format(defenderTemplate, defenderName);
