@@ -81,3 +81,24 @@ public static class NetOperationCode
 
     #endregion
 }
+
+
+// NOTES:
+// BATTLE MESSAGES:
+// BattleMovementRequest -> Moves the init in the battlefield and consumes his movement point.
+// BattleActionRequest 
+//  -> Unit/Hero perform an action.
+//  -> Each action cost action points (AP).
+//  -> Units will usually have 1-2 action points availible and their abilities will cost 1-2 AP
+//  -> Normal Attack form example will cost 1 AP and the unit can have a pool of 1 AP. This means that the unit can only perform normal attack
+//  -> Heroes on other hand will have bigger AP pool. For example 5 AP.
+//  -> TODO: consider having separate AP and movement pool or common one.
+
+// Every time an ActionRequest is executed on the server we check the win condition for both players
+// if some of them is a winner -> we send EndBattleEvent to both clients and record the outcome of the battle in the database (api call).
+
+// EndBattleEvent -> Notify both looser and winner about the outcome of the battle.
+// Winner: Recieve information about his award, experience gain and so on.
+// Looser: Recieve information about his loses.
+
+// TODO: Change "END TURN" button to "DEFEND" -> only skip turn of the current creature. Like "DEFEND" button in Heroes 3.
