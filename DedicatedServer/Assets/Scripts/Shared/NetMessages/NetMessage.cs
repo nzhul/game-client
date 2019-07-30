@@ -102,3 +102,16 @@ public static class NetOperationCode
 // Looser: Recieve information about his loses.
 
 // TODO: Change "END TURN" button to "DEFEND" -> only skip turn of the current creature. Like "DEFEND" button in Heroes 3.
+
+
+// Battle flow:
+// Instead of making an queue like in heroes 3 games, where every unit turn depends of the speed/initiative of the unit
+// Allow the player to choose which unit he wants to play.
+// If the player do not execute any action - the currently selected unit will loose his turn/action points for the remaining of the Round!
+// The player cannot play two or more consecutive units in a situation where other player still have remaining move/action points.
+// the player CAN play two or more consecutive units when the oponent do not have remaining move/action points for this Round!.
+
+// Basically i want the battle flow to be the same as "BattleChess"
+// "END TURN" button will become "SKIP" which will consume both move and action points for the currently selected unit and 
+// will give the control back to the oponent!.
+

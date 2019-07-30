@@ -971,6 +971,7 @@ MonoBehaviour:
   turnTemplate: 'CURRENT TURN: {0}'
   log: 
   EndTurnButton: {fileID: 372151533}
+  EndTurnButtonText: {fileID: 0}
 --- !u!1 &1259724377
 GameObject:
   m_ObjectHideFlags: 0
