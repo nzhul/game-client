@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Assets.Scripts.Shared.DataModels
 {
@@ -29,5 +30,6 @@ namespace Assets.Scripts.Shared.DataModels
         public int regionId;
         public NPCData npcData;
         public bool isNPC;
+        public IList<Unit> units;
     }
 }

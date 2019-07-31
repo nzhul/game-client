@@ -5,7 +5,6 @@ namespace Assets.Scripts.Shared.DataModels
     [Serializable]
     public class NPCData
     {
-        public int id;
         public CreatureType mapRepresentation;
         public int x;
         public int y;
