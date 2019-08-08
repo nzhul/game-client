@@ -8,11 +8,11 @@ namespace Assets.Scripts.Shared.DataModels
         public CreatureType mapRepresentation;
         public int x;
         public int y;
-        public int disposition; // enum
-        public int rewardType; // enum
+        public Disposition disposition; // enum
+        public TreasureType rewardType; // enum
         public int rewardQuantity;
         // itemReward ... TBD
-        public int troopsRewardType; // enum
+        public CreatureType troopsRewardType; // enum
         public int troopsRewardQuantity;
         public string occupiedTilesString; // parse
         public string name;
