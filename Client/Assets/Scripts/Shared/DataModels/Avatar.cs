@@ -1,19 +1,24 @@
-﻿using System;
+﻿using Assets.Scripts.Network.Shared.DataModels;
 using System.Collections.Generic;
-using Assets.Scripts.Network.Shared.DataModels;
 
 namespace Assets.Scripts.Shared.DataModels
 {
-    [Serializable]
     public class UserAvatar
     {
-        public int id;
-        public int wood;
-        public int ore;
-        public int gold;
-        public int gems;
-        public IList<Hero> heroes;
-        public IList<Dwelling> dwellings;
-        public IList<Waypoint> waypoints;
+        public int Id { get; set; }
+
+        public int Wood { get; set; }
+
+        public int Ore { get; set; }
+
+        public int Gold { get; set; }
+
+        public int Gems { get; set; }
+
+        public IList<Hero> Heroes { get; set; }
+
+        public IList<Dwelling> Dwellings { get; set; }
+
+        public IList<Waypoint> Waypoints { get; set; }
     }
 }

@@ -134,12 +134,12 @@ public class GraphView : MonoBehaviour
     public void AddHero(Hero hero, bool playSpawnEffect)
     {
         var heroView = InitHero(hero, playSpawnEffect);
-        HeroesManager.Instance.Heroes.Add(hero.id, heroView);
+        HeroesManager.Instance.Heroes.Add(hero.Id, heroView);
     }
 
     public HeroView InitHero(Hero hero, bool playSpawnEffect)
     {
-        Vector3 worldPosition = MapManager.Instance.GetNodeWorldPosition(hero.x, hero.y);
+        Vector3 worldPosition = MapManager.Instance.GetNodeWorldPosition(hero.X, hero.Y);
         Vector3 placementPosition = new Vector3(worldPosition.x, heroViewPrefab.transform.position.y, worldPosition.z);
         GameObject instance = Instantiate(heroViewPrefab, placementPosition, Quaternion.identity);
         HeroView heroView = instance.GetComponent<HeroView>();
@@ -160,14 +160,14 @@ public class GraphView : MonoBehaviour
     public NPCView AddNPC(Hero npc)
     {
         var npcView = InitNPC(npc);
-        HeroesManager.Instance.NPCs.Add(npc.id, npcView);
+        HeroesManager.Instance.NPCs.Add(npc.Id, npcView);
 
         return npcView;
     }
 
     private NPCView InitNPC(Hero monster)
     {
-        Vector3 worldPosition = MapManager.Instance.GetNodeWorldPosition(monster.x, monster.y);
+        Vector3 worldPosition = MapManager.Instance.GetNodeWorldPosition(monster.X, monster.Y);
         Vector3 placementPosition = new Vector3(worldPosition.x, monsterViewPrefab.transform.position.y, worldPosition.z);
         GameObject instance = Instantiate(monsterViewPrefab, placementPosition, Quaternion.identity);
         NPCView monsterView = instance.GetComponent<NPCView>();
@@ -186,7 +186,7 @@ public class GraphView : MonoBehaviour
         {
             NPCView newNpc = this.AddNPC(npcHero);
 
-            NodeView nodeView = nodeViews[npcHero.x, npcHero.y]; // x = cols; y = rows
+            NodeView nodeView = nodeViews[npcHero.X, npcHero.Y]; // x = cols; y = rows
 
             if (nodeView != null)
             {

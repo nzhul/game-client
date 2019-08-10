@@ -71,12 +71,12 @@ public class UIManager : MonoBehaviour
     private void OnRegionLoaded(Region region)
     {
         Button btn = Instantiate<Button>(activeEntityBtn, activeRegionsContainer.transform);
-        btn.name = region.id + "_" + region.name;
+        btn.name = region.Id + "_" + region.Name;
 
         var btnText = btn.GetComponentInChildren<Text>();
-        btnText.text = btn.name = region.id + "_" + region.name;
+        btnText.text = btn.name = region.Id + "_" + region.Name;
 
-        this.RegionButtons.Add(region.id, btn.gameObject);
+        this.RegionButtons.Add(region.Id, btn.gameObject);
     }
 
     private void OnDisconnect(ServerConnection connection)

@@ -59,9 +59,9 @@ public class MapManager : MonoBehaviour
         _dm = DataManager.Instance;
         _dm.Load();
 
-        if (_dm.Avatar != null && _dm.Avatar.heroes != null && _dm.Avatar.heroes.Count >= 1)
+        if (_dm.Avatar != null && _dm.Avatar.Heroes != null && _dm.Avatar.Heroes.Count >= 1)
         {
-            int[] regionsForLoading = _dm.Avatar.heroes.Select(h => h.regionId).ToArray();
+            int[] regionsForLoading = _dm.Avatar.Heroes.Select(h => h.RegionId).ToArray();
 
             string endpoint = "realms/{0}/regions";
             string[] @params = new string[] { DataManager.Instance.CurrentRealmId.ToString() };
@@ -101,8 +101,8 @@ public class MapManager : MonoBehaviour
             if (regions != null && regions.Count >= 1)
             {
                 _dm.Regions = regions;
-                Region activeRegion = _dm.Regions.FirstOrDefault(r => r.heroes.Any(h => h.id == _dm.ActiveHeroId));
-                _dm.ActiveRegionId = activeRegion.id;
+                Region activeRegion = _dm.Regions.FirstOrDefault(r => r.Heroes.Any(h => h.Id == _dm.ActiveHeroId));
+                _dm.ActiveRegionId = activeRegion.Id;
                 _dm.Save();
 
                 RenderMap(activeRegion);
@@ -130,8 +130,8 @@ public class MapManager : MonoBehaviour
         {
             graph.Init(activeRegion.MatrixString);
             graphView.Init(graph);
-            graphView.AddNPCs(activeRegion.npcHeroes);
-            graphView.AddHeroes(activeRegion.heroes);
+            graphView.AddNPCs(activeRegion.NpcHeroes);
+            graphView.AddHeroes(activeRegion.Heroes);
             PlayerController.Instance.SetActiveHero(DataManager.Instance.ActiveHeroId);
             //graphView.Dwellings();
             //activeHero = graphView.InitHero(_activeHero, graph.nodes[_activeHero.x, _activeHero.y].worldPosition);

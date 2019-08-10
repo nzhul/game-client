@@ -87,7 +87,7 @@ namespace Assets.Scripts.Network.MessageHandlers
         {
             // TODO: play particle effect and delay 1-2 seconds before switching scenes
             DataManager.Instance.ActiveRegionId = msg.RegionId;
-            DataManager.Instance.Avatar.heroes.FirstOrDefault(h => h.id == hero.hero.id).regionId = msg.RegionId;
+            DataManager.Instance.Avatar.Heroes.FirstOrDefault(h => h.Id == hero.hero.Id).RegionId = msg.RegionId;
             DataManager.Instance.Save();
             LevelLoader.LoadLevel(LevelLoader.WORLD_SCENE);
         }
@@ -104,12 +104,12 @@ namespace Assets.Scripts.Network.MessageHandlers
                 return TeleportScenario.PlayerBlink;
             }
 
-            if (DataManager.Instance.ActiveRegionId != msg.RegionId && DataManager.Instance.Avatar.heroes.Any(h => h.id == msg.HeroId))
+            if (DataManager.Instance.ActiveRegionId != msg.RegionId && DataManager.Instance.Avatar.Heroes.Any(h => h.Id == msg.HeroId))
             {
                 return TeleportScenario.PlayerOut;
             }
 
-            if (DataManager.Instance.ActiveRegionId == msg.RegionId && !DataManager.Instance.Avatar.heroes.Any(h => h.id == msg.HeroId))
+            if (DataManager.Instance.ActiveRegionId == msg.RegionId && !DataManager.Instance.Avatar.Heroes.Any(h => h.Id == msg.HeroId))
             {
                 if (HeroesManager.Instance.Heroes.ContainsKey(msg.HeroId))
                 {
@@ -121,7 +121,7 @@ namespace Assets.Scripts.Network.MessageHandlers
                 }
             }
 
-            if (DataManager.Instance.ActiveRegionId != msg.RegionId && !DataManager.Instance.Avatar.heroes.Any(h => h.id == msg.HeroId))
+            if (DataManager.Instance.ActiveRegionId != msg.RegionId && !DataManager.Instance.Avatar.Heroes.Any(h => h.Id == msg.HeroId))
             {
                 return TeleportScenario.EnemyOut;
             }

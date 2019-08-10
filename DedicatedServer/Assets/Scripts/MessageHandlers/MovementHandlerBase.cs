@@ -34,20 +34,20 @@ namespace Assets.Scripts.MessageHandlers
         {
             if (cachedConnectionHero != null)
             {
-                cachedConnectionHero.x = destination.X;
-                cachedConnectionHero.y = destination.Y;
-                cachedConnectionHero.regionId = regionId;
+                cachedConnectionHero.X = destination.X;
+                cachedConnectionHero.Y = destination.Y;
+                cachedConnectionHero.RegionId = regionId;
             }
 
-            var regionWithThatHero = NetworkServer.Instance.Regions.FirstOrDefault(r => r.Value.heroes.Any(h => h.id == cachedConnectionHero.id)).Value;
+            var regionWithThatHero = NetworkServer.Instance.Regions.FirstOrDefault(r => r.Value.Heroes.Any(h => h.Id == cachedConnectionHero.Id)).Value;
             if (regionWithThatHero != null)
             {
-                var cachedHero = regionWithThatHero.heroes.FirstOrDefault(h => h.id == cachedConnectionHero.id);
+                var cachedHero = regionWithThatHero.Heroes.FirstOrDefault(h => h.Id == cachedConnectionHero.Id);
                 if (cachedHero != null)
                 {
-                    cachedHero.x = destination.X;
-                    cachedHero.y = destination.Y;
-                    cachedHero.regionId = regionId;
+                    cachedHero.X = destination.X;
+                    cachedHero.Y = destination.Y;
+                    cachedHero.RegionId = regionId;
                 }
             }
         }

@@ -106,7 +106,7 @@ namespace Assets.Scripts.UI.Modals.MainMenuModals
                     DataManager.Instance.Avatar = userAvatar;
                     DataManager.Instance.Save();
 
-                    if (userAvatar.heroes != null && userAvatar.heroes.Count > 0)
+                    if (userAvatar.Heroes != null && userAvatar.Heroes.Count > 0)
                     {
                         //TODO: Transitions
                         LevelLoader.LoadLevel(LevelLoader.HERO_SELECTION_SCENE);

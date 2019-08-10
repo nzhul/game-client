@@ -23,16 +23,16 @@ namespace Assets.Scripts.MessageHandlers
                     Y = msg.Destination.Y
                 };
 
-                var movingHero = NetworkServer.Instance.Connections[connectionId]?.Avatar?.heroes?.FirstOrDefault(h => h.id == msg.HeroId);
+                var movingHero = NetworkServer.Instance.Connections[connectionId]?.Avatar?.Heroes?.FirstOrDefault(h => h.Id == msg.HeroId);
 
                 // 2. Notify the interested clients ( must exclude the requester )
-                base.NotifyClientsInRegion(movingHero.regionId, recievingHostId, rmsg);
+                base.NotifyClientsInRegion(movingHero.RegionId, recievingHostId, rmsg);
 
                 // 3. Update hero position here in the dedicated server cache.
-                base.UpdateCache(movingHero, msg.Destination, movingHero.regionId);
+                base.UpdateCache(movingHero, msg.Destination, movingHero.RegionId);
 
                 // 5. Update the database.
-                base.UpdateDatabase(connectionId, msg.HeroId, msg.Destination, movingHero.regionId);
+                base.UpdateDatabase(connectionId, msg.HeroId, msg.Destination, movingHero.RegionId);
 
                 // Note: Both UpdateCached and UpdateDatabase is happening after client notification.
                 // That is done on purpose so we do not slow down the response to the client after we know that the request is valid.

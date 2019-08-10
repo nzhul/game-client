@@ -98,26 +98,26 @@ namespace Assets.Scripts.UI.CharacterSelection
 
             if (DataManager.Instance != null &&
                 DataManager.Instance.Avatar != null &&
-                DataManager.Instance.Avatar.heroes != null &&
-                DataManager.Instance.Avatar.heroes.Count > 0)
+                DataManager.Instance.Avatar.Heroes != null &&
+                DataManager.Instance.Avatar.Heroes.Count > 0)
             {
-                _heroList = DataManager.Instance.Avatar.heroes;
+                _heroList = DataManager.Instance.Avatar.Heroes;
 
                 int index = 0;
                 foreach (Hero hero in _heroList)
                 {
                     Button heroBtn = GameObject.Instantiate<Button>(_heroBtnPrefab, _heroContainer);
-                    heroBtn.name = hero.id + "_HeroBtn";
-                    heroBtn.onClick.AddListener(delegate { OnHeroButtonPressed(heroBtn, hero.id); });
+                    heroBtn.name = hero.Id + "_HeroBtn";
+                    heroBtn.onClick.AddListener(delegate { OnHeroButtonPressed(heroBtn, hero.Id); });
 
                     Text heroNameText = heroBtn.transform.Find("HeroName").GetComponent<Text>();
-                    heroNameText.text = hero.name;
+                    heroNameText.text = hero.Name;
 
                     Image heroIcon = heroBtn.transform.Find("HeroIcon").GetComponent<Image>();
-                    heroIcon.sprite = classIcons.FirstOrDefault(x => x.name == hero.@class).image;
+                    heroIcon.sprite = classIcons.FirstOrDefault(x => x.name == hero.Class).image;
 
                     Text heroDescriptionText = heroBtn.transform.Find("Description").GetComponent<Text>();
-                    heroDescriptionText.text = "Level " + hero.level + " " + hero.@class;
+                    heroDescriptionText.text = "Level " + hero.Level + " " + hero.Class;
 
                     if (index == 0)
                     {
@@ -151,12 +151,12 @@ namespace Assets.Scripts.UI.CharacterSelection
 
         private void UpdateHeroInfoPanel(int heroId)
         {
-            Hero selectedHero = DataManager.Instance.Avatar.heroes.FirstOrDefault(h => h.id == heroId);
+            Hero selectedHero = DataManager.Instance.Avatar.Heroes.FirstOrDefault(h => h.Id == heroId);
             if (selectedHero != null)
             {
-                currentHeroClassIcon.sprite = classIconsTransparent.FirstOrDefault(a => a.name == selectedHero.@class).image;
+                currentHeroClassIcon.sprite = classIconsTransparent.FirstOrDefault(a => a.name == selectedHero.Class).image;
                 currentHeroClassIcon.SetNativeSize();
-                currentHeroClassTypeText.text = selectedHero.@class.ToUpper();
+                currentHeroClassTypeText.text = selectedHero.Class.ToUpper();
 
                 //TODO: use textmeshPro and improve the UI.
                 string infoTextTemplate = @"{0} - Level {1} {2}
@@ -169,12 +169,12 @@ namespace Assets.Scripts.UI.CharacterSelection
 
 Other statistics: ??";
 
-                string playTimeText = string.Format("{0} hours {1} minutes", selectedHero.timePlayed.Hours, selectedHero.timePlayed.Minutes);
+                string playTimeText = string.Format("{0} hours {1} minutes", selectedHero.TimePlayed.Hours, selectedHero.TimePlayed.Minutes);
 
                 string infoText = string.Format(infoTextTemplate,
-                    selectedHero.name,
-                    selectedHero.level,
-                    selectedHero.@class,
+                    selectedHero.Name,
+                    selectedHero.Level,
+                    selectedHero.Class,
                     playTimeText);
 
                 currentHeroStatistics.text = infoText;
@@ -188,9 +188,9 @@ Other statistics: ??";
         private void UpdateEnvironmentAnd3DModel(int heroId)
         {
             // TODO ...
-            Hero hero = _heroList.FirstOrDefault(x => x.id == heroId);
-            model3DText.text = hero.name;
-            heroNameText.text = hero.name;
+            Hero hero = _heroList.FirstOrDefault(x => x.Id == heroId);
+            model3DText.text = hero.Name;
+            heroNameText.text = hero.Name;
         }
     }
 }

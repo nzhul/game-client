@@ -121,13 +121,13 @@ public class PlayerController : MonoBehaviour
                         // 2. Send Map movement request to the server
                         Net_MapMovementRequest msg = new Net_MapMovementRequest
                         {
-                            HeroId = activeHero.hero.id,
+                            HeroId = activeHero.hero.Id,
                             Destination = new Coord
                             {
                                 X = activeHero.destinationNode.gridX,
                                 Y = activeHero.destinationNode.gridY,
                             },
-                            RegionId = activeHero.hero.regionId
+                            RegionId = activeHero.hero.RegionId
                         };
                         NetworkClient.Instance.SendServer(msg);
                         this.ClearFocus();

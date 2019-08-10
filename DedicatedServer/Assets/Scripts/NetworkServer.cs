@@ -4,12 +4,14 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
+using Assets.Scripts;
 using Assets.Scripts.Configuration;
 using Assets.Scripts.MessageHandlers;
 using Assets.Scripts.Network.Shared.Http;
 using Assets.Scripts.Shared.DataModels;
 using Assets.Scripts.Shared.NetMessages.Battle.Models;
 using BestHTTP;
+using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -35,7 +37,11 @@ public class NetworkServer : MonoBehaviour
 
     public ServerConfiguration ServerConfiguration;
 
+    public Dictionary<CreatureType, UnitConfiguration> UnitConfigurations = new Dictionary<CreatureType, UnitConfiguration>();
+
     public LoginResponse Admin;
+
+    public static event Action AdminAuthenticated;
 
     public Dictionary<int, ServerConnection> Connections = new Dictionary<int, ServerConnection>();
 
@@ -49,7 +55,13 @@ public class NetworkServer : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         this.ServerConfiguration = this.LoadServerConfiguration();
         this.LogInAdmin();
+        NetworkServer.AdminAuthenticated += OnAdminAuthenticated;
         Init();
+    }
+
+    private void OnAdminAuthenticated()
+    {
+        this.LoadUnitConfigurations();
     }
 
     private void LogInAdmin()
@@ -72,7 +84,8 @@ public class NetworkServer : MonoBehaviour
         }
 
         string json = response.DataAsText;
-        LoginResponse loginInfo = JsonUtility.FromJson<LoginResponse>(json);
+        //LoginResponse loginInfo = JsonUtility.FromJson<LoginResponse>(json);
+        LoginResponse loginInfo = JsonConvert.DeserializeObject<LoginResponse>(json);
 
         if (loginInfo == null)
         {
@@ -82,12 +95,33 @@ public class NetworkServer : MonoBehaviour
 
         Debug.Log("Admin authenticated successfully!");
         this.Admin = loginInfo;
+        NetworkServer.AdminAuthenticated?.Invoke();
+    }
+
+    private void LoadUnitConfigurations()
+    {
+        RequestManager.Instance.Get("unit-configurations", new string[] { }, this.Admin.tokenString, OnLoadUnitConfigurationsFinished);
+    }
+
+    private void OnLoadUnitConfigurationsFinished(HTTPRequest request, HTTPResponse response)
+    {
+        if (NetworkCommon.RequestIsSuccessful(request, response, out string errorMessage))
+        {
+            string json = response.DataAsText;
+            this.UnitConfigurations = JsonConvert.DeserializeObject<Dictionary<CreatureType, UnitConfiguration>>(json);
+            Debug.Log("Unit configurations loaded successfully!");
+        }
+        else
+        {
+            Debug.LogError("Cannot load unit configurations!");
+        }
     }
 
     private ServerConfiguration LoadServerConfiguration()
     {
         TextAsset json = Resources.Load("Config") as TextAsset;
-        return JsonUtility.FromJson<ServerConfiguration>(json.text);
+        //return JsonUtility.FromJson<ServerConfiguration>(json.text);
+        return JsonConvert.DeserializeObject<ServerConfiguration>(json.text);
     }
 
     private void Init()
@@ -196,7 +230,7 @@ public class NetworkServer : MonoBehaviour
 
     public int GetConnectionIdByHeroId(int heroId)
     {
-        var pair = this.Connections.FirstOrDefault(c => c.Value.Avatar.heroes.Any(h => h.id == heroId));
+        var pair = this.Connections.FirstOrDefault(c => c.Value.Avatar.Heroes.Any(h => h.Id == heroId));
 
         if (!pair.Equals(default(KeyValuePair<int, ServerConnection>))) // null check for keyValuePair
         {

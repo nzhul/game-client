@@ -1,6 +1,7 @@
 ﻿
 using System.Linq;
 using Assets.Scripts.Shared.DataModels;
+using Assets.Scripts.Shared.DataModels.Units;
 /// <summary>
 /// This class will hold the information for every player connection:
 /// His connectionId, Token, UserInformation, Loaded Regions and other information.
@@ -25,5 +26,5 @@ public class ServerConnection
 
     public UserAvatar Avatar { get; set; }
 
-    public int[] RegionIds => Avatar?.heroes?.Select(h => h.regionId).ToArray();
+    public int[] RegionIds => Avatar?.Heroes?.Select(h => h.RegionId).ToArray();
 }

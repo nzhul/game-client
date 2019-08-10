@@ -26,6 +26,7 @@ namespace Assets.Scripts.Data
         public UserAvatar avatar;
         public IList<Region> regions;
         public BattleData battleData;
+        public Dictionary<CreatureType, UnitConfiguration> unitConfigurations;
 
         public SaveData()
         {

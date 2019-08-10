@@ -6,6 +6,7 @@ using Assets.Scripts.Network.RequestModels.Users.Input;
 using Assets.Scripts.Network.RequestModels.Users.View;
 using Assets.Scripts.Network.Shared.Http;
 using BestHTTP;
+using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -103,7 +104,8 @@ namespace Assets.Scripts.UI.Modals.MainMenuModals
                 // Success
                 // TODO: clear register form fields and clear all warning labels
                 string json = response.DataAsText;
-                RegistrationResponse registrationInfo = JsonUtility.FromJson<RegistrationResponse>(json);
+                //RegistrationResponse registrationInfo = JsonUtility.FromJson<RegistrationResponse>(json);
+                RegistrationResponse registrationInfo = JsonConvert.DeserializeObject<RegistrationResponse>(json);
 
                 SuccessRegistrationModal.Instance.Open();
                 errorMessagePanel.SetActive(false);
@@ -135,7 +137,8 @@ namespace Assets.Scripts.UI.Modals.MainMenuModals
 
         private ErrorModel ParseErrorModel(string dataAsText)
         {
-            return JsonUtility.FromJson<ErrorModel>(dataAsText);
+            //return JsonUtility.FromJson<ErrorModel>(dataAsText);
+            return JsonConvert.DeserializeObject<ErrorModel>(dataAsText);
         }
 
         private RegisterInput GenerateInputData()

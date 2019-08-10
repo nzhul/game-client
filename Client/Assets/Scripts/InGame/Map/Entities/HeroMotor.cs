@@ -40,8 +40,8 @@ public class HeroMotor : MonoBehaviour
                     targetIndex++;
                     if (targetIndex >= waypoints.Length)
                     {
-                        selfView.hero.x = waypoints[targetIndex - 1].gridX;
-                        selfView.hero.y = waypoints[targetIndex - 1].gridY;
+                        selfView.hero.X = waypoints[targetIndex - 1].gridX;
+                        selfView.hero.Y = waypoints[targetIndex - 1].gridY;
                         selfView.isMoving = false;
                         this.ClearPath();
                         OnDestinationReached?.Invoke(waypoints[targetIndex - 1], selfView);
@@ -72,7 +72,7 @@ public class HeroMotor : MonoBehaviour
     {
         selfView.PlayTeleportEffect(HeroView.TeleportType.Out);
         yield return new WaitForSeconds(.4f);
-        HeroesManager.Instance.Heroes.Remove(selfView.hero.id);
+        HeroesManager.Instance.Heroes.Remove(selfView.hero.Id);
         Destroy(selfView.gameObject);
     }
 
@@ -106,8 +106,8 @@ public class HeroMotor : MonoBehaviour
         yield return new WaitForSeconds(.4f);
         selfView.graphic.SetActive(false);
         this.transform.position = MapManager.Instance.graph.nodes[destination.X, destination.Y].worldPosition;
-        selfView.hero.x = destination.X;
-        selfView.hero.y = destination.Y;
+        selfView.hero.X = destination.X;
+        selfView.hero.Y = destination.Y;
         this.ClearPath();
 
         // 2. Teleport In

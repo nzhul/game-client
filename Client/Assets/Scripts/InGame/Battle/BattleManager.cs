@@ -66,7 +66,7 @@ public class BattleManager : MonoBehaviour
 
     public bool CurrentPlayerIsMe(int currentPlayerId)
     {
-        return DataManager.Instance.Avatar.heroes.Any(h => h.id == currentPlayerId);
+        return DataManager.Instance.Avatar.Heroes.Any(h => h.Id == currentPlayerId);
     }
 
     //public static event Action<bool> OnActionsEnabledChange;

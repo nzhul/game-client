@@ -59,8 +59,8 @@ public class BattleUIManager : MonoBehaviour
     private void OnStartBattle()
     {
         var bd = DataManager.Instance.BattleData;
-        var attackerName = bd.AttackerHero.name;
-        var defenderName = bd.DefenderHero.name;
+        var attackerName = bd.AttackerHero.Name;
+        var defenderName = bd.DefenderHero.Name;
 
         this.Attacker.text = string.Format(attackerTemplate, attackerName);
         this.Defender.text = string.Format(defenderTemplate, defenderName);

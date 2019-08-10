@@ -66,7 +66,7 @@ public class HeroView : MonoBehaviour, IPathRequester
         if (graphic != null)
         {
             this.hero = hero;
-            gameObject.name = "Hero (" + hero.x + "," + hero.y + ")";
+            gameObject.name = "Hero (" + hero.X + "," + hero.Y + ")";
             gameObject.transform.position = worldPosition;
 
             InitGraphic();
@@ -90,7 +90,7 @@ public class HeroView : MonoBehaviour, IPathRequester
 
     private bool IsFriendlyHero(Hero hero)
     {
-        return DataManager.Instance.Avatar.heroes.Any(h => h.id == hero.id);
+        return DataManager.Instance.Avatar.Heroes.Any(h => h.Id == hero.Id);
     }
 
     public void OnPathFound(Node[] newPath)
@@ -112,7 +112,7 @@ public class HeroView : MonoBehaviour, IPathRequester
                     // if we are targeting contact point and the path is exactly one 
                     // - we are setting the destination to be equal to the position of the hero.
                     this.motor.Path = null;
-                    this.destinationNode = MapManager.Instance.GetNode(this.hero.x, this.hero.y);
+                    this.destinationNode = MapManager.Instance.GetNode(this.hero.X, this.hero.Y);
                 }
                 else
                 {

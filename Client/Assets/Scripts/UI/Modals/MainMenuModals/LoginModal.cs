@@ -7,6 +7,7 @@ using Assets.Scripts.Network.Services;
 using Assets.Scripts.Network.Shared.Http;
 using Assets.Scripts.UI.MainMenu;
 using BestHTTP;
+using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -135,7 +136,8 @@ namespace Assets.Scripts.UI.Modals.MainMenuModals
 
 
                 string json = response.DataAsText;
-                LoginResponse loginInfo = JsonUtility.FromJson<LoginResponse>(json);
+                //LoginResponse loginInfo = JsonUtility.FromJson<LoginResponse>(json);
+                LoginResponse loginInfo = JsonConvert.DeserializeObject<LoginResponse>(json);
 
                 if (loginInfo != null)
                 {

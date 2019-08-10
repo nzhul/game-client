@@ -42,7 +42,7 @@ namespace Assets.Scripts.MessageHandlers
             this.Rmsg = new Net_OnTeleport();
             this.RecievingHostId = recievingHostId;
             this.ConnectionId = connectionId;
-            this.MovingHero = NetworkServer.Instance.Connections[connectionId]?.Avatar?.heroes?.FirstOrDefault(h => h.id == msg.HeroId);
+            this.MovingHero = NetworkServer.Instance.Connections[connectionId]?.Avatar?.Heroes?.FirstOrDefault(h => h.Id == msg.HeroId);
 
             if (IsDestinationValid(msg))
             {
@@ -73,13 +73,13 @@ namespace Assets.Scripts.MessageHandlers
             this.Rmsg.Destination = this.CalculateDestination();
             //NetworkServer.Instance.SendClient(this.RecievingHostId, this.ConnectionId, this.Rmsg);
 
-            int oldRegionId = this.MovingHero.regionId;
+            int oldRegionId = this.MovingHero.RegionId;
             int newRegionId = this.Rmsg.RegionId;
 
             base.UpdateCache(this.MovingHero, this.Rmsg.Destination, this.Rmsg.RegionId);
             base.NotifyClientsInRegion(newRegionId, this.RecievingHostId, this.Rmsg);
             base.NotifyClientsInRegion(oldRegionId, this.RecievingHostId, this.Rmsg);
-            this.UpdateDatabase(this.ConnectionId, this.MovingHero.id, this.Rmsg.Destination, this.Rmsg.RegionId);
+            this.UpdateDatabase(this.ConnectionId, this.MovingHero.Id, this.Rmsg.Destination, this.Rmsg.RegionId);
 
             // TODO: DO the same stuff as in MapMovementRequestHandler: UpdateCache, Database, NotifyAllInterestedClients.
             // Consider extracting this common logic into class or something...
@@ -121,9 +121,9 @@ namespace Assets.Scripts.MessageHandlers
                 {
                     foreach (var region in regions)
                     {
-                        if (!NetworkServer.Instance.Regions.ContainsKey(region.id))
+                        if (!NetworkServer.Instance.Regions.ContainsKey(region.Id))
                         {
-                            NetworkServer.Instance.Regions.Add(region.id, region);
+                            NetworkServer.Instance.Regions.Add(region.Id, region);
                         }
                     }
                 }
@@ -139,9 +139,9 @@ namespace Assets.Scripts.MessageHandlers
         private Coord CalculateDestination()
         {
             var targetRegion = NetworkServer.Instance.Regions[this.Rmsg.RegionId];
-            var targetDwelling = targetRegion.dwellings.FirstOrDefault(d => d.id == this.Rmsg.DwellingId);
+            var targetDwelling = targetRegion.Dwellings.FirstOrDefault(d => d.Id == this.Rmsg.DwellingId);
 
-            Coord freeNode = this.FindFreeNode(targetRegion, new Coord { X = targetDwelling.x, Y = targetDwelling.y });
+            Coord freeNode = this.FindFreeNode(targetRegion, new Coord { X = targetDwelling.X, Y = targetDwelling.Y });
 
             return freeNode;
         }
@@ -182,7 +182,7 @@ namespace Assets.Scripts.MessageHandlers
 
                     if (IsInsideGameBoard(checkPosition, matrix) && matrix[checkPosition.X, checkPosition.Y] == 0)
                     {
-                        if (!HeroIsOnThisPosition(region.heroes, checkPosition))
+                        if (!HeroIsOnThisPosition(region.Heroes, checkPosition))
                         {
                             return checkPosition;
                         }
@@ -197,7 +197,7 @@ namespace Assets.Scripts.MessageHandlers
                     checkPosition.Y++;
                     if (IsInsideGameBoard(checkPosition, matrix) && matrix[checkPosition.X, checkPosition.Y] == 0)
                     {
-                        if (!HeroIsOnThisPosition(region.heroes, checkPosition))
+                        if (!HeroIsOnThisPosition(region.Heroes, checkPosition))
                         {
                             return checkPosition;
                         }
@@ -210,7 +210,7 @@ namespace Assets.Scripts.MessageHandlers
                     checkPosition.X++;
                     if (IsInsideGameBoard(checkPosition, matrix) && matrix[checkPosition.X, checkPosition.Y] == 0)
                     {
-                        if (!HeroIsOnThisPosition(region.heroes, checkPosition))
+                        if (!HeroIsOnThisPosition(region.Heroes, checkPosition))
                         {
                             return checkPosition;
                         }
@@ -223,7 +223,7 @@ namespace Assets.Scripts.MessageHandlers
                     checkPosition.Y--;
                     if (IsInsideGameBoard(checkPosition, matrix) && matrix[checkPosition.X, checkPosition.Y] == 0)
                     {
-                        if (!HeroIsOnThisPosition(region.heroes, checkPosition))
+                        if (!HeroIsOnThisPosition(region.Heroes, checkPosition))
                         {
                             return checkPosition;
                         }
@@ -246,7 +246,7 @@ namespace Assets.Scripts.MessageHandlers
 
         private bool HeroIsOnThisPosition(IList<Hero> heroesInRegion, Coord checkPosition)
         {
-            return heroesInRegion.Any(h => h.x == checkPosition.X && h.y == checkPosition.Y);
+            return heroesInRegion.Any(h => h.X == checkPosition.X && h.Y == checkPosition.Y);
         }
 
         private bool IsDestinationValid(Net_TeleportRequest msg)

@@ -1,15 +1,20 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
-namespace Assets.Scripts.Shared.DataModels
+namespace Assets.Scripts.Shared.DataModels.Units
 {
-    [Serializable]
     public class Unit
     {
-        public int id;
-        public int x;
-        public int y;
-        public CreatureType type;
-        public int quantity;
+        public int Id { get; set; }
+
+        public int X { get; set; }
+
+        public int Y { get; set; }
+
+        [JsonConverter(typeof(StringEnumConverter))]
+        public CreatureType Type { get; set; }
+
+        public int Quantity { get; set; }
 
         #region Non-Persistend properties
 

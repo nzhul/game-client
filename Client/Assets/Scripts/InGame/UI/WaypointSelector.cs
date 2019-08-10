@@ -25,7 +25,7 @@ public class WaypointSelector : MonoBehaviour
     private void Start()
     {
         _worldService = new WorldService();
-        var waypoints = DataManager.Instance.Avatar.waypoints;
+        var waypoints = DataManager.Instance.Avatar.Waypoints;
         RefreshWaypointButtons(waypoints);
     }
 
@@ -38,14 +38,14 @@ public class WaypointSelector : MonoBehaviour
             foreach (var waypoint in waypoints)
             {
                 Button waypointBtn = GameObject.Instantiate<Button>(_waypointBtnPrefab, _waypointBtnsContainer);
-                waypointBtn.name = "X:" + waypoint.x + "-Y:" + waypoint.y + "-" + waypoint.regionName;
+                waypointBtn.name = "X:" + waypoint.X + "-Y:" + waypoint.Y + "-" + waypoint.RegionName;
                 waypointBtn.onClick.AddListener(delegate { OnWaypointButtonPressed(waypointBtn, waypoint); });
 
                 Text regionNametext = waypointBtn.transform.Find("RegionName").GetComponent<Text>();
-                regionNametext.text = waypoint.regionName.Length > 24 ? waypoint.regionName.Truncate(24) + "..." : waypoint.regionName;
+                regionNametext.text = waypoint.RegionName.Length > 24 ? waypoint.RegionName.Truncate(24) + "..." : waypoint.RegionName;
 
                 Text regionLevelText = waypointBtn.transform.Find("Level").GetComponentInChildren<Text>();
-                regionLevelText.text = waypoint.regionLevel.ToString();
+                regionLevelText.text = waypoint.RegionLevel.ToString();
             }
 
         }
@@ -60,7 +60,7 @@ public class WaypointSelector : MonoBehaviour
 
     private void OnWaypointButtonPressed(Button target, Waypoint waypoint)
     {
-        _worldService.SendTeleportRequest(DataManager.Instance.ActiveHeroId, waypoint.regionId, waypoint.id);
+        _worldService.SendTeleportRequest(DataManager.Instance.ActiveHeroId, waypoint.RegionId, waypoint.Id);
         this.CloseModal();
     }
 

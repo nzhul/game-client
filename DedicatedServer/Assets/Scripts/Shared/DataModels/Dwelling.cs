@@ -4,12 +4,18 @@ namespace Assets.Scripts.Shared.DataModels
 {
     public class Dwelling
     {
-        public int id;
-        public int? ownerId;
-        public DwellingType type; // enum
-        public int x;
-        public int y;
-        public string occupiedTilesString; // parse
-        public string name;
+        public int Id { get; set; }
+
+        public int? OwnerId { get; set; }
+
+        public DwellingType Type { get; set; }
+
+        public int X { get; set; }
+
+        public int Y { get; set; }
+
+        public string OccupiedTilesString { get; set; }
+
+        public string Name { get; set; }
     }
 }

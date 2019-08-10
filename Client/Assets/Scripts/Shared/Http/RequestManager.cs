@@ -100,7 +100,8 @@ namespace Assets.Scripts.Network.Shared.Http
 
             if (inputModel != null)
             {
-                string payload = JsonUtility.ToJson(inputModel);
+                //string payload = JsonUtility.ToJson(inputModel);
+                string payload = JsonConvert.SerializeObject(inputModel);
                 request.RawData = Encoding.UTF8.GetBytes(payload);
             }
 

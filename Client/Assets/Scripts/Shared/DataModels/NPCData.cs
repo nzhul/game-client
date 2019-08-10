@@ -1,23 +1,33 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System;
 
 namespace Assets.Scripts.Shared.DataModels
 {
-    [Serializable]
     public class NPCData
     {
-        public int id;
-        public CreatureType mapRepresentation;
-        public int x;
-        public int y;
-        public Disposition disposition; // enum
-        public TreasureType rewardType; // enum
-        public int rewardQuantity;
-        // itemReward ... TBD
-        public CreatureType troopsRewardType; // enum
-        public int troopsRewardQuantity;
-        public string occupiedTilesString; // parse
-        public string name;
-        public DateTime lastDefeat;
-        public bool isLocked;
+        [JsonConverter(typeof(StringEnumConverter))]
+        public CreatureType MapRepresentation { get; set; }
+
+        [JsonConverter(typeof(StringEnumConverter))]
+        public Disposition Disposition { get; set; }
+
+        [JsonConverter(typeof(StringEnumConverter))]
+        public TreasureType RewardType { get; set; }
+
+        public int RewardQuantity { get; set; }
+
+        public object ItemReward { get; set; }
+
+        [JsonConverter(typeof(StringEnumConverter))]
+        public CreatureType TroopsRewardType { get; set; }
+
+        public int TroopsRewardQuantity { get; set; }
+
+        public string OccupiedTilesString { get; set; }
+
+        public DateTime LastDefeat { get; set; }
+
+        public bool IsLocked { get; set; }
     }
 }

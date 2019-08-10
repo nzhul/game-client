@@ -212,6 +212,18 @@ namespace Assets.Scripts.Data
             }
         }
 
+        public Dictionary<CreatureType, UnitConfiguration> UnitConfigurations
+        {
+            get
+            {
+                return _saveData.unitConfigurations;
+            }
+            set
+            {
+                _saveData.unitConfigurations = value;
+            }
+        }
+
         private void Awake()
         {
             if (_instance != null)

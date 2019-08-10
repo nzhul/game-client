@@ -6,15 +6,21 @@ namespace Assets.Scripts.Shared.DataModels
 {
     public class Region
     {
-        public int id;
-        public string name;
-        public int level;
-        public int realmId;
-        //public string matrixString;
-        public IList<Room> rooms;
-        public IList<Hero> heroes;
-        public IList<Hero> npcHeroes;
-        public IList<Dwelling> dwellings;
+        public int Id { get; set; }
+
+        public string Name { get; set; }
+
+        public int Level { get; set; }
+
+        public int RealmId { get; set; }
+
+        public IList<Room> Rooms { get; set; }
+
+        public IList<Hero> Heroes { get; set; }
+
+        public IList<Hero> NpcHeroes { get; set; }
+
+        public IList<Dwelling> Dwellings { get; set; }
 
         private string _matrixString;
 

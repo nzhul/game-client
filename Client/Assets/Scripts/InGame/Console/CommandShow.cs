@@ -33,13 +33,16 @@ namespace Assets.Scripts.InGame.Console
                         msg = JsonConvert.SerializeObject(DataManager.Instance.Avatar, Formatting.Indented);
                         break;
                     case "dwellings":
-                        msg = JsonConvert.SerializeObject(DataManager.Instance.Avatar.dwellings, Formatting.Indented);
+                        msg = JsonConvert.SerializeObject(DataManager.Instance.Avatar.Dwellings, Formatting.Indented);
                         break;
                     case "waypoints":
-                        msg = JsonConvert.SerializeObject(DataManager.Instance.Avatar.waypoints, Formatting.Indented);
+                        msg = JsonConvert.SerializeObject(DataManager.Instance.Avatar.Waypoints, Formatting.Indented);
                         break;
                     case "regions":
                         msg = JsonConvert.SerializeObject(DataManager.Instance.Regions, Formatting.Indented);
+                        break;
+                    case "configs":
+                        msg = JsonConvert.SerializeObject(DataManager.Instance.UnitConfigurations, Formatting.Indented);
                         break;
                     case "-help":
                         msg = this.Description + Environment.NewLine + this.Help;

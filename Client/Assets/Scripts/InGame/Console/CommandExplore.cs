@@ -23,7 +23,7 @@ namespace Assets.Scripts.InGame.Console
         {
             string msg = string.Empty;
 
-            string endpoint = $"avatars/{DataManager.Instance.Avatar.id}/explore";
+            string endpoint = $"avatars/{DataManager.Instance.Avatar.Id}/explore";
 
             var exploreParams = new ExploreParams
             {

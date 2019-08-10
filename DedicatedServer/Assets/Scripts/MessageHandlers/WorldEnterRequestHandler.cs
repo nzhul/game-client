@@ -87,7 +87,7 @@ namespace Assets.Scripts.MessageHandlers
 
         private void LoadUserRegions()
         {
-            int[] regionsForLoading = Connection.Avatar.heroes.Select(h => h.regionId).ToArray();
+            int[] regionsForLoading = Connection.Avatar.Heroes.Select(h => h.RegionId).ToArray();
             regionsForLoading = regionsForLoading.Where(r => !NetworkServer.Instance.Regions.Any(rr => rr.Key == r)).ToArray();
 
             if (regionsForLoading.Length == 0)
@@ -127,9 +127,9 @@ namespace Assets.Scripts.MessageHandlers
                 {
                     foreach (var region in regions)
                     {
-                        if (!NetworkServer.Instance.Regions.ContainsKey(region.id))
+                        if (!NetworkServer.Instance.Regions.ContainsKey(region.Id))
                         {
-                            NetworkServer.Instance.Regions.Add(region.id, region);
+                            NetworkServer.Instance.Regions.Add(region.Id, region);
                             OnRegionLoaded?.Invoke(region);
                         }
                     }

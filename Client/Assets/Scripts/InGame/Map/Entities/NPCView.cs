@@ -10,7 +10,7 @@ public class NPCView : MonoBehaviour, IInteractable
     public void Interact(HeroView interactingHero)
     {
         // 1. Check if monster pack is locked.
-        if (npc.npcData.isLocked)
+        if (npc.NpcData.IsLocked)
         {
             // TODO: display pop notification that user cannot interact with the monster until X minutes are passed.
             return;
@@ -23,7 +23,7 @@ public class NPCView : MonoBehaviour, IInteractable
     public void Init(Hero monster, Vector3 worldPosition)
     {
         this.npc = monster;
-        gameObject.name = "Monster (" + monster.x + "," + monster.y + ")";
+        gameObject.name = "Monster (" + monster.X + "," + monster.Y + ")";
         gameObject.transform.position = worldPosition;
 
         // InitGraphic();

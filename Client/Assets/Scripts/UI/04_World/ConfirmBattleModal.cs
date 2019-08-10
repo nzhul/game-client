@@ -25,8 +25,8 @@ public class ConfirmBattleModal : Modal<ConfirmBattleModal>
     private Net_StartBattleRequest BuildRequest()
     {
         var msg = new Net_StartBattleRequest();
-        msg.AttackerId = this.attackingHero.id;
-        msg.DefenderId = this.defendingHero.id;
+        msg.AttackerId = this.attackingHero.Id;
+        msg.DefenderId = this.defendingHero.Id;
 
         switch (this.scenario)
         {

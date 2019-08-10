@@ -51,7 +51,7 @@ namespace Assets.Scripts.UI.HeroSelection
                 {
                     DataManager.Instance.CurrentRealmId.ToString(),
                     DataManager.Instance.Id.ToString(),
-                    DataManager.Instance.Avatar.id.ToString(),
+                    DataManager.Instance.Avatar.Id.ToString(),
                     _heroSelectionManager.selectedHeroId.ToString()
                 };
 
@@ -78,7 +78,7 @@ namespace Assets.Scripts.UI.HeroSelection
                 RemoveHero(_heroSelectionManager.selectedHeroId);
                 confirmInput.text = string.Empty;
 
-                if (DataManager.Instance.Avatar.heroes.Count == 0)
+                if (DataManager.Instance.Avatar.Heroes.Count == 0)
                 {
                     LevelLoader.LoadLevel(LevelLoader.HERO_CREATION_SCENE);
                 }
@@ -95,18 +95,18 @@ namespace Assets.Scripts.UI.HeroSelection
 
         private void RemoveHero(int heroId)
         {
-            Hero heroToRemove = DataManager.Instance.Avatar.heroes.FirstOrDefault(h => h.id == heroId);
-            DataManager.Instance.Avatar.heroes.Remove(heroToRemove);
+            Hero heroToRemove = DataManager.Instance.Avatar.Heroes.FirstOrDefault(h => h.Id == heroId);
+            DataManager.Instance.Avatar.Heroes.Remove(heroToRemove);
             DataManager.Instance.Save();
         }
 
         private bool heroNamesAreEqual()
         {
             int heroId = _heroSelectionManager.selectedHeroId;
-            Hero selectedHero = DataManager.Instance.Avatar.heroes.FirstOrDefault(h => h.id == heroId);
+            Hero selectedHero = DataManager.Instance.Avatar.Heroes.FirstOrDefault(h => h.Id == heroId);
             string confirmedHeroName = confirmInput.text;
 
-            if (selectedHero.name == confirmedHeroName)
+            if (selectedHero.Name == confirmedHeroName)
             {
                 return true;
             }
