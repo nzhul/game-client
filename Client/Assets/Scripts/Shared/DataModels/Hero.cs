@@ -1,6 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿using Assets.Scripts.Shared.DataModels.Units;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System;
+using System.Collections.Generic;
 
 namespace Assets.Scripts.Shared.DataModels
 {
@@ -54,5 +56,7 @@ namespace Assets.Scripts.Shared.DataModels
         public NPCData NpcData { get; set; }
 
         public bool IsNPC { get; set; }
+
+        public IList<Unit> Units { get; set; }
     }
 }

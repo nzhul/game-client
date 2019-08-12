@@ -127,6 +127,11 @@ public class GraphView : MonoBehaviour
     {
         foreach (var hero in heroes)
         {
+            if (hero.IsNPC)
+            {
+                continue;
+            }
+
             this.AddHero(hero, false);
         }
     }
@@ -184,6 +189,11 @@ public class GraphView : MonoBehaviour
     {
         foreach (Hero npcHero in npcHeroes)
         {
+            if (!npcHero.IsNPC)
+            {
+                continue;
+            }
+
             NPCView newNpc = this.AddNPC(npcHero);
 
             NodeView nodeView = nodeViews[npcHero.X, npcHero.Y]; // x = cols; y = rows

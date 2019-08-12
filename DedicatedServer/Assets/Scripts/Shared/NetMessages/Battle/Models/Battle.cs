@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Shared.NetMessages.World.Models;
+﻿using Assets.Scripts.Shared.DataModels;
+using Assets.Scripts.Shared.NetMessages.World.Models;
 using System;
 using System.Collections.Generic;
 
@@ -18,9 +19,13 @@ namespace Assets.Scripts.Shared.NetMessages.Battle.Models
 
         public int AttackerConnectionId { get; set; }
 
+        public Hero AttackerHero { get; set; }
+
         public int DefenderId { get; set; }
 
         public int DefenderConnectionId { get; set; }
+
+        public Hero DefenderHero { get; set; }
 
         public int CurrentPlayerId { get; set; }
 

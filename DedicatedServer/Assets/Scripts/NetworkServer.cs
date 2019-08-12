@@ -241,5 +241,19 @@ public class NetworkServer : MonoBehaviour
             return 0;
         }
     }
+
+    public Hero GetHeroById(int heroId)
+    {
+        var pair = this.Regions.FirstOrDefault(c => c.Value.Heroes.Any(h => h.Id == heroId));
+
+        if (!pair.Equals(default(KeyValuePair<int, Region>))) // null check for keyValuePair
+        {
+            return pair.Value.Heroes.FirstOrDefault(h => h.Id == heroId);
+        }
+        else
+        {
+            return null;
+        }
+    }
 }
 #pragma warning restore CS0618 // Type or member is obsolete

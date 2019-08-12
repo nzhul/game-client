@@ -18,7 +18,7 @@ namespace Assets.Scripts.Shared.DataModels
 
         public IList<Hero> Heroes { get; set; }
 
-        public IList<Hero> NpcHeroes { get; set; }
+        //public IList<Hero> NpcHeroes { get; set; }
 
         public IList<Dwelling> Dwellings { get; set; }
 

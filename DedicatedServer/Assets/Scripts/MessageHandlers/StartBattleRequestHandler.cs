@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Shared.NetMessages.Battle.Models;
+﻿using Assets.Scripts.Shared.DataModels;
+using Assets.Scripts.Shared.NetMessages.Battle.Models;
 using Assets.Scripts.Shared.NetMessages.World;
 using Assets.Scripts.Shared.NetMessages.World.Models;
 using System;
@@ -31,12 +32,17 @@ namespace Assets.Scripts.MessageHandlers
                     Id = Guid.NewGuid(),
                     AttackerId = msg.AttackerId,
                     DefenderId = msg.DefenderId,
+                    AttackerHero = NetworkServer.Instance.GetHeroById(msg.AttackerId),
+                    DefenderHero = NetworkServer.Instance.GetHeroById(msg.DefenderId),
                     CurrentPlayerId = msg.AttackerId,
                     AttackerType = msg.AttackerType,
                     DefenderType = msg.DefenderType,
                     BattleScenario = scenario,
                     LastTurnStartTime = Time.time
                 };
+
+                this.UpdateUnitsData(newBattle.AttackerHero);
+                this.UpdateUnitsData(newBattle.DefenderHero);
 
                 rmsg.BattleId = newBattle.Id;
 
@@ -47,6 +53,29 @@ namespace Assets.Scripts.MessageHandlers
                 NetworkServer.Instance.ActiveBattles.Add(newBattle);
                 NetworkServer.Instance.SendClient(recievingHostId, connectionId, rmsg);
                 OnBattleStarted?.Invoke(newBattle);
+            }
+        }
+
+        private void UpdateUnitsData(Hero hero)
+        {
+            //TODO apply upgrades before the battle!
+            foreach (var unit in hero.Units)
+            {
+                var config = NetworkServer.Instance.UnitConfigurations[unit.Type];
+                unit.MovementPoints = config.MovementPoints;
+                unit.MaxMovementPoints = unit.MovementPoints;
+                unit.ActionPoints = config.ActionPoints;
+                unit.MaxMovementPoints = unit.ActionPoints;
+                unit.MinDamage = config.MinDamage;
+                unit.MaxDamage = config.MaxDamage;
+                unit.Hitpoints = config.Hitpoints;
+                unit.BaseHitpoints = unit.Hitpoints;
+                unit.MaxHitpoints = unit.Hitpoints;
+                unit.Mana = config.Mana;
+                unit.Armor = config.Armor;
+                unit.AttackType = config.AttackType;
+                unit.ArmorType = config.ArmorType;
+                unit.CreatureLevel = config.CreatureLevel;
             }
         }
 

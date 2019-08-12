@@ -56,6 +56,18 @@ namespace Assets.Scripts.Shared.DataModels.Units
         /// </summary>
         public int MaxHitpoints { get; set; }
 
+        public int Mana { get; set; }
+
+        public int Armor { get; set; }
+
+        [JsonConverter(typeof(StringEnumConverter))]
+        public AttackType AttackType { get; set; }
+
+        [JsonConverter(typeof(StringEnumConverter))]
+        public ArmorType ArmorType { get; set; }
+
+        public int CreatureLevel { get; set; }
+
         #endregion
     }
 }

@@ -85,8 +85,33 @@ namespace Assets.Scripts.Network.MessageHandlers
             bd.Turn = Turn.Attacker;
             bd.RemainingTimeForThisTurn = BattleManager.TURN_DURATION;
             bd.ActionsEnabled = true;
+            this.UpdateUnitsData(bd.AttackerHero);
+            this.UpdateUnitsData(bd.DefenderHero);
 
             return bd;
+        }
+
+        private void UpdateUnitsData(Hero hero)
+        {
+            //TODO apply upgrades before the battle!
+            foreach (var unit in hero.Units)
+            {
+                var config = DataManager.Instance.UnitConfigurations[unit.Type];
+                unit.MovementPoints = config.MovementPoints;
+                unit.MaxMovementPoints = unit.MovementPoints;
+                unit.ActionPoints = config.ActionPoints;
+                unit.MaxMovementPoints = unit.ActionPoints;
+                unit.MinDamage = config.MinDamage;
+                unit.MaxDamage = config.MaxDamage;
+                unit.Hitpoints = config.Hitpoints;
+                unit.BaseHitpoints = unit.Hitpoints;
+                unit.MaxHitpoints = unit.Hitpoints;
+                unit.Mana = config.Mana;
+                unit.Armor = config.Armor;
+                unit.AttackType = config.AttackType;
+                unit.ArmorType = config.ArmorType;
+                unit.CreatureLevel = config.CreatureLevel;
+            }
         }
     }
 }

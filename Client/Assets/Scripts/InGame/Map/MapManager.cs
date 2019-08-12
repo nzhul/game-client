@@ -130,7 +130,7 @@ public class MapManager : MonoBehaviour
         {
             graph.Init(activeRegion.MatrixString);
             graphView.Init(graph);
-            graphView.AddNPCs(activeRegion.NpcHeroes);
+            graphView.AddNPCs(activeRegion.Heroes);
             graphView.AddHeroes(activeRegion.Heroes);
             PlayerController.Instance.SetActiveHero(DataManager.Instance.ActiveHeroId);
             //graphView.Dwellings();
