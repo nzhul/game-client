@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.InGame;
 using Assets.Scripts.Shared.DataModels;
+using Assets.Scripts.Shared.NetMessages.World.Models;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -31,6 +32,8 @@ public class GraphView : MonoBehaviour
     [SerializeField]
     public Text labelPrefab;
 
+    private Graph graph;
+
     private void Awake()
     {
         // TODO: init those based on NodeType numeration values. For each value create new gameObject and push them to array of containers
@@ -48,6 +51,8 @@ public class GraphView : MonoBehaviour
 
     public void Init(Graph graph)
     {
+        this.graph = graph;
+
         nodeViews = new NodeView[graph.graphSizeX, graph.graphSizeY];
 
         for (int row = 0; row < graph.graphSizeX; row++)
@@ -132,19 +137,30 @@ public class GraphView : MonoBehaviour
                 continue;
             }
 
-            this.AddHero(hero, false);
+            this.AddHero(hero, new Coord(hero.X, hero.Y), false);
         }
     }
 
-    public void AddHero(Hero hero, bool playSpawnEffect)
+    public void AddHero(Hero hero, Coord spawnCoordinates, bool playSpawnEffect)
     {
-        var heroView = InitHero(hero, playSpawnEffect);
-        HeroesManager.Instance.Heroes.Add(hero.Id, heroView);
+        var heroView = InitHero(hero, spawnCoordinates, playSpawnEffect);
+
+        if (HeroesManager.Instance.Heroes.ContainsKey(hero.Id))
+        {
+            // 1. If the heroView exist - we override
+            HeroesManager.Instance.Heroes[hero.Id] = heroView;
+        }
+        else
+        {
+            // 2. Else - create new
+            HeroesManager.Instance.Heroes.Add(hero.Id, heroView);
+        }
     }
 
-    public HeroView InitHero(Hero hero, bool playSpawnEffect)
+    public HeroView InitHero(Hero hero, Coord spawnCoordinates, bool playSpawnEffect)
     {
-        Vector3 worldPosition = MapManager.Instance.GetNodeWorldPosition(hero.X, hero.Y);
+        //Vector3 worldPosition = MapManager.Instance.GetNodeWorldPosition(spawnCoordinates.X, spawnCoordinates.Y);
+        Vector3 worldPosition = this.graph.GetNodeWorldPosition(spawnCoordinates.X, spawnCoordinates.Y);
         Vector3 placementPosition = new Vector3(worldPosition.x, heroViewPrefab.transform.position.y, worldPosition.z);
         GameObject instance = Instantiate(heroViewPrefab, placementPosition, Quaternion.identity);
         HeroView heroView = instance.GetComponent<HeroView>();
@@ -156,7 +172,7 @@ public class GraphView : MonoBehaviour
 
         if (heroView != null)
         {
-            heroView.Init(hero, worldPosition);
+            heroView.Init(hero, spawnCoordinates, worldPosition);
         }
 
         return heroView;
@@ -172,7 +188,8 @@ public class GraphView : MonoBehaviour
 
     private NPCView InitNPC(Hero monster)
     {
-        Vector3 worldPosition = MapManager.Instance.GetNodeWorldPosition(monster.X, monster.Y);
+        //Vector3 worldPosition = MapManager.Instance.GetNodeWorldPosition(monster.X, monster.Y);
+        Vector3 worldPosition = this.graph.GetNodeWorldPosition(monster.X, monster.Y);
         Vector3 placementPosition = new Vector3(worldPosition.x, monsterViewPrefab.transform.position.y, worldPosition.z);
         GameObject instance = Instantiate(monsterViewPrefab, placementPosition, Quaternion.identity);
         NPCView monsterView = instance.GetComponent<NPCView>();

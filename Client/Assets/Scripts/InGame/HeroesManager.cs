@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Assets.Scripts.Shared.DataModels.Units;
+using Assets.Scripts.Shared.NetMessages.World.Models;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets.Scripts.InGame
@@ -36,7 +39,17 @@ namespace Assets.Scripts.InGame
 
         public Dictionary<int, NPCView> NPCs { get; private set; }
 
-        
+        public Unit GetUnitById(int heroId, int unitId, PlayerType playerType)
+        {
+            if (playerType == PlayerType.Human)
+            {
+                return this.Heroes[heroId].hero.Units.FirstOrDefault(u => u.Id == unitId);
+            }
+            else
+            {
+                return this.NPCs[heroId].npc.Units.FirstOrDefault(u => u.Id == unitId);
+            }
+        }
 
         // TODO: Move everything related with map heroes here. Extract out of MapManager.
     }

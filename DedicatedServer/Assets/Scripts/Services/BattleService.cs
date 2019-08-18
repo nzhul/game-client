@@ -7,22 +7,60 @@ namespace Assets.Scripts.Services
 {
     public class BattleService : IBattleService
     {
+        public void NullifyHeroPoints(int requesterHeroId, bool isDefend)
+        {
+            var hero = NetworkServer.Instance.GetHeroById(requesterHeroId);
+
+            if (hero == null)
+            {
+                Debug.LogError("Cannot find hero with Id " + requesterHeroId);
+                return;
+            }
+
+            hero.MovementPoints = 0;
+            hero.ActionPoints = 0;
+
+            if (isDefend)
+            {
+                // todo: temporary increase armor for 1 turn.
+            }
+        }
+
+        public void NullifyUnitPoints(int heroId, int unitId, bool isDefend)
+        {
+            var unit = NetworkServer.Instance.GetUnitById(heroId, unitId);
+
+            if (unit == null)
+            {
+                Debug.LogError("Cannot find unit with Id " + unitId);
+                return;
+            }
+
+            unit.MovementPoints = 0;
+            unit.ActionPoints = 0;
+
+            if (isDefend)
+            {
+                // todo: temporary increase armor for 1 turn.
+            }
+        }
+
         public void SwitchTurn(Battle battle)
         {
             Debug.Log("Turn time expired - switching turns!");
             if (battle.Turn == Turn.Attacker)
             {
                 battle.Turn = Turn.Defender;
-                battle.CurrentPlayerId = battle.DefenderId;
+                battle.CurrentHeroId = battle.DefenderId;
             }
             else
             {
                 battle.Turn = Turn.Attacker;
-                battle.CurrentPlayerId = battle.AttackerId;
+                battle.CurrentHeroId = battle.AttackerId;
             }
 
             battle.LastTurnStartTime = Time.time;
-            battle.Log.Add("Turn time expired - switching turns! New Player is: " + battle.CurrentPlayerId);
+            battle.Log.Add("Turn time expired - switching turns! New Player is: " + battle.CurrentHeroId);
             this.SendSwitchTurnEvent(battle);
         }
 
@@ -30,7 +68,7 @@ namespace Assets.Scripts.Services
         {
             Net_SwitchTurnEvent msg = new Net_SwitchTurnEvent();
             msg.BattleId = battle.Id;
-            msg.CurrentPlayerId = battle.CurrentPlayerId;
+            msg.CurrentPlayerId = battle.CurrentHeroId;
             msg.Turn = battle.Turn;
 
             bool shouldNotifyAttacker = false;
@@ -38,11 +76,11 @@ namespace Assets.Scripts.Services
 
             switch (battle.BattleScenario)
             {
-                case BattleScenario.HUvsMonsterAI:
+                case BattleScenario.HUvsAI:
                     shouldNotifyAttacker = true;
                     shouldNotifyDefender = false;
                     break;
-                case BattleScenario.HUAIvsMonsterAI:
+                case BattleScenario.AIvsAI:
                     shouldNotifyAttacker = false;
                     shouldNotifyDefender = false;
                     break;
@@ -50,13 +88,9 @@ namespace Assets.Scripts.Services
                     shouldNotifyAttacker = true;
                     shouldNotifyDefender = true;
                     break;
-                case BattleScenario.MonsterAIvsHU:
+                case BattleScenario.AIvsHU:
                     shouldNotifyAttacker = false;
                     shouldNotifyDefender = true;
-                    break;
-                case BattleScenario.MonsterAIvsHUAI:
-                    shouldNotifyAttacker = false;
-                    shouldNotifyDefender = false;
                     break;
                 case BattleScenario.Unknown:
                     break;

@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Shared.DataModels;
+using Assets.Scripts.Shared.DataModels.Units;
 using Assets.Scripts.Shared.NetMessages.Battle.Models;
 using Assets.Scripts.Shared.NetMessages.World.Models;
 using Newtonsoft.Json;
@@ -23,13 +24,21 @@ namespace Assets.Scripts.Data.Models
 
         public Hero DefenderHero { get; set; }
 
+        public int BoardRowCount { get; set; } = 11;
+
+        public int BoardColumnCount { get; set; } = 15;
+
         public Guid BattleId { get; set; }
 
         public int AttackerId { get; set; }
 
         public int DefenderId { get; set; }
 
-        public int CurrentPlayerId { get; set; }
+        public Unit SelectedUnit { get; set; }
+
+        public int CurrentHeroId { get; set; }
+
+        public PlayerType CurrentPlayerType { get; set; }
 
         public PlayerType AttackerType { get; set; }
 

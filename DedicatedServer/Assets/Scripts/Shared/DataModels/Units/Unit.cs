@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Assets.Scripts.Shared.NetMessages.World.Models;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
 namespace Assets.Scripts.Shared.DataModels.Units
@@ -10,6 +11,10 @@ namespace Assets.Scripts.Shared.DataModels.Units
         public int X { get; set; }
 
         public int Y { get; set; }
+
+        public int StartX { get; set; }
+
+        public int StartY { get; set; }
 
         [JsonConverter(typeof(StringEnumConverter))]
         public CreatureType Type { get; set; }

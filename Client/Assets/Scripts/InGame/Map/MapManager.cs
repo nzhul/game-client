@@ -140,10 +140,10 @@ public class MapManager : MonoBehaviour
         }
     }
 
-    public Vector3 GetNodeWorldPosition(int x, int y)
-    {
-        return graph.nodes[x, y].worldPosition;
-    }
+    //public Vector3 GetNodeWorldPosition(int x, int y)
+    //{
+    //    return graph.nodes[x, y].worldPosition;
+    //}
 
     public Node GetNode(int x, int y)
     {
@@ -172,7 +172,7 @@ public class MapManager : MonoBehaviour
                 string json = response.DataAsText;
                 var newHero = JsonConvert.DeserializeObject<Hero>(json);
 
-                MapManager.Instance.graphView.AddHero(newHero, true);
+                MapManager.Instance.graphView.AddHero(newHero, new Coord(newHero.X, newHero.Y), true);
             }
             else
             {

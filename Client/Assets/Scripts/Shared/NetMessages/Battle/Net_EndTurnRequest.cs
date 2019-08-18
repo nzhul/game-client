@@ -14,14 +14,13 @@ namespace Assets.Scripts.Shared.NetMessages.Battle
 
         public int RequesterHeroId { get; set; }
 
+        public int RequesterUnitId { get; set; }
+
+        public bool IsDefend { get; set; }
+
         public bool IsValid()
         {
             if (this.BattleId == Guid.Empty)
-            {
-                return false;
-            }
-
-            if (this.RequesterHeroId == 0)
             {
                 return false;
             }

@@ -25,10 +25,8 @@ public class Graph : MonoBehaviour
         nodeDiameter = nodeRadius * 2;
     }
 
-    public void Init(string matrixString)
+    public void Init(int[,] matrix)
     {
-        int[,] matrix = this.ParseMatrix(matrixString);
-
         graphSizeX = matrix.GetLength(0);
         graphSizeY = matrix.GetLength(1);
 
@@ -47,6 +45,12 @@ public class Graph : MonoBehaviour
                 nodes[x, y] = new Node(nodeType, worldPoint, x, y);
             }
         }
+    }
+
+    public void Init(string matrixString)
+    {
+        int[,] matrix = this.ParseMatrix(matrixString);
+        this.Init(matrix);
     }
 
     public List<Node> GetNeighbours(Node node)
@@ -71,6 +75,11 @@ public class Graph : MonoBehaviour
         }
 
         return neighbours;
+    }
+
+    public Vector3 GetNodeWorldPosition(int x, int y)
+    {
+        return this.nodes[x, y].worldPosition;
     }
 
     public Node NodeFromWorldPoint(Vector3 worldPosition)

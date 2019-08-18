@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Shared.DataModels.Units;
+using Assets.Scripts.Shared.NetMessages.World.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System;
@@ -14,6 +15,14 @@ namespace Assets.Scripts.Shared.DataModels
 
         public int Y { get; set; }
 
+        public int BattleX { get; set; }
+
+        public int BattleY { get; set; }
+
+        public int StartX { get; set; }
+
+        public int StartY { get; set; }
+
         [JsonConverter(typeof(StringEnumConverter))]
         public HeroType Type { get; set; }
 
@@ -24,6 +33,14 @@ namespace Assets.Scripts.Shared.DataModels
         public TimeSpan TimePlayed { get; set; }
 
         public int Level { get; set; }
+
+        public int MovementPoints { get; set; }
+
+        public int MaxMovementPoints { get; set; }
+
+        public int ActionPoints { get; set; }
+
+        public int MaxActionPoints { get; set; }
 
         public int Attack { get; set; }
 

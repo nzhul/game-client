@@ -17,7 +17,7 @@ public class NPCView : MonoBehaviour, IInteractable
         }
 
         // 2. Open ConfirmBattle modal
-        ConfirmBattleModal.Instance.Open(BattleScenario.HUvsMonsterAI, interactingHero.hero, this.npc);
+        ConfirmBattleModal.Instance.Open(BattleScenario.HUvsAI, interactingHero.hero, this.npc);
     }
 
     public void Init(Hero monster, Vector3 worldPosition)

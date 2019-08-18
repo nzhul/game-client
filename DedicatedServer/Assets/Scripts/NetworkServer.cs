@@ -9,6 +9,7 @@ using Assets.Scripts.Configuration;
 using Assets.Scripts.MessageHandlers;
 using Assets.Scripts.Network.Shared.Http;
 using Assets.Scripts.Shared.DataModels;
+using Assets.Scripts.Shared.DataModels.Units;
 using Assets.Scripts.Shared.NetMessages.Battle.Models;
 using BestHTTP;
 using Newtonsoft.Json;
@@ -242,6 +243,12 @@ public class NetworkServer : MonoBehaviour
         }
     }
 
+    public Unit GetRandomUnit(int currentHeroId)
+    {
+        var hero = Instance.GetHeroById(currentHeroId);
+        return hero.Units[UnityEngine.Random.Range(0, hero.Units.Count - 1)];
+    }
+
     public Hero GetHeroById(int heroId)
     {
         var pair = this.Regions.FirstOrDefault(c => c.Value.Heroes.Any(h => h.Id == heroId));
@@ -254,6 +261,13 @@ public class NetworkServer : MonoBehaviour
         {
             return null;
         }
+    }
+
+    public Unit GetUnitById(int heroId, int unitId)
+    {
+        var hero = this.GetHeroById(heroId);
+        return hero.Units.FirstOrDefault(u => u.Id == unitId);
+
     }
 }
 #pragma warning restore CS0618 // Type or member is obsolete

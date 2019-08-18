@@ -22,7 +22,7 @@ namespace Assets.Scripts.Network.Services
             NetworkClient.Instance.SendServer(msg);
         }
 
-        public void SendEndTurnRequest(Guid battleId, int currentPlayerId)
+        public void SendEndTurnRequest(Guid battleId, int currentPlayerId, int currentUnitId)
         {
             if (NetworkClient.Instance == null || !NetworkClient.Instance.IsStarted)
             {
@@ -32,7 +32,8 @@ namespace Assets.Scripts.Network.Services
             Net_EndTurnRequest msg = new Net_EndTurnRequest
             {
                 BattleId = battleId,
-                RequesterHeroId = currentPlayerId
+                RequesterHeroId = currentPlayerId,
+                RequesterUnitId = currentUnitId
             };
 
             NetworkClient.Instance.SendServer(msg);

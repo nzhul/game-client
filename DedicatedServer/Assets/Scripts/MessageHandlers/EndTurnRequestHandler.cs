@@ -33,10 +33,21 @@ namespace Assets.Scripts.MessageHandlers
                 return;
             }
 
-            if (battle.CurrentPlayerId != msg.RequesterHeroId)
+            if (battle.CurrentHeroId != msg.RequesterHeroId)
             {
                 Debug.LogWarning($"End turn requester is not currently active! Hacking ?");
                 return;
+            }
+
+            // 2. Set movement and action points to zero
+            if (msg.RequesterHeroId != 0)
+            {
+                this.battleService.NullifyHeroPoints(msg.RequesterHeroId, msg.IsDefend);
+            }
+
+            if (msg.RequesterUnitId != 0)
+            {
+                this.battleService.NullifyUnitPoints(msg.RequesterHeroId, msg.RequesterUnitId, msg.IsDefend);
             }
 
 

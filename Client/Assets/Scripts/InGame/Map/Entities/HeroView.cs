@@ -61,12 +61,12 @@ public class HeroView : MonoBehaviour, IPathRequester
         this.motor.ExecuteTeleportOut();
     }
 
-    public void Init(Hero hero, Vector3 worldPosition)
+    public void Init(Hero hero, Coord spawnCoordinates, Vector3 worldPosition)
     {
         if (graphic != null)
         {
             this.hero = hero;
-            gameObject.name = "Hero (" + hero.X + "," + hero.Y + ")";
+            gameObject.name = "Hero (" + spawnCoordinates.X + "," + spawnCoordinates.Y + ")";
             gameObject.transform.position = worldPosition;
 
             InitGraphic();

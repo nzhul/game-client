@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Shared.DataModels.Units;
+using Assets.Scripts.Shared.NetMessages.World.Models;
 using System;
 using System.Collections.Generic;
 
@@ -12,6 +13,15 @@ namespace Assets.Scripts.Shared.DataModels
 
         public int Y { get; set; }
 
+        public int BattleX { get; set; }
+
+        public int BattleY { get; set; }
+
+        public int StartX { get; set; }
+
+        public int StartY { get; set; }
+
+
         public HeroType Type { get; set; }
 
         public string Name { get; set; }
@@ -21,6 +31,14 @@ namespace Assets.Scripts.Shared.DataModels
         public TimeSpan TimePlayed { get; set; }
 
         public int Level { get; set; }
+
+        public int MovementPoints { get; set; }
+
+        public int MaxMovementPoints { get; set; }
+
+        public int ActionPoints { get; set; }
+
+        public int MaxActionPoints { get; set; }
 
         public int Attack { get; set; }
 

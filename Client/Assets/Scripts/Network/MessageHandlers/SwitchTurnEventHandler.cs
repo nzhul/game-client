@@ -18,7 +18,7 @@ namespace Assets.Scripts.Network.MessageHandlers
             Debug.Log("Switching turns: New Player is " + msg.CurrentPlayerId);
 
             BattleData bd = DataManager.Instance.BattleData;
-            bd.CurrentPlayerId = msg.CurrentPlayerId;
+            bd.CurrentHeroId = msg.CurrentPlayerId;
             bd.LastTurnStartTime = Time.time;
             bd.RemainingTimeForThisTurn = BattleManager.TURN_DURATION;
             bd.Turn = msg.Turn;

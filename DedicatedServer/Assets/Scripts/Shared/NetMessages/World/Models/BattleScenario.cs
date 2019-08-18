@@ -2,11 +2,10 @@
 {
     public enum BattleScenario
     {
-        HUvsMonsterAI,
-        HUAIvsMonsterAI,
+        HUvsAI,
+        AIvsAI,
         HUvsHU,
-        MonsterAIvsHU,
-        MonsterAIvsHUAI,
+        AIvsHU,
         Unknown
     }
 }

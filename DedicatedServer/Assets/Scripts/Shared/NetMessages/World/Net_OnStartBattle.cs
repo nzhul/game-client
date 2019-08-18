@@ -17,6 +17,8 @@ namespace Assets.Scripts.Shared.NetMessages.World
 
         public int DefenderId { get; set; }
 
+        public int SelectedUnitId { get; set; }
+
         public PlayerType AttackerType { get; set; }
 
         public PlayerType DefenderType { get; set; }

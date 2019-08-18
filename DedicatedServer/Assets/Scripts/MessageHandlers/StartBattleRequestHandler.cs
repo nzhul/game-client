@@ -34,17 +34,20 @@ namespace Assets.Scripts.MessageHandlers
                     DefenderId = msg.DefenderId,
                     AttackerHero = NetworkServer.Instance.GetHeroById(msg.AttackerId),
                     DefenderHero = NetworkServer.Instance.GetHeroById(msg.DefenderId),
-                    CurrentPlayerId = msg.AttackerId,
+                    CurrentHeroId = msg.AttackerId,
                     AttackerType = msg.AttackerType,
                     DefenderType = msg.DefenderType,
                     BattleScenario = scenario,
                     LastTurnStartTime = Time.time
                 };
 
+                newBattle.SelectedUnit = NetworkServer.Instance.GetRandomUnit(newBattle.CurrentHeroId);
+
                 this.UpdateUnitsData(newBattle.AttackerHero);
                 this.UpdateUnitsData(newBattle.DefenderHero);
 
                 rmsg.BattleId = newBattle.Id;
+                rmsg.SelectedUnitId = newBattle.SelectedUnit.Id;
 
                 this.ConfigurePlayerReady(newBattle, scenario);
                 newBattle.AttackerConnectionId = NetworkServer.Instance.GetConnectionIdByHeroId(newBattle.AttackerId);
@@ -83,11 +86,11 @@ namespace Assets.Scripts.MessageHandlers
         {
             switch (scenario)
             {
-                case BattleScenario.HUvsMonsterAI:
+                case BattleScenario.HUvsAI:
                     newBattle.AttackerReady = false;
                     newBattle.DefenderReady = true;
                     break;
-                case BattleScenario.HUAIvsMonsterAI:
+                case BattleScenario.AIvsAI:
                     newBattle.AttackerReady = true;
                     newBattle.DefenderReady = true;
                     break;
@@ -95,15 +98,9 @@ namespace Assets.Scripts.MessageHandlers
                     newBattle.AttackerReady = false;
                     newBattle.DefenderReady = false;
                     break;
-                case BattleScenario.MonsterAIvsHU:
+                case BattleScenario.AIvsHU:
                     newBattle.AttackerReady = true;
                     newBattle.DefenderReady = false;
-                    break;
-                case BattleScenario.MonsterAIvsHUAI:
-                    newBattle.AttackerReady = true;
-                    newBattle.DefenderReady = true;
-                    break;
-                case BattleScenario.Unknown:
                     break;
                 default:
                     break;
@@ -112,25 +109,21 @@ namespace Assets.Scripts.MessageHandlers
 
         private BattleScenario ResolveBattleScenario(PlayerType attackerType, PlayerType defenderType)
         {
-            if (attackerType == PlayerType.Human && defenderType == PlayerType.MonsterAI)
+            if (attackerType == PlayerType.Human && defenderType == PlayerType.AI)
             {
-                return BattleScenario.HUvsMonsterAI;
+                return BattleScenario.HUvsAI;
             }
-            else if (attackerType == PlayerType.HumanAI && defenderType == PlayerType.MonsterAI)
+            else if (attackerType == PlayerType.AI && defenderType == PlayerType.AI)
             {
-                return BattleScenario.HUAIvsMonsterAI;
+                return BattleScenario.AIvsAI;
             }
             else if (attackerType == PlayerType.Human && defenderType == PlayerType.Human)
             {
                 return BattleScenario.HUvsHU;
             }
-            else if (attackerType == PlayerType.MonsterAI && defenderType == PlayerType.Human)
+            else if (attackerType == PlayerType.AI && defenderType == PlayerType.Human)
             {
-                return BattleScenario.MonsterAIvsHU;
-            }
-            else if (attackerType == PlayerType.MonsterAI && defenderType == PlayerType.HumanAI)
-            {
-                return BattleScenario.MonsterAIvsHUAI;
+                return BattleScenario.AIvsHU;
             }
 
             return BattleScenario.Unknown;

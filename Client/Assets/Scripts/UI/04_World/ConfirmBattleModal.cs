@@ -30,24 +30,18 @@ public class ConfirmBattleModal : Modal<ConfirmBattleModal>
 
         switch (this.scenario)
         {
-            case BattleScenario.HUvsMonsterAI:
+            case BattleScenario.HUvsAI:
                 msg.AttackerType = PlayerType.Human;
-                msg.DefenderType = PlayerType.MonsterAI;
+                msg.DefenderType = PlayerType.AI;
                 break;
-            case BattleScenario.HUAIvsMonsterAI:
+            case BattleScenario.AIvsAI:
 
-                msg.AttackerType = PlayerType.HumanAI;
-                msg.DefenderType = PlayerType.MonsterAI;
+                msg.AttackerType = PlayerType.AI;
+                msg.DefenderType = PlayerType.AI;
                 break;
             case BattleScenario.HUvsHU:
                 msg.AttackerType = PlayerType.Human;
                 msg.DefenderType = PlayerType.Human;
-                break;
-            case BattleScenario.MonsterAIvsHU:
-                // Not implemented
-                break;
-            case BattleScenario.MonsterAIvsHUAI:
-                // Not implemented
                 break;
             default:
                 break;
