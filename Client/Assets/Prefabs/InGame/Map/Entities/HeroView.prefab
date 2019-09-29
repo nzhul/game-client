@@ -4693,7 +4693,7 @@ ParticleSystem:
 --- !u!199 &469406972
 ParticleSystemRenderer:
   serializedVersion: 6
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -9445,7 +9445,7 @@ ParticleSystem:
 --- !u!199 &2066058670
 ParticleSystemRenderer:
   serializedVersion: 6
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -9551,6 +9551,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6edb09a3715689e4a8d4fe9617595f0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 3
   graphic: {fileID: 1615560866714482}
   isMoving: 0
   targetNode: {fileID: 0}

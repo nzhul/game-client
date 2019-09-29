@@ -48,6 +48,16 @@ public class UIManager : MonoBehaviour
         StartBattleRequestHandler.OnBattleStarted += OnBattleStarted;
     }
 
+    public void OnBattleEnded(Guid battleId)
+    {
+        if (this.BattleButtons.ContainsKey(battleId))
+        {
+            GameObject btnToRemove = this.BattleButtons[battleId];
+            Destroy(btnToRemove);
+            this.BattleButtons.Remove(battleId);
+        }
+    }
+
     private void OnBattleStarted(Battle battle)
     {
         Button btn = Instantiate<Button>(activeEntityBtn, activeBattlesContainer.transform);

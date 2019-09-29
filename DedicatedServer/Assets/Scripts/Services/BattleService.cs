@@ -7,6 +7,30 @@ namespace Assets.Scripts.Services
 {
     public class BattleService : IBattleService
     {
+        public void EndBattle(Battle battle, int winnerId)
+        {
+            if (winnerId <= 0)
+            {
+                // both players are loosers
+                // send two defeat requests
+            }
+
+            if (battle.AttackerHero.Id == winnerId)
+            {
+                // attacker is winner
+                // defender is defeated
+                // send win to attacker and defeat to defender
+            }
+            else if (battle.DefenderHero.Id == winnerId)
+            {
+                // attacker is defeated
+                // defender is winner
+                // send defeat to attacker and win to defender
+            }
+
+            // DO API call to save battle outcome
+        }
+
         public void NullifyHeroPoints(int requesterHeroId, bool isDefend)
         {
             var hero = NetworkServer.Instance.GetHeroById(requesterHeroId);

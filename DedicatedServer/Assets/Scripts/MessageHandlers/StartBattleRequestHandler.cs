@@ -64,7 +64,7 @@ namespace Assets.Scripts.MessageHandlers
             //TODO apply upgrades before the battle!
             foreach (var unit in hero.Units)
             {
-                var config = NetworkServer.Instance.UnitConfigurations[unit.Type];
+                var config = NetworkServer.Instance.UnitConfigurations[unit.CreatureType];
                 unit.MovementPoints = config.MovementPoints;
                 unit.MaxMovementPoints = unit.MovementPoints;
                 unit.ActionPoints = config.ActionPoints;
@@ -78,7 +78,7 @@ namespace Assets.Scripts.MessageHandlers
                 unit.Armor = config.Armor;
                 unit.AttackType = config.AttackType;
                 unit.ArmorType = config.ArmorType;
-                unit.CreatureLevel = config.CreatureLevel;
+                unit.Level = config.CreatureLevel;
             }
         }
 

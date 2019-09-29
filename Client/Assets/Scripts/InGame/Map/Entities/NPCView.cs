@@ -1,13 +1,12 @@
-﻿using Assets.Scripts.InGame.Map.Entities;
-using Assets.Scripts.Shared.DataModels;
+﻿using Assets.Scripts.Shared.DataModels;
 using Assets.Scripts.Shared.NetMessages.World.Models;
 using UnityEngine;
 
-public class NPCView : MonoBehaviour, IInteractable
+public class NPCView : NodeContent
 {
     public Hero npc;
 
-    public void Interact(HeroView interactingHero)
+    public override void Interact(HeroView interactingHero)
     {
         // 1. Check if monster pack is locked.
         if (npc.NpcData.IsLocked)

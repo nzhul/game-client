@@ -175,6 +175,8 @@ public class GraphView : MonoBehaviour
             heroView.Init(hero, spawnCoordinates, worldPosition);
         }
 
+        this.AddContentToNode(spawnCoordinates, heroView);
+
         return heroView;
     }
 
@@ -184,6 +186,17 @@ public class GraphView : MonoBehaviour
         HeroesManager.Instance.NPCs.Add(npc.Id, npcView);
 
         return npcView;
+    }
+
+    public void AddContentToNode(Coord coord, NodeContent content)
+    {
+        NodeView nodeView = nodeViews[coord.X, coord.Y]; // x = cols; y = rows
+
+        if (nodeView != null)
+        {
+            content.transform.SetParent(nodeView.transform);
+            nodeView.Content = content;
+        }
     }
 
     private NPCView InitNPC(Hero monster)
@@ -213,23 +226,25 @@ public class GraphView : MonoBehaviour
 
             NPCView newNpc = this.AddNPC(npcHero);
 
-            NodeView nodeView = nodeViews[npcHero.X, npcHero.Y]; // x = cols; y = rows
+            this.AddContentToNode(new Coord(npcHero.X, npcHero.Y), newNpc);
 
-            if (nodeView != null)
-            {
-                newNpc.transform.SetParent(nodeView.transform);
-                nodeView.Slot = newNpc;
+            //NodeView nodeView = nodeViews[npcHero.X, npcHero.Y]; // x = cols; y = rows
 
-                // GameObject instance = Instantiate(monsterViewPrefab, nodeView.node.worldPosition, Quaternion.identity);
-                // instance.transform.SetParent(nodeView.transform);
-                // MonsterView monsterView = instance.GetComponent<MonsterView>();
+            //if (nodeView != null)
+            //{
+            //    newNpc.transform.SetParent(nodeView.transform);
+            //    nodeView.Content = newNpc;
 
-                // if(monsterView != null)
-                // monsterView.Init()
-                // monsterViewsList.Add(monsterView);
+            //    // GameObject instance = Instantiate(monsterViewPrefab, nodeView.node.worldPosition, Quaternion.identity);
+            //    // instance.transform.SetParent(nodeView.transform);
+            //    // MonsterView monsterView = instance.GetComponent<MonsterView>();
 
-                // nodeView.slot = MonsterView -> MonsterView : SlotView
-            }
+            //    // if(monsterView != null)
+            //    // monsterView.Init()
+            //    // monsterViewsList.Add(monsterView);
+
+            //    // nodeView.slot = MonsterView -> MonsterView : SlotView
+            //}
         }
     }
 }

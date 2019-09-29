@@ -1,10 +1,10 @@
-﻿using Assets.Scripts.InGame.Map.Entities;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class NodeView : MonoBehaviour
 {
-    public IInteractable Slot;
+    [SerializeField]
+    public NodeContent Content;
     public GameObject graphic; // main graphic
     public Node node;
 
@@ -129,9 +129,9 @@ public class NodeView : MonoBehaviour
 
     public void TriggerInteraction(HeroView interactingHero)
     {
-        if (this.Slot != null)
+        if (this.Content != null)
         {
-            this.Slot.Interact(interactingHero);
+            this.Content.Interact(interactingHero);
         }
     }
 }

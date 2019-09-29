@@ -11,6 +11,8 @@ namespace Assets.Scripts.Shared.NetMessages.Battle.Models
         public Battle()
         {
             this.Start = DateTime.UtcNow;
+            this.AttackerLastActivity = DateTime.UtcNow;
+            this.DefenderLastActivity = DateTime.UtcNow;
             this.Log = new List<string>();
         }
 
@@ -22,11 +24,15 @@ namespace Assets.Scripts.Shared.NetMessages.Battle.Models
 
         public Hero AttackerHero { get; set; }
 
+        public DateTime AttackerLastActivity { get; set; }
+
         public int DefenderId { get; set; }
 
         public int DefenderConnectionId { get; set; }
 
         public Hero DefenderHero { get; set; }
+
+        public DateTime DefenderLastActivity { get; set; }
 
         public int CurrentHeroId { get; set; }
 

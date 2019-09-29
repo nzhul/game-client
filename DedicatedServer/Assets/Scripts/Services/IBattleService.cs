@@ -9,5 +9,7 @@ namespace Assets.Scripts.Services
         void NullifyHeroPoints(int heroId, bool isDefend);
 
         void NullifyUnitPoints(int heroId, int unitId, bool isDefend);
+
+        void EndBattle(Battle battle, int winnerId);
     }
 }

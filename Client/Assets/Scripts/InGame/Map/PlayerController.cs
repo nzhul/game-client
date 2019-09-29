@@ -139,7 +139,10 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerHero_OnDestinationReached(Node node, HeroView heroView)
     {
+        _graphView.AddContentToNode(new Coord(heroView.hero.X, heroView.hero.Y), heroView);
+
         ClearPreviousPath();
+
         if (this.activeHero.targetNode.node.nodeType == NodeType.ContactPoint)
         {
             this.activeHero.targetNode.TriggerInteraction(this.activeHero);

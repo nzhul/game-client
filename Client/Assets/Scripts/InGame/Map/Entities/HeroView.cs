@@ -7,7 +7,7 @@ using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(HeroMotor))]
-public class HeroView : MonoBehaviour, IPathRequester
+public class HeroView : NodeContent, IPathRequester
 {
     public GameObject graphic;
 
@@ -66,7 +66,7 @@ public class HeroView : MonoBehaviour, IPathRequester
         if (graphic != null)
         {
             this.hero = hero;
-            gameObject.name = "Hero (" + spawnCoordinates.X + "," + spawnCoordinates.Y + ")";
+            gameObject.name = "Hero";
             gameObject.transform.position = worldPosition;
 
             InitGraphic();
