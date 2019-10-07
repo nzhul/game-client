@@ -87,7 +87,7 @@ namespace Assets.Scripts.Network.MessageHandlers
         {
             // TODO: play particle effect and delay 1-2 seconds before switching scenes
             DataManager.Instance.ActiveRegionId = msg.RegionId;
-            DataManager.Instance.Avatar.Heroes.FirstOrDefault(h => h.Id == hero.hero.Id).RegionId = msg.RegionId;
+            DataManager.Instance.Avatar.Heroes.FirstOrDefault(h => h.Id == hero.rawUnit.Id).RegionId = msg.RegionId;
             DataManager.Instance.Save();
             LevelLoader.LoadLevel(LevelLoader.WORLD_SCENE);
         }

@@ -4,13 +4,13 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public class HeroMotor : MonoBehaviour
+public class UnitMotor : MonoBehaviour
 {
     private Vector3[] waypoints;
     private int targetIndex;
     public float speed = 20;
-    private HeroView selfView;
-    public event Action<Node, HeroView> OnDestinationReached;
+    private UnitView selfView;
+    public event Action<Node, UnitView> OnDestinationReached;
 
     public Node[] Path { get; set; }
 
@@ -40,8 +40,8 @@ public class HeroMotor : MonoBehaviour
                     targetIndex++;
                     if (targetIndex >= waypoints.Length)
                     {
-                        selfView.hero.X = waypoints[targetIndex - 1].gridX;
-                        selfView.hero.Y = waypoints[targetIndex - 1].gridY;
+                        selfView.rawUnit.X = waypoints[targetIndex - 1].gridX;
+                        selfView.rawUnit.Y = waypoints[targetIndex - 1].gridY;
                         selfView.isMoving = false;
                         this.ClearPath();
                         OnDestinationReached?.Invoke(waypoints[targetIndex - 1], selfView);
@@ -72,7 +72,7 @@ public class HeroMotor : MonoBehaviour
     {
         selfView.PlayTeleportEffect(HeroView.TeleportType.Out);
         yield return new WaitForSeconds(.4f);
-        HeroesManager.Instance.Heroes.Remove(selfView.hero.Id);
+        HeroesManager.Instance.Heroes.Remove(selfView.rawUnit.Id);
         Destroy(selfView.gameObject);
     }
 
@@ -106,8 +106,8 @@ public class HeroMotor : MonoBehaviour
         yield return new WaitForSeconds(.4f);
         selfView.graphic.SetActive(false);
         this.transform.position = MapManager.Instance.graph.nodes[destination.X, destination.Y].worldPosition;
-        selfView.hero.X = destination.X;
-        selfView.hero.Y = destination.Y;
+        selfView.rawUnit.X = destination.X;
+        selfView.rawUnit.Y = destination.Y;
         this.ClearPath();
 
         // 2. Teleport In

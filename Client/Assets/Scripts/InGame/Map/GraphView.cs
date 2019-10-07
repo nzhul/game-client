@@ -77,6 +77,13 @@ public class GraphView : MonoBehaviour
         }
     }
 
+    public NodeContent GetNodeContent(GameObject nodeGraphic)
+    {
+        GameObject node = nodeGraphic.transform.parent.gameObject;
+        NodeView nodeView = node.GetComponent<NodeView>();
+        return nodeView.Content ?? null;
+    }
+
     private void InitLabel(Node node)
     {
         Color labelColor = Color.black;
@@ -101,6 +108,11 @@ public class GraphView : MonoBehaviour
         label.color = labelColor;
         label.text = "X:" + node.gridX + Environment.NewLine + "Y:" + node.gridY;
         label.transform.SetParent(labelsCanvas.transform);
+    }
+
+    public void DisplayAvailibleDestinations(List<NodeView> availibleDestinations, Color displayColor)
+    {
+        
     }
 
     private Transform ResolveParent(NodeType nodeType)

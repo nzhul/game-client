@@ -16,7 +16,7 @@ public class NPCView : NodeContent
         }
 
         // 2. Open ConfirmBattle modal
-        ConfirmBattleModal.Instance.Open(BattleScenario.HUvsAI, interactingHero.hero, this.npc);
+        ConfirmBattleModal.Instance.Open(BattleScenario.HUvsAI, interactingHero.rawUnit as Hero, this.npc);
     }
 
     public void Init(Hero monster, Vector3 worldPosition)

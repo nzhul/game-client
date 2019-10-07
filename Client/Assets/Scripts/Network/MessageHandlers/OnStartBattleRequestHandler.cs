@@ -43,7 +43,7 @@ namespace Assets.Scripts.Network.MessageHandlers
 
             if (msg.BattleScenario == BattleScenario.HUvsAI)
             {
-                attackHero = HeroesManager.Instance.Heroes[msg.AttackerId].hero;
+                attackHero = HeroesManager.Instance.Heroes[msg.AttackerId].rawUnit as Hero;
                 defenderHero = HeroesManager.Instance.NPCs[msg.DefenderId].npc;
                 currentHeroId = msg.AttackerId;
                 currentPlayerType = PlayerType.Human;
@@ -52,7 +52,7 @@ namespace Assets.Scripts.Network.MessageHandlers
             }
             else if (msg.BattleScenario == BattleScenario.AIvsAI)
             {
-                attackHero = HeroesManager.Instance.Heroes[msg.AttackerId].hero;
+                attackHero = HeroesManager.Instance.Heroes[msg.AttackerId].rawUnit as Hero;
                 defenderHero = HeroesManager.Instance.NPCs[msg.DefenderId].npc;
                 currentHeroId = msg.AttackerId;
                 currentPlayerType = PlayerType.AI;
@@ -61,8 +61,8 @@ namespace Assets.Scripts.Network.MessageHandlers
             }
             else if (msg.BattleScenario == BattleScenario.HUvsHU)
             {
-                attackHero = HeroesManager.Instance.Heroes[msg.AttackerId].hero;
-                defenderHero = HeroesManager.Instance.Heroes[msg.DefenderId].hero;
+                attackHero = HeroesManager.Instance.Heroes[msg.AttackerId].rawUnit as Hero;
+                defenderHero = HeroesManager.Instance.Heroes[msg.DefenderId].rawUnit as Hero;
                 currentHeroId = msg.AttackerId;
                 currentPlayerType = PlayerType.Human;
                 attackerType = PlayerType.Human;

@@ -39,7 +39,10 @@ namespace Assets.Scripts.MessageHandlers
                 return;
             }
 
-            // 2. Set movement and action points to zero
+            // 2. Update last activity
+            battle.UpdateLastActivity(msg.RequesterHeroId);
+
+            // 3. Set movement and action points to zero
             if (msg.RequesterHeroId != 0)
             {
                 this.battleService.NullifyHeroPoints(msg.RequesterHeroId, msg.IsDefend);
@@ -51,7 +54,7 @@ namespace Assets.Scripts.MessageHandlers
             }
 
 
-            // 2. Switch turns if the remaining time is more than 5 seconds
+            // 4. Switch turns if the remaining time is more than 5 seconds
             this.battleService.SwitchTurn(battle);
         }
     }

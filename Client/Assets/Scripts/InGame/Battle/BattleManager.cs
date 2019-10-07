@@ -1,9 +1,11 @@
 ﻿using Assets.Scripts.Data;
 using Assets.Scripts.Data.Models;
 using Assets.Scripts.Network.Services;
+using Assets.Scripts.Shared.DataModels;
 using Assets.Scripts.Shared.NetMessages.World.Models;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -12,16 +14,20 @@ using UnityEngine.EventSystems;
 [RequireComponent(typeof(GraphView))]
 public class BattleManager : MonoBehaviour
 {
+    //TODO: Move highlight logic in other class
     [SerializeField]
     GameObject nodeHoverPrefab;
 
-    
+    [SerializeField]
+    GameObject nodeAvailiblePathPrefab;
 
     [SerializeField]
     LayerMask interactableMask;
 
     public Graph graph;
     public GraphView graphView;
+
+    private List<GameObject> highlights;
 
     #region Singleton
     private static BattleManager _instance;
@@ -65,6 +71,7 @@ public class BattleManager : MonoBehaviour
 
     private void Start()
     {
+        this.highlights = new List<GameObject>();
         this.cam = Camera.main;
         // NOTE: consider the case when the ready message arrives before the battle is created in the server.
         this.bd = DataManager.Instance.BattleData;
@@ -98,36 +105,49 @@ public class BattleManager : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            if (this.hoveredNode)
+            if (!this.hoveredNode)
             {
-                Debug.Log("Node exist!");
+                return;
             }
-            else
+
+            var content = graphView.GetNodeContent(this.hoveredNode);
+            if (content != null)
             {
-                Debug.Log("Node do not exist!");
+                this.HandleTouch(content);
             }
         }
+    }
 
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    Ray ray = this.cam.ScreenPointToRay(Input.mousePosition);
-        //    RaycastHit hit;
+    private void HandleTouch(NodeContent content)
+    {
+        string displayName = string.Empty;
 
-        //    if (Physics.Raycast(ray, out hit, 1000f, interactableMask))
-        //    {
-        //        GameObject graphic = hit.collider.gameObject;
-        //        GameObject parent = graphic.transform.parent.gameObject;
-        //        NodeView nodeView = parent.GetComponent<NodeView>();
+        if (content.Type == NodeContentType.Hero || content.Type == NodeContentType.Unit)
+        {
+            var unit = content as UnitView;
 
-        //        var unit = nodeView.Content;
+            if (content.Type == NodeContentType.Hero)
+            {
+                displayName = (unit.rawUnit as Hero).Name;
 
-        //        EnableHover(nodeView.transform.position);
-        //    }
-        //    else
-        //    {
-        //        DisableHover();
-        //    }
-        //}
+
+            }
+            else if (content.Type == NodeContentType.Unit)
+            {
+                displayName = unit.rawUnit.CreatureType.ToString();
+            }
+
+            graphView.DisplayAvailibleDestinations(unit.AvailibleDestinations, Color.green);
+        }
+
+
+
+        // 1. Display:
+        // 1.1. Name or Type
+        // 1.2 Portrait
+        // 1.3 Abilities
+        // 2. Mark as selected in the UI
+        // 3. Display availible destinations
     }
 
     private void UpdateSelectedNode()
@@ -240,5 +260,26 @@ public class BattleManager : MonoBehaviour
             OnRemainingTimeUpdate?.Invoke(bd.RemainingTimeForThisTurn);
             yield return null;
         }
+    }
+
+    public void HideHighlights()
+    {
+        foreach (GameObject go in this.highlights)
+        {
+            go.GetComponent<MeshRenderer>().material.color = Color.white;
+            go.SetActive(false);
+        }
+    }
+
+    private GameObject GetHighlightObject()
+    {
+        GameObject instance = highlights.Find(x => !x.activeSelf);
+        if (instance == null)
+        {
+            instance = Instantiate(nodeAvailiblePathPrefab);
+            this.highlights.Add(instance);
+        }
+
+        return instance;
     }
 }

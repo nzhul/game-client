@@ -13,11 +13,11 @@ namespace Assets.Scripts.LevelManagement
         public const string WORLD_SCENE = "04_World";
         public const string BATTLE_SCENE = "05_Battle";
 
-        public static void LoadLevel(string levelname)
+        public static void LoadLevel(string levelname, bool additive = false)
         {
             if (Application.CanStreamedLevelBeLoaded(levelname))
             {
-                SceneManager.LoadScene(levelname);
+                SceneManager.LoadScene(levelname, additive ? LoadSceneMode.Additive : LoadSceneMode.Single);
             }
             else
             {

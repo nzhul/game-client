@@ -9,6 +9,8 @@ namespace Assets.Scripts.Shared.DataModels.Units
 
         public int OwnerId { get; set; }
 
+        public int RegionId { get; set; }
+
         public int X { get; set; }
 
         public int Y { get; set; }

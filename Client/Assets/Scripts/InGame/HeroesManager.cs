@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Shared.DataModels.Units;
+﻿using Assets.Scripts.Shared.DataModels;
+using Assets.Scripts.Shared.DataModels.Units;
 using Assets.Scripts.Shared.NetMessages.World.Models;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,7 +44,8 @@ namespace Assets.Scripts.InGame
         {
             if (playerType == PlayerType.Human)
             {
-                return this.Heroes[heroId].hero.Units.FirstOrDefault(u => u.Id == unitId);
+                var hero = this.Heroes[heroId].rawUnit as Hero;
+                return hero.Units.FirstOrDefault(u => u.Id == unitId);
             }
             else
             {

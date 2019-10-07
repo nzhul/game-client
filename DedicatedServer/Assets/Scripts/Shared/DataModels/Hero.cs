@@ -21,8 +21,6 @@ namespace Assets.Scripts.Shared.DataModels
 
         public string Class { get; set; }
 
-        public int RegionId { get; set; }
-
         public NPCData NpcData { get; set; }
 
         public bool IsNPC { get; set; }

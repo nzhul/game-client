@@ -60,6 +60,18 @@ namespace Assets.Scripts.Shared.NetMessages.Battle.Models
 
         public List<string> Log { get; set; }
 
+        public void UpdateLastActivity(int heroId)
+        {
+            if (this.AttackerId == heroId)
+            {
+                this.AttackerLastActivity = DateTime.UtcNow;
+            }
+            else if (this.DefenderId == heroId)
+            {
+                this.DefenderLastActivity = DateTime.UtcNow;
+            }
+        }
+
         // Attacker Troops
 
         // Defender Troops

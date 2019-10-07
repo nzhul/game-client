@@ -121,13 +121,13 @@ public class PlayerController : MonoBehaviour
                         // 2. Send Map movement request to the server
                         Net_MapMovementRequest msg = new Net_MapMovementRequest
                         {
-                            HeroId = activeHero.hero.Id,
+                            HeroId = activeHero.rawUnit.Id,
                             Destination = new Coord
                             {
                                 X = activeHero.destinationNode.gridX,
                                 Y = activeHero.destinationNode.gridY,
                             },
-                            RegionId = activeHero.hero.RegionId
+                            RegionId = activeHero.rawUnit.RegionId
                         };
                         NetworkClient.Instance.SendServer(msg);
                         this.ClearFocus();
@@ -137,9 +137,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void PlayerHero_OnDestinationReached(Node node, HeroView heroView)
+    private void PlayerHero_OnDestinationReached(Node node, UnitView unit)
     {
-        _graphView.AddContentToNode(new Coord(heroView.hero.X, heroView.hero.Y), heroView);
+        _graphView.AddContentToNode(new Coord(unit.rawUnit.X, unit.rawUnit.Y), unit);
 
         ClearPreviousPath();
 
