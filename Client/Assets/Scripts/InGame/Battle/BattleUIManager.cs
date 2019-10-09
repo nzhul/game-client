@@ -2,22 +2,18 @@
 using Assets.Scripts.Data.Models;
 using Assets.Scripts.Network.MessageHandlers;
 using Assets.Scripts.Shared.NetMessages.Battle;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class BattleUIManager : MonoBehaviour
 {
-    public Text Attacker;
-    public Text Defender;
-    public Text TimeLeft;
-    public Text Turn;
-    public Text Log;
-
-    public string attackerTemplate = "ATTACKER: {0}";
-    public string defenderTemplate = "DEFENDER: {0}";
-    public string timeleftTemplate = "TIME LEFT: {0}";
-    public string turnTemplate = "TURN: {0}";
-    public string log = "";
+    [SerializeField]
+    private TextMeshProUGUI
+        attacker = default,
+        defender = default,
+        log = default,
+        timeLeft = default;
 
     public Button EndTurnButton;
     public Text EndTurnButtonText;
@@ -53,7 +49,7 @@ public class BattleUIManager : MonoBehaviour
 
     private void OnRemainingTimeUpdate(int remainingTime)
     {
-        this.TimeLeft.text = string.Format(timeleftTemplate, remainingTime);
+        this.timeLeft.text = remainingTime.ToString();
     }
 
     private void OnStartBattle()
@@ -62,18 +58,16 @@ public class BattleUIManager : MonoBehaviour
         var attackerName = bd.AttackerHero.Name;
         var defenderName = bd.DefenderHero.Name;
 
-        this.Attacker.text = string.Format(attackerTemplate, attackerName);
-        this.Defender.text = string.Format(defenderTemplate, defenderName);
-        this.TimeLeft.text = string.Format(timeleftTemplate, bd.RemainingTimeForThisTurn);
-        this.Turn.text = string.Format(turnTemplate, bd.Turn);
-        this.Log.text = $"{Time.time}: Starting Battle between {attackerName}({bd.AttackerId}) and {defenderName}({bd.DefenderId})";
+        this.attacker.text = attackerName;
+        this.defender.text = defenderName;
+        this.timeLeft.text = bd.RemainingTimeForThisTurn.ToString();
+        this.log.text = $"{Time.time}: Starting Battle between {attackerName}({bd.AttackerId}) and {defenderName}({bd.DefenderId})";
     }
 
     private void OnSwitchTurn(Net_SwitchTurnEvent @event)
     {
         var bd = DataManager.Instance.BattleData;
-        this.TimeLeft.text = string.Format(timeleftTemplate, bd.RemainingTimeForThisTurn);
-        this.Turn.text = string.Format(turnTemplate, bd.Turn);
-        this.Log.text += $"\n{Time.time}: New Turn! Current player is the {bd.Turn}. ActionsEnabled: {bd.ActionsEnabled}";
+        this.timeLeft.text = bd.RemainingTimeForThisTurn.ToString();
+        this.log.text += $"\n{Time.time}: New Turn! Current player is the {bd.Turn}. ActionsEnabled: {bd.ActionsEnabled}";
     }
 }
