@@ -8,6 +8,7 @@ namespace Assets.Scripts.LevelManagement
         private static int mainMenuIndex = 0;
 
         public const string MAIN_MENU_SCENE = "01_MainMenu";
+        public const string LOBBY_SCENE = "02_Lobby";
         public const string HERO_SELECTION_SCENE = "02_HeroSelectionMenu";
         public const string HERO_CREATION_SCENE = "03_HeroCreationMenu";
         public const string WORLD_SCENE = "04_World";

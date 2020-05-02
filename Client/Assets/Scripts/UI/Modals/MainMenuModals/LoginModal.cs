@@ -5,7 +5,6 @@ using Assets.Scripts.Network.RequestModels.Users.Input;
 using Assets.Scripts.Network.RequestModels.Users.View;
 using Assets.Scripts.Network.Services;
 using Assets.Scripts.Network.Shared.Http;
-using Assets.Scripts.UI.MainMenu;
 using BestHTTP;
 using Newtonsoft.Json;
 using UnityEngine;
@@ -64,6 +63,12 @@ namespace Assets.Scripts.UI.Modals.MainMenuModals
         public void OnLoginPressed()
         {
             StartCoroutine(OnLoginPressedRoutine());
+        }
+
+        public void EnableForm()
+        {
+            FormUtilities.HideLoadingIndicator(_loadingImage);
+            FormUtilities.DisableForm(false, formInputs, formButtons);
         }
 
         private IEnumerator OnLoginPressedRoutine()
@@ -146,13 +151,10 @@ namespace Assets.Scripts.UI.Modals.MainMenuModals
 
                 _userService.SendAuthRequest(loginInfo.user.id, loginInfo.user.username, loginInfo.tokenString);
 
-                MainMenuManager.Instance.HideInitialButtons();
-                RealmSelectionModal.Instance.Open();
-                errorMessagePanel.SetActive(false);
+                //MainMenuManager.Instance.HideInitialButtons();
+                //RealmSelectionModal.Instance.Open();
+                //errorMessagePanel.SetActive(false);
             }
-
-            FormUtilities.HideLoadingIndicator(_loadingImage);
-            FormUtilities.DisableForm(false, formInputs, formButtons);
         }
 
         private void StoreUserData(LoginResponse loginInfo)
