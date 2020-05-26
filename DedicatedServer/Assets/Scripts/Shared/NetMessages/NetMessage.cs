@@ -62,6 +62,11 @@ public static class NetOperationCode
     /// his or there is X time left from his turn.
     /// </summary>
     public const int EndTurnRequest = 8;
+
+    /// <summary>
+    /// Sends request for joining the matchmaking queue and start searching for opponent.
+    /// </summary>
+    public const int FindOpponentRequest = 9;
     #endregion
 
 

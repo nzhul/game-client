@@ -4,6 +4,11 @@ namespace Assets.Scripts.Network.Services
 {
     public class WorldService : IWorldService
     {
+        public void SendFindOpponentRequest(int userId, string faction, string heroClass)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void SendTeleportRequest(int heroId, int regionId, int dwellingId)
         {
             if (NetworkClient.Instance == null || !NetworkClient.Instance.IsStarted)

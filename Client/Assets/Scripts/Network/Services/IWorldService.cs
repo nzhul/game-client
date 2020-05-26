@@ -25,5 +25,13 @@
         /// <param name="regionId">Target region. The destination of the teleport</param>
         /// <param name="dwellingId">Target dwelling. The destination of the teleport. Usually it will a waypoint dwelling, but can also be Castle or other</param>
         void SendTeleportRequest(int heroId, int regionId, int dwellingId);
+
+        /// <summary>
+        /// Sends request for entering the matchmaking queue.
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="faction"></param>
+        /// <param name="heroClass"></param>
+        void SendFindOpponentRequest(int userId, string faction, string heroClass);
     }
 }

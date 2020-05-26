@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Assets.Scripts.UI.Lobby;
 using Assets.Scripts.Utilities;
 using TMPro;
@@ -31,14 +32,24 @@ public class LobbyManager : MonoBehaviour
     private GameObject blur = default;
 
     [SerializeField]
-    private Button playBtn, findBtn = default;
+    private Button playBtn = default, findBtn = default;
 
     [SerializeField]
     private GraphicMover playMenu = default;
 
+    [Header("Search Menu")]
+
+    [SerializeField]
+    private GraphicMover searchMenu = default;
+
+    [SerializeField]
+    private Button cancelBtn = default;
+
     private void Awake()
     {
-        playBtn.onClick.AddListener(OnPlayGamePressed);
+        playBtn.onClick.AddListener(OnPlayGameClicked);
+        findBtn.onClick.AddListener(OnFindOpponentClicked);
+        cancelBtn.onClick.AddListener(OnCancelClicked);
         this.AddBlurClick();
     }
 
@@ -109,6 +120,24 @@ public class LobbyManager : MonoBehaviour
         Common.HighlightButton(classBtn, selectedHeroColor, heroNormalColor, _classContainer);
     }
 
+    private void OnFindOpponentClicked()
+    {
+        this.OnBlurClicked(null);
+        this.playBtn.gameObject.SetActive(false);
+        this.searchMenu.gameObject.SetActive(true);
+        this.searchMenu.Move(MoveTarget.End);
+        // TODO: send FindOpponentRequest
+    }
+
+    private void OnCancelClicked()
+    {
+
+        this.searchMenu.gameObject.transform.position = this.searchMenu.startXform.position;
+        this.searchMenu.gameObject.SetActive(false);
+        playBtn.gameObject.SetActive(true);
+        // TODO: send cancel find message.
+    }
+
     private void AddBlurClick()
     {
         var trigger = blur.GetComponent<EventTrigger>();
@@ -118,7 +147,7 @@ public class LobbyManager : MonoBehaviour
         trigger.triggers.Add(entry);
     }
 
-    private void OnPlayGamePressed()
+    private void OnPlayGameClicked()
     {
         blur.SetActive(true);
         findBtn.gameObject.SetActive(true);

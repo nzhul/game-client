@@ -16,13 +16,13 @@ public class BattleManager : MonoBehaviour
 {
     //TODO: Move highlight logic in other class
     [SerializeField]
-    GameObject nodeHoverPrefab;
+    GameObject nodeHoverPrefab = default;
 
     [SerializeField]
-    GameObject nodeAvailiblePathPrefab;
+    GameObject nodeAvailiblePathPrefab = default;
 
     [SerializeField]
-    LayerMask interactableMask;
+    LayerMask interactableMask = default;
 
     public Graph graph;
     public GraphView graphView;
