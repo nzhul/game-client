@@ -3,7 +3,8 @@ using System.Linq;
 using Assets.Scripts.Data;
 using Assets.Scripts.InGame.Console;
 using Assets.Scripts.Network.Services;
-using Assets.Scripts.Network.Shared.DataModels;
+using Assets.Scripts.Network.Services.TCP.Interfaces;
+using Assets.Scripts.Shared.Models;
 using Assets.Scripts.Utilities;
 using Assets.Scripts.Utilities.Extensions;
 using UnityEngine;
@@ -60,7 +61,7 @@ public class WaypointSelector : MonoBehaviour
 
     private void OnWaypointButtonPressed(Button target, Waypoint waypoint)
     {
-        _worldService.SendTeleportRequest(DataManager.Instance.ActiveHeroId, waypoint.RegionId, waypoint.Id);
+        _worldService.TeleportRequest(DataManager.Instance.ActiveHeroId, waypoint.RegionId, waypoint.Id);
         this.CloseModal();
     }
 

@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Linq;
+using Assets.Scripts.Network.Services;
+using Assets.Scripts.Network.Services.TCP.Interfaces;
+using Assets.Scripts.Shared.Models;
 using Assets.Scripts.UI.Lobby;
 using Assets.Scripts.Utilities;
 using TMPro;
@@ -45,6 +48,8 @@ public class LobbyManager : MonoBehaviour
     [SerializeField]
     private Button cancelBtn = default;
 
+    private IWorldService _worldService;
+
     private void Awake()
     {
         playBtn.onClick.AddListener(OnPlayGameClicked);
@@ -55,6 +60,7 @@ public class LobbyManager : MonoBehaviour
 
     private void Start()
     {
+        _worldService = new WorldService();
         InitializeFactionButtons(_selectedFaction);
     }
 
@@ -126,7 +132,8 @@ public class LobbyManager : MonoBehaviour
         this.playBtn.gameObject.SetActive(false);
         this.searchMenu.gameObject.SetActive(true);
         this.searchMenu.Move(MoveTarget.End);
-        // TODO: send FindOpponentRequest
+
+        _worldService.FindOpponentRequest((HeroClass)Enum.Parse(typeof(HeroClass), _selectedHeroClass, true));
     }
 
     private void OnCancelClicked()
@@ -135,7 +142,7 @@ public class LobbyManager : MonoBehaviour
         this.searchMenu.gameObject.transform.position = this.searchMenu.startXform.position;
         this.searchMenu.gameObject.SetActive(false);
         playBtn.gameObject.SetActive(true);
-        // TODO: send cancel find message.
+        _worldService.CancelFindOpponentRequest();
     }
 
     private void AddBlurClick()

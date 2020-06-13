@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
-using Assets.Scripts;
 using Assets.Scripts.Configuration;
-using Assets.Scripts.MessageHandlers;
-using Assets.Scripts.Network.Shared.Http;
-using Assets.Scripts.Shared.DataModels;
-using Assets.Scripts.Shared.DataModels.Units;
-using Assets.Scripts.Shared.NetMessages.Battle.Models;
+using Assets.Scripts.Network.MessageHandlers;
+using Assets.Scripts.Network.Services;
+using Assets.Scripts.Network.Services.HTTP;
+using Assets.Scripts.Network.Services.HTTP.Interfaces;
+using Assets.Scripts.Shared.Models;
+using Assets.Scripts.Shared.Models.Units;
 using BestHTTP;
 using Newtonsoft.Json;
 using UnityEngine;
@@ -46,12 +46,15 @@ public class NetworkServer : MonoBehaviour
 
     public Dictionary<int, ServerConnection> Connections = new Dictionary<int, ServerConnection>();
 
-    public Dictionary<int, Region> Regions = new Dictionary<int, Region>();
+    public Dictionary<int, Game> Regions = new Dictionary<int, Game>();
 
     public List<Battle> ActiveBattles = new List<Battle>();
 
+    private IUsersService _usersService;
+
     private void Start()
     {
+        _usersService = new UsersService();
         Instance = this;
         DontDestroyOnLoad(gameObject);
         this.ServerConfiguration = this.LoadServerConfiguration();
@@ -62,7 +65,37 @@ public class NetworkServer : MonoBehaviour
 
     private void OnAdminAuthenticated()
     {
+        var headers = new Dictionary<string, string>();
+        headers.Add("Authorization", "Bearer " + NetworkServer.Instance.Admin.tokenString);
+        RequestManagerHttp.Instance.UpdateHeaders(headers);
         this.LoadUnitConfigurations();
+        // this.APICallTest(); // TODO: for testing purposes only. Delete
+    }
+
+    private void APICallTest()
+    {
+        //var userdata = RequestManagerHttp.UsersService.GetUser(3);
+
+        var gameParams = new GameParams
+        {
+            Players = new List<Player>
+            {
+                new Player
+                {
+                    StartingClass = HeroClass.Sorcerer,
+                    Team = Team.Team1,
+                    UserId = 3
+                },
+                new Player
+                {
+                    StartingClass = HeroClass.Witch,
+                    Team = Team.Team2,
+                    UserId = 1
+                }
+            }
+        };
+
+        var newGame = RequestManagerHttp.GameService.CreateGame(gameParams);
     }
 
     private void LogInAdmin()
@@ -156,7 +189,9 @@ public class NetworkServer : MonoBehaviour
             { NetOperationCode.TeleportRequest, new TeleportRequestHandler() },
             { NetOperationCode.StartBattleRequest, new StartBattleRequestHandler() },
             { NetOperationCode.ConfirmLoadingBattleScene, new ConfirmLoadingBattleSceneHandler() },
-            { NetOperationCode.EndTurnRequest, new EndTurnRequestHandler() }
+            { NetOperationCode.EndTurnRequest, new EndTurnRequestHandler() },
+            { NetOperationCode.FindOpponentRequest, new FindOpponentRequestHandler() },
+            { NetOperationCode.CancelFindOpponentRequest, new CancelFindOpponentRequestHandler() }
         };
     }
 
@@ -253,7 +288,7 @@ public class NetworkServer : MonoBehaviour
     {
         var pair = this.Regions.FirstOrDefault(c => c.Value.Heroes.Any(h => h.Id == heroId));
 
-        if (!pair.Equals(default(KeyValuePair<int, Region>))) // null check for keyValuePair
+        if (!pair.Equals(default(KeyValuePair<int, Game>))) // null check for keyValuePair
         {
             return pair.Value.Heroes.FirstOrDefault(h => h.Id == heroId);
         }

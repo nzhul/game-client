@@ -3,7 +3,7 @@
 [Serializable]
 public abstract class NetMessage
 {
-    public byte OperationCode { get; set; }
+    public byte OperationCode { get; protected set; }
 
     public NetMessage()
     {
@@ -67,6 +67,11 @@ public static class NetOperationCode
     /// Sends request for joining the matchmaking queue and start searching for opponent.
     /// </summary>
     public const int FindOpponentRequest = 9;
+
+    /// <summary>
+    /// Sends a request for leaving matchmaking pool.
+    /// </summary>
+    public const int CancelFindOpponentRequest = 10;
     #endregion
 
 
@@ -82,7 +87,9 @@ public static class NetOperationCode
 
     public const int OnStartBattle = 104;
 
-    public const int SwitchTurnEvent = 105;
+    public const int OnSwitchTurn = 105;
+
+    public const int StartGameClient = 106;
 
     #endregion
 }

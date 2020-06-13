@@ -1,8 +1,7 @@
 ﻿using Assets.Scripts.Data;
 using Assets.Scripts.Network;
-using Assets.Scripts.Shared.DataModels;
-using Assets.Scripts.Shared.NetMessages.World;
-using Assets.Scripts.Shared.NetMessages.World.Models;
+using Assets.Scripts.Shared.Models;
+using Assets.Scripts.Shared.NetMessages.World.ClientServer;
 using Assets.Scripts.UI.Modals;
 using UnityEngine.UI;
 

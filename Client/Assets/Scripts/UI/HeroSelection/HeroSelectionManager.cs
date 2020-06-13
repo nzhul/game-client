@@ -2,7 +2,7 @@
 using System.Linq;
 using Assets.Scripts.Data;
 using Assets.Scripts.LevelManagement;
-using Assets.Scripts.Shared.DataModels;
+using Assets.Scripts.Shared.Models;
 using Assets.Scripts.UI.HeroSelection;
 using Assets.Scripts.Utilities;
 using UnityEngine;
@@ -111,10 +111,10 @@ namespace Assets.Scripts.UI.CharacterSelection
                     heroBtn.onClick.AddListener(delegate { OnHeroButtonPressed(heroBtn, hero.Id); });
 
                     Text heroNameText = heroBtn.transform.Find("HeroName").GetComponent<Text>();
-                    heroNameText.text = hero.Name;
+                    heroNameText.text = hero.Class.ToString();
 
                     Image heroIcon = heroBtn.transform.Find("HeroIcon").GetComponent<Image>();
-                    heroIcon.sprite = classIcons.FirstOrDefault(x => x.name == hero.Class).image;
+                    heroIcon.sprite = classIcons.FirstOrDefault(x => x.name == hero.Class.ToString()).image;
 
                     Text heroDescriptionText = heroBtn.transform.Find("Description").GetComponent<Text>();
                     heroDescriptionText.text = "Level " + hero.Level + " " + hero.Class;
@@ -154,14 +154,12 @@ namespace Assets.Scripts.UI.CharacterSelection
             Hero selectedHero = DataManager.Instance.Avatar.Heroes.FirstOrDefault(h => h.Id == heroId);
             if (selectedHero != null)
             {
-                currentHeroClassIcon.sprite = classIconsTransparent.FirstOrDefault(a => a.name == selectedHero.Class).image;
+                currentHeroClassIcon.sprite = classIconsTransparent.FirstOrDefault(a => a.name == selectedHero.Class.ToString()).image;
                 currentHeroClassIcon.SetNativeSize();
-                currentHeroClassTypeText.text = selectedHero.Class.ToUpper();
+                currentHeroClassTypeText.text = selectedHero.Class.ToString().ToUpper();
 
                 //TODO: use textmeshPro and improve the UI.
                 string infoTextTemplate = @"{0} - Level {1} {2}
-
-Play time: {3}
 
 ?? dungeons cleared
 
@@ -169,13 +167,10 @@ namespace Assets.Scripts.UI.CharacterSelection
 
 Other statistics: ??";
 
-                string playTimeText = string.Format("{0} hours {1} minutes", selectedHero.TimePlayed.Hours, selectedHero.TimePlayed.Minutes);
-
                 string infoText = string.Format(infoTextTemplate,
-                    selectedHero.Name,
+                    "HeroName",
                     selectedHero.Level,
-                    selectedHero.Class,
-                    playTimeText);
+                    selectedHero.Class);
 
                 currentHeroStatistics.text = infoText;
             }
@@ -189,8 +184,8 @@ Other statistics: ??";
         {
             // TODO ...
             Hero hero = _heroList.FirstOrDefault(x => x.Id == heroId);
-            model3DText.text = hero.Name;
-            heroNameText.text = hero.Name;
+            model3DText.text = "HeroName";
+            heroNameText.text = "HeroName";
         }
     }
 }

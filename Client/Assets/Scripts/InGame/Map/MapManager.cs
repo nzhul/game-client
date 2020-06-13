@@ -1,15 +1,13 @@
-﻿using Assets.Scripts;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Assets.Scripts.Data;
 using Assets.Scripts.InGame.Console;
 using Assets.Scripts.Network.Services;
-using Assets.Scripts.Network.Shared.Http;
-using Assets.Scripts.Shared.DataModels;
-using Assets.Scripts.Shared.NetMessages.World.Models;
+using Assets.Scripts.Network.Services.TCP.Interfaces;
+using Assets.Scripts.Shared.Models;
 using BestHTTP;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(Graph))]
@@ -61,7 +59,7 @@ public class MapManager : MonoBehaviour
 
         if (_dm.Avatar != null && _dm.Avatar.Heroes != null && _dm.Avatar.Heroes.Count >= 1)
         {
-            int[] regionsForLoading = _dm.Avatar.Heroes.Select(h => h.RegionId).ToArray();
+            int[] regionsForLoading = _dm.Avatar.Heroes.Select(h => h.GameId).ToArray();
 
             string endpoint = "realms/{0}/regions";
             string[] @params = new string[] { DataManager.Instance.CurrentRealmId.ToString() };
@@ -75,7 +73,7 @@ public class MapManager : MonoBehaviour
             RequestManager.Instance.Get(endpoint, @params, queryParams, DataManager.Instance.Token, OnGetGetRegionsRequestFinished);
 
 
-            _worldService.SendWorldEnterRequest(DataManager.Instance.Id, DataManager.Instance.CurrentRealmId, regionsForLoading);
+            _worldService.WorldEnterRequest(DataManager.Instance.Id, DataManager.Instance.CurrentRealmId, regionsForLoading);
         }
     }
 
@@ -96,12 +94,12 @@ public class MapManager : MonoBehaviour
         if (NetworkCommon.RequestIsSuccessful(request, response, out errorMessage))
         {
             string json = response.DataAsText;
-            IList<Region> regions = JsonConvert.DeserializeObject<IList<Region>>(json);
+            IList<Game> regions = JsonConvert.DeserializeObject<IList<Game>>(json);
 
             if (regions != null && regions.Count >= 1)
             {
                 _dm.Regions = regions;
-                Region activeRegion = _dm.Regions.FirstOrDefault(r => r.Heroes.Any(h => h.Id == _dm.ActiveHeroId));
+                Game activeRegion = _dm.Regions.FirstOrDefault(r => r.Heroes.Any(h => h.Id == _dm.ActiveHeroId));
                 _dm.ActiveRegionId = activeRegion.Id;
                 _dm.Save();
 
@@ -116,7 +114,7 @@ public class MapManager : MonoBehaviour
         loader.Load(heroId, destination);
     }
 
-    private void RenderMap(Region activeRegion)
+    private void RenderMap(Game activeRegion)
     {
         if (activeRegion == null)
         {

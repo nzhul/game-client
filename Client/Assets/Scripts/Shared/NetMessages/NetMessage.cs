@@ -3,7 +3,7 @@
 [Serializable]
 public abstract class NetMessage
 {
-    public byte OperationCode { get; set; }
+    public byte OperationCode { get; protected set; }
 
     public NetMessage()
     {
@@ -63,11 +63,15 @@ public static class NetOperationCode
     /// </summary>
     public const int EndTurnRequest = 8;
 
-
     /// <summary>
     /// Sends request for joining the matchmaking queue and start searching for opponent.
     /// </summary>
     public const int FindOpponentRequest = 9;
+
+    /// <summary>
+    /// Sends a request for leaving matchmaking pool.
+    /// </summary>
+    public const int CancelFindOpponentRequest = 10;
     #endregion
 
 
@@ -83,7 +87,43 @@ public static class NetOperationCode
 
     public const int OnStartBattle = 104;
 
-    public const int SwitchTurnEvent = 105;
+    public const int OnSwitchTurn = 105;
+
+    public const int StartGameClient = 106;
 
     #endregion
 }
+
+
+// NOTES:
+// BATTLE MESSAGES:
+// BattleMovementRequest -> Moves the init in the battlefield and consumes his movement point.
+// BattleActionRequest 
+//  -> Unit/Hero perform an action.
+//  -> Each action cost action points (AP).
+//  -> Units will usually have 1-2 action points availible and their abilities will cost 1-2 AP
+//  -> Normal Attack form example will cost 1 AP and the unit can have a pool of 1 AP. This means that the unit can only perform normal attack
+//  -> Heroes on other hand will have bigger AP pool. For example 5 AP.
+//  -> TODO: consider having separate AP and movement pool or common one.
+
+// Every time an ActionRequest is executed on the server we check the win condition for both players
+// if some of them is a winner -> we send EndBattleEvent to both clients and record the outcome of the battle in the database (api call).
+
+// EndBattleEvent -> Notify both looser and winner about the outcome of the battle.
+// Winner: Recieve information about his award, experience gain and so on.
+// Looser: Recieve information about his loses.
+
+// TODO: Change "END TURN" button to "DEFEND" -> only skip turn of the current creature. Like "DEFEND" button in Heroes 3.
+
+
+// Battle flow:
+// Instead of making an queue like in heroes 3 games, where every unit turn depends of the speed/initiative of the unit
+// Allow the player to choose which unit he wants to play.
+// If the player do not execute any action - the currently selected unit will loose his turn/action points for the remaining of the Round!
+// The player cannot play two or more consecutive units in a situation where other player still have remaining move/action points.
+// the player CAN play two or more consecutive units when the oponent do not have remaining move/action points for this Round!.
+
+// Basically i want the battle flow to be the same as "BattleChess"
+// "END TURN" button will become "SKIP" which will consume both move and action points for the currently selected unit and 
+// will give the control back to the oponent!.
+

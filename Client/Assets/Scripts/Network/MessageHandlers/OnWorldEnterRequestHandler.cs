@@ -1,10 +1,11 @@
-﻿using Assets.Scripts.Data;
-using Assets.Scripts.Network.Shared.Http;
-using Assets.Scripts.Shared.DataModels;
+﻿using System;
+using System.Collections.Generic;
+using Assets.Scripts.Data;
+using Assets.Scripts.Network.Services;
+using Assets.Scripts.Shared.Models;
+using Assets.Scripts.Shared.NetMessages.World.ServerClient;
 using BestHTTP;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.Network.MessageHandlers

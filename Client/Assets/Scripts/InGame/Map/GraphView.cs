@@ -1,8 +1,7 @@
-﻿using Assets.Scripts.InGame;
-using Assets.Scripts.Shared.DataModels;
-using Assets.Scripts.Shared.NetMessages.World.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Assets.Scripts.InGame;
+using Assets.Scripts.Shared.Models;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,7 +18,7 @@ public class GraphView : MonoBehaviour
     private GameObject contactPointsContainer;
     private GameObject occupiedPointsContainer;
     private GameObject openPointsContainer;
-    private GameObject wallPointsContainer; 
+    private GameObject wallPointsContainer;
 
     [Header("Monsters")]
     public GameObject monsterViewPrefab;
@@ -112,7 +111,7 @@ public class GraphView : MonoBehaviour
 
     public void DisplayAvailibleDestinations(List<NodeView> availibleDestinations, Color displayColor)
     {
-        
+
     }
 
     private Transform ResolveParent(NodeType nodeType)

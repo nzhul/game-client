@@ -1,12 +1,12 @@
-﻿using Assets.Scripts.Data;
-using Assets.Scripts.Data.Models;
-using Assets.Scripts.Network.Services;
-using Assets.Scripts.Shared.DataModels;
-using Assets.Scripts.Shared.NetMessages.World.Models;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.Data;
+using Assets.Scripts.Data.Models;
+using Assets.Scripts.Network.Services.TCP;
+using Assets.Scripts.Network.Services.TCP.Interfaces;
+using Assets.Scripts.Shared.Models;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -128,7 +128,7 @@ public class BattleManager : MonoBehaviour
 
             if (content.Type == NodeContentType.Hero)
             {
-                displayName = (unit.rawUnit as Hero).Name;
+                displayName = (unit.rawUnit as Hero).Class.ToString();
 
 
             }

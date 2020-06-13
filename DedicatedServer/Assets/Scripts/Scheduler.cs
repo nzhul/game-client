@@ -1,9 +1,11 @@
-﻿using Assets.Scripts.MessageHandlers;
-using Assets.Scripts.Services;
-using Assets.Scripts.Shared.NetMessages.Battle.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.Network.Matchmaking;
+using Assets.Scripts.Network.MessageHandlers;
+using Assets.Scripts.Network.Services.TCP;
+using Assets.Scripts.Network.Services.TCP.Interfaces;
+using Assets.Scripts.Shared.Models;
 using UnityEngine;
 
 public class Scheduler : MonoBehaviour
@@ -17,6 +19,12 @@ public class Scheduler : MonoBehaviour
         this.battleService = new BattleService();
         InvokeRepeating("ClearRegions", 5, 5);
         InvokeRepeating("SwitchBattleTurns", 5, 1);
+        InvokeRepeating("DoMatchmaking", 5, 1);
+    }
+
+    private void DoMatchmaking()
+    {
+        Matchmaker.Instance.DoMatchmaking();
     }
 
     private void SwitchBattleTurns()

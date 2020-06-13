@@ -1,7 +1,7 @@
-﻿using Assets.Scripts.LevelManagement;
-using Assets.Scripts.Shared.NetMessages;
+﻿using System;
+using Assets.Scripts.LevelManagement;
+using Assets.Scripts.Network.Shared.NetMessages.Users;
 using Assets.Scripts.UI.Modals.MainMenuModals;
-using System;
 using UnityEngine;
 
 namespace Assets.Scripts.Network.MessageHandlers

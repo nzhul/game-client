@@ -15,6 +15,7 @@ namespace Assets.Scripts.Configuration
     {
         public int id;
         public string username;
+        public int mmr;
         public int currentRealmId;
         public string gender;
         public int age;

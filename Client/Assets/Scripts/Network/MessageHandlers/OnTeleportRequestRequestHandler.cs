@@ -1,9 +1,9 @@
-﻿using Assets.Scripts.Data;
+﻿using System;
+using System.Linq;
+using Assets.Scripts.Data;
 using Assets.Scripts.InGame;
 using Assets.Scripts.LevelManagement;
-using Assets.Scripts.Shared.NetMessages.World;
-using System;
-using System.Linq;
+using Assets.Scripts.Shared.NetMessages.World.ServerClient;
 using UnityEngine;
 
 namespace Assets.Scripts.Network.MessageHandlers
@@ -87,7 +87,7 @@ namespace Assets.Scripts.Network.MessageHandlers
         {
             // TODO: play particle effect and delay 1-2 seconds before switching scenes
             DataManager.Instance.ActiveRegionId = msg.RegionId;
-            DataManager.Instance.Avatar.Heroes.FirstOrDefault(h => h.Id == hero.rawUnit.Id).RegionId = msg.RegionId;
+            DataManager.Instance.Avatar.Heroes.FirstOrDefault(h => h.Id == hero.rawUnit.Id).GameId = msg.RegionId;
             DataManager.Instance.Save();
             LevelLoader.LoadLevel(LevelLoader.WORLD_SCENE);
         }

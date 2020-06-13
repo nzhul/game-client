@@ -1,11 +1,10 @@
-﻿using Assets.Scripts.Data;
+﻿using System;
+using Assets.Scripts.Data;
 using Assets.Scripts.Data.Models;
 using Assets.Scripts.InGame;
 using Assets.Scripts.LevelManagement;
-using Assets.Scripts.Shared.DataModels;
-using Assets.Scripts.Shared.NetMessages.World;
-using Assets.Scripts.Shared.NetMessages.World.Models;
-using System;
+using Assets.Scripts.Shared.Models;
+using Assets.Scripts.Shared.NetMessages.World.ServerClient;
 
 namespace Assets.Scripts.Network.MessageHandlers
 {

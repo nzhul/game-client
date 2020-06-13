@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Assets.Scripts.Data.Models;
-using Assets.Scripts.Shared.DataModels;
+using Assets.Scripts.Shared.Models;
 using UnityEngine;
 
 namespace Assets.Scripts.Data
@@ -200,7 +200,7 @@ namespace Assets.Scripts.Data
             }
         }
 
-        public IList<Region> Regions
+        public IList<Game> Regions
         {
             get
             {

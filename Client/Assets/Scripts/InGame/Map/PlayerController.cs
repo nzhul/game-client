@@ -1,9 +1,8 @@
-﻿using Assets.Scripts.InGame;
+﻿using System.Collections.Generic;
+using Assets.Scripts.InGame;
 using Assets.Scripts.Network;
-using Assets.Scripts.Shared.NetMessages.World;
-using Assets.Scripts.Shared.NetMessages.World.Models;
-using System.Collections.Generic;
-using System.Linq;
+using Assets.Scripts.Shared.Models;
+using Assets.Scripts.Shared.NetMessages.World.ClientServer;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -127,7 +126,7 @@ public class PlayerController : MonoBehaviour
                                 X = activeHero.destinationNode.gridX,
                                 Y = activeHero.destinationNode.gridY,
                             },
-                            RegionId = activeHero.rawUnit.RegionId
+                            RegionId = activeHero.rawUnit.GameId
                         };
                         NetworkClient.Instance.SendServer(msg);
                         this.ClearFocus();

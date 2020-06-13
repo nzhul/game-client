@@ -1,11 +1,10 @@
-﻿using Assets.Scripts.Data;
-using Assets.Scripts.InGame.Pathfinding;
-using Assets.Scripts.Shared.DataModels;
-using Assets.Scripts.Shared.DataModels.Units;
-using Assets.Scripts.Shared.NetMessages.World.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.Data;
+using Assets.Scripts.InGame.Pathfinding;
+using Assets.Scripts.Shared.Models;
+using Assets.Scripts.Shared.Models.Units;
 using UnityEngine;
 
 [RequireComponent(typeof(UnitMotor))]

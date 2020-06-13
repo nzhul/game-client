@@ -1,5 +1,4 @@
-﻿using Assets.Scripts.Shared.DataModels;
-using Assets.Scripts.Shared.NetMessages.World.Models;
+﻿using Assets.Scripts.Shared.Models;
 using UnityEngine;
 
 public class NPCView : NodeContent

@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Assets.Scripts.MessageHandlers;
-using Assets.Scripts.Shared.DataModels;
-using Assets.Scripts.Shared.NetMessages.Battle.Models;
+using Assets.Scripts.Network.MessageHandlers;
+using Assets.Scripts.Shared.Models;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -78,13 +77,13 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    private void OnRegionLoaded(Region region)
+    private void OnRegionLoaded(Game region)
     {
         Button btn = Instantiate<Button>(activeEntityBtn, activeRegionsContainer.transform);
-        btn.name = region.Id + "_" + region.Name;
+        //btn.name = region.Id + "_" + region.Name;
 
         var btnText = btn.GetComponentInChildren<Text>();
-        btnText.text = btn.name = region.Id + "_" + region.Name;
+        //btnText.text = btn.name = region.Id + "_" + region.Name;
 
         this.RegionButtons.Add(region.Id, btn.gameObject);
     }

@@ -2,8 +2,8 @@
 using Assets.Scripts.Data;
 using Assets.Scripts.LevelManagement;
 using Assets.Scripts.Network.RequestModels.Realms;
-using Assets.Scripts.Network.Shared.Http;
-using Assets.Scripts.Shared.DataModels;
+using Assets.Scripts.Network.Services;
+using Assets.Scripts.Shared.Models;
 using Assets.Scripts.UI.Modals.MainMenuModals;
 using Assets.Scripts.Utilities;
 using BestHTTP;

@@ -1,8 +1,7 @@
-﻿using Assets.Scripts.Shared.DataModels;
-using Assets.Scripts.Shared.DataModels.Units;
-using Assets.Scripts.Shared.NetMessages.World.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.Shared.Models;
+using Assets.Scripts.Shared.Models.Units;
 using UnityEngine;
 
 namespace Assets.Scripts.InGame

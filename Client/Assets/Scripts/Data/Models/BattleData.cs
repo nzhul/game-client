@@ -1,10 +1,8 @@
-﻿using Assets.Scripts.Shared.DataModels;
-using Assets.Scripts.Shared.DataModels.Units;
-using Assets.Scripts.Shared.NetMessages.Battle.Models;
-using Assets.Scripts.Shared.NetMessages.World.Models;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Assets.Scripts.Shared.Models;
+using Assets.Scripts.Shared.Models.Units;
+using Newtonsoft.Json;
 
 namespace Assets.Scripts.Data.Models
 {

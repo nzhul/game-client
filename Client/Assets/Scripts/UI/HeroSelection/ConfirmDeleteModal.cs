@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using Assets.Scripts.Data;
 using Assets.Scripts.LevelManagement;
-using Assets.Scripts.Network.Shared.Http;
-using Assets.Scripts.Shared.DataModels;
+using Assets.Scripts.Network.Services;
+using Assets.Scripts.Shared.Models;
 using Assets.Scripts.UI.CharacterSelection;
 using Assets.Scripts.UI.Modals;
 using Assets.Scripts.UI.Modals.MainMenuModals;
@@ -106,7 +106,7 @@ namespace Assets.Scripts.UI.HeroSelection
             Hero selectedHero = DataManager.Instance.Avatar.Heroes.FirstOrDefault(h => h.Id == heroId);
             string confirmedHeroName = confirmInput.text;
 
-            if (selectedHero.Name == confirmedHeroName)
+            if (selectedHero.Class.ToString() == confirmedHeroName)
             {
                 return true;
             }

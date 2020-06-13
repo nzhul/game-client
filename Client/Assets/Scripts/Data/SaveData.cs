@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Assets.Scripts.Data.Models;
-using Assets.Scripts.Shared.DataModels;
+using Assets.Scripts.Shared.Models;
 
 namespace Assets.Scripts.Data
 {
@@ -24,7 +24,7 @@ namespace Assets.Scripts.Data
         public string activeHeroId;
         public int activeRegionId;
         public UserAvatar avatar;
-        public IList<Region> regions;
+        public IList<Game> regions;
         public BattleData battleData;
         public Dictionary<CreatureType, UnitConfiguration> unitConfigurations;
 
@@ -42,7 +42,7 @@ namespace Assets.Scripts.Data
             rememberMe = "false";
             password = string.Empty;
             avatar = new UserAvatar();
-            regions = new List<Region>();
+            regions = new List<Game>();
             battleData = new BattleData();
         }
     }

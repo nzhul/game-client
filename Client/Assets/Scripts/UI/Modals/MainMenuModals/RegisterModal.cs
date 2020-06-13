@@ -1,10 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Text;
-using Assets.Scripts.Network;
 using Assets.Scripts.Network.RequestModels.Users.Input;
 using Assets.Scripts.Network.RequestModels.Users.View;
-using Assets.Scripts.Network.Shared.Http;
+using Assets.Scripts.Network.Services;
 using BestHTTP;
 using Newtonsoft.Json;
 using UnityEngine;

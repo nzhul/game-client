@@ -1,7 +1,6 @@
-﻿using System;
-using Assets.Scripts.Data;
-using Assets.Scripts.Network.Shared.DataModels;
-using Assets.Scripts.Network.Shared.Http;
+﻿using Assets.Scripts.Data;
+using Assets.Scripts.Network.Services;
+using Assets.Scripts.Shared.Models;
 using BestHTTP;
 using UnityEngine;
 

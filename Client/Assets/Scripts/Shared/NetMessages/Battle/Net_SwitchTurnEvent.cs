@@ -1,5 +1,5 @@
-﻿using Assets.Scripts.Shared.NetMessages.World.Models;
-using System;
+﻿using System;
+using Assets.Scripts.Shared.Models;
 
 namespace Assets.Scripts.Shared.NetMessages.Battle
 {
@@ -8,7 +8,7 @@ namespace Assets.Scripts.Shared.NetMessages.Battle
     {
         public Net_SwitchTurnEvent()
         {
-            this.OperationCode = NetOperationCode.SwitchTurnEvent;
+            this.OperationCode = NetOperationCode.OnSwitchTurn;
         }
 
         public Guid BattleId { get; set; }

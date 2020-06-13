@@ -1,7 +1,7 @@
-﻿using Assets.Scripts.InGame;
-using Assets.Scripts.Shared.NetMessages.World.Models;
-using System;
+﻿using System;
 using System.Collections;
+using Assets.Scripts.InGame;
+using Assets.Scripts.Shared.Models;
 using UnityEngine;
 
 public class UnitMotor : MonoBehaviour
