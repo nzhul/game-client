@@ -11,9 +11,9 @@ namespace Assets.Scripts.Shared.NetMessages.World.ClientServer
             OperationCode = NetOperationCode.MapMovementRequest;
         }
 
-        public int HeroId { get; set; }
+        public int ArmyId { get; set; }
 
-        public int RegionId { get; set; }
+        //public int GameId { get; set; }
 
         //public int NewX { get; set; }
 

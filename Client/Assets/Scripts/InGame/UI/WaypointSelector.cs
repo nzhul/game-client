@@ -6,7 +6,6 @@ using Assets.Scripts.Network.Services;
 using Assets.Scripts.Network.Services.TCP.Interfaces;
 using Assets.Scripts.Shared.Models;
 using Assets.Scripts.Utilities;
-using Assets.Scripts.Utilities.Extensions;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -26,11 +25,11 @@ public class WaypointSelector : MonoBehaviour
     private void Start()
     {
         _worldService = new WorldService();
-        var waypoints = DataManager.Instance.Avatar.Waypoints;
+        var waypoints = DataManager.Instance.Waypoints;
         RefreshWaypointButtons(waypoints);
     }
 
-    private void RefreshWaypointButtons(IList<Waypoint> waypoints)
+    private void RefreshWaypointButtons(IList<Dwelling> waypoints)
     {
         if (waypoints != null && waypoints.Count() > 0)
         {
@@ -39,14 +38,14 @@ public class WaypointSelector : MonoBehaviour
             foreach (var waypoint in waypoints)
             {
                 Button waypointBtn = GameObject.Instantiate<Button>(_waypointBtnPrefab, _waypointBtnsContainer);
-                waypointBtn.name = "X:" + waypoint.X + "-Y:" + waypoint.Y + "-" + waypoint.RegionName;
+                waypointBtn.name = "X:" + waypoint.X + "-Y:" + waypoint.Y + "-" + waypoint.Id;
                 waypointBtn.onClick.AddListener(delegate { OnWaypointButtonPressed(waypointBtn, waypoint); });
 
                 Text regionNametext = waypointBtn.transform.Find("RegionName").GetComponent<Text>();
-                regionNametext.text = waypoint.RegionName.Length > 24 ? waypoint.RegionName.Truncate(24) + "..." : waypoint.RegionName;
+                regionNametext.text = "WP-" + waypoint.Id;
 
                 Text regionLevelText = waypointBtn.transform.Find("Level").GetComponentInChildren<Text>();
-                regionLevelText.text = waypoint.RegionLevel.ToString();
+                regionLevelText.text = "RegionLevel";
             }
 
         }
@@ -59,9 +58,9 @@ public class WaypointSelector : MonoBehaviour
         }
     }
 
-    private void OnWaypointButtonPressed(Button target, Waypoint waypoint)
+    private void OnWaypointButtonPressed(Button target, Dwelling waypoint)
     {
-        _worldService.TeleportRequest(DataManager.Instance.ActiveHeroId, waypoint.RegionId, waypoint.Id);
+        _worldService.TeleportRequest(DataManager.Instance.ActiveArmyId, waypoint.GameId, waypoint.Id);
         this.CloseModal();
     }
 

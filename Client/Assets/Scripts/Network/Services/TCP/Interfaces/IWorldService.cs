@@ -13,7 +13,7 @@ namespace Assets.Scripts.Network.Services.TCP.Interfaces
         /// <param name="id">Current user id in the database</param>
         /// <param name="currentRealmId"></param>
         /// <param name="regionsForLoading"></param>
-        void WorldEnterRequest(int id, int currentRealmId, int[] regionsForLoading);
+        //void WorldEnterRequest(int id, int currentRealmId, int[] regionsForLoading);
 
         /// <summary>
         /// Sends request for teleport to the dedicated server.
@@ -34,7 +34,7 @@ namespace Assets.Scripts.Network.Services.TCP.Interfaces
         /// <param name="userId"></param>
         /// <param name="faction"></param>
         /// <param name="heroClass"></param>
-        void FindOpponentRequest(HeroClass heroClass);
+        void FindOpponentRequest(CreatureType heroClass);
 
         /// <summary>
         /// Sends CancelFindOpponentRequest message for leaving the matchmaking pool. 

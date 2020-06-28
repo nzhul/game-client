@@ -1,6 +1,8 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using Assets.Scripts.Shared.Models.Units;
+using Newtonsoft.Json;
 
 namespace Assets.Scripts.Shared.Models
 {
@@ -8,11 +10,11 @@ namespace Assets.Scripts.Shared.Models
     {
         public int Id { get; set; }
 
-        public IList<Room> Rooms { get; set; }
-
-        public IList<Hero> Heroes { get; set; }
+        public IList<Army> Armies { get; set; }
 
         public IList<Dwelling> Dwellings { get; set; }
+
+        public IList<Avatar> Avatars { get; set; }
 
         private string _matrixString;
 
@@ -53,6 +55,19 @@ namespace Assets.Scripts.Shared.Models
             }
 
             return parsedMatrix;
+        }
+    }
+
+    public static class GameExtensions
+    {
+        public static Army GetArmy(this Game game, int armyId)
+        {
+            return game.Armies.FirstOrDefault(x => x.Id == armyId);
+        }
+
+        public static Unit GetUnit(this Game game, int unitId)
+        {
+            return game.Armies.FirstOrDefault(x => x.Units.Any(u => u.Id == unitId)).Units.FirstOrDefault(x => x.Id == unitId);
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Assets.Scripts.Shared.NetMessages.World.ClientServer
             OperationCode = NetOperationCode.FindOpponentRequest;
         }
 
-        public HeroClass Class { get; set; }
+        public CreatureType Class { get; set; }
 
         public bool IsValid()
         {

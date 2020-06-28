@@ -3,5 +3,7 @@
     public interface IUserService
     {
         void SendAuthRequest(int userId, string username, string token);
+
+        void SendLogoutRequest();
     }
 }

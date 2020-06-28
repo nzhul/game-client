@@ -18,9 +18,9 @@ namespace Assets.Scripts.Data.Models
 
         public bool UseAutoBattles { get; set; }
 
-        public Hero AttackerHero { get; set; }
+        public Army AttackerArmy { get; set; }
 
-        public Hero DefenderHero { get; set; }
+        public Army DefenderArmy { get; set; }
 
         public int BoardRowCount { get; set; } = 11;
 
@@ -28,13 +28,13 @@ namespace Assets.Scripts.Data.Models
 
         public Guid BattleId { get; set; }
 
-        public int AttackerId { get; set; }
+        public int AttackerArmyId { get; set; }
 
-        public int DefenderId { get; set; }
+        public int DefenderArmyId { get; set; }
 
         public Unit SelectedUnit { get; set; }
 
-        public int CurrentHeroId { get; set; }
+        public int CurrentArmyId { get; set; }
 
         public PlayerType CurrentPlayerType { get; set; }
 

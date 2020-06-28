@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using Assets.Scripts;
 using Assets.Scripts.Data;
 using Assets.Scripts.InGame.Console;
 using Assets.Scripts.Network.Services;
-using Assets.Scripts.Network.Services.TCP.Interfaces;
 using Assets.Scripts.Shared.Models;
 using BestHTTP;
 using Newtonsoft.Json;
@@ -41,10 +39,6 @@ public class MapManager : MonoBehaviour
     }
     #endregion
 
-    private IWorldService _worldService;
-
-    private DataManager _dm;
-
     public Graph graph;
     public GraphView graphView;
 
@@ -52,29 +46,42 @@ public class MapManager : MonoBehaviour
 
     private void Start()
     {
-        _worldService = new WorldService();
+        //_worldService = new WorldService();
 
-        _dm = DataManager.Instance;
-        _dm.Load();
+        //_dm = DataManager.Instance;
+        //_dm.Load();
 
-        if (_dm.Avatar != null && _dm.Avatar.Heroes != null && _dm.Avatar.Heroes.Count >= 1)
-        {
-            int[] regionsForLoading = _dm.Avatar.Heroes.Select(h => h.GameId).ToArray();
+        //if (_dm.Avatar != null && _dm.Avatar.Heroes != null && _dm.Avatar.Heroes.Count >= 1)
+        //{
+        //    int[] regionsForLoading = _dm.Avatar.Heroes.Select(h => h.GameId).ToArray();
 
-            string endpoint = "realms/{0}/regions";
-            string[] @params = new string[] { DataManager.Instance.CurrentRealmId.ToString() };
-            List<KeyValuePair<string, string>> queryParams = new List<KeyValuePair<string, string>>();
+        //    string endpoint = "realms/{0}/regions";
+        //    string[] @params = new string[] { DataManager.Instance.CurrentRealmId.ToString() };
+        //    List<KeyValuePair<string, string>> queryParams = new List<KeyValuePair<string, string>>();
 
-            for (int i = 0; i < regionsForLoading.Length; i++)
-            {
-                queryParams.Add(new KeyValuePair<string, string>("regionIds", regionsForLoading[i].ToString()));
-            }
+        //    for (int i = 0; i < regionsForLoading.Length; i++)
+        //    {
+        //        queryParams.Add(new KeyValuePair<string, string>("regionIds", regionsForLoading[i].ToString()));
+        //    }
 
-            RequestManager.Instance.Get(endpoint, @params, queryParams, DataManager.Instance.Token, OnGetGetRegionsRequestFinished);
+        //    RequestManager.Instance.Get(endpoint, @params, queryParams, DataManager.Instance.Token, OnGetGetRegionsRequestFinished);
 
 
-            _worldService.WorldEnterRequest(DataManager.Instance.Id, DataManager.Instance.CurrentRealmId, regionsForLoading);
-        }
+        //    _worldService.WorldEnterRequest(DataManager.Instance.Id, DataManager.Instance.CurrentRealmId, regionsForLoading);
+        //}
+
+
+        //TODO: Wrap this Initialization logic into progress tacker and hook it somehow to the GameManager Loading Screen
+
+        var game = RequestManagerHttp.GameService.GetGame(DataManager.Instance.ActiveGameId);
+        DataManager.Instance.ActiveGame = game;
+
+        DataManager.Instance.UnitConfigurations = RequestManagerHttp.GameService.GetUnitConfigurations();
+
+        RenderMap(DataManager.Instance.ActiveGame);
+        PlayerController.Instance.EnableInputs();
+
+        //TODO: Wrap this Initialization logic into progress tacker and hook it somehow to the GameManager Loading Screen
     }
 
     private void Update()
@@ -85,40 +92,40 @@ public class MapManager : MonoBehaviour
         }
     }
 
-    private void OnGetGetRegionsRequestFinished(HTTPRequest request, HTTPResponse response)
+    //private void OnGetGetRegionsRequestFinished(HTTPRequest request, HTTPResponse response)
+    //{
+    //    // TODO: Implement this
+    //    // store the region information in a file (maybe a different file than the main one)
+    //    // use region data to render the map!
+    //    string errorMessage;
+    //    if (NetworkCommon.RequestIsSuccessful(request, response, out errorMessage))
+    //    {
+    //        string json = response.DataAsText;
+    //        IList<Game> regions = JsonConvert.DeserializeObject<IList<Game>>(json);
+
+    //        if (regions != null && regions.Count >= 1)
+    //        {
+    //            _dm.ActiveGame = regions;
+    //            Game activeRegion = _dm.ActiveGame.FirstOrDefault(r => r.Heroes.Any(h => h.Id == _dm.ActiveHeroId));
+    //            _dm.ActiveGameId = activeRegion.Id;
+    //            _dm.Save();
+
+    //            RenderMap(activeRegion);
+    //        }
+    //    }
+    //}
+
+    //public void LoadHero(int heroId, Coord destination)
+    //{
+    //    var loader = new HeroLoader();
+    //    loader.Load(heroId, destination);
+    //}
+
+    private void RenderMap(Game game)
     {
-        // TODO: Implement this
-        // store the region information in a file (maybe a different file than the main one)
-        // use region data to render the map!
-        string errorMessage;
-        if (NetworkCommon.RequestIsSuccessful(request, response, out errorMessage))
+        if (game == null)
         {
-            string json = response.DataAsText;
-            IList<Game> regions = JsonConvert.DeserializeObject<IList<Game>>(json);
-
-            if (regions != null && regions.Count >= 1)
-            {
-                _dm.Regions = regions;
-                Game activeRegion = _dm.Regions.FirstOrDefault(r => r.Heroes.Any(h => h.Id == _dm.ActiveHeroId));
-                _dm.ActiveRegionId = activeRegion.Id;
-                _dm.Save();
-
-                RenderMap(activeRegion);
-            }
-        }
-    }
-
-    public void LoadHero(int heroId, Coord destination)
-    {
-        var loader = new HeroLoader();
-        loader.Load(heroId, destination);
-    }
-
-    private void RenderMap(Game activeRegion)
-    {
-        if (activeRegion == null)
-        {
-            Debug.LogWarning("Cannot find region for the current active hero with ID: " + _dm.ActiveHeroId);
+            Debug.LogWarning("Cannot find region for the current active hero with ID: " + DataManager.Instance.ActiveArmyId);
             return;
         }
 
@@ -126,11 +133,11 @@ public class MapManager : MonoBehaviour
 
         if (graph != null && graphView != null)
         {
-            graph.Init(activeRegion.MatrixString);
+            graph.Init(game.MatrixString);
             graphView.Init(graph);
-            graphView.AddNPCs(activeRegion.Heroes);
-            graphView.AddHeroes(activeRegion.Heroes);
-            PlayerController.Instance.SetActiveHero(DataManager.Instance.ActiveHeroId);
+            //graphView.AddNPCArmies(game.Armies);
+            graphView.AddArmies(game.Armies);
+            PlayerController.Instance.SetActiveEntity(DataManager.Instance.ActiveArmyId);
             //graphView.Dwellings();
             //activeHero = graphView.InitHero(_activeHero, graph.nodes[_activeHero.x, _activeHero.y].worldPosition);
 
@@ -148,34 +155,34 @@ public class MapManager : MonoBehaviour
         return graph.nodes[x, y];
     }
 
-    public class HeroLoader
-    {
-        public int HeroId { get; set; }
-        public Coord Destination { get; set; }
+    //public class HeroLoader
+    //{
+    //    public int HeroId { get; set; }
+    //    public Coord Destination { get; set; }
 
-        public void Load(int heroId, Coord destination)
-        {
-            this.HeroId = heroId;
-            this.Destination = destination;
+    //    public void Load(int heroId, Coord destination)
+    //    {
+    //        this.HeroId = heroId;
+    //        this.Destination = destination;
 
-            string endpoint = "realms/heroes/{0}";
-            string[] @params = new string[] { this.HeroId.ToString() };
-            RequestManager.Instance.Get(endpoint, @params, DataManager.Instance.Token, OnHeroLoadComplete);
-        }
+    //        string endpoint = "realms/heroes/{0}";
+    //        string[] @params = new string[] { this.HeroId.ToString() };
+    //        RequestManager.Instance.Get(endpoint, @params, DataManager.Instance.Token, OnHeroLoadComplete);
+    //    }
 
-        private void OnHeroLoadComplete(HTTPRequest request, HTTPResponse response)
-        {
-            if (NetworkCommon.RequestIsSuccessful(request, response, out string errorMessage))
-            {
-                string json = response.DataAsText;
-                var newHero = JsonConvert.DeserializeObject<Hero>(json);
+    //    private void OnHeroLoadComplete(HTTPRequest request, HTTPResponse response)
+    //    {
+    //        if (NetworkCommon.RequestIsSuccessful(request, response, out string errorMessage))
+    //        {
+    //            string json = response.DataAsText;
+    //            var newHero = JsonConvert.DeserializeObject<Hero>(json);
 
-                MapManager.Instance.graphView.AddHero(newHero, new Coord(newHero.X, newHero.Y), true);
-            }
-            else
-            {
-                Debug.LogWarning("Error fetching hero data from the API on EnemyIn teleport request!");
-            }
-        }
-    }
+    //            MapManager.Instance.graphView.AddHero(newHero, new Coord(newHero.X, newHero.Y), true);
+    //        }
+    //        else
+    //        {
+    //            Debug.LogWarning("Error fetching hero data from the API on EnemyIn teleport request!");
+    //        }
+    //    }
+    //}
 }

@@ -1,4 +1,6 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -93,6 +95,18 @@ namespace Assets.Scripts.Utilities
             }
 
             return false;
+        }
+
+
+        public static List<int> ParseCsvIds(string visitorsString)
+        {
+            if (string.IsNullOrEmpty(visitorsString))
+            {
+                return new List<int>();
+            }
+
+            var tokens = visitorsString.Split(new char[] { ',' });
+            return tokens.Select(x => int.Parse(x)).ToList();
         }
     }
 }

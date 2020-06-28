@@ -9,10 +9,10 @@ namespace Assets.Scripts.LevelManagement
 
         public const string MAIN_MENU_SCENE = "01_MainMenu";
         public const string LOBBY_SCENE = "02_Lobby";
+        public const string GAME_SCENE = "03_Game";
+        public const string BATTLE_SCENE = "05_Battle";
         public const string HERO_SELECTION_SCENE = "02_HeroSelectionMenu";
         public const string HERO_CREATION_SCENE = "03_HeroCreationMenu";
-        public const string WORLD_SCENE = "04_World";
-        public const string BATTLE_SCENE = "05_Battle";
 
         public static void LoadLevel(string levelname, bool additive = false)
         {

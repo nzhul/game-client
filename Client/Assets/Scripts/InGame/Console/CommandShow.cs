@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Assets.Scripts.Data;
+using Assets.Scripts.Shared.Models;
 using Newtonsoft.Json;
 
 namespace Assets.Scripts.InGame.Console
@@ -33,13 +35,13 @@ namespace Assets.Scripts.InGame.Console
                         msg = JsonConvert.SerializeObject(DataManager.Instance.Avatar, Formatting.Indented);
                         break;
                     case "dwellings":
-                        msg = JsonConvert.SerializeObject(DataManager.Instance.Avatar.Dwellings, Formatting.Indented);
+                        msg = JsonConvert.SerializeObject(DataManager.Instance.ActiveGame.Dwellings, Formatting.Indented);
                         break;
                     case "waypoints":
-                        msg = JsonConvert.SerializeObject(DataManager.Instance.Avatar.Waypoints, Formatting.Indented);
+                        msg = JsonConvert.SerializeObject(DataManager.Instance.ActiveGame.Dwellings.Where(x => x.Type == DwellingType.Waypoint), Formatting.Indented);
                         break;
                     case "regions":
-                        msg = JsonConvert.SerializeObject(DataManager.Instance.Regions, Formatting.Indented);
+                        msg = JsonConvert.SerializeObject(DataManager.Instance.ActiveGame, Formatting.Indented);
                         break;
                     case "configs":
                         msg = JsonConvert.SerializeObject(DataManager.Instance.UnitConfigurations, Formatting.Indented);

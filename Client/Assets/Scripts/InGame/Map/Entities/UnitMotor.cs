@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections;
-using Assets.Scripts.InGame;
+using Assets.Scripts.InGame.Map.Entities;
 using Assets.Scripts.Shared.Models;
 using UnityEngine;
 
@@ -9,14 +9,14 @@ public class UnitMotor : MonoBehaviour
     private Vector3[] waypoints;
     private int targetIndex;
     public float speed = 20;
-    private UnitView selfView;
-    public event Action<Node, UnitView> OnDestinationReached;
+    private AliveEntityView selfView;
+    public event Action<Node, AliveEntityView> OnDestinationReached;
 
     public Node[] Path { get; set; }
 
     private void Start()
     {
-        selfView = GetComponent<HeroView>();
+        selfView = GetComponent<AliveEntityView>();
     }
 
     public void ExecuteFollowPath(Node[] waypoints)
@@ -40,8 +40,8 @@ public class UnitMotor : MonoBehaviour
                     targetIndex++;
                     if (targetIndex >= waypoints.Length)
                     {
-                        selfView.rawUnit.X = waypoints[targetIndex - 1].gridX;
-                        selfView.rawUnit.Y = waypoints[targetIndex - 1].gridY;
+                        selfView.rawEntity.X = waypoints[targetIndex - 1].gridX;
+                        selfView.rawEntity.Y = waypoints[targetIndex - 1].gridY;
                         selfView.isMoving = false;
                         this.ClearPath();
                         OnDestinationReached?.Invoke(waypoints[targetIndex - 1], selfView);
@@ -62,19 +62,19 @@ public class UnitMotor : MonoBehaviour
         }
     }
 
-    public void ExecuteTeleportOut()
-    {
-        StopCoroutine(TeleportOutRoutine());
-        StartCoroutine(TeleportOutRoutine());
-    }
+    //public void ExecuteTeleportOut()
+    //{
+    //    StopCoroutine(TeleportOutRoutine());
+    //    StartCoroutine(TeleportOutRoutine());
+    //}
 
-    private IEnumerator TeleportOutRoutine()
-    {
-        selfView.PlayTeleportEffect(HeroView.TeleportType.Out);
-        yield return new WaitForSeconds(.4f);
-        HeroesManager.Instance.Heroes.Remove(selfView.rawUnit.Id);
-        Destroy(selfView.gameObject);
-    }
+    //private IEnumerator TeleportOutRoutine()
+    //{
+    //    selfView.PlayTeleportEffect(ArmyView.TeleportType.Out);
+    //    yield return new WaitForSeconds(.4f);
+    //    HeroesManager.Instance.Armies.Remove(selfView.rawEntity.Id);
+    //    Destroy(selfView.gameObject);
+    //}
 
     private void ClearPath()
     {
@@ -102,17 +102,17 @@ public class UnitMotor : MonoBehaviour
         // 9. Smooth camera follow.
 
         // 1. Teleport Out
-        selfView.PlayTeleportEffect(HeroView.TeleportType.Out);
+        selfView.PlayTeleportEffect(ArmyView.TeleportType.Out);
         yield return new WaitForSeconds(.4f);
         selfView.graphic.SetActive(false);
         this.transform.position = MapManager.Instance.graph.nodes[destination.X, destination.Y].worldPosition;
-        selfView.rawUnit.X = destination.X;
-        selfView.rawUnit.Y = destination.Y;
+        selfView.rawEntity.X = destination.X;
+        selfView.rawEntity.Y = destination.Y;
         this.ClearPath();
 
         // 2. Teleport In
         MapCamera.Instance.StartFollowTarget(this.transform.position);
-        selfView.PlayTeleportEffect(HeroView.TeleportType.In);
+        selfView.PlayTeleportEffect(ArmyView.TeleportType.In);
         yield return new WaitForSeconds(.4f);
         selfView.graphic.SetActive(true);
 

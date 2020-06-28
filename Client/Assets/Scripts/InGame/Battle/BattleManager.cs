@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using Assets.Scripts.Data;
 using Assets.Scripts.Data.Models;
 using Assets.Scripts.Network.Services.TCP;
 using Assets.Scripts.Network.Services.TCP.Interfaces;
 using Assets.Scripts.Shared.Models;
+using Assets.Scripts.Shared.Models.Units;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -76,7 +76,7 @@ public class BattleManager : MonoBehaviour
         // NOTE: consider the case when the ready message arrives before the battle is created in the server.
         this.bd = DataManager.Instance.BattleData;
         this.battleService = new BattleService();
-        this.battleService.SendConfirmLoadingBattleSceneMessage(this.bd.BattleId, this.bd.AttackerId, true);
+        this.battleService.SendConfirmLoadingBattleSceneMessage(this.bd.BattleId, this.bd.AttackerArmyId, true);
 
         StopCoroutine(UpdateRemainingTurnTime());
         StartCoroutine(UpdateRemainingTurnTime());
@@ -122,20 +122,10 @@ public class BattleManager : MonoBehaviour
     {
         string displayName = string.Empty;
 
-        if (content.Type == NodeContentType.Hero || content.Type == NodeContentType.Unit)
+        if (content.Type == NodeContentType.Unit)
         {
             var unit = content as UnitView;
-
-            if (content.Type == NodeContentType.Hero)
-            {
-                displayName = (unit.rawUnit as Hero).Class.ToString();
-
-
-            }
-            else if (content.Type == NodeContentType.Unit)
-            {
-                displayName = unit.rawUnit.CreatureType.ToString();
-            }
+            displayName = (unit.rawEntity as Unit).Type.ToString();
 
             graphView.DisplayAvailibleDestinations(unit.AvailibleDestinations, Color.green);
         }
@@ -188,24 +178,24 @@ public class BattleManager : MonoBehaviour
 
     public void EndTurn()
     {
-        if (!this.CurrentPlayerIsMe(bd.CurrentHeroId))
+        if (!this.CurrentPlayerIsMe(bd.CurrentArmyId))
         {
             Debug.LogWarning("I am not the current player!");
             return;
         }
 
-        this.battleService.SendEndTurnRequest(bd.BattleId, bd.CurrentHeroId, bd.SelectedUnit.Id);
+        this.battleService.SendEndTurnRequest(bd.BattleId, bd.CurrentArmyId, bd.SelectedUnit.Id);
     }
 
-    public bool CurrentPlayerIsMe(int currentPlayerId)
+    public bool CurrentPlayerIsMe(int currentArmyId)
     {
-        return DataManager.Instance.Avatar.Heroes.Any(h => h.Id == currentPlayerId);
+        return DataManager.Instance.ActiveGame.GetArmy(currentArmyId).UserId == DataManager.Instance.Id;
     }
 
     private void RenderScene()
     {
         this.InitNodes();
-        this.InitHeroes();
+        this.InitUnits();
         //this.InitUnits();
     }
 
@@ -231,25 +221,25 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-    private void InitHeroes()
+    private void InitUnits()
     {
-        this.UpdateCoordinates();
+        //this.UpdateCoordinates();
 
-        var attackerCoords = new Coord(this.bd.AttackerHero.BattleX, this.bd.AttackerHero.BattleY);
-        var defenderCoords = new Coord(this.bd.DefenderHero.BattleX, this.bd.DefenderHero.BattleY);
+        //var attackerCoords = new Coord(this.bd.AttackerArmy.BattleX, this.bd.AttackerArmy.BattleY);
+        //var defenderCoords = new Coord(this.bd.DefenderArmy.BattleX, this.bd.DefenderArmy.BattleY);
 
-        graphView.AddHero(this.bd.AttackerHero, attackerCoords, false);
-        graphView.AddHero(this.bd.DefenderHero, defenderCoords, false);
+        //graphView.AddHero(this.bd.AttackerArmy, attackerCoords, false);
+        //graphView.AddHero(this.bd.DefenderArmy, defenderCoords, false);
     }
 
-    private void UpdateCoordinates()
-    {
-        this.bd.AttackerHero.BattleX = this.bd.AttackerHero.StartX;
-        this.bd.AttackerHero.BattleY = this.bd.AttackerHero.StartY;
+    //private void UpdateCoordinates()
+    //{
+    //    this.bd.AttackerArmy.BattleX = this.bd.AttackerArmy.StartX;
+    //    this.bd.AttackerArmy.BattleY = this.bd.AttackerArmy.StartY;
 
-        this.bd.DefenderHero.BattleX = (graph.graphSizeX - 1) - this.bd.DefenderHero.StartX;
-        this.bd.DefenderHero.BattleY = this.bd.DefenderHero.StartY;
-    }
+    //    this.bd.DefenderArmy.BattleX = (graph.graphSizeX - 1) - this.bd.DefenderArmy.StartX;
+    //    this.bd.DefenderArmy.BattleY = this.bd.DefenderArmy.StartY;
+    //}
 
     IEnumerator UpdateRemainingTurnTime()
     {

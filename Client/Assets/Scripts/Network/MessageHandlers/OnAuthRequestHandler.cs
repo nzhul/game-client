@@ -1,5 +1,7 @@
 ﻿using System;
+using Assets.Scripts.Data;
 using Assets.Scripts.LevelManagement;
+using Assets.Scripts.Network.Services;
 using Assets.Scripts.Network.Shared.NetMessages.Users;
 using Assets.Scripts.UI.Modals.MainMenuModals;
 using UnityEngine;
@@ -20,7 +22,8 @@ namespace Assets.Scripts.Network.MessageHandlers
 
             if (msg.Success == 1)
             {
-                LevelLoader.LoadLevel(LevelLoader.LOBBY_SCENE);
+                RequestManagerHttp.Instance.SetToken(DataManager.Instance.Token);
+                GameManager.Instance.LoadScene(LevelLoader.LOBBY_SCENE, false);
             }
 
             Debug.Log("Client has authenticated to dedicated server!");

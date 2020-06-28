@@ -1,7 +1,4 @@
-﻿
-using System.Linq;
-using Assets.Scripts.Shared.Models;
-/// <summary>
+﻿/// <summary>
 /// This class will hold the information for every player connection:
 /// His connectionId, Token, UserInformation, Loaded Regions and other information.
 /// </summary>
@@ -13,19 +10,15 @@ public class ServerConnection
     public int UserId { get; set; }
 
     /// <summary>
-    /// Unity connection Id
+    /// Unity connection Idl
     /// </summary>
     public int ConnectionId { get; set; }
+
+    public int GameId { get; set; }
 
     public string Username { get; set; }
 
     public int MMR { get; set; }
 
     public string Token { get; set; }
-
-    public int CurrentRealmId { get; set; }
-
-    public UserAvatar Avatar { get; set; }
-
-    public int[] RegionIds => Avatar?.Heroes?.Select(h => h.GameId).ToArray();
 }

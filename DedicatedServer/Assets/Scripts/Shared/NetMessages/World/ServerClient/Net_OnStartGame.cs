@@ -7,7 +7,7 @@ namespace Assets.Scripts.Shared.NetMessages.World.ServerClient
     {
         public Net_OnStartGame()
         {
-            OperationCode = NetOperationCode.StartGameClient;
+            OperationCode = NetOperationCode.OnStartGame;
         }
 
         public int GameId { get; set; }

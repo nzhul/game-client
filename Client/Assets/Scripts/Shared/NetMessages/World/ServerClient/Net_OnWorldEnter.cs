@@ -1,17 +1,17 @@
-﻿using System;
+﻿//using System;
 
-namespace Assets.Scripts.Shared.NetMessages.World.ServerClient
-{
-    [Serializable]
-    public class Net_OnWorldEnter : NetMessage
-    {
-        public Net_OnWorldEnter()
-        {
-            OperationCode = NetOperationCode.OnWorldEnter;
-        }
+//namespace Assets.Scripts.Shared.NetMessages.World.ServerClient
+//{
+//    [Serializable]
+//    public class Net_OnWorldEnter : NetMessage
+//    {
+//        public Net_OnWorldEnter()
+//        {
+//            OperationCode = NetOperationCode.OnWorldEnter;
+//        }
 
-        public byte Success { get; set; }
+//        public byte Success { get; set; }
 
-        public string ErrorMessage { get; set; }
-    }
-}
+//        public string ErrorMessage { get; set; }
+//    }
+//}

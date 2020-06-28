@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Network.Services.HTTP.Interfaces;
+﻿using System.Collections.Generic;
+using Assets.Scripts.Network.Services.HTTP.Interfaces;
 using Assets.Scripts.Shared.Models;
 
 namespace Assets.Scripts.Network.Services.HTTP
@@ -8,6 +9,11 @@ namespace Assets.Scripts.Network.Services.HTTP
         public Game CreateGame(GameParams gameConfig)
         {
             return base.Post<Game>($"games", gameConfig);
+        }
+
+        public Dictionary<CreatureType, UnitConfiguration> GetUnitConfigurations()
+        {
+            return base.Get<Dictionary<CreatureType, UnitConfiguration>>($"unit-configurations");
         }
     }
 }

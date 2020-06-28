@@ -42,26 +42,26 @@ namespace Assets.Scripts.Network.MessageHandlers
             }
         }
 
-        private void RemoveUnusedRegions(ServerConnection connection)
-        {
-            var userRegions = connection.RegionIds;
+        //private void RemoveUnusedRegions(ServerConnection connection)
+        //{
+        //    var userRegions = connection.RegionIds;
 
-            if (userRegions != null && userRegions.Length > 0)
-            {
-                for (int i = 0; i < userRegions.Length; i++)
-                {
-                    int regionId = userRegions[i];
-                    bool anyUsersWithThisRegion = NetworkServer.Instance.Connections.Any(c => c.Value.RegionIds.Any(r => r == regionId));
+        //    if (userRegions != null && userRegions.Length > 0)
+        //    {
+        //        for (int i = 0; i < userRegions.Length; i++)
+        //        {
+        //            int regionId = userRegions[i];
+        //            bool anyUsersWithThisRegion = NetworkServer.Instance.Connections.Any(c => c.Value.RegionIds.Any(r => r == regionId));
 
-                    if (!anyUsersWithThisRegion)
-                    {
-                        Debug.Log($"Region with Id {regionId} unloaded!");
-                        NetworkServer.Instance.Regions.Remove(regionId);
-                        OnRegionUnload?.Invoke(regionId);
-                    }
-                }
-            }
-        }
+        //            if (!anyUsersWithThisRegion)
+        //            {
+        //                Debug.Log($"Region with Id {regionId} unloaded!");
+        //                NetworkServer.Instance.Regions.Remove(regionId);
+        //                OnRegionUnload?.Invoke(regionId);
+        //            }
+        //        }
+        //    }
+        //}
 
         public static void InvokeRegionUnloadEvent(int regionId)
         {

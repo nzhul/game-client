@@ -72,6 +72,11 @@ public static class NetOperationCode
     /// Sends a request for leaving matchmaking pool.
     /// </summary>
     public const int CancelFindOpponentRequest = 10;
+
+    /// <summary>
+    /// Sends a request for disconnecting from the server and going offline.
+    /// </summary>
+    public const int LogoutRequest = 11;
     #endregion
 
 
@@ -89,7 +94,7 @@ public static class NetOperationCode
 
     public const int OnSwitchTurn = 105;
 
-    public const int StartGameClient = 106;
+    public const int OnStartGame = 106;
 
     #endregion
 }

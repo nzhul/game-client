@@ -1,7 +1,6 @@
 ﻿using System;
 using Assets.Scripts.Data;
 using Assets.Scripts.Data.Models;
-using Assets.Scripts.InGame;
 using Assets.Scripts.LevelManagement;
 using Assets.Scripts.Shared.Models;
 using Assets.Scripts.Shared.NetMessages.World.ServerClient;
@@ -33,36 +32,30 @@ namespace Assets.Scripts.Network.MessageHandlers
 
         private BattleData ResolveBattleData(Net_OnStartBattle msg)
         {
-            Hero attackHero = null;
-            Hero defenderHero = null;
-            int currentHeroId = 0;
+            Army attackArmy = null;
+            Army defenderArmy = null;
+            int currentArmyId = 0;
             PlayerType attackerType = PlayerType.Human;
             PlayerType defenderType = PlayerType.AI;
             PlayerType currentPlayerType = PlayerType.Human;
+            attackArmy = DataManager.Instance.ActiveGame.GetArmy(msg.AttackerArmyId);
+            defenderArmy = DataManager.Instance.ActiveGame.GetArmy(msg.DefenderArmyId);
+            currentArmyId = msg.AttackerArmyId;
 
             if (msg.BattleScenario == BattleScenario.HUvsAI)
             {
-                attackHero = HeroesManager.Instance.Heroes[msg.AttackerId].rawUnit as Hero;
-                defenderHero = HeroesManager.Instance.NPCs[msg.DefenderId].npc;
-                currentHeroId = msg.AttackerId;
                 currentPlayerType = PlayerType.Human;
                 attackerType = PlayerType.Human;
                 defenderType = PlayerType.AI;
             }
             else if (msg.BattleScenario == BattleScenario.AIvsAI)
             {
-                attackHero = HeroesManager.Instance.Heroes[msg.AttackerId].rawUnit as Hero;
-                defenderHero = HeroesManager.Instance.NPCs[msg.DefenderId].npc;
-                currentHeroId = msg.AttackerId;
                 currentPlayerType = PlayerType.AI;
                 attackerType = PlayerType.AI;
                 defenderType = PlayerType.AI;
             }
             else if (msg.BattleScenario == BattleScenario.HUvsHU)
             {
-                attackHero = HeroesManager.Instance.Heroes[msg.AttackerId].rawUnit as Hero;
-                defenderHero = HeroesManager.Instance.Heroes[msg.DefenderId].rawUnit as Hero;
-                currentHeroId = msg.AttackerId;
                 currentPlayerType = PlayerType.Human;
                 attackerType = PlayerType.Human;
                 defenderType = PlayerType.Human;
@@ -78,28 +71,28 @@ namespace Assets.Scripts.Network.MessageHandlers
             bd.BattleScenario = msg.BattleScenario;
             bd.AttackerType = attackerType;
             bd.DefenderType = defenderType;
-            bd.AttackerHero = attackHero;
-            bd.DefenderHero = defenderHero;
-            bd.AttackerId = msg.AttackerId;
-            bd.DefenderId = msg.DefenderId;
-            bd.CurrentHeroId = currentHeroId;
-            bd.SelectedUnit = HeroesManager.Instance.GetUnitById(currentHeroId, msg.SelectedUnitId, currentPlayerType);
+            bd.AttackerArmy = attackArmy;
+            bd.DefenderArmy = defenderArmy;
+            bd.AttackerArmyId = msg.AttackerArmyId;
+            bd.DefenderArmyId = msg.DefenderArmyId;
+            bd.CurrentArmyId = currentArmyId;
+            bd.SelectedUnit = DataManager.Instance.ActiveGame.GetUnit(msg.SelectedUnitId);
             bd.BattleId = msg.BattleId;
             bd.Turn = Turn.Attacker;
             bd.RemainingTimeForThisTurn = BattleManager.TURN_DURATION;
             bd.ActionsEnabled = true;
-            this.UpdateUnitsData(bd.AttackerHero);
-            this.UpdateUnitsData(bd.DefenderHero);
+            this.UpdateUnitsData(bd.AttackerArmy);
+            this.UpdateUnitsData(bd.DefenderArmy);
 
             return bd;
         }
 
-        private void UpdateUnitsData(Hero hero)
+        private void UpdateUnitsData(Army hero)
         {
             //TODO apply upgrades before the battle!
             foreach (var unit in hero.Units)
             {
-                var config = DataManager.Instance.UnitConfigurations[unit.CreatureType];
+                var config = DataManager.Instance.UnitConfigurations[unit.Type];
                 unit.MovementPoints = config.MovementPoints;
                 unit.MaxMovementPoints = unit.MovementPoints;
                 unit.ActionPoints = config.ActionPoints;

@@ -55,13 +55,13 @@ public class BattleUIManager : MonoBehaviour
     private void OnStartBattle()
     {
         var bd = DataManager.Instance.BattleData;
-        var attackerName = bd.AttackerHero.Class.ToString();
-        var defenderName = bd.DefenderHero.Class.ToString();
+        var attackerName = bd.AttackerArmy.Username.ToString();
+        var defenderName = bd.DefenderArmy.Username.ToString();
 
         this.attacker.text = attackerName;
         this.defender.text = defenderName;
         this.timeLeft.text = bd.RemainingTimeForThisTurn.ToString();
-        this.log.text = $"{Time.time}: Starting Battle between {attackerName}({bd.AttackerId}) and {defenderName}({bd.DefenderId})";
+        this.log.text = $"{Time.time}: Starting Battle between {attackerName}({bd.AttackerArmyId}) and {defenderName}({bd.DefenderArmyId})";
     }
 
     private void OnSwitchTurn(Net_SwitchTurnEvent @event)

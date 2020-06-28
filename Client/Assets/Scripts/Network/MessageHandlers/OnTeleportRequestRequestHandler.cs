@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Linq;
 using Assets.Scripts.Data;
 using Assets.Scripts.InGame;
-using Assets.Scripts.LevelManagement;
+using Assets.Scripts.InGame.Map.Entities;
+using Assets.Scripts.Shared.Models;
 using Assets.Scripts.Shared.NetMessages.World.ServerClient;
 using UnityEngine;
 
@@ -19,48 +19,34 @@ namespace Assets.Scripts.Network.MessageHandlers
             OnTeleport?.Invoke(msg);
 
             TeleportScenario scenario = ResolveScenarioType(msg);
-            HeroView hero = null;
+            AliveEntityView entity = null;
 
-            if (scenario != TeleportScenario.EnemyIn)
+
+            if (AliveEntitiesManager.Instance.Entities != null && AliveEntitiesManager.Instance.Entities.Count > 0)
             {
-                if (HeroesManager.Instance.Heroes != null && HeroesManager.Instance.Heroes.Count > 0)
+                entity = AliveEntitiesManager.Instance.Entities[msg.ArmyId];
+                if (entity == null || entity.isMoving)
                 {
-                    hero = HeroesManager.Instance.Heroes[msg.HeroId];
-                    if (hero == null || hero.isMoving)
-                    {
-                        Debug.LogWarning("Cannot find hero to teleport!");
-                        return;
-                    }
-                }
-                else
-                {
-                    Debug.LogWarning("Heroes collection is null or empty!");
+                    Debug.LogWarning("Cannot find hero to teleport!");
                     return;
                 }
             }
+            else
+            {
+                Debug.LogWarning("Heroes collection is null or empty!");
+                return;
+            }
+
 
             switch (scenario)
             {
                 case TeleportScenario.Unknown:
                     break;
                 case TeleportScenario.PlayerBlink:
-                    this.HandleBlink(hero, msg);
+                    this.HandleBlink(entity, msg);
                     break;
                 case TeleportScenario.EnemyBlink:
-                    this.HandleBlink(hero, msg);
-                    break;
-                case TeleportScenario.PlayerOut:
-                    this.HandlePlayerOut(hero, msg);
-                    break;
-                case TeleportScenario.EnemyOut:
-                    this.HandleEnemyOut(hero, msg);
-                    break;
-                case TeleportScenario.PlayerIn:
-                    break;
-                case TeleportScenario.EnemyIn:
-                    this.HandleEnemyIn(msg);
-                    break;
-                default:
+                    this.HandleBlink(entity, msg);
                     break;
             }
 
@@ -73,60 +59,42 @@ namespace Assets.Scripts.Network.MessageHandlers
             // 6. Enemy TELEPORT IN -> Hero is enemy hero so we need to spawn it on our map!
         }
 
-        private void HandleEnemyIn(Net_OnTeleport msg)
-        {
-            MapManager.Instance.LoadHero(msg.HeroId, msg.Destination);
-        }
+        //private void HandleEnemyIn(Net_OnTeleport msg)
+        //{
+        //    MapManager.Instance.LoadHero(msg.HeroId, msg.Destination);
+        //}
 
-        private void HandleEnemyOut(HeroView hero, Net_OnTeleport msg)
-        {
-            hero.TeleportOut();
-        }
+        //private void HandleEnemyOut(ArmyView hero, Net_OnTeleport msg)
+        //{
+        //    hero.TeleportOut();
+        //}
 
-        private void HandlePlayerOut(HeroView hero, Net_OnTeleport msg)
-        {
-            // TODO: play particle effect and delay 1-2 seconds before switching scenes
-            DataManager.Instance.ActiveRegionId = msg.RegionId;
-            DataManager.Instance.Avatar.Heroes.FirstOrDefault(h => h.Id == hero.rawUnit.Id).GameId = msg.RegionId;
-            DataManager.Instance.Save();
-            LevelLoader.LoadLevel(LevelLoader.WORLD_SCENE);
-        }
+        //private void HandlePlayerOut(ArmyView hero, Net_OnTeleport msg)
+        //{
+        //    // TODO: play particle effect and delay 1-2 seconds before switching scenes
+        //    DataManager.Instance.ActiveGameId = msg.GameId;
+        //    //DataManager.Instance.Avatar.Heroes.FirstOrDefault(h => h.Id == hero.rawUnit.Id).GameId = msg.RegionId;
+        //    DataManager.Instance.Save();
+        //    LevelLoader.LoadLevel(LevelLoader.GAME_SCENE);
+        //}
 
-        private void HandleBlink(HeroView hero, Net_OnTeleport msg)
+        private void HandleBlink(AliveEntityView entity, Net_OnTeleport msg)
         {
-            hero.Blink(msg.Destination);
+            entity.Blink(msg.Destination);
         }
 
         private TeleportScenario ResolveScenarioType(Net_OnTeleport msg)
         {
-            if (DataManager.Instance.ActiveRegionId == msg.RegionId && DataManager.Instance.ActiveHeroId == msg.HeroId)
+            var teleportingArmy = DataManager.Instance.ActiveGame.GetArmy(msg.ArmyId);
+
+            if (teleportingArmy.Team == DataManager.Instance.Avatar.Team)
             {
                 return TeleportScenario.PlayerBlink;
             }
-
-            if (DataManager.Instance.ActiveRegionId != msg.RegionId && DataManager.Instance.Avatar.Heroes.Any(h => h.Id == msg.HeroId))
+            else
             {
-                return TeleportScenario.PlayerOut;
+                return TeleportScenario.EnemyBlink;
             }
-
-            if (DataManager.Instance.ActiveRegionId == msg.RegionId && !DataManager.Instance.Avatar.Heroes.Any(h => h.Id == msg.HeroId))
-            {
-                if (HeroesManager.Instance.Heroes.ContainsKey(msg.HeroId))
-                {
-                    return TeleportScenario.EnemyBlink;
-                }
-                else
-                {
-                    return TeleportScenario.EnemyIn;
-                }
-            }
-
-            if (DataManager.Instance.ActiveRegionId != msg.RegionId && !DataManager.Instance.Avatar.Heroes.Any(h => h.Id == msg.HeroId))
-            {
-                return TeleportScenario.EnemyOut;
-            }
-
-            return TeleportScenario.Unknown;
         }
     }
 
@@ -134,10 +102,6 @@ namespace Assets.Scripts.Network.MessageHandlers
     {
         Unknown,
         PlayerBlink,
-        EnemyBlink,
-        PlayerOut,
-        EnemyOut,
-        PlayerIn,
-        EnemyIn
+        EnemyBlink
     }
 }

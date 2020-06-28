@@ -83,7 +83,7 @@ namespace Assets.Scripts.InGame.Console
             CommandExit.CreateCommand();
             CommandShow.CreateCommand();
             CommandClear.CreateCommand();
-            CommandExplore.CreateCommand();
+            //CommandExplore.CreateCommand();
         }
 
         private void Update()

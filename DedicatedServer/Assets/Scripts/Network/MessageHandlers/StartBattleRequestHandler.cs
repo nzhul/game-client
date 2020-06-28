@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Linq;
+using Assets.Scripts.Games;
 using Assets.Scripts.Shared.Models;
+using Assets.Scripts.Shared.Models.Units;
 using Assets.Scripts.Shared.NetMessages.World.ClientServer;
 using Assets.Scripts.Shared.NetMessages.World.ServerClient;
 using UnityEngine;
@@ -14,13 +17,14 @@ namespace Assets.Scripts.Network.MessageHandlers
         {
             Net_StartBattleRequest msg = (Net_StartBattleRequest)input;
             Net_OnStartBattle rmsg = new Net_OnStartBattle();
+            var game = GameManager.Instance.GetGameByConnectionId(connectionId);
 
             if (msg.IsValid())
             {
                 BattleScenario scenario = this.ResolveBattleScenario(msg.AttackerType, msg.DefenderType);
                 rmsg.Success = 1;
-                rmsg.AttackerId = msg.AttackerId;
-                rmsg.DefenderId = msg.DefenderId;
+                rmsg.AttackerArmyId = msg.AttackerArmyId;
+                rmsg.DefenderArmyId = msg.DefenderArmyId;
                 rmsg.BattleScenario = scenario;
 
                 // 1. Add new record into NetworkServer.Instance.ActiveBattles
@@ -29,28 +33,29 @@ namespace Assets.Scripts.Network.MessageHandlers
                 Battle newBattle = new Battle()
                 {
                     Id = Guid.NewGuid(),
-                    AttackerId = msg.AttackerId,
-                    DefenderId = msg.DefenderId,
-                    AttackerHero = NetworkServer.Instance.GetHeroById(msg.AttackerId),
-                    DefenderHero = NetworkServer.Instance.GetHeroById(msg.DefenderId),
-                    CurrentHeroId = msg.AttackerId,
+                    GameId = game.Id,
+                    AttackerArmyId = msg.AttackerArmyId,
+                    DefenderArmyId = msg.DefenderArmyId,
+                    AttackerArmy = game.Armies.FirstOrDefault(x => x.Id == msg.AttackerArmyId),
+                    DefenderArmy = game.Armies.FirstOrDefault(x => x.Id == msg.DefenderArmyId),
                     AttackerType = msg.AttackerType,
                     DefenderType = msg.DefenderType,
                     BattleScenario = scenario,
                     LastTurnStartTime = Time.time
                 };
 
-                newBattle.SelectedUnit = NetworkServer.Instance.GetRandomUnit(newBattle.CurrentHeroId);
+                newBattle.SelectedUnit = this.GetRandomUnit(game, msg.AttackerArmyId);
+                newBattle.CurrentUnitId = newBattle.SelectedUnit.Id;
 
-                this.UpdateUnitsData(newBattle.AttackerHero);
-                this.UpdateUnitsData(newBattle.DefenderHero);
+                this.UpdateUnitsData(newBattle.AttackerArmy);
+                this.UpdateUnitsData(newBattle.DefenderArmy);
 
                 rmsg.BattleId = newBattle.Id;
                 rmsg.SelectedUnitId = newBattle.SelectedUnit.Id;
 
                 this.ConfigurePlayerReady(newBattle, scenario);
-                newBattle.AttackerConnectionId = NetworkServer.Instance.GetConnectionIdByHeroId(newBattle.AttackerId);
-                newBattle.DefenderConnectionId = NetworkServer.Instance.GetConnectionIdByHeroId(newBattle.DefenderId);
+                newBattle.AttackerConnectionId = GameManager.Instance.GetConnectionIdByArmyId(game.Id, newBattle.AttackerArmyId);
+                newBattle.DefenderConnectionId = GameManager.Instance.GetConnectionIdByArmyId(game.Id, newBattle.DefenderArmyId);
 
                 NetworkServer.Instance.ActiveBattles.Add(newBattle);
                 NetworkServer.Instance.SendClient(recievingHostId, connectionId, rmsg);
@@ -58,12 +63,18 @@ namespace Assets.Scripts.Network.MessageHandlers
             }
         }
 
-        private void UpdateUnitsData(Hero hero)
+        private Unit GetRandomUnit(Game game, int armyId)
+        {
+            var army = game.Armies.FirstOrDefault(x => x.Id == armyId);
+            return army.Units[UnityEngine.Random.Range(0, army.Units.Count - 1)];
+        }
+
+        private void UpdateUnitsData(Army Army)
         {
             //TODO apply upgrades before the battle!
-            foreach (var unit in hero.Units)
+            foreach (var unit in Army.Units)
             {
-                var config = NetworkServer.Instance.UnitConfigurations[unit.CreatureType];
+                var config = NetworkServer.Instance.UnitConfigurations[unit.Type];
                 unit.MovementPoints = config.MovementPoints;
                 unit.MaxMovementPoints = unit.MovementPoints;
                 unit.ActionPoints = config.ActionPoints;

@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Assets.Scripts.Games;
 using Assets.Scripts.Shared.Models;
 using Assets.Scripts.Shared.NetMessages.World.ClientServer;
 using Assets.Scripts.Shared.NetMessages.World.ServerClient;
@@ -17,23 +18,24 @@ namespace Assets.Scripts.Network.MessageHandlers
             if (IsNewPositionValid(msg))
             {
                 rmsg.Success = 1;
-                rmsg.HeroId = msg.HeroId;
+                rmsg.ArmyId = msg.ArmyId;
                 rmsg.Destination = new Coord
                 {
                     X = msg.Destination.X,
                     Y = msg.Destination.Y
                 };
 
-                var movingHero = NetworkServer.Instance.Connections[connectionId]?.Avatar?.Heroes?.FirstOrDefault(h => h.Id == msg.HeroId);
+                var gameId = GameManager.Instance.GetGameIdByConnectionId(connectionId);
+                var movingArmy = GameManager.Instance.GetArmy(gameId, msg.ArmyId);
 
                 // 2. Notify the interested clients ( must exclude the requester )
-                base.NotifyClientsInRegion(movingHero.GameId, recievingHostId, rmsg);
+                base.NotifyClientsInGame(gameId, recievingHostId, rmsg);
 
-                // 3. Update hero position here in the dedicated server cache.
-                base.UpdateCache(movingHero, msg.Destination, movingHero.GameId);
+                // 3. Update army position here in the dedicated server cache.
+                base.UpdateCache(movingArmy, msg.Destination, movingArmy.GameId);
 
                 // 5. Update the database.
-                base.UpdateDatabase(connectionId, msg.HeroId, msg.Destination, movingHero.GameId);
+                base.UpdateDatabase(connectionId, msg.ArmyId, msg.Destination, movingArmy.GameId);
 
                 // Note: Both UpdateCached and UpdateDatabase is happening after client notification.
                 // That is done on purpose so we do not slow down the response to the client after we know that the request is valid.

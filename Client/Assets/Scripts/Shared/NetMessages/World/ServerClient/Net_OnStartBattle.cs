@@ -13,9 +13,9 @@ namespace Assets.Scripts.Shared.NetMessages.World.ServerClient
 
         public Guid BattleId { get; set; }
 
-        public int AttackerId { get; set; }
+        public int AttackerArmyId { get; set; }
 
-        public int DefenderId { get; set; }
+        public int DefenderArmyId { get; set; }
 
         public int SelectedUnitId { get; set; }
 

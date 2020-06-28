@@ -26,7 +26,7 @@ namespace Assets.Scripts.Shared.Models
     {
         public int UserId { get; set; }
 
-        public HeroClass StartingClass { get; set; }
+        public CreatureType StartingClass { get; set; }
 
         public Team Team { get; set; }
     }

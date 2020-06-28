@@ -18,7 +18,7 @@ public class StatusManager : MonoBehaviour
     {
         var avatar = DataManager.Instance.Avatar;
         this.Account.text = string.Format(this.accountTemplate, DataManager.Instance.Username);
-        this.Hero.text = string.Format(this.heroTemplate, avatar.Heroes.FirstOrDefault(h => h.Id == DataManager.Instance.ActiveHeroId).Class.ToString());
+        //this.Hero.text = string.Format(this.heroTemplate, avatar.Heroes.FirstOrDefault(h => h.Id == DataManager.Instance.ActiveHeroId).Class.ToString());
         this.Resources.text = string.Format(this.resourcesTemplate, avatar.Wood, avatar.Ore, avatar.Gold, avatar.Gems);
     }
 }

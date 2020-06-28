@@ -139,51 +139,51 @@ public class GraphView : MonoBehaviour
         return parent;
     }
 
-    public void AddHeroes(IList<Hero> heroes)
+    public void AddArmies(IList<Army> armies)
     {
-        foreach (var hero in heroes)
+        foreach (var army in armies)
         {
-            if (hero.IsNPC)
+            if (army.IsNPC)
             {
                 continue;
             }
 
-            this.AddHero(hero, new Coord(hero.X, hero.Y), false);
+            this.AddArmy(army, new Coord(army.X, army.Y), false);
         }
     }
 
-    public void AddHero(Hero hero, Coord spawnCoordinates, bool playSpawnEffect)
+    public void AddArmy(Army army, Coord spawnCoordinates, bool playSpawnEffect)
     {
-        var heroView = InitHero(hero, spawnCoordinates, playSpawnEffect);
+        var armyView = InitArmy(army, spawnCoordinates, playSpawnEffect);
 
-        if (HeroesManager.Instance.Heroes.ContainsKey(hero.Id))
+        if (AliveEntitiesManager.Instance.Entities.ContainsKey(army.Id))
         {
             // 1. If the heroView exist - we override
-            HeroesManager.Instance.Heroes[hero.Id] = heroView;
+            AliveEntitiesManager.Instance.Entities[army.Id] = armyView;
         }
         else
         {
             // 2. Else - create new
-            HeroesManager.Instance.Heroes.Add(hero.Id, heroView);
+            AliveEntitiesManager.Instance.Entities.Add(army.Id, armyView);
         }
     }
 
-    public HeroView InitHero(Hero hero, Coord spawnCoordinates, bool playSpawnEffect)
+    public ArmyView InitArmy(Army army, Coord spawnCoordinates, bool playSpawnEffect)
     {
         //Vector3 worldPosition = MapManager.Instance.GetNodeWorldPosition(spawnCoordinates.X, spawnCoordinates.Y);
         Vector3 worldPosition = this.graph.GetNodeWorldPosition(spawnCoordinates.X, spawnCoordinates.Y);
         Vector3 placementPosition = new Vector3(worldPosition.x, heroViewPrefab.transform.position.y, worldPosition.z);
         GameObject instance = Instantiate(heroViewPrefab, placementPosition, Quaternion.identity);
-        HeroView heroView = instance.GetComponent<HeroView>();
+        ArmyView heroView = instance.GetComponent<ArmyView>();
 
         if (playSpawnEffect)
         {
-            heroView.PlayTeleportEffect(HeroView.TeleportType.In);
+            heroView.PlayTeleportEffect(ArmyView.TeleportType.In);
         }
 
         if (heroView != null)
         {
-            heroView.Init(hero, spawnCoordinates, worldPosition);
+            heroView.Init(army, spawnCoordinates, worldPosition);
         }
 
         this.AddContentToNode(spawnCoordinates, heroView);
@@ -191,17 +191,17 @@ public class GraphView : MonoBehaviour
         return heroView;
     }
 
-    public NPCView AddNPC(Hero npc)
-    {
-        var npcView = InitNPC(npc);
-        HeroesManager.Instance.NPCs.Add(npc.Id, npcView);
+    //public NPCView AddNPC(Army npc)
+    //{
+    //    var npcView = InitNPC(npc);
+    //    HeroesManager.Instance.NPCs.Add(npc.Id, npcView);
 
-        return npcView;
-    }
+    //    return npcView;
+    //}
 
     public void AddContentToNode(Coord coord, NodeContent content)
     {
-        NodeView nodeView = nodeViews[coord.X, coord.Y]; // x = cols; y = rows
+        NodeView nodeView = nodeViews[coord.Y, coord.X]; // x = cols; y = rows
 
         if (nodeView != null)
         {
@@ -210,52 +210,52 @@ public class GraphView : MonoBehaviour
         }
     }
 
-    private NPCView InitNPC(Hero monster)
-    {
-        //Vector3 worldPosition = MapManager.Instance.GetNodeWorldPosition(monster.X, monster.Y);
-        Vector3 worldPosition = this.graph.GetNodeWorldPosition(monster.X, monster.Y);
-        Vector3 placementPosition = new Vector3(worldPosition.x, monsterViewPrefab.transform.position.y, worldPosition.z);
-        GameObject instance = Instantiate(monsterViewPrefab, placementPosition, Quaternion.identity);
-        NPCView monsterView = instance.GetComponent<NPCView>();
+    //private NPCView InitNPC(Army army)
+    //{
+    //    //Vector3 worldPosition = MapManager.Instance.GetNodeWorldPosition(monster.X, monster.Y);
+    //    Vector3 worldPosition = this.graph.GetNodeWorldPosition(army.X, army.Y);
+    //    Vector3 placementPosition = new Vector3(worldPosition.x, monsterViewPrefab.transform.position.y, worldPosition.z);
+    //    GameObject instance = Instantiate(monsterViewPrefab, placementPosition, Quaternion.identity);
+    //    NPCView monsterView = instance.GetComponent<NPCView>();
 
-        if (monsterView != null)
-        {
-            monsterView.Init(monster, worldPosition);
-        }
+    //    if (monsterView != null)
+    //    {
+    //        monsterView.Init(army, worldPosition);
+    //    }
 
-        return monsterView;
-    }
+    //    return monsterView;
+    //}
 
-    public void AddNPCs(IList<Hero> npcHeroes)
-    {
-        foreach (Hero npcHero in npcHeroes)
-        {
-            if (!npcHero.IsNPC)
-            {
-                continue;
-            }
+    //public void AddNPCArmies(IList<Army> npcArmies)
+    //{
+    //    foreach (Army npcArmy in npcArmies)
+    //    {
+    //        if (!npcArmy.IsNPC)
+    //        {
+    //            continue;
+    //        }
 
-            NPCView newNpc = this.AddNPC(npcHero);
+    //        NPCView newNpc = this.AddNPC(npcArmy);
 
-            this.AddContentToNode(new Coord(npcHero.X, npcHero.Y), newNpc);
+    //        this.AddContentToNode(new Coord(npcArmy.X, npcArmy.Y), newNpc);
 
-            //NodeView nodeView = nodeViews[npcHero.X, npcHero.Y]; // x = cols; y = rows
+    //        //NodeView nodeView = nodeViews[npcHero.X, npcHero.Y]; // x = cols; y = rows
 
-            //if (nodeView != null)
-            //{
-            //    newNpc.transform.SetParent(nodeView.transform);
-            //    nodeView.Content = newNpc;
+    //        //if (nodeView != null)
+    //        //{
+    //        //    newNpc.transform.SetParent(nodeView.transform);
+    //        //    nodeView.Content = newNpc;
 
-            //    // GameObject instance = Instantiate(monsterViewPrefab, nodeView.node.worldPosition, Quaternion.identity);
-            //    // instance.transform.SetParent(nodeView.transform);
-            //    // MonsterView monsterView = instance.GetComponent<MonsterView>();
+    //        //    // GameObject instance = Instantiate(monsterViewPrefab, nodeView.node.worldPosition, Quaternion.identity);
+    //        //    // instance.transform.SetParent(nodeView.transform);
+    //        //    // MonsterView monsterView = instance.GetComponent<MonsterView>();
 
-            //    // if(monsterView != null)
-            //    // monsterView.Init()
-            //    // monsterViewsList.Add(monsterView);
+    //        //    // if(monsterView != null)
+    //        //    // monsterView.Init()
+    //        //    // monsterViewsList.Add(monsterView);
 
-            //    // nodeView.slot = MonsterView -> MonsterView : SlotView
-            //}
-        }
-    }
+    //        //    // nodeView.slot = MonsterView -> MonsterView : SlotView
+    //        //}
+    //    }
+    //}
 }

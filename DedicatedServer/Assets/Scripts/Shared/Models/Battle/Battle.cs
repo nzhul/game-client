@@ -16,23 +16,25 @@ namespace Assets.Scripts.Shared.Models
 
         public Guid Id { get; set; }
 
-        public int AttackerId { get; set; }
+        public int GameId { get; set; }
+
+        public int AttackerArmyId { get; set; }
 
         public int AttackerConnectionId { get; set; }
 
-        public Hero AttackerHero { get; set; }
+        public Army AttackerArmy { get; set; }
 
         public DateTime AttackerLastActivity { get; set; }
 
-        public int DefenderId { get; set; }
+        public int DefenderArmyId { get; set; }
 
         public int DefenderConnectionId { get; set; }
 
-        public Hero DefenderHero { get; set; }
+        public Army DefenderArmy { get; set; }
 
         public DateTime DefenderLastActivity { get; set; }
 
-        public int CurrentHeroId { get; set; }
+        public int CurrentUnitId { get; set; }
 
         public Unit SelectedUnit { get; set; }
 
@@ -60,11 +62,11 @@ namespace Assets.Scripts.Shared.Models
 
         public void UpdateLastActivity(int heroId)
         {
-            if (this.AttackerId == heroId)
+            if (this.AttackerArmyId == heroId)
             {
                 this.AttackerLastActivity = DateTime.UtcNow;
             }
-            else if (this.DefenderId == heroId)
+            else if (this.DefenderArmyId == heroId)
             {
                 this.DefenderLastActivity = DateTime.UtcNow;
             }

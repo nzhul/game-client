@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.Games;
 using Assets.Scripts.Network.Services;
 using Assets.Scripts.Network.Shared.NetMessages.World.ClientServer;
 using Assets.Scripts.Shared.Models;
@@ -30,7 +31,9 @@ namespace Assets.Scripts.Network.MessageHandlers
 
         public int ConnectionId { get; set; }
 
-        public Hero MovingHero { get; set; }
+        public Game Game { get; set; }
+
+        public Army MovingArmy { get; set; }
 
         public int RecievingHostId { get; set; }
 
@@ -41,23 +44,17 @@ namespace Assets.Scripts.Network.MessageHandlers
             this.Rmsg = new Net_OnTeleport();
             this.RecievingHostId = recievingHostId;
             this.ConnectionId = connectionId;
-            this.MovingHero = NetworkServer.Instance.Connections[connectionId]?.Avatar?.Heroes?.FirstOrDefault(h => h.Id == msg.HeroId);
+            this.Game = GameManager.Instance.GetGameByConnectionId(connectionId);
+            this.MovingArmy = this.Game.Armies.FirstOrDefault(x => x.Id == msg.ArmyId);
 
             if (IsDestinationValid(msg))
             {
                 Rmsg.Success = 1;
-                Rmsg.HeroId = msg.HeroId;
-                Rmsg.RegionId = msg.RegionId;
+                Rmsg.ArmyId = msg.ArmyId;
+                Rmsg.GameId = msg.GameId;
                 Rmsg.DwellingId = msg.DwellingId;
 
-                if (!NetworkServer.Instance.Regions.ContainsKey(msg.RegionId))
-                {
-                    LoadAndReply();
-                }
-                else
-                {
-                    Reply();
-                }
+                Reply();
             }
             else
             {
@@ -70,84 +67,27 @@ namespace Assets.Scripts.Network.MessageHandlers
         private void Reply()
         {
             this.Rmsg.Destination = this.CalculateDestination();
-            //NetworkServer.Instance.SendClient(this.RecievingHostId, this.ConnectionId, this.Rmsg);
 
-            int oldRegionId = this.MovingHero.GameId;
-            int newRegionId = this.Rmsg.RegionId;
-
-            base.UpdateCache(this.MovingHero, this.Rmsg.Destination, this.Rmsg.RegionId);
-            base.NotifyClientsInRegion(newRegionId, this.RecievingHostId, this.Rmsg);
-            base.NotifyClientsInRegion(oldRegionId, this.RecievingHostId, this.Rmsg);
-            this.UpdateDatabase(this.ConnectionId, this.MovingHero.Id, this.Rmsg.Destination, this.Rmsg.RegionId);
+            base.UpdateCache(this.MovingArmy, this.Rmsg.Destination, this.Rmsg.GameId);
+            base.NotifyClientsInGame(this.Game.Id, this.RecievingHostId, this.Rmsg);
+            this.UpdateDatabase(this.ConnectionId, this.MovingArmy.Id, this.Rmsg.Destination, this.Rmsg.GameId);
 
             // TODO: DO the same stuff as in MapMovementRequestHandler: UpdateCache, Database, NotifyAllInterestedClients.
             // Consider extracting this common logic into class or something...
         }
 
-
-        /// <summary>
-        /// Teleport destination must be the first available node next to the dwelling 
-        /// </summary>
-        /// <param name="msg"></param>
-        /// <returns></returns>
-        private void LoadAndReply()
-        {
-
-            // Ajax call to load the region.
-            ServerConnection connection = NetworkServer.Instance.Connections[this.ConnectionId];
-            int[] regionsForLoading = new int[] { this.Rmsg.RegionId };
-
-            string endpoint = "realms/{0}/regions";
-            string[] @params = new string[] { connection.CurrentRealmId.ToString() };
-            var queryParams = new List<KeyValuePair<string, string>>();
-
-            for (int i = 0; i < regionsForLoading.Length; i++)
-            {
-                queryParams.Add(new KeyValuePair<string, string>("regionIds", regionsForLoading[i].ToString()));
-            }
-
-            RequestManager.Instance.Get(endpoint, @params, queryParams, connection.Token, OnGetGetRegionsRequestFinished);
-        }
-
-        private void OnGetGetRegionsRequestFinished(HTTPRequest request, HTTPResponse response)
-        {
-            if (NetworkCommon.RequestIsSuccessful(request, response, out string errorMessage))
-            {
-                string json = response.DataAsText;
-                IList<Game> regions = JsonConvert.DeserializeObject<IList<Game>>(json);
-
-                if (regions != null && regions.Count >= 1)
-                {
-                    foreach (var region in regions)
-                    {
-                        if (!NetworkServer.Instance.Regions.ContainsKey(region.Id))
-                        {
-                            NetworkServer.Instance.Regions.Add(region.Id, region);
-                        }
-                    }
-                }
-
-                this.Reply();
-            }
-            else
-            {
-                Debug.LogWarning("Error fetching teleport destination region from the API!");
-            }
-        }
-
         private Coord CalculateDestination()
         {
-            var targetRegion = NetworkServer.Instance.Regions[this.Rmsg.RegionId];
-            var targetDwelling = targetRegion.Dwellings.FirstOrDefault(d => d.Id == this.Rmsg.DwellingId);
+            var targetDwelling = this.Game.Dwellings.FirstOrDefault(d => d.Id == this.Rmsg.DwellingId);
 
-            Coord freeNode = this.FindFreeNode(targetRegion, new Coord { X = targetDwelling.X, Y = targetDwelling.Y });
+            Coord freeNode = this.FindFreeNode(this.Game, new Coord { X = targetDwelling.X, Y = targetDwelling.Y });
 
             return freeNode;
         }
 
-        private Coord FindFreeNode(Game region, Coord dwellingPosition)
+        private Coord FindFreeNode(Game game, Coord dwellingPosition)
         {
-            int[,] matrix = region.Matrix;
+            int[,] matrix = game.Matrix;
             int searchRadius = 1;
             int searchLineLenght = 3;
 
@@ -181,7 +121,7 @@ namespace Assets.Scripts.Network.MessageHandlers
 
                     if (IsInsideGameBoard(checkPosition, matrix) && matrix[checkPosition.X, checkPosition.Y] == 0)
                     {
-                        if (!HeroIsOnThisPosition(region.Heroes, checkPosition))
+                        if (!ArmyIsOnThisPosition(game.Armies, checkPosition))
                         {
                             return checkPosition;
                         }
@@ -196,7 +136,7 @@ namespace Assets.Scripts.Network.MessageHandlers
                     checkPosition.Y++;
                     if (IsInsideGameBoard(checkPosition, matrix) && matrix[checkPosition.X, checkPosition.Y] == 0)
                     {
-                        if (!HeroIsOnThisPosition(region.Heroes, checkPosition))
+                        if (!ArmyIsOnThisPosition(game.Armies, checkPosition))
                         {
                             return checkPosition;
                         }
@@ -209,7 +149,7 @@ namespace Assets.Scripts.Network.MessageHandlers
                     checkPosition.X++;
                     if (IsInsideGameBoard(checkPosition, matrix) && matrix[checkPosition.X, checkPosition.Y] == 0)
                     {
-                        if (!HeroIsOnThisPosition(region.Heroes, checkPosition))
+                        if (!ArmyIsOnThisPosition(game.Armies, checkPosition))
                         {
                             return checkPosition;
                         }
@@ -222,7 +162,7 @@ namespace Assets.Scripts.Network.MessageHandlers
                     checkPosition.Y--;
                     if (IsInsideGameBoard(checkPosition, matrix) && matrix[checkPosition.X, checkPosition.Y] == 0)
                     {
-                        if (!HeroIsOnThisPosition(region.Heroes, checkPosition))
+                        if (!ArmyIsOnThisPosition(game.Armies, checkPosition))
                         {
                             return checkPosition;
                         }
@@ -243,7 +183,7 @@ namespace Assets.Scripts.Network.MessageHandlers
                         (checkPosition.Y >= 0 && checkPosition.Y <= matrix.GetLength(1));
         }
 
-        private bool HeroIsOnThisPosition(IList<Hero> heroesInRegion, Coord checkPosition)
+        private bool ArmyIsOnThisPosition(IList<Army> heroesInRegion, Coord checkPosition)
         {
             return heroesInRegion.Any(h => h.X == checkPosition.X && h.Y == checkPosition.Y);
         }

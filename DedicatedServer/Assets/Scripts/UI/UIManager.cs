@@ -42,7 +42,7 @@ public class UIManager : MonoBehaviour
 
         AuthRequestHandler.OnAuth += OnAuth;
         DisconnectEventHandler.OnDisconnect += OnDisconnect;
-        InnerWERHandler.OnRegionLoaded += OnRegionLoaded;
+        //InnerWERHandler.OnRegionLoaded += OnRegionLoaded;
         DisconnectEventHandler.OnRegionUnload += OnRegionUnload;
         StartBattleRequestHandler.OnBattleStarted += OnBattleStarted;
     }
@@ -60,7 +60,7 @@ public class UIManager : MonoBehaviour
     private void OnBattleStarted(Battle battle)
     {
         Button btn = Instantiate<Button>(activeEntityBtn, activeBattlesContainer.transform);
-        btn.name = battle.AttackerId + "_" + battle.DefenderId;
+        btn.name = battle.AttackerArmyId + "_" + battle.DefenderArmyId;
 
         var btnText = btn.GetComponentInChildren<Text>();
         btnText.text = btn.name;
@@ -77,18 +77,18 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    private void OnRegionLoaded(Game region)
-    {
-        Button btn = Instantiate<Button>(activeEntityBtn, activeRegionsContainer.transform);
-        //btn.name = region.Id + "_" + region.Name;
+    //private void OnRegionLoaded(Game region)
+    //{
+    //    Button btn = Instantiate<Button>(activeEntityBtn, activeRegionsContainer.transform);
+    //    //btn.name = region.Id + "_" + region.Name;
 
-        var btnText = btn.GetComponentInChildren<Text>();
-        //btnText.text = btn.name = region.Id + "_" + region.Name;
+    //    var btnText = btn.GetComponentInChildren<Text>();
+    //    //btnText.text = btn.name = region.Id + "_" + region.Name;
 
-        this.RegionButtons.Add(region.Id, btn.gameObject);
-    }
+    //    this.RegionButtons.Add(region.Id, btn.gameObject);
+    //}
 
-    private void OnDisconnect(ServerConnection connection)
+    public void OnDisconnect(ServerConnection connection)
     {
         if (this.PlayerButtons.ContainsKey(connection.ConnectionId))
         {

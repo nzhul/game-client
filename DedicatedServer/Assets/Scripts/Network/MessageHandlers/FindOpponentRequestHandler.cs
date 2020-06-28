@@ -20,7 +20,7 @@ namespace Assets.Scripts.Network.MessageHandlers
                 return;
             }
 
-            // Get player player mmr from API
+            // Get player latest mmr from API
             var connection = NetworkServer.Instance.Connections[connectionId];
             var userData = RequestManagerHttp.UsersService.GetUser(connection.UserId);
             connection.MMR = userData.mmr;

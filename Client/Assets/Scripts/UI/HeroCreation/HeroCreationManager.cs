@@ -3,13 +3,13 @@ using Assets.Scripts.Data;
 using Assets.Scripts.LevelManagement;
 using Assets.Scripts.Network.RequestModels.Realms;
 using Assets.Scripts.Network.Services;
-using Assets.Scripts.Shared.Models;
 using Assets.Scripts.UI.Modals.MainMenuModals;
 using Assets.Scripts.Utilities;
 using BestHTTP;
 using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.UI;
+using Avatar = Assets.Scripts.Shared.Models.Avatar;
 
 namespace Assets.Scripts.UI.HeroCreation
 {
@@ -184,7 +184,7 @@ namespace Assets.Scripts.UI.HeroCreation
             if (NetworkCommon.RequestIsSuccessful(request, response, out errorMessage))
             {
                 string json = response.DataAsText;
-                UserAvatar userAvatar = JsonConvert.DeserializeObject<UserAvatar>(json);
+                Avatar userAvatar = JsonConvert.DeserializeObject<Avatar>(json);
 
                 if (userAvatar != null)
                 {

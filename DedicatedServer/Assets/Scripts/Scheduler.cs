@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Assets.Scripts.Network.Matchmaking;
-using Assets.Scripts.Network.MessageHandlers;
 using Assets.Scripts.Network.Services.TCP;
 using Assets.Scripts.Network.Services.TCP.Interfaces;
 using Assets.Scripts.Shared.Models;
@@ -17,7 +15,7 @@ public class Scheduler : MonoBehaviour
     private void Start()
     {
         this.battleService = new BattleService();
-        InvokeRepeating("ClearRegions", 5, 5);
+        //InvokeRepeating("ClearRegions", 5, 5);
         InvokeRepeating("SwitchBattleTurns", 5, 1);
         InvokeRepeating("DoMatchmaking", 5, 1);
     }
@@ -54,26 +52,26 @@ public class Scheduler : MonoBehaviour
 
         foreach (var battle in completedBattles)
         {
-            Debug.Log($"Ending Idle battle: AttackerId: {battle.AttackerHero.Id}, Defender: {battle.DefenderHero.Id}, BattleId: {battle.Id}");
+            Debug.Log($"Ending Idle battle: AttackerId: {battle.AttackerArmy.Id}, Defender: {battle.DefenderArmy.Id}, BattleId: {battle.Id}");
             UIManager.Instance.OnBattleEnded(battle.Id);
             NetworkServer.Instance.ActiveBattles.Remove(battle);
         }
     }
 
-    private void ClearRegions()
-    {
-        // Debug.Log("Executing 'CleanRegions' scheduled job!: " + Time.time);
-        var activeRegionIds = NetworkServer.Instance.Regions.Keys.ToArray();
-        foreach (var regionId in activeRegionIds)
-        {
-            bool anyUsersWithThisRegion = NetworkServer.Instance.Connections.Any(c => c.Value.RegionIds.Any(r => r == regionId));
+    //private void ClearRegions()
+    //{
+    //    // Debug.Log("Executing 'CleanRegions' scheduled job!: " + Time.time);
+    //    var activeRegionIds = NetworkServer.Instance.Regions.Keys.ToArray();
+    //    foreach (var regionId in activeRegionIds)
+    //    {
+    //        bool anyUsersWithThisRegion = NetworkServer.Instance.Connections.Any(c => c.Value.RegionIds.Any(r => r == regionId));
 
-            if (!anyUsersWithThisRegion)
-            {
-                Debug.Log($"Region with Id {regionId} unloaded!");
-                NetworkServer.Instance.Regions.Remove(regionId);
-                DisconnectEventHandler.InvokeRegionUnloadEvent(regionId);
-            }
-        }
-    }
+    //        if (!anyUsersWithThisRegion)
+    //        {
+    //            Debug.Log($"Region with Id {regionId} unloaded!");
+    //            NetworkServer.Instance.Regions.Remove(regionId);
+    //            DisconnectEventHandler.InvokeRegionUnloadEvent(regionId);
+    //        }
+    //    }
+    //}
 }

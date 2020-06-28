@@ -11,9 +11,9 @@ namespace Assets.Scripts.Shared.NetMessages.World.ClientServer
             OperationCode = NetOperationCode.StartBattleRequest;
         }
 
-        public int AttackerId { get; set; }
+        public int AttackerArmyId { get; set; }
 
-        public int DefenderId { get; set; }
+        public int DefenderArmyId { get; set; }
 
         public PlayerType AttackerType { get; set; }
 
@@ -23,12 +23,12 @@ namespace Assets.Scripts.Shared.NetMessages.World.ClientServer
         {
             bool result = true;
 
-            if (this.AttackerId == 0)
+            if (this.AttackerArmyId == 0)
             {
                 return false;
             }
 
-            if (this.DefenderId == 0)
+            if (this.DefenderArmyId == 0)
             {
                 return false;
             }

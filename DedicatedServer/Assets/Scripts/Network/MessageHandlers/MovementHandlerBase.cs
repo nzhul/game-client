@@ -8,19 +8,9 @@ namespace Assets.Scripts.Network.MessageHandlers
 {
     public class MovementHandlerBase
     {
-        //protected void NotifyClientsInCurrentHeroRegion(Hero movingHero, int recievingHostId, NetMessage rmsg)
-        //{
-        //    this.NotifyClientsInRegion(movingHero.regionId, recievingHostId, rmsg);
-        //}
-
-        //protected void NotifyClientsInOldHeroRegion(int oldRegionId, int recievingHostId, NetMessage rmsg)
-        //{
-        //    this.NotifyClientsInRegion(oldRegionId, recievingHostId, rmsg);
-        //}
-
-        protected void NotifyClientsInRegion(int regionId, int recievingHostId, NetMessage rmsg)
+        protected void NotifyClientsInGame(int gameId, int recievingHostId, NetMessage rmsg)
         {
-            var interestedClients = NetworkServer.Instance.Connections.Where(c => c.Value.RegionIds.Any(r => r == regionId));
+            var interestedClients = NetworkServer.Instance.Connections.Where(c => c.Value.GameId == gameId);
 
             foreach (var client in interestedClients)
             {
@@ -29,33 +19,21 @@ namespace Assets.Scripts.Network.MessageHandlers
         }
 
 
-        protected void UpdateCache(Hero cachedConnectionHero, Coord destination, int regionId)
+        protected void UpdateCache(Army army, Coord destination, int regionId)
         {
-            if (cachedConnectionHero != null)
+            if (army != null)
             {
-                cachedConnectionHero.X = destination.X;
-                cachedConnectionHero.Y = destination.Y;
-                cachedConnectionHero.GameId = regionId;
-            }
-
-            var regionWithThatHero = NetworkServer.Instance.Regions.FirstOrDefault(r => r.Value.Heroes.Any(h => h.Id == cachedConnectionHero.Id)).Value;
-            if (regionWithThatHero != null)
-            {
-                var cachedHero = regionWithThatHero.Heroes.FirstOrDefault(h => h.Id == cachedConnectionHero.Id);
-                if (cachedHero != null)
-                {
-                    cachedHero.X = destination.X;
-                    cachedHero.Y = destination.Y;
-                    cachedHero.GameId = regionId;
-                }
+                army.X = destination.X;
+                army.Y = destination.Y;
+                army.GameId = regionId;
             }
         }
 
-        protected void UpdateDatabase(int connectionId, int heroId, Coord destination, int regionId)
+        protected void UpdateDatabase(int connectionId, int armyId, Coord destination, int regionId)
         {
             string token = NetworkServer.Instance.Connections[connectionId].Token;
             string endpoint = "realms/heroes/{0}/{1}/{2}/{3}";
-            string[] @params = new string[] { regionId.ToString(), heroId.ToString(), destination.X.ToString(), destination.Y.ToString() };
+            string[] @params = new string[] { regionId.ToString(), armyId.ToString(), destination.X.ToString(), destination.Y.ToString() };
             RequestManager.Instance.Put(endpoint, @params, token, OnUpdateHeroPosition);
         }
 

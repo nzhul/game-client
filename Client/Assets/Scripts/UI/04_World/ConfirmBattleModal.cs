@@ -9,8 +9,8 @@ public class ConfirmBattleModal : Modal<ConfirmBattleModal>
 {
     private DataManager _dm;
     private BattleScenario scenario;
-    private Hero attackingHero;
-    private Hero defendingHero;
+    private Army attackingArmy;
+    private Army defendingArmy;
 
     public Toggle autoCombatToggle;
 
@@ -24,8 +24,8 @@ public class ConfirmBattleModal : Modal<ConfirmBattleModal>
     private Net_StartBattleRequest BuildRequest()
     {
         var msg = new Net_StartBattleRequest();
-        msg.AttackerId = this.attackingHero.Id;
-        msg.DefenderId = this.defendingHero.Id;
+        msg.AttackerArmyId = this.attackingArmy.Id;
+        msg.DefenderArmyId = this.defendingArmy.Id;
 
         switch (this.scenario)
         {
@@ -50,13 +50,13 @@ public class ConfirmBattleModal : Modal<ConfirmBattleModal>
     }
 
     public void Open(BattleScenario scenario,
-        Hero attackingHero = null,
-        Hero defendingHero = null)
+        Army attackingArmy = null,
+        Army defendingArmy = null)
     {
         this._dm = DataManager.Instance;
         this.scenario = scenario;
-        this.attackingHero = attackingHero;
-        this.defendingHero = defendingHero;
+        this.attackingArmy = attackingArmy;
+        this.defendingArmy = defendingArmy;
         this.autoCombatToggle.isOn = this._dm.BattleData.UseAutoBattles;
         this.autoCombatToggle.onValueChanged.AddListener(delegate
         {

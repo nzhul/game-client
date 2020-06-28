@@ -22,9 +22,9 @@ namespace Assets.Scripts.Data
         public string password;
         public string hashValue;
         public string activeHeroId;
-        public int activeRegionId;
-        public UserAvatar avatar;
-        public IList<Game> regions;
+        public int activeGameId;
+        public Avatar avatar;
+        public Game activeGame;
         public BattleData battleData;
         public Dictionary<CreatureType, UnitConfiguration> unitConfigurations;
 
@@ -41,8 +41,7 @@ namespace Assets.Scripts.Data
             hashValue = string.Empty;
             rememberMe = "false";
             password = string.Empty;
-            avatar = new UserAvatar();
-            regions = new List<Game>();
+            avatar = new Avatar();
             battleData = new BattleData();
         }
     }

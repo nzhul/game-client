@@ -12,7 +12,7 @@ namespace Assets.Scripts.Shared.NetMessages.Battle
 
         public Guid BattleId { get; set; }
 
-        public int HeroId { get; set; }
+        public int ArmyId { get; set; }
 
         public bool IsReady { get; set; }
 
@@ -25,7 +25,7 @@ namespace Assets.Scripts.Shared.NetMessages.Battle
                 return false;
             }
 
-            if (this.HeroId == 0)
+            if (this.ArmyId == 0)
             {
                 return false;
             }

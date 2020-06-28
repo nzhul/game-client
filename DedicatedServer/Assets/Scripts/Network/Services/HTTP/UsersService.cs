@@ -7,7 +7,7 @@ namespace Assets.Scripts.Network.Services.HTTP
     {
         public User GetUser(int id)
         {
-            return base.Get<User>($"users/" + id);
+            return base.Get<User>($"users/{id}");
         }
     }
 }

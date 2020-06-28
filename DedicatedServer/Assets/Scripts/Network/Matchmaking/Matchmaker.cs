@@ -37,7 +37,7 @@ namespace Assets.Scripts.Network.Matchmaking
             this.Pool = new List<MMRequest>();
         }
 
-        public void RegisterPlayer(ServerConnection connection, HeroClass @class)
+        public void RegisterPlayer(ServerConnection connection, CreatureType @class)
         {
             var request = new MMRequest()
             {

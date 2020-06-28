@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Assets.Scripts.InGame;
+using Assets.Scripts.InGame.Map.Entities;
 using Assets.Scripts.Network;
 using Assets.Scripts.Shared.Models;
 using Assets.Scripts.Shared.NetMessages.World.ClientServer;
@@ -38,7 +39,7 @@ public class PlayerController : MonoBehaviour
     private GraphView _graphView;
     private Node[] hightlightPath;
     private List<NodeView> _pathView;
-    private HeroView activeHero;
+    private AliveEntityView activeHero;
 
     public bool InputEnabled { get; set; }
 
@@ -57,9 +58,9 @@ public class PlayerController : MonoBehaviour
         InputEnabled = true;
     }
 
-    public void SetActiveHero(int heroId)
+    public void SetActiveEntity(int heroId)
     {
-        activeHero = HeroesManager.Instance.Heroes[heroId];
+        activeHero = AliveEntitiesManager.Instance.Entities[heroId];
     }
 
     private void Hero_OnHeroInit()
@@ -120,13 +121,12 @@ public class PlayerController : MonoBehaviour
                         // 2. Send Map movement request to the server
                         Net_MapMovementRequest msg = new Net_MapMovementRequest
                         {
-                            HeroId = activeHero.rawUnit.Id,
+                            ArmyId = activeHero.rawEntity.Id,
                             Destination = new Coord
                             {
                                 X = activeHero.destinationNode.gridX,
                                 Y = activeHero.destinationNode.gridY,
-                            },
-                            RegionId = activeHero.rawUnit.GameId
+                            }
                         };
                         NetworkClient.Instance.SendServer(msg);
                         this.ClearFocus();
@@ -136,9 +136,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void PlayerHero_OnDestinationReached(Node node, UnitView unit)
+    private void PlayerHero_OnDestinationReached(Node node, AliveEntityView entityView)
     {
-        _graphView.AddContentToNode(new Coord(unit.rawUnit.X, unit.rawUnit.Y), unit);
+        _graphView.AddContentToNode(new Coord(entityView.rawEntity.X, entityView.rawEntity.Y), entityView);
 
         ClearPreviousPath();
 

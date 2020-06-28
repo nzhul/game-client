@@ -28,7 +28,7 @@ namespace Assets.Scripts.Network.MessageHandlers
                 ServerConnection connection = new ServerConnection
                 {
                     ConnectionId = connectionId,
-                    UserId = msg.Id,
+                    UserId = msg.UserId,
                     Token = msg.Token,
                     Username = msg.Username,
                     MMR = msg.MMR
@@ -37,11 +37,11 @@ namespace Assets.Scripts.Network.MessageHandlers
                 NetworkServer.Instance.Connections.Add(connectionId, connection);
 
                 string endpoint = "users/{0}/setonline/{1}";
-                string[] @params = new string[] { msg.Id.ToString(), connectionId.ToString() };
+                string[] @params = new string[] { msg.UserId.ToString(), connectionId.ToString() };
 
                 RequestManager.Instance.Put(endpoint, @params, msg.Token, OnSetOnline);
 
-                Debug.Log(string.Format("{0} has connected to the server!", msg.Username));
+                Debug.Log(string.Format("{0} logged in to the server!", msg.Username));
                 OnAuth?.Invoke(connection);
             }
             else

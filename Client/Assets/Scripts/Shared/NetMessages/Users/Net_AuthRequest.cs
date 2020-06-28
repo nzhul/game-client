@@ -10,7 +10,7 @@ namespace Assets.Scripts.Network.Shared.NetMessages.Users
             OperationCode = NetOperationCode.AuthRequest;
         }
 
-        public int Id { get; set; }
+        public int UserId { get; set; }
 
         public string Username { get; set; }
 
@@ -18,11 +18,13 @@ namespace Assets.Scripts.Network.Shared.NetMessages.Users
 
         public string Token { get; set; }
 
+        public int GameId { get; set; }
+
         public bool IsValid()
         {
             bool result = true;
 
-            if (this.Id == 0)
+            if (this.UserId == 0)
             {
                 result = false;
             }

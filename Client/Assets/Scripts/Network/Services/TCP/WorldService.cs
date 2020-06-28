@@ -7,7 +7,7 @@ namespace Assets.Scripts.Network.Services
 {
     public class WorldService : IWorldService
     {
-        public void FindOpponentRequest(HeroClass heroClass)
+        public void FindOpponentRequest(CreatureType heroClass)
         {
             Net_FindOpponentRequest msg = new Net_FindOpponentRequest
             {
@@ -17,29 +17,29 @@ namespace Assets.Scripts.Network.Services
             NetworkClient.Instance.SendServer(msg);
         }
 
-        public void TeleportRequest(int heroId, int regionId, int dwellingId)
+        public void TeleportRequest(int armyId, int gameId, int dwellingId)
         {
             Net_TeleportRequest msg = new Net_TeleportRequest
             {
-                HeroId = heroId,
-                RegionId = regionId,
+                ArmyId = armyId,
+                GameId = gameId,
                 DwellingId = dwellingId
             };
 
             NetworkClient.Instance.SendServer(msg);
         }
 
-        public void WorldEnterRequest(int id, int currentRealmId, int[] regionsForLoading)
-        {
-            Net_WorldEnterRequest msg = new Net_WorldEnterRequest
-            {
-                UserId = id,
-                CurrentRealmId = currentRealmId,
-                RegionsForLoading = regionsForLoading
-            };
+        //public void WorldEnterRequest(int id, int currentRealmId, int[] regionsForLoading)
+        //{
+        //    Net_WorldEnterRequest msg = new Net_WorldEnterRequest
+        //    {
+        //        UserId = id,
+        //        CurrentRealmId = currentRealmId,
+        //        RegionsForLoading = regionsForLoading
+        //    };
 
-            NetworkClient.Instance.SendServer(msg);
-        }
+        //    NetworkClient.Instance.SendServer(msg);
+        //}
 
         public void CancelFindOpponentRequest()
         {

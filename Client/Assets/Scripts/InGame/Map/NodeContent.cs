@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.InGame.Map.Entities;
+using UnityEngine;
 
 public class NodeContent : MonoBehaviour
 {
@@ -7,7 +8,7 @@ public class NodeContent : MonoBehaviour
 
     public NodeContentType Type => type;
 
-    public bool BlocksPath => Type >= NodeContentType.Hero;
+    public bool BlocksPath => Type >= NodeContentType.Army;
 
-    public virtual void Interact(HeroView interactingHero) { }
+    public virtual void Interact(AliveEntityView interactingHero) { }
 }

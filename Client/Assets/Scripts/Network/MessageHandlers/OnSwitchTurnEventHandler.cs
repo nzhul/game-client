@@ -15,15 +15,15 @@ namespace Assets.Scripts.Network.MessageHandlers
             // 1. Raise event
             var msg = (Net_SwitchTurnEvent)input;
 
-            Debug.Log("Switching turns: New Player is " + msg.CurrentPlayerId);
+            Debug.Log("Switching turns: New Player is " + msg.CurrentUnitId);
 
             BattleData bd = DataManager.Instance.BattleData;
-            bd.CurrentHeroId = msg.CurrentPlayerId;
+            bd.CurrentArmyId = msg.CurrentUnitId;
             bd.LastTurnStartTime = Time.time;
             bd.RemainingTimeForThisTurn = BattleManager.TURN_DURATION;
             bd.Turn = msg.Turn;
 
-            bd.ActionsEnabled = BattleManager.Instance.CurrentPlayerIsMe(msg.CurrentPlayerId) ? true : false;
+            bd.ActionsEnabled = BattleManager.Instance.CurrentPlayerIsMe(msg.CurrentUnitId) ? true : false;
 
             // Raise "YOUR TURN" notification for the CurrentPlayer!
 

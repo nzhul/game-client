@@ -7,28 +7,23 @@ namespace Assets.Scripts.Shared.Models.Units
     {
         public int Id { get; set; }
 
-        public int? OwnerId { get; set; }
-
-        public int GameId { get; set; }
-
-        public int X { get; set; }
-
-        public int Y { get; set; }
-
-        public int BattleX { get; set; }
-
-        public int BattleY { get; set; }
-
         public int StartX { get; set; }
 
         public int StartY { get; set; }
 
         public int Level { get; set; }
 
+        public int? GameId { get; set; }
+
+        public int? AvatarId { get; set; }
+
+        public int? ArmyId { get; set; }
+
         [JsonConverter(typeof(StringEnumConverter))]
-        public CreatureType CreatureType { get; set; }
+        public CreatureType Type { get; set; }
 
         public int Quantity { get; set; }
+
 
         #region Non-Persistend properties
 

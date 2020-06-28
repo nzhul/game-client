@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Assets.Scripts.Games;
 using Assets.Scripts.Network.Services.TCP;
 using Assets.Scripts.Network.Services.TCP.Interfaces;
 using Assets.Scripts.Shared.NetMessages.Battle;
@@ -18,6 +19,7 @@ namespace Assets.Scripts.Network.MessageHandlers
         public void Handle(int connectionId, int channelId, int recievingHostId, NetMessage input)
         {
             Net_EndTurnRequest msg = (Net_EndTurnRequest)input;
+            var game = GameManager.Instance.GetGameByConnectionId(connectionId);
 
             if (!msg.IsValid())
             {
@@ -34,24 +36,20 @@ namespace Assets.Scripts.Network.MessageHandlers
                 return;
             }
 
-            if (battle.CurrentHeroId != msg.RequesterHeroId)
+            if (battle.CurrentUnitId != msg.RequesterUnitId)
             {
                 Debug.LogWarning($"End turn requester is not currently active! Hacking ?");
                 return;
             }
 
             // 2. Update last activity
-            battle.UpdateLastActivity(msg.RequesterHeroId);
+            battle.UpdateLastActivity(msg.RequesterArmyId);
 
             // 3. Set movement and action points to zero
-            if (msg.RequesterHeroId != 0)
-            {
-                this.battleService.NullifyHeroPoints(msg.RequesterHeroId, msg.IsDefend);
-            }
 
             if (msg.RequesterUnitId != 0)
             {
-                this.battleService.NullifyUnitPoints(msg.RequesterHeroId, msg.RequesterUnitId, msg.IsDefend);
+                this.battleService.NullifyUnitPoints(game.Id, msg.RequesterArmyId, msg.RequesterUnitId, msg.IsDefend);
             }
 
 

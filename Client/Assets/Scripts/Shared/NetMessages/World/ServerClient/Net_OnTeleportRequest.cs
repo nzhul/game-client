@@ -15,11 +15,11 @@ namespace Assets.Scripts.Shared.NetMessages.World.ServerClient
 
         public byte Success { get; set; }
 
-        public int HeroId { get; set; }
+        public int ArmyId { get; set; }
 
         public Coord Destination { get; set; }
 
-        public int RegionId { get; set; }
+        public int GameId { get; set; }
 
         public int DwellingId { get; set; }
     }

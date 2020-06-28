@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Linq;
+using Assets.Scripts;
+using Assets.Scripts.Data;
+using Assets.Scripts.LevelManagement;
 using Assets.Scripts.Network.Services;
 using Assets.Scripts.Network.Services.TCP.Interfaces;
 using Assets.Scripts.Shared.Models;
@@ -35,7 +38,11 @@ public class LobbyManager : MonoBehaviour
     private GameObject blur = default;
 
     [SerializeField]
-    private Button playBtn = default, findBtn = default;
+    private Button playBtn = default,
+        findBtn = default,
+        reconnectBtn = default,
+        leaveGameBtn = default,
+        logoutBtn = default;
 
     [SerializeField]
     private GraphicMover playMenu = default;
@@ -55,6 +62,9 @@ public class LobbyManager : MonoBehaviour
         playBtn.onClick.AddListener(OnPlayGameClicked);
         findBtn.onClick.AddListener(OnFindOpponentClicked);
         cancelBtn.onClick.AddListener(OnCancelClicked);
+        reconnectBtn.onClick.AddListener(OnReconnectClicked);
+        leaveGameBtn.onClick.AddListener(OnLeaveGameClicked);
+        logoutBtn.onClick.AddListener(OnLogoutGameClicked);
         this.AddBlurClick();
     }
 
@@ -62,6 +72,19 @@ public class LobbyManager : MonoBehaviour
     {
         _worldService = new WorldService();
         InitializeFactionButtons(_selectedFaction);
+        InitializePlayButtons(DataManager.Instance.ActiveGameId);
+    }
+
+    private void InitializePlayButtons(int activeGameId)
+    {
+        if (activeGameId == 0)
+        {
+            return;
+        }
+
+        playBtn.gameObject.SetActive(false);
+        reconnectBtn.gameObject.SetActive(true);
+        leaveGameBtn.gameObject.SetActive(true);
     }
 
     private void InitializeFactionButtons(string selectedFaction)
@@ -133,7 +156,7 @@ public class LobbyManager : MonoBehaviour
         this.searchMenu.gameObject.SetActive(true);
         this.searchMenu.Move(MoveTarget.End);
 
-        _worldService.FindOpponentRequest((HeroClass)Enum.Parse(typeof(HeroClass), _selectedHeroClass, true));
+        _worldService.FindOpponentRequest((CreatureType)Enum.Parse(typeof(CreatureType), _selectedHeroClass, true));
     }
 
     private void OnCancelClicked()
@@ -170,4 +193,31 @@ public class LobbyManager : MonoBehaviour
         playMenu.Move(MoveTarget.Start);
     }
 
+    private void OnReconnectClicked()
+    {
+        var gameId = DataManager.Instance.ActiveGameId;
+        if (gameId == 0)
+        {
+            Debug.LogWarning("There is no active game to reconnect to ...");
+            return;
+        }
+
+        GameManager.Instance.LoadScene(LevelLoader.GAME_SCENE);
+    }
+
+    private void OnLeaveGameClicked()
+    {
+        throw new NotImplementedException();
+    }
+
+    private void OnLogoutGameClicked()
+    {
+        RequestManagerTcp.UserService.SendLogoutRequest();
+        GameManager.Instance.LoadScene(LevelLoader.MAIN_MENU_SCENE);
+    }
 }
+
+
+// NOTE: How to change svg color
+//var image = leaveGameBtn.gameObject.GetComponentInChildren<SVGImage>();
+//image.color = Color.red;

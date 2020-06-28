@@ -3,6 +3,6 @@
     Empty,
     Wall,
     Building,
-    Hero,
+    Army,
     Unit
 }

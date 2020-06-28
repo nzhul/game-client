@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Network.Services.TCP.Interfaces;
+﻿using Assets.Scripts.Games;
+using Assets.Scripts.Network.Services.TCP.Interfaces;
 using Assets.Scripts.Shared.Models;
 using Assets.Scripts.Shared.NetMessages.Battle;
 using UnityEngine;
@@ -15,13 +16,13 @@ namespace Assets.Scripts.Network.Services.TCP
                 // send two defeat requests
             }
 
-            if (battle.AttackerHero.Id == winnerId)
+            if (battle.AttackerArmy.Id == winnerId)
             {
                 // attacker is winner
                 // defender is defeated
                 // send win to attacker and defeat to defender
             }
-            else if (battle.DefenderHero.Id == winnerId)
+            else if (battle.DefenderArmy.Id == winnerId)
             {
                 // attacker is defeated
                 // defender is winner
@@ -31,28 +32,9 @@ namespace Assets.Scripts.Network.Services.TCP
             // DO API call to save battle outcome
         }
 
-        public void NullifyHeroPoints(int requesterHeroId, bool isDefend)
+        public void NullifyUnitPoints(int gameId, int heroId, int unitId, bool isDefend)
         {
-            var hero = NetworkServer.Instance.GetHeroById(requesterHeroId);
-
-            if (hero == null)
-            {
-                Debug.LogError("Cannot find hero with Id " + requesterHeroId);
-                return;
-            }
-
-            hero.MovementPoints = 0;
-            hero.ActionPoints = 0;
-
-            if (isDefend)
-            {
-                // todo: temporary increase armor for 1 turn.
-            }
-        }
-
-        public void NullifyUnitPoints(int heroId, int unitId, bool isDefend)
-        {
-            var unit = NetworkServer.Instance.GetUnitById(heroId, unitId);
+            var unit = GameManager.Instance.GetUnit(gameId, heroId);
 
             if (unit == null)
             {
@@ -75,16 +57,16 @@ namespace Assets.Scripts.Network.Services.TCP
             if (battle.Turn == Turn.Attacker)
             {
                 battle.Turn = Turn.Defender;
-                battle.CurrentHeroId = battle.DefenderId;
+                battle.CurrentUnitId = battle.DefenderArmyId;
             }
             else
             {
                 battle.Turn = Turn.Attacker;
-                battle.CurrentHeroId = battle.AttackerId;
+                battle.CurrentUnitId = battle.AttackerArmyId;
             }
 
             battle.LastTurnStartTime = Time.time;
-            battle.Log.Add("Turn time expired - switching turns! New Player is: " + battle.CurrentHeroId);
+            battle.Log.Add("Turn time expired - switching turns! New Player is: " + battle.CurrentUnitId);
             this.SendSwitchTurnEvent(battle);
         }
 
@@ -92,7 +74,7 @@ namespace Assets.Scripts.Network.Services.TCP
         {
             Net_SwitchTurnEvent msg = new Net_SwitchTurnEvent();
             msg.BattleId = battle.Id;
-            msg.CurrentPlayerId = battle.CurrentHeroId;
+            msg.CurrentUnitId = battle.CurrentUnitId;
             msg.Turn = battle.Turn;
 
             bool shouldNotifyAttacker = false;

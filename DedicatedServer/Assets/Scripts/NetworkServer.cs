@@ -46,7 +46,7 @@ public class NetworkServer : MonoBehaviour
 
     public Dictionary<int, ServerConnection> Connections = new Dictionary<int, ServerConnection>();
 
-    public Dictionary<int, Game> Regions = new Dictionary<int, Game>();
+    //public Dictionary<int, Game> Regions = new Dictionary<int, Game>();
 
     public List<Battle> ActiveBattles = new List<Battle>();
 
@@ -82,13 +82,13 @@ public class NetworkServer : MonoBehaviour
             {
                 new Player
                 {
-                    StartingClass = HeroClass.Sorcerer,
+                    StartingClass = CreatureType.Sorcerer,
                     Team = Team.Team1,
                     UserId = 3
                 },
                 new Player
                 {
-                    StartingClass = HeroClass.Witch,
+                    StartingClass = CreatureType.Witch,
                     Team = Team.Team2,
                     UserId = 1
                 }
@@ -134,7 +134,9 @@ public class NetworkServer : MonoBehaviour
 
     private void LoadUnitConfigurations()
     {
-        RequestManager.Instance.Get("unit-configurations", new string[] { }, this.Admin.tokenString, OnLoadUnitConfigurationsFinished);
+        this.UnitConfigurations = RequestManagerHttp.GameService.GetUnitConfigurations();
+        Debug.Log("Unit configurations loaded successfully!");
+        //RequestManager.Instance.Get("unit-configurations", new string[] { }, this.Admin.tokenString, OnLoadUnitConfigurationsFinished);
     }
 
     private void OnLoadUnitConfigurationsFinished(HTTPRequest request, HTTPResponse response)
@@ -180,18 +182,21 @@ public class NetworkServer : MonoBehaviour
 
     private void RegisterMessageHandlers()
     {
+        // TODO: Replace this with reflection!
+        // I can search for all classes that implement IMessageHandler and register them here.
         _disconnectEventHandler = new DisconnectEventHandler();
         _messageHandlers = new Dictionary<int, IMessageHandler>
         {
             { NetOperationCode.AuthRequest, new AuthRequestHandler() },
-            { NetOperationCode.WorldEnterRequest, new WorldEnterRequestHandler() },
+            //{ NetOperationCode.WorldEnterRequest, new WorldEnterRequestHandler() },
             { NetOperationCode.MapMovementRequest, new MapMovementRequestHandler() },
             { NetOperationCode.TeleportRequest, new TeleportRequestHandler() },
             { NetOperationCode.StartBattleRequest, new StartBattleRequestHandler() },
             { NetOperationCode.ConfirmLoadingBattleScene, new ConfirmLoadingBattleSceneHandler() },
             { NetOperationCode.EndTurnRequest, new EndTurnRequestHandler() },
             { NetOperationCode.FindOpponentRequest, new FindOpponentRequestHandler() },
-            { NetOperationCode.CancelFindOpponentRequest, new CancelFindOpponentRequestHandler() }
+            { NetOperationCode.CancelFindOpponentRequest, new CancelFindOpponentRequestHandler() },
+            { NetOperationCode.LogoutRequest, new LogoutRequestHandler() }
         };
     }
 
@@ -264,45 +269,45 @@ public class NetworkServer : MonoBehaviour
         }
     }
 
-    public int GetConnectionIdByHeroId(int heroId)
-    {
-        var pair = this.Connections.FirstOrDefault(c => c.Value.Avatar.Heroes.Any(h => h.Id == heroId));
+    //public int GetConnectionIdByHeroId(int heroId)
+    //{
+    //    var pair = this.Connections.FirstOrDefault(c => c.Value.Avatar.Heroes.Any(h => h.Id == heroId));
 
-        if (!pair.Equals(default(KeyValuePair<int, ServerConnection>))) // null check for keyValuePair
-        {
-            return pair.Value.ConnectionId;
-        }
-        else
-        {
-            return 0;
-        }
-    }
+    //    if (!pair.Equals(default(KeyValuePair<int, ServerConnection>))) // null check for keyValuePair
+    //    {
+    //        return pair.Value.ConnectionId;
+    //    }
+    //    else
+    //    {
+    //        return 0;
+    //    }
+    //}
 
-    public Unit GetRandomUnit(int currentHeroId)
-    {
-        var hero = Instance.GetHeroById(currentHeroId);
-        return hero.Units[UnityEngine.Random.Range(0, hero.Units.Count - 1)];
-    }
+    //public Unit GetRandomUnit(int currentHeroId)
+    //{
+    //    var hero = Instance.GetHeroById(currentHeroId);
+    //    return hero.Units[UnityEngine.Random.Range(0, hero.Units.Count - 1)];
+    //}
 
-    public Hero GetHeroById(int heroId)
-    {
-        var pair = this.Regions.FirstOrDefault(c => c.Value.Heroes.Any(h => h.Id == heroId));
+    //public Hero GetHeroById(int heroId)
+    //{
+    //    var pair = this.Regions.FirstOrDefault(c => c.Value.Heroes.Any(h => h.Id == heroId));
 
-        if (!pair.Equals(default(KeyValuePair<int, Game>))) // null check for keyValuePair
-        {
-            return pair.Value.Heroes.FirstOrDefault(h => h.Id == heroId);
-        }
-        else
-        {
-            return null;
-        }
-    }
+    //    if (!pair.Equals(default(KeyValuePair<int, Game>))) // null check for keyValuePair
+    //    {
+    //        return pair.Value.Heroes.FirstOrDefault(h => h.Id == heroId);
+    //    }
+    //    else
+    //    {
+    //        return null;
+    //    }
+    //}
 
-    public Unit GetUnitById(int heroId, int unitId)
-    {
-        var hero = this.GetHeroById(heroId);
-        return hero.Units.FirstOrDefault(u => u.Id == unitId);
+    //public Unit GetUnitById(int heroId, int unitId)
+    //{
+    //    var hero = this.GetHeroById(heroId);
+    //    return hero.Units.FirstOrDefault(u => u.Id == unitId);
 
-    }
+    //}
 }
 #pragma warning restore CS0618 // Type or member is obsolete

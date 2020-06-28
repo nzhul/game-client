@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace Assets.Scripts.Shared.Models
 {
@@ -8,11 +8,11 @@ namespace Assets.Scripts.Shared.Models
     {
         public int Id { get; set; }
 
-        public IList<Room> Rooms { get; set; }
-
-        public IList<Hero> Heroes { get; set; }
+        public IList<Army> Armies { get; set; }
 
         public IList<Dwelling> Dwellings { get; set; }
+
+        public IList<Avatar> Avatars { get; set; }
 
         private string _matrixString;
 

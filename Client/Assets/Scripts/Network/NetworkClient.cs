@@ -47,11 +47,12 @@ namespace Assets.Scripts.Network
             _messageHandlers = new Dictionary<int, IMessageHandler>
         {
             { NetOperationCode.OnAuthRequest, new OnAuthRequestHandler() },
-            { NetOperationCode.OnWorldEnter, new OnWorldEnterRequestHandler() },
+            //{ NetOperationCode.OnWorldEnter, new OnWorldEnterRequestHandler() },
             { NetOperationCode.OnMapMovement, new OnMapMovementRequestHandler() },
             { NetOperationCode.OnTeleport, new OnTeleportRequestRequestHandler() },
             { NetOperationCode.OnStartBattle, new OnStartBattleRequestHandler() },
-            { NetOperationCode.OnSwitchTurn, new OnSwitchTurnEventHandler() }
+            { NetOperationCode.OnSwitchTurn, new OnSwitchTurnEventHandler() },
+            {NetOperationCode.OnStartGame, new OnStartGameHandler() }
         };
         }
 

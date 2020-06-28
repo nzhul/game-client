@@ -10,9 +10,9 @@ namespace Assets.Scripts.Network.Shared.NetMessages.World.ClientServer
             OperationCode = NetOperationCode.TeleportRequest;
         }
 
-        public int HeroId { get; set; }
+        public int ArmyId { get; set; }
 
-        public int RegionId { get; set; }
+        public int GameId { get; set; }
 
         public int DwellingId { get; set; }
     }

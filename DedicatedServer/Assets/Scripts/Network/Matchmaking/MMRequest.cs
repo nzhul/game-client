@@ -10,7 +10,7 @@ namespace Assets.Scripts.Network.Matchmaking
 
         public DateTime SearchStart { get; set; }
 
-        public HeroClass StartingClass { get; set; }
+        public CreatureType StartingClass { get; set; }
 
         public bool MatchFound { get; set; }
 

@@ -2,9 +2,9 @@
 
 namespace Assets.Scripts.Shared.Models
 {
-    public class UserAvatar
+    public class Avatar
     {
-        public int Id { get; set; }
+        public int UserId { get; set; }
 
         public int Wood { get; set; }
 
@@ -14,10 +14,6 @@ namespace Assets.Scripts.Shared.Models
 
         public int Gems { get; set; }
 
-        public IList<Hero> Heroes { get; set; }
-
-        public IList<Dwelling> Dwellings { get; set; }
-
-        public IList<Waypoint> Waypoints { get; set; }
+        public Team Team { get; set; }
     }
 }

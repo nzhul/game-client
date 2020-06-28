@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Assets.Scripts.Data.Models;
 using Assets.Scripts.Shared.Models;
 using UnityEngine;
@@ -60,19 +61,19 @@ namespace Assets.Scripts.Data
             }
         }
 
-        public int ActiveRegionId
+        public int ActiveGameId
         {
             get
             {
-                return _saveData.activeRegionId;
+                return _saveData.activeGameId;
             }
             set
             {
-                _saveData.activeRegionId = value;
+                _saveData.activeGameId = value;
             }
         }
 
-        public int ActiveHeroId
+        public int ActiveArmyId
         {
             get
             {
@@ -176,7 +177,7 @@ namespace Assets.Scripts.Data
             }
         }
 
-        public UserAvatar Avatar
+        public Shared.Models.Avatar Avatar
         {
             get
             {
@@ -200,15 +201,15 @@ namespace Assets.Scripts.Data
             }
         }
 
-        public IList<Game> Regions
+        public Game ActiveGame
         {
             get
             {
-                return _saveData.regions;
+                return _saveData.activeGame;
             }
             set
             {
-                _saveData.regions = value;
+                _saveData.activeGame = value;
             }
         }
 
@@ -221,6 +222,14 @@ namespace Assets.Scripts.Data
             set
             {
                 _saveData.unitConfigurations = value;
+            }
+        }
+
+        public IList<Dwelling> Waypoints
+        {
+            get
+            {
+                return this.ActiveGame.Dwellings.Where(x => this.Avatar.Visited.Contains(x.Id) && x.Type == DwellingType.Waypoint).ToList();
             }
         }
 

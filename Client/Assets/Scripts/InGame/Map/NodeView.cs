@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Assets.Scripts.InGame.Map.Entities;
 using UnityEngine;
 
 public class NodeView : MonoBehaviour
@@ -127,11 +128,11 @@ public class NodeView : MonoBehaviour
         return LayerMask.NameToLayer(layerName);
     }
 
-    public void TriggerInteraction(HeroView interactingHero)
+    public void TriggerInteraction(AliveEntityView interactingEntity)
     {
         if (this.Content != null)
         {
-            this.Content.Interact(interactingHero);
+            this.Content.Interact(interactingEntity);
         }
     }
 }

@@ -13,7 +13,7 @@ namespace Assets.Scripts.Shared.NetMessages.Battle
 
         public Guid BattleId { get; set; }
 
-        public int CurrentPlayerId { get; set; }
+        public int CurrentUnitId { get; set; }
 
         public Turn Turn { get; set; }
     }

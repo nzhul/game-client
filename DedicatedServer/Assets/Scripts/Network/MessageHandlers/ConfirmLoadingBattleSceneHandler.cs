@@ -14,12 +14,12 @@ namespace Assets.Scripts.Network.MessageHandlers
             {
                 var battle = NetworkServer.Instance.ActiveBattles.FirstOrDefault(b => b.Id == msg.BattleId);
 
-                if (battle != null && battle.AttackerId == msg.HeroId)
+                if (battle != null && battle.AttackerArmyId == msg.ArmyId)
                 {
                     battle.AttackerReady = true;
                 }
 
-                if (battle != null && battle.DefenderId == msg.HeroId)
+                if (battle != null && battle.DefenderArmyId == msg.ArmyId)
                 {
                     battle.DefenderReady = true;
                 }

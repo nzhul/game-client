@@ -15,7 +15,7 @@ namespace Assets.Scripts.Shared.NetMessages.World.ServerClient
 
         public byte Success { get; set; }
 
-        public int HeroId { get; set; }
+        public int ArmyId { get; set; }
 
         //public int NewX { get; set; }
 

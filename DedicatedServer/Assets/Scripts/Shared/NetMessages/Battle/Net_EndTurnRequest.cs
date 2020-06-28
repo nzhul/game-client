@@ -12,7 +12,7 @@ namespace Assets.Scripts.Shared.NetMessages.Battle
 
         public Guid BattleId { get; set; }
 
-        public int RequesterHeroId { get; set; }
+        public int RequesterArmyId { get; set; }
 
         public int RequesterUnitId { get; set; }
 
