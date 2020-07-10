@@ -6914,7 +6914,27 @@ PrefabInstance:
     - target: {fileID: 4849023213072320493, guid: e4bed371229f02d4c8881bdac1ae72c8,
         type: 3}
       propertyPath: m_Name
-      value: KnightBtn
+      value: PaladinBtn
+      objectReference: {fileID: 0}
+    - target: {fileID: 4849023213643711481, guid: e4bed371229f02d4c8881bdac1ae72c8,
+        type: 3}
+      propertyPath: m_text
+      value: PALADIN
+      objectReference: {fileID: 0}
+    - target: {fileID: 4849023213643711481, guid: e4bed371229f02d4c8881bdac1ae72c8,
+        type: 3}
+      propertyPath: m_firstOverflowCharacterIndex
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4849023213643711481, guid: e4bed371229f02d4c8881bdac1ae72c8,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4849023213643711481, guid: e4bed371229f02d4c8881bdac1ae72c8,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e4bed371229f02d4c8881bdac1ae72c8, type: 3}

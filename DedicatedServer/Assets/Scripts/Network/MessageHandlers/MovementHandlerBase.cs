@@ -29,13 +29,15 @@ namespace Assets.Scripts.Network.MessageHandlers
             }
         }
 
-        protected void UpdateDatabase(int connectionId, int armyId, Coord destination, int regionId)
-        {
-            string token = NetworkServer.Instance.Connections[connectionId].Token;
-            string endpoint = "realms/heroes/{0}/{1}/{2}/{3}";
-            string[] @params = new string[] { regionId.ToString(), armyId.ToString(), destination.X.ToString(), destination.Y.ToString() };
-            RequestManager.Instance.Put(endpoint, @params, token, OnUpdateHeroPosition);
-        }
+        //protected void UpdateDatabase(int connectionId, int armyId, Coord destination, int regionId)
+        //{
+        //    RequestManagerHttp.ArmiesService.UpdateArmyPosition(armyId, destination.X, destination.Y);
+
+        //    //string token = NetworkServer.Instance.Connections[connectionId].Token;
+        //    //string endpoint = "realms/heroes/{0}/{1}/{2}/{3}";
+        //    //string[] @params = new string[] { regionId.ToString(), armyId.ToString(), destination.X.ToString(), destination.Y.ToString() };
+        //    //RequestManager.Instance.Put(endpoint, @params, token, OnUpdateHeroPosition);
+        //}
 
         private void OnUpdateHeroPosition(HTTPRequest request, HTTPResponse response)
         {

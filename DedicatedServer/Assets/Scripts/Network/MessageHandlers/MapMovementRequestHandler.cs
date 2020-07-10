@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Assets.Scripts.Games;
+using Assets.Scripts.Network.Services;
 using Assets.Scripts.Shared.Models;
 using Assets.Scripts.Shared.NetMessages.World.ClientServer;
 using Assets.Scripts.Shared.NetMessages.World.ServerClient;
@@ -39,7 +40,8 @@ namespace Assets.Scripts.Network.MessageHandlers
                 base.UpdateCache(movingArmy, msg.Destination, movingArmy.GameId);
 
                 // 5. Update the database.
-                base.UpdateDatabase(connectionId, msg.ArmyId, msg.Destination, movingArmy.GameId);
+                RequestManagerHttp.ArmiesService.UpdateArmyPosition(msg.ArmyId, msg.Destination.X, msg.Destination.Y);
+                //base.UpdateDatabase(connectionId, msg.ArmyId, msg.Destination, movingArmy.GameId);
 
                 // Note: Both UpdateCached and UpdateDatabase is happening after client notification.
                 // That is done on purpose so we do not slow down the response to the client after we know that the request is valid.

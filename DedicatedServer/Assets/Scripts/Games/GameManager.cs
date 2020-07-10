@@ -86,7 +86,7 @@ namespace Assets.Scripts.Games
         {
             var army = this.Games[gameId].Armies.FirstOrDefault(x => x.Id == armyId);
             var connection = NetworkServer.Instance.Connections.FirstOrDefault(x => x.Value.UserId == army.UserId);
-            return connection.Value.ConnectionId;
+            return connection.Value != null ? connection.Value.ConnectionId : 0;
         }
     }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Assets.Scripts.InGame;
 using Assets.Scripts.Shared.Models;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GraphView : MonoBehaviour
@@ -14,7 +15,7 @@ public class GraphView : MonoBehaviour
 
     [Header("Heroes")]
     public GameObject heroViewPrefab;
-    private GameObject gridContainer;
+    public GameObject gridContainer;
     private GameObject contactPointsContainer;
     private GameObject occupiedPointsContainer;
     private GameObject openPointsContainer;
@@ -36,7 +37,7 @@ public class GraphView : MonoBehaviour
     private void Awake()
     {
         // TODO: init those based on NodeType numeration values. For each value create new gameObject and push them to array of containers
-        gridContainer = new GameObject("GridContainer");
+        //gridContainer = new GameObject("GridContainer");
         contactPointsContainer = new GameObject("ContactPointsContainer");
         occupiedPointsContainer = new GameObject("OccupiedPointsContainer");
         openPointsContainer = new GameObject("OpenPointsContainer");

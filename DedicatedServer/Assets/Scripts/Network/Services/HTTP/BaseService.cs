@@ -22,6 +22,49 @@ namespace Assets.Scripts.Network.Services.HTTP
             return JsonConvert.DeserializeObject<T>(json);
         }
 
+        protected void Put(string route, object content = null)
+        {
+            Put<object>(route, content);
+        }
+
+        protected T Put<T>(string route, object content = null)
+        {
+            ByteArrayContent byteContent = null;
+            string jsonContent = null;
+
+            if (content != null)
+            {
+                jsonContent = JsonConvert.SerializeObject(content);
+                var buffer = System.Text.Encoding.UTF8.GetBytes(jsonContent);
+                byteContent = new ByteArrayContent(buffer);
+                byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            }
+
+            var response = _client.PutAsync(route, byteContent).GetAwaiter().GetResult();
+
+            if (!response.IsSuccessStatusCode)
+            {
+                // TODO: replace with generic logger.
+                UnityEngine.Debug.Log($"Error executing PUT request for route:{route} and payload: {jsonContent}");
+                return default(T);
+            }
+
+            var responseJson = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+
+            if (responseJson != null)
+            {
+                return JsonConvert.DeserializeObject<T>(responseJson, new JsonSerializerSettings
+                {
+                    NullValueHandling = NullValueHandling.Ignore,
+                    MissingMemberHandling = MissingMemberHandling.Ignore
+                });
+            }
+            else
+            {
+                return default(T);
+            }
+        }
+
         protected T Post<T>(string route, object content)
         {
             var jsonContent = JsonConvert.SerializeObject(content);

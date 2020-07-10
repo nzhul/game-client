@@ -27,6 +27,8 @@ namespace Assets.Scripts.Network.Services
 
         public static IGameService GameService { get; private set; }
 
+        public static IArmiesService ArmiesService { get; private set; }
+
         private void Awake()
         {
             if (_instance != null)
@@ -44,6 +46,7 @@ namespace Assets.Scripts.Network.Services
                 Client.BaseAddress = new Uri(SERVER_ROOT);
                 UsersService = new UsersService();
                 GameService = new GameService();
+                ArmiesService = new ArmiesService();
             }
         }
 

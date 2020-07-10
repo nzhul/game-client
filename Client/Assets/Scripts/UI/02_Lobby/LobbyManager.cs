@@ -16,7 +16,7 @@ using UnityEngine.UI;
 public class LobbyManager : MonoBehaviour
 {
     private string _selectedFaction = "Sanctuary";
-    private string _selectedHeroClass = "Knight";
+    private string _selectedHeroClass = "Paladin";
 
     public FactionData[] factionData;
 

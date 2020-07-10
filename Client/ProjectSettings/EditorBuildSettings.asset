@@ -17,13 +17,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/03_Game.unity
     guid: aaeb7a31dff7c6243993607408b1561d
+  - enabled: 1
+    path: Assets/Scenes/05_Battle.unity
+    guid: 0fa659291e6c46540a8babd75d849c23
   - enabled: 0
     path: Assets/Scenes/99_HeroSelectionMenu.unity
     guid: 1e48efff61173c645935e25195b882f0
   - enabled: 0
     path: Assets/Scenes/99_HeroCreationMenu.unity
     guid: d06f6479b5d8f094596c7836057e1fdf
-  - enabled: 0
-    path: Assets/Scenes/05_Battle.unity
-    guid: 0fa659291e6c46540a8babd75d849c23
   m_configObjects: {}

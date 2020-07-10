@@ -23,7 +23,8 @@ namespace Assets.Scripts.Network.MessageHandlers
             OnStartBattle?.Invoke(msg);
 
             // 4. Load new scene 5_Battle 
-            LevelLoader.LoadLevel(LevelLoader.BATTLE_SCENE);
+            GameManager.Instance.LoadScene(LevelLoader.BATTLE_SCENE);
+            //LevelLoader.LoadLevel(LevelLoader.BATTLE_SCENE);
 
             // TODO: LoadSceneAsync and show loading animation while the scene is loading.
             // Ref: https://stackoverflow.com/a/50007367

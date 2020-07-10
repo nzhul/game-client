@@ -14,6 +14,9 @@ using UnityEngine.EventSystems;
 [RequireComponent(typeof(GraphView))]
 public class BattleManager : MonoBehaviour
 {
+    [SerializeField]
+    GameObject sceneContainer = default;
+
     //TODO: Move highlight logic in other class
     [SerializeField]
     GameObject nodeHoverPrefab = default;
@@ -91,6 +94,7 @@ public class BattleManager : MonoBehaviour
         {
             nodeHover = Instantiate(nodeHoverPrefab);
             nodeHover.SetActive(false);
+            nodeHover.transform.parent = sceneContainer.transform;
         }
     }
 

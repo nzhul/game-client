@@ -70,7 +70,8 @@ namespace Assets.Scripts.Network.MessageHandlers
 
             base.UpdateCache(this.MovingArmy, this.Rmsg.Destination, this.Rmsg.GameId);
             base.NotifyClientsInGame(this.Game.Id, this.RecievingHostId, this.Rmsg);
-            this.UpdateDatabase(this.ConnectionId, this.MovingArmy.Id, this.Rmsg.Destination, this.Rmsg.GameId);
+            RequestManagerHttp.ArmiesService.UpdateArmyPosition(this.MovingArmy.Id, this.Rmsg.Destination.X, this.Rmsg.Destination.Y);
+            //this.UpdateDatabase(this.ConnectionId, this.MovingArmy.Id, this.Rmsg.Destination, this.Rmsg.GameId);
 
             // TODO: DO the same stuff as in MapMovementRequestHandler: UpdateCache, Database, NotifyAllInterestedClients.
             // Consider extracting this common logic into class or something...
