@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Utilities;
+﻿using System.Runtime.InteropServices;
+using Assets.Scripts.Utilities;
 using UnityEngine;
 
 public class MapCamera : MonoBehaviour
@@ -27,6 +28,8 @@ public class MapCamera : MonoBehaviour
 
         swivel = transform.GetChild(0);
         stick = swivel.GetChild(0);
+
+        MapManager.Instance.OnInitComplete += Graph_OnGraphInitialized;
     }
     #endregion
 
@@ -57,7 +60,7 @@ public class MapCamera : MonoBehaviour
 
     private void Start()
     {
-        MapManager.Instance.OnInitComplete += Graph_OnGraphInitialized;
+        Debug.Log("Accessing MapCameraStart");
     }
 
     private void Graph_OnGraphInitialized()

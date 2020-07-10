@@ -52,13 +52,13 @@ public class GraphView : MonoBehaviour
     {
         this.graph = graph;
 
-        nodeViews = new NodeView[graph.graphSizeX, graph.graphSizeY];
+        nodeViews = new NodeView[graph.graphSizeY, graph.graphSizeX];
 
-        for (int row = 0; row < graph.graphSizeX; row++)
+        for (int x = 0; x < graph.graphSizeX; x++) // TODO: chage this to X and Y and probably swap them in graph.nodes[row, col] -> graph.nodes[x, y]
         {
-            for (int col = 0; col < graph.graphSizeY; col++)
+            for (int y = 0; y < graph.graphSizeY; y++)
             {
-                Node node = graph.nodes[row, col];
+                Node node = graph.nodes[y, x];
 
                 GameObject instance = Instantiate(walkableTilePrefab, node.worldPosition, Quaternion.identity);
                 Transform parent = ResolveParent(node.nodeType);
@@ -68,7 +68,7 @@ public class GraphView : MonoBehaviour
                 if (nodeView != null)
                 {
                     nodeView.Init(node);
-                    nodeViews[node.gridX, node.gridY] = nodeView;
+                    nodeViews[node.gridY, node.gridX] = nodeView;
                 }
 
                 // InitLabel(node);
@@ -143,10 +143,10 @@ public class GraphView : MonoBehaviour
     {
         foreach (var army in armies)
         {
-            if (army.IsNPC)
-            {
-                continue;
-            }
+            //if (army.IsNPC)
+            //{
+            //    continue;
+            //}
 
             this.AddArmy(army, new Coord(army.X, army.Y), false);
         }

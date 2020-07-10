@@ -19,7 +19,7 @@ namespace Assets.Scripts.InGame.Map.Entities
         [NonSerialized]
         public UnitMotor motor;
 
-        [NonSerialized]
+        //[NonSerialized]
         public GridEntity rawEntity; // N: I should make base class for Unit and Army. Ex: IMovable or Mover that have X and Y
 
         public bool isMoving;
@@ -47,6 +47,8 @@ namespace Assets.Scripts.InGame.Map.Entities
 
         public void MoveToNode(Coord destination)
         {
+            // TODO: Get the current node and clear the content!
+
             if (this.motor.Path != null && this.motor.Path.Length > 0)
             {
                 // 1. If path exists - use it

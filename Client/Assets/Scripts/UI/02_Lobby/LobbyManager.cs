@@ -202,6 +202,7 @@ public class LobbyManager : MonoBehaviour
             return;
         }
 
+        RequestManagerTcp.GameService.Reconnect(gameId);
         GameManager.Instance.LoadScene(LevelLoader.GAME_SCENE);
     }
 

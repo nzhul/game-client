@@ -28,6 +28,10 @@ namespace Assets.Scripts.Network.MessageHandlers
                 var gameId = GameManager.Instance.GetGameIdByConnectionId(connectionId);
                 var movingArmy = GameManager.Instance.GetArmy(gameId, msg.ArmyId);
 
+                // BUG: the game is not loaded because it is from reconnect!
+                // Temporary hack: load all games on server start!
+                // We won't need to do this in the actual game, because the game will be there.
+
                 // 2. Notify the interested clients ( must exclude the requester )
                 base.NotifyClientsInGame(gameId, recievingHostId, rmsg);
 

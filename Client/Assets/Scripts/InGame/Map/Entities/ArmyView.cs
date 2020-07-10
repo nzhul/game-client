@@ -14,4 +14,17 @@ public class ArmyView : AliveEntityView, IPathRequester
             return DataManager.Instance.Avatar.Team == DataManager.Instance.ActiveGame.GetArmy(rawEntity.Id).Team;
         }
     }
+
+    public override void Interact(AliveEntityView interactingHero)
+    {
+        //// 1. Check if monster pack is locked.
+        //if (npc.NPCData.IsLocked)
+        //{
+        //    // TODO: display pop notification that user cannot interact with the monster until X minutes are passed.
+        //    return;
+        //}
+
+        // 2. Open ConfirmBattle modal
+        ConfirmBattleModal.Instance.Open(BattleScenario.HUvsAI, interactingHero.rawEntity as Army, base.rawEntity as Army);
+    }
 }

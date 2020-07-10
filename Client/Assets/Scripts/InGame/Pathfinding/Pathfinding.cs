@@ -75,7 +75,7 @@ public class Pathfinding : MonoBehaviour
                 }
             }
         }
-        yield return null;
+        yield return null; 
         if (pathSuccess)
         {
             waypoints = RetracePath(startNode, targetNode);

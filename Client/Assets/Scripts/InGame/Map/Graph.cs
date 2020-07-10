@@ -27,22 +27,30 @@ public class Graph : MonoBehaviour
 
     public void Init(int[,] matrix)
     {
-        graphSizeX = matrix.GetLength(0);
-        graphSizeY = matrix.GetLength(1);
+        graphSizeY  = matrix.GetLength(0);
+        graphSizeX = matrix.GetLength(1);
 
         gridWorldSize = new Vector2(Mathf.RoundToInt(graphSizeX * nodeDiameter), Mathf.RoundToInt(graphSizeY * nodeDiameter)); // NOT sure about this line ...
 
 
-        nodes = new Node[graphSizeX, graphSizeY];
-        Vector3 worldBottomLeft = transform.position - Vector3.right * gridWorldSize.x / 2 - Vector3.forward * gridWorldSize.y / 2;
+        nodes = new Node[graphSizeY, graphSizeX];
+        Vector3 worldBottomLeft = transform.position - Vector3.forward * gridWorldSize.y / 2 - Vector3.right * gridWorldSize.x / 2;
 
         for (int x = 0; x < graphSizeX; x++)
         {
             for (int y = 0; y < graphSizeY; y++)
             {
-                Vector3 worldPoint = worldBottomLeft + Vector3.right * (x * nodeDiameter + nodeRadius) + Vector3.forward * (y * nodeDiameter + nodeRadius);
-                NodeType nodeType = (NodeType)matrix[x, y];
-                nodes[x, y] = new Node(nodeType, worldPoint, x, y);
+                Vector3 worldPoint = worldBottomLeft + Vector3.forward * (y * nodeDiameter + nodeRadius) + Vector3.right * (x * nodeDiameter + nodeRadius);
+                NodeType nodeType = (NodeType)matrix[y, x];
+
+                // temp -> to be deleted
+                if (matrix[y, x] == 9)
+                {
+                    nodeType = NodeType.Open;
+                }
+                // temp end
+
+                nodes[y, x] = new Node(nodeType, worldPoint, x, y);
             }
         }
     }
@@ -69,7 +77,7 @@ public class Graph : MonoBehaviour
 
                 if (checkX >= 0 && checkX < graphSizeX && checkY >= 0 && checkY < graphSizeY)
                 {
-                    neighbours.Add(nodes[checkX, checkY]);
+                    neighbours.Add(nodes[checkY, checkX]);
                 }
             }
         }
@@ -91,7 +99,7 @@ public class Graph : MonoBehaviour
 
         int x = Mathf.RoundToInt((graphSizeX - 1) * percentX);
         int y = Mathf.RoundToInt((graphSizeY - 1) * percentY);
-        return nodes[x, y];
+        return nodes[y, x];
     }
 
     private int[,] ParseMatrix(string matrixString)

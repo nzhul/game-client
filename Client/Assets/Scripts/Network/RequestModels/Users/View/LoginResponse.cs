@@ -30,7 +30,7 @@ namespace Assets.Scripts.Network.RequestModels.Users.View
         public string city;
         public string country;
         public string photoUrl;
-        public int activeGameId;
+        public int gameId;
 
         public DateTime? dateCreated
         {

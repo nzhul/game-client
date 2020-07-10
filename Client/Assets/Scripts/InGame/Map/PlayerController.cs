@@ -30,6 +30,9 @@ public class PlayerController : MonoBehaviour
         {
             _instance = this;
         }
+
+
+        MapManager.Instance.OnInitComplete += Hero_OnHeroInit; // TODO: this will fail if i switch active hero!
     }
     #endregion
 
@@ -39,7 +42,7 @@ public class PlayerController : MonoBehaviour
     private GraphView _graphView;
     private Node[] hightlightPath;
     private List<NodeView> _pathView;
-    private AliveEntityView activeHero;
+    private AliveEntityView activeEntity;
 
     public bool InputEnabled { get; set; }
 
@@ -48,8 +51,6 @@ public class PlayerController : MonoBehaviour
         _pathView = new List<NodeView>();
         _graphView = MapManager.Instance.graphView;
         cam = Camera.main;
-
-        MapManager.Instance.OnInitComplete += Hero_OnHeroInit; // TODO: this will fail if i switch active hero!
     }
 
     public void EnableInputs()
@@ -60,12 +61,12 @@ public class PlayerController : MonoBehaviour
 
     public void SetActiveEntity(int heroId)
     {
-        activeHero = AliveEntitiesManager.Instance.Entities[heroId];
+        activeEntity = AliveEntitiesManager.Instance.Entities[heroId];
     }
 
     private void Hero_OnHeroInit()
     {
-        activeHero.motor.OnDestinationReached += PlayerHero_OnDestinationReached;
+        activeEntity.motor.OnDestinationReached += PlayerHero_OnDestinationReached;
     }
 
     private void Update()
@@ -86,22 +87,22 @@ public class PlayerController : MonoBehaviour
                 GameObject parent = graphic.transform.parent.gameObject;
                 NodeView nodeView = parent.GetComponent<NodeView>();
 
-                if (nodeView != null && activeHero != null && !activeHero.isMoving)
+                if (nodeView != null && activeEntity != null && !activeEntity.isMoving)
                 {
                     if (nodeView != focusNodeView)
                     {
                         // 1. PreviewPath
                         SetFocus(nodeView);
-                        Vector3 start = activeHero.transform.position;
+                        Vector3 start = activeEntity.transform.position; // BUG: transform.position and node.worldposition do not give equal result
                         Vector3 end = nodeView.node.worldPosition;
-                        activeHero.targetNode = nodeView;
+                        activeEntity.targetNode = nodeView;
 
                         if (nodeView.node.nodeType == NodeType.ContactPoint)
                         {
                             nodeView.node.walkable = true;
                         }
 
-                        PathRequestManager.RequestPath(start, end, activeHero, OnPathFound);
+                        PathRequestManager.RequestPath(start, end, activeEntity, OnPathFound);
                     }
                     else
                     {
@@ -121,11 +122,11 @@ public class PlayerController : MonoBehaviour
                         // 2. Send Map movement request to the server
                         Net_MapMovementRequest msg = new Net_MapMovementRequest
                         {
-                            ArmyId = activeHero.rawEntity.Id,
+                            ArmyId = activeEntity.rawEntity.Id,
                             Destination = new Coord
                             {
-                                X = activeHero.destinationNode.gridX,
-                                Y = activeHero.destinationNode.gridY,
+                                X = activeEntity.destinationNode.gridX,
+                                Y = activeEntity.destinationNode.gridY,
                             }
                         };
                         NetworkClient.Instance.SendServer(msg);
@@ -142,9 +143,9 @@ public class PlayerController : MonoBehaviour
 
         ClearPreviousPath();
 
-        if (this.activeHero.targetNode.node.nodeType == NodeType.ContactPoint)
+        if (this.activeEntity.targetNode.node.nodeType == NodeType.ContactPoint)
         {
-            this.activeHero.targetNode.TriggerInteraction(this.activeHero);
+            this.activeEntity.targetNode.TriggerInteraction(this.activeEntity);
         }
     }
 
@@ -176,7 +177,7 @@ public class PlayerController : MonoBehaviour
             for (int i = 0; i < hightlightPath.Length; i++)
             {
                 Node node = hightlightPath[i];
-                NodeView nodeView = _graphView.nodeViews[node.gridX, node.gridY];
+                NodeView nodeView = _graphView.nodeViews[node.gridY, node.gridX];
                 if (nodeView != null)
                 {
                     nodeView.Highlight();

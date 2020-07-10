@@ -28,8 +28,11 @@ namespace Assets.Scripts.Network.Services
             }
 
             UserService = new UserService();
+            GameService = new GameService();
         }
 
         public static IUserService UserService { get; private set; }
+
+        public static IGameService GameService { get; private set; }
     }
 }

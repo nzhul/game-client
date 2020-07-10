@@ -196,7 +196,8 @@ public class NetworkServer : MonoBehaviour
             { NetOperationCode.EndTurnRequest, new EndTurnRequestHandler() },
             { NetOperationCode.FindOpponentRequest, new FindOpponentRequestHandler() },
             { NetOperationCode.CancelFindOpponentRequest, new CancelFindOpponentRequestHandler() },
-            { NetOperationCode.LogoutRequest, new LogoutRequestHandler() }
+            { NetOperationCode.LogoutRequest, new LogoutRequestHandler() },
+            { NetOperationCode.ReconnectRequest, new ReconnectRequestHandler() }
         };
     }
 

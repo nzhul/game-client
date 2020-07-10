@@ -179,7 +179,7 @@ namespace Assets.Scripts.UI.Modals.MainMenuModals
             _dataManager.Gender = loginInfo.user.gender;
             _dataManager.Age = loginInfo.user.age;
             _dataManager.CurrentRealmId = loginInfo.user.currentRealmId;
-            _dataManager.ActiveGameId = loginInfo.user.activeGameId;
+            _dataManager.ActiveGameId = loginInfo.user.gameId;
             _dataManager.Save();
         }
     }

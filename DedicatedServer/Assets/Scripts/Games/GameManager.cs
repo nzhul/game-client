@@ -34,6 +34,11 @@ namespace Assets.Scripts.Games
             this.Games = new Dictionary<int, Game>();
         }
 
+        public bool GameIsRegistered(int gameId)
+        {
+            return this.Games.ContainsKey(gameId);
+        }
+
         public void RegisterGame(Game game)
         {
             this.Games.Add(game.Id, game);

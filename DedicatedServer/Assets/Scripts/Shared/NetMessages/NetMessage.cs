@@ -77,6 +77,12 @@ public static class NetOperationCode
     /// Sends a request for disconnecting from the server and going offline.
     /// </summary>
     public const int LogoutRequest = 11;
+
+    /// <summary>
+    /// Sends a request for reconnecting to a game.
+    /// NOTE: This will be used only while developing so we can load the game server side when we need it.
+    /// </summary>
+    public const int ReconnectRequest = 12;
     #endregion
 
 

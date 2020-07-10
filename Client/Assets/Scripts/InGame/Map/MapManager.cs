@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Assets.Scripts;
 using Assets.Scripts.Data;
 using Assets.Scripts.InGame.Console;
@@ -46,40 +47,21 @@ public class MapManager : MonoBehaviour
 
     private void Start()
     {
-        //_worldService = new WorldService();
-
-        //_dm = DataManager.Instance;
-        //_dm.Load();
-
-        //if (_dm.Avatar != null && _dm.Avatar.Heroes != null && _dm.Avatar.Heroes.Count >= 1)
-        //{
-        //    int[] regionsForLoading = _dm.Avatar.Heroes.Select(h => h.GameId).ToArray();
-
-        //    string endpoint = "realms/{0}/regions";
-        //    string[] @params = new string[] { DataManager.Instance.CurrentRealmId.ToString() };
-        //    List<KeyValuePair<string, string>> queryParams = new List<KeyValuePair<string, string>>();
-
-        //    for (int i = 0; i < regionsForLoading.Length; i++)
-        //    {
-        //        queryParams.Add(new KeyValuePair<string, string>("regionIds", regionsForLoading[i].ToString()));
-        //    }
-
-        //    RequestManager.Instance.Get(endpoint, @params, queryParams, DataManager.Instance.Token, OnGetGetRegionsRequestFinished);
-
-
-        //    _worldService.WorldEnterRequest(DataManager.Instance.Id, DataManager.Instance.CurrentRealmId, regionsForLoading);
-        //}
-
 
         //TODO: Wrap this Initialization logic into progress tacker and hook it somehow to the GameManager Loading Screen
 
         var game = RequestManagerHttp.GameService.GetGame(DataManager.Instance.ActiveGameId);
         DataManager.Instance.ActiveGame = game;
-
+        DataManager.Instance.Avatar = game.Avatars.FirstOrDefault(a => a.UserId == DataManager.Instance.Id);
+        DataManager.Instance.ActiveArmyId = game.Armies.FirstOrDefault(x => x.Team == DataManager.Instance.Avatar.Team).Id;
         DataManager.Instance.UnitConfigurations = RequestManagerHttp.GameService.GetUnitConfigurations();
+
+
+        //BUG: I need to rotate the whole matrix 90 degrees. so it becomes 170x70 and not 70x170
 
         RenderMap(DataManager.Instance.ActiveGame);
         PlayerController.Instance.EnableInputs();
+        OnInitComplete?.Invoke();
 
         //TODO: Wrap this Initialization logic into progress tacker and hook it somehow to the GameManager Loading Screen
     }
@@ -91,35 +73,6 @@ public class MapManager : MonoBehaviour
             graphView.labelsCanvas.gameObject.SetActive(!graphView.labelsCanvas.gameObject.activeInHierarchy);
         }
     }
-
-    //private void OnGetGetRegionsRequestFinished(HTTPRequest request, HTTPResponse response)
-    //{
-    //    // TODO: Implement this
-    //    // store the region information in a file (maybe a different file than the main one)
-    //    // use region data to render the map!
-    //    string errorMessage;
-    //    if (NetworkCommon.RequestIsSuccessful(request, response, out errorMessage))
-    //    {
-    //        string json = response.DataAsText;
-    //        IList<Game> regions = JsonConvert.DeserializeObject<IList<Game>>(json);
-
-    //        if (regions != null && regions.Count >= 1)
-    //        {
-    //            _dm.ActiveGame = regions;
-    //            Game activeRegion = _dm.ActiveGame.FirstOrDefault(r => r.Heroes.Any(h => h.Id == _dm.ActiveHeroId));
-    //            _dm.ActiveGameId = activeRegion.Id;
-    //            _dm.Save();
-
-    //            RenderMap(activeRegion);
-    //        }
-    //    }
-    //}
-
-    //public void LoadHero(int heroId, Coord destination)
-    //{
-    //    var loader = new HeroLoader();
-    //    loader.Load(heroId, destination);
-    //}
 
     private void RenderMap(Game game)
     {
@@ -135,13 +88,10 @@ public class MapManager : MonoBehaviour
         {
             graph.Init(game.MatrixString);
             graphView.Init(graph);
-            //graphView.AddNPCArmies(game.Armies);
+            // graphView.AddNPCArmies(game.Armies);
             graphView.AddArmies(game.Armies);
             PlayerController.Instance.SetActiveEntity(DataManager.Instance.ActiveArmyId);
             //graphView.Dwellings();
-            //activeHero = graphView.InitHero(_activeHero, graph.nodes[_activeHero.x, _activeHero.y].worldPosition);
-
-            OnInitComplete?.Invoke();
         }
     }
 

@@ -19,10 +19,10 @@ namespace Assets.Scripts.Network.MessageHandlers
 
             if (AliveEntitiesManager.Instance.Entities != null && AliveEntitiesManager.Instance.Entities.Count > 0)
             {
-                var hero = AliveEntitiesManager.Instance.Entities[msg.ArmyId];
-                if (hero != null && !hero.isMoving)
+                var army = AliveEntitiesManager.Instance.Entities[msg.ArmyId];
+                if (army != null && !army.isMoving)
                 {
-                    hero.MoveToNode(msg.Destination);
+                    army.MoveToNode(msg.Destination);
                 }
                 else
                 {
