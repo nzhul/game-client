@@ -4,12 +4,12 @@ using UnityEngine;
 
 namespace Assets.Scripts.InGame
 {
-    public class AliveEntitiesManager : MonoBehaviour
+    public class EntitiesManager : MonoBehaviour
     {
         #region Singleton
-        private static AliveEntitiesManager _instance;
+        private static EntitiesManager _instance;
 
-        public static AliveEntitiesManager Instance
+        public static EntitiesManager Instance
         {
             get
             {
@@ -28,12 +28,12 @@ namespace Assets.Scripts.InGame
                 _instance = this;
             }
 
-            this.Entities = new Dictionary<int, AliveEntityView>();
+            this.Entities = new Dictionary<int, EntityView>();
             //this.NPCs = new Dictionary<int, NPCView>();
         }
         #endregion
 
-        public Dictionary<int, AliveEntityView> Entities { get; private set; }
+        public Dictionary<int, EntityView> Entities { get; private set; }
 
         //public Dictionary<int, NPCView> NPCs { get; private set; }
 

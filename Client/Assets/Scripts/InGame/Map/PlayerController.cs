@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour
     private GraphView _graphView;
     private Node[] hightlightPath;
     private List<NodeView> _pathView;
-    private AliveEntityView activeEntity;
+    private EntityView activeEntity;
 
     public bool InputEnabled { get; set; }
 
@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
 
     public void SetActiveEntity(int heroId)
     {
-        activeEntity = AliveEntitiesManager.Instance.Entities[heroId];
+        activeEntity = EntitiesManager.Instance.Entities[heroId];
     }
 
     private void Hero_OnHeroInit()
@@ -137,7 +137,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void PlayerHero_OnDestinationReached(Node node, AliveEntityView entityView)
+    private void PlayerHero_OnDestinationReached(Node node, EntityView entityView)
     {
         _graphView.AddContentToNode(new Coord(entityView.rawEntity.X, entityView.rawEntity.Y), entityView);
 

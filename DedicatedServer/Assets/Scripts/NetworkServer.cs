@@ -70,6 +70,8 @@ public class NetworkServer : MonoBehaviour
         RequestManagerHttp.Instance.UpdateHeaders(headers);
         this.LoadUnitConfigurations();
         // this.APICallTest(); // TODO: for testing purposes only. Delete
+
+        RequestManagerHttp.UsersService.ClearAllBattles();
     }
 
     private void APICallTest()
@@ -197,7 +199,8 @@ public class NetworkServer : MonoBehaviour
             { NetOperationCode.FindOpponentRequest, new FindOpponentRequestHandler() },
             { NetOperationCode.CancelFindOpponentRequest, new CancelFindOpponentRequestHandler() },
             { NetOperationCode.LogoutRequest, new LogoutRequestHandler() },
-            { NetOperationCode.ReconnectRequest, new ReconnectRequestHandler() }
+            { NetOperationCode.ReconnectRequest, new ReconnectRequestHandler() },
+            { NetOperationCode.ReconnectBattleRequest, new ReconnectBattleRequestHandler() }
         };
     }
 

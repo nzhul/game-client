@@ -11,7 +11,8 @@ namespace Assets.Scripts.Network.MessageHandlers
         {
             Net_ReconnectRequest msg = (Net_ReconnectRequest)input;
 
-            // TODO: validate message.
+            // TODO: User should not be able to just reconnect to any Game.
+            // Server should do API call to check what is the gameId of the user.
 
             var connection = NetworkServer.Instance.Connections[connectionId];
             connection.GameId = msg.GameId;

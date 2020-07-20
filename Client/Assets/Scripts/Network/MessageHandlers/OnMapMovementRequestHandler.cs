@@ -17,9 +17,9 @@ namespace Assets.Scripts.Network.MessageHandlers
 
             //Debug.Log("Map movement request recieved: " + JsonConvert.SerializeObject(msg));
 
-            if (AliveEntitiesManager.Instance.Entities != null && AliveEntitiesManager.Instance.Entities.Count > 0)
+            if (EntitiesManager.Instance.Entities != null && EntitiesManager.Instance.Entities.Count > 0)
             {
-                var army = AliveEntitiesManager.Instance.Entities[msg.ArmyId];
+                var army = EntitiesManager.Instance.Entities[msg.ArmyId];
                 if (army != null && !army.isMoving)
                 {
                     army.MoveToNode(msg.Destination);

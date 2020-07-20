@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Assets.Scripts.Games;
+using Assets.Scripts.Network.Services;
 using Assets.Scripts.Shared.Models;
 using Assets.Scripts.Shared.Models.Units;
 using Assets.Scripts.Shared.NetMessages.World.ClientServer;
@@ -22,7 +23,6 @@ namespace Assets.Scripts.Network.MessageHandlers
             if (msg.IsValid())
             {
                 BattleScenario scenario = this.ResolveBattleScenario(msg.AttackerType, msg.DefenderType);
-                rmsg.Success = 1;
                 rmsg.AttackerArmyId = msg.AttackerArmyId;
                 rmsg.DefenderArmyId = msg.DefenderArmyId;
                 rmsg.BattleScenario = scenario;
@@ -44,14 +44,14 @@ namespace Assets.Scripts.Network.MessageHandlers
                     LastTurnStartTime = Time.time
                 };
 
-                newBattle.SelectedUnit = this.GetRandomUnit(game, msg.AttackerArmyId);
-                newBattle.CurrentUnitId = newBattle.SelectedUnit.Id;
+                newBattle.SelectedUnit = GameManager.Instance.GetRandomAvailibleUnit(newBattle.AttackerArmy);
 
                 this.UpdateUnitsData(newBattle.AttackerArmy);
                 this.UpdateUnitsData(newBattle.DefenderArmy);
 
                 rmsg.BattleId = newBattle.Id;
                 rmsg.SelectedUnitId = newBattle.SelectedUnit.Id;
+                rmsg.Turn = Turn.Attacker;
 
                 this.ConfigurePlayerReady(newBattle, scenario);
                 newBattle.AttackerConnectionId = GameManager.Instance.GetConnectionIdByArmyId(game.Id, newBattle.AttackerArmyId);
@@ -59,14 +59,12 @@ namespace Assets.Scripts.Network.MessageHandlers
 
                 NetworkServer.Instance.ActiveBattles.Add(newBattle);
                 NetworkServer.Instance.SendClient(recievingHostId, connectionId, rmsg);
+
+                RequestManagerHttp.BattleService.RegisterBattle(newBattle.Id, NetworkServer.Instance.Connections[connectionId].UserId);
+                // TODO: Register battle for other player when pvp battle.
+
                 OnBattleStarted?.Invoke(newBattle);
             }
-        }
-
-        private Unit GetRandomUnit(Game game, int armyId)
-        {
-            var army = game.Armies.FirstOrDefault(x => x.Id == armyId);
-            return army.Units[UnityEngine.Random.Range(0, army.Units.Count - 1)];
         }
 
         private void UpdateUnitsData(Army Army)

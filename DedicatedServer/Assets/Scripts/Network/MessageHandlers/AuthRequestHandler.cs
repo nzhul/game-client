@@ -31,7 +31,9 @@ namespace Assets.Scripts.Network.MessageHandlers
                     UserId = msg.UserId,
                     Token = msg.Token,
                     Username = msg.Username,
-                    MMR = msg.MMR
+                    MMR = msg.MMR,
+                    GameId = msg.GameId,
+                    BattleId = msg.BattleId
                 };
 
                 NetworkServer.Instance.Connections.Add(connectionId, connection);

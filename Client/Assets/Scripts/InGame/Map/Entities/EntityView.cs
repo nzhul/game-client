@@ -12,7 +12,7 @@ namespace Assets.Scripts.InGame.Map.Entities
     /// Alive content can move and interact with other contents.
     /// Such content is Army or Unit.
     /// </summary>
-    public abstract class AliveEntityView : NodeContent, IPathRequester
+    public abstract class EntityView : NodeContent, IPathRequester
     {
         public GameObject graphic;
 
@@ -78,7 +78,7 @@ namespace Assets.Scripts.InGame.Map.Entities
             if (graphic != null)
             {
                 this.rawEntity = entity;
-                gameObject.name = "AliveEntity";
+                gameObject.name = "Entity";
                 gameObject.transform.position = worldPosition;
 
                 InitGraphic();

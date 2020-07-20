@@ -23,6 +23,8 @@ namespace Assets.Scripts.Network.Services
 
         public static HttpClient Client { get; private set; }
 
+        public static IBattleService BattleService { get; private set; }
+
         public static IUsersService UsersService { get; private set; }
 
         public static IGameService GameService { get; private set; }
@@ -47,6 +49,7 @@ namespace Assets.Scripts.Network.Services
                 UsersService = new UsersService();
                 GameService = new GameService();
                 ArmiesService = new ArmiesService();
+                BattleService = new BattleService();
             }
         }
 

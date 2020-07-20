@@ -31,6 +31,7 @@ namespace Assets.Scripts.Network.RequestModels.Users.View
         public string country;
         public string photoUrl;
         public int gameId;
+        public Guid? battleId;
 
         public DateTime? dateCreated
         {

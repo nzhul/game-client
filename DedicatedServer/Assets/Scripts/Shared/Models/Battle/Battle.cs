@@ -26,6 +26,8 @@ namespace Assets.Scripts.Shared.Models
 
         public DateTime AttackerLastActivity { get; set; }
 
+        public bool AttackerDisconnected { get; set; }
+
         public int DefenderArmyId { get; set; }
 
         public int DefenderConnectionId { get; set; }
@@ -34,7 +36,7 @@ namespace Assets.Scripts.Shared.Models
 
         public DateTime DefenderLastActivity { get; set; }
 
-        public int CurrentUnitId { get; set; }
+        public bool DefenderDisconnected { get; set; }
 
         public Unit SelectedUnit { get; set; }
 

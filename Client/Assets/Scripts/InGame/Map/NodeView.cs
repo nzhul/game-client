@@ -128,7 +128,7 @@ public class NodeView : MonoBehaviour
         return LayerMask.NameToLayer(layerName);
     }
 
-    public void TriggerInteraction(AliveEntityView interactingEntity)
+    public void TriggerInteraction(EntityView interactingEntity)
     {
         if (this.Content != null)
         {

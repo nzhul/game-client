@@ -19,12 +19,12 @@ namespace Assets.Scripts.Network.MessageHandlers
             OnTeleport?.Invoke(msg);
 
             TeleportScenario scenario = ResolveScenarioType(msg);
-            AliveEntityView entity = null;
+            EntityView entity = null;
 
 
-            if (AliveEntitiesManager.Instance.Entities != null && AliveEntitiesManager.Instance.Entities.Count > 0)
+            if (EntitiesManager.Instance.Entities != null && EntitiesManager.Instance.Entities.Count > 0)
             {
-                entity = AliveEntitiesManager.Instance.Entities[msg.ArmyId];
+                entity = EntitiesManager.Instance.Entities[msg.ArmyId];
                 if (entity == null || entity.isMoving)
                 {
                     Debug.LogWarning("Cannot find hero to teleport!");
@@ -78,7 +78,7 @@ namespace Assets.Scripts.Network.MessageHandlers
         //    LevelLoader.LoadLevel(LevelLoader.GAME_SCENE);
         //}
 
-        private void HandleBlink(AliveEntityView entity, Net_OnTeleport msg)
+        private void HandleBlink(EntityView entity, Net_OnTeleport msg)
         {
             entity.Blink(msg.Destination);
         }

@@ -83,6 +83,12 @@ public static class NetOperationCode
     /// NOTE: This will be used only while developing so we can load the game server side when we need it.
     /// </summary>
     public const int ReconnectRequest = 12;
+
+    /// <summary>
+    /// Sends a request for reconnecting to a battle.
+    /// This message is send when the player still have active game and wants to reconnect to it.
+    /// </summary>
+    public const int ReconnectBattleRequest = 13;
     #endregion
 
 

@@ -2,6 +2,9 @@
 
 namespace Assets.Scripts.Network.Shared.NetMessages.Users
 {
+    // TODO: AuthRequest should not pass all this information.
+    // Server should do another request to the server to fetch user details like:
+    // MMR, GameId, BattleId etc.
     [Serializable]
     public class Net_AuthRequest : NetMessage
     {
@@ -19,6 +22,8 @@ namespace Assets.Scripts.Network.Shared.NetMessages.Users
         public string Token { get; set; }
 
         public int GameId { get; set; }
+
+        public Guid? BattleId { get; set; }
 
         public bool IsValid()
         {

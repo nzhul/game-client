@@ -9,14 +9,14 @@ public class UnitMotor : MonoBehaviour
     private Vector3[] waypoints;
     private int targetIndex;
     public float speed = 20;
-    private AliveEntityView selfView;
-    public event Action<Node, AliveEntityView> OnDestinationReached;
+    private EntityView selfView;
+    public event Action<Node, EntityView> OnDestinationReached;
 
     public Node[] Path { get; set; }
 
     private void Start()
     {
-        selfView = GetComponent<AliveEntityView>();
+        selfView = GetComponent<EntityView>();
     }
 
     public void ExecuteFollowPath(Node[] waypoints)

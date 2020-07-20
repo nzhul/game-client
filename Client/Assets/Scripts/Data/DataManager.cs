@@ -73,6 +73,18 @@ namespace Assets.Scripts.Data
             }
         }
 
+        public Guid? ActiveBattleId
+        {
+            get
+            {
+                return _saveData.activeBattleId;
+            }
+            set
+            {
+                _saveData.activeBattleId = value;
+            }
+        }
+
         public int ActiveArmyId
         {
             get

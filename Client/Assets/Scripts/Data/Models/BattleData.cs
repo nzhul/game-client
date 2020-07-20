@@ -9,8 +9,9 @@ namespace Assets.Scripts.Data.Models
     // TODO: Move this class in the SHARED folder
     public class BattleData
     {
-        public BattleData()
+        public BattleData(bool playerIsAttacker = false)
         {
+            this.PlayerIsAttacker = playerIsAttacker;
             this.State = BattleState.Preparation;
             this.Start = DateTime.UtcNow;
             this.Log = new List<string>();
@@ -18,9 +19,9 @@ namespace Assets.Scripts.Data.Models
 
         public bool UseAutoBattles { get; set; }
 
-        public Army AttackerArmy { get; set; }
+        public Army PlayerArmy { get; set; }
 
-        public Army DefenderArmy { get; set; }
+        public Army EnemyArmy { get; set; }
 
         public int BoardRowCount { get; set; } = 11;
 
@@ -28,9 +29,9 @@ namespace Assets.Scripts.Data.Models
 
         public Guid BattleId { get; set; }
 
-        public int AttackerArmyId { get; set; }
+        public int PlayerArmyId { get; set; }
 
-        public int DefenderArmyId { get; set; }
+        public int EnemyArmyId { get; set; }
 
         public Unit SelectedUnit { get; set; }
 
@@ -57,6 +58,8 @@ namespace Assets.Scripts.Data.Models
         bool _actionsEnabled = false;
 
         public Turn Turn { get; set; }
+
+        public bool PlayerIsAttacker { get; }
 
         public List<string> Log { get; set; }
 

@@ -5,7 +5,7 @@ using Assets.Scripts.Shared.Models;
 using UnityEngine;
 
 [RequireComponent(typeof(UnitMotor))]
-public class ArmyView : AliveEntityView, IPathRequester
+public class ArmyView : EntityView, IPathRequester
 {
     public override bool IsFriendly
     {
@@ -15,7 +15,7 @@ public class ArmyView : AliveEntityView, IPathRequester
         }
     }
 
-    public override void Interact(AliveEntityView interactingHero)
+    public override void Interact(EntityView interactingHero)
     {
         //// 1. Check if monster pack is locked.
         //if (npc.NPCData.IsLocked)

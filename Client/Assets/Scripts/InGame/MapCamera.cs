@@ -60,7 +60,7 @@ public class MapCamera : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("Accessing MapCameraStart");
+
     }
 
     private void Graph_OnGraphInitialized()

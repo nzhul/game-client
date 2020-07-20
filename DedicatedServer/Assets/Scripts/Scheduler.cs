@@ -8,8 +8,9 @@ using UnityEngine;
 
 public class Scheduler : MonoBehaviour
 {
-    private const int TURN_DURATION = 20; // seconds
-    private const int IDLE_TIMEOUT = (TURN_DURATION * 2) + (TURN_DURATION / 2); // seconds -> 20 * 2 + 20 / 2 = 40 + 10 = 50
+    private const int TURN_DURATION = 10; // seconds
+    private const int IDLE_TIMEOUT = 10000; // Use this for testing. Real one is bellow!
+    //private const int IDLE_TIMEOUT = (TURN_DURATION * 2) + (TURN_DURATION / 2); // seconds -> 20 * 2 + 20 / 2 = 40 + 10 = 50
     private IBattleService battleService;
 
     private void Start()

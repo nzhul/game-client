@@ -202,8 +202,19 @@ public class LobbyManager : MonoBehaviour
             return;
         }
 
-        RequestManagerTcp.GameService.Reconnect(gameId);
-        GameManager.Instance.LoadScene(LevelLoader.GAME_SCENE);
+        if (DataManager.Instance.ActiveBattleId != null)
+        {
+            // 1. Send new ReconnectBattle message
+            // 2. ReconnectBattle should get all information that the client needs: SelectedUnit, CurrentPlayer turn, remaining time. Etc.
+            //    and send back Net_OnStartBattle message to the reconnecting player.
+
+            RequestManagerTcp.GameService.ReconnectBattle(DataManager.Instance.ActiveGame.Id, DataManager.Instance.ActiveBattleId.Value);
+        }
+        else
+        {
+            RequestManagerTcp.GameService.Reconnect(gameId);
+            GameManager.Instance.LoadScene(LevelLoader.GAME_SCENE);
+        }
     }
 
     private void OnLeaveGameClicked()

@@ -1,4 +1,5 @@
-﻿/// <summary>
+﻿using System;
+/// <summary>
 /// This class will hold the information for every player connection:
 /// His connectionId, Token, UserInformation, Loaded Regions and other information.
 /// </summary>
@@ -15,6 +16,8 @@ public class ServerConnection
     public int ConnectionId { get; set; }
 
     public int GameId { get; set; }
+
+    public Guid? BattleId { get; set; }
 
     public string Username { get; set; }
 

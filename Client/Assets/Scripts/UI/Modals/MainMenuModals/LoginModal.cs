@@ -151,7 +151,7 @@ namespace Assets.Scripts.UI.Modals.MainMenuModals
                     StoreUserData(loginInfo);
                 }
 
-                _userService.SendAuthRequest(loginInfo.user.id, loginInfo.user.username, loginInfo.tokenString);
+                _userService.SendAuthRequest(loginInfo);
 
                 //MainMenuManager.Instance.HideInitialButtons();
                 //RealmSelectionModal.Instance.Open();
@@ -180,6 +180,7 @@ namespace Assets.Scripts.UI.Modals.MainMenuModals
             _dataManager.Age = loginInfo.user.age;
             _dataManager.CurrentRealmId = loginInfo.user.currentRealmId;
             _dataManager.ActiveGameId = loginInfo.user.gameId;
+            _dataManager.ActiveBattleId = loginInfo.user.battleId;
             _dataManager.Save();
         }
     }

@@ -9,6 +9,7 @@ using Assets.Scripts.Shared.Models;
 using Assets.Scripts.Shared.Models.Units;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using System.Linq;
 
 [RequireComponent(typeof(Graph))]
 [RequireComponent(typeof(GraphView))]
@@ -59,7 +60,7 @@ public class BattleManager : MonoBehaviour
     }
     #endregion
 
-    public const int TURN_DURATION = 20;
+    public const int TURN_DURATION = 10;
 
     private IBattleService battleService;
     private BattleData bd;
@@ -79,7 +80,7 @@ public class BattleManager : MonoBehaviour
         // NOTE: consider the case when the ready message arrives before the battle is created in the server.
         this.bd = DataManager.Instance.BattleData;
         this.battleService = new BattleService();
-        this.battleService.SendConfirmLoadingBattleSceneMessage(this.bd.BattleId, this.bd.AttackerArmyId, true);
+        this.battleService.SendConfirmLoadingBattleSceneMessage(this.bd.BattleId, this.bd.PlayerArmyId, true);
 
         StopCoroutine(UpdateRemainingTurnTime());
         StartCoroutine(UpdateRemainingTurnTime());
@@ -227,6 +228,11 @@ public class BattleManager : MonoBehaviour
 
     private void InitUnits()
     {
+        this.UpdateCoordinates();
+        graphView.AddEntities(this.bd.PlayerArmy.Units);
+        graphView.AddEntities(this.bd.EnemyArmy.Units);
+
+        //graphView.AddArmies();
         //this.UpdateCoordinates();
 
         //var attackerCoords = new Coord(this.bd.AttackerArmy.BattleX, this.bd.AttackerArmy.BattleY);
@@ -234,6 +240,14 @@ public class BattleManager : MonoBehaviour
 
         //graphView.AddHero(this.bd.AttackerArmy, attackerCoords, false);
         //graphView.AddHero(this.bd.DefenderArmy, defenderCoords, false);
+    }
+
+    private void UpdateCoordinates()
+    {
+        foreach (var unit in this.bd.EnemyArmy.Units)
+        {
+            unit.X = (graph.graphSizeX - 1) - unit.X;
+        }
     }
 
     //private void UpdateCoordinates()

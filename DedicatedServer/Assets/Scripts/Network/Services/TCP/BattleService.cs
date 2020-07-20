@@ -30,11 +30,13 @@ namespace Assets.Scripts.Network.Services.TCP
             }
 
             // DO API call to save battle outcome
+
+            // TODO: Clear both users - BattleId
         }
 
         public void NullifyUnitPoints(int gameId, int heroId, int unitId, bool isDefend)
         {
-            var unit = GameManager.Instance.GetUnit(gameId, heroId);
+            var unit = GameManager.Instance.GetUnit(gameId, unitId);
 
             if (unit == null)
             {
@@ -53,20 +55,20 @@ namespace Assets.Scripts.Network.Services.TCP
 
         public void SwitchTurn(Battle battle)
         {
-            Debug.Log("Turn time expired - switching turns!");
             if (battle.Turn == Turn.Attacker)
             {
                 battle.Turn = Turn.Defender;
-                battle.CurrentUnitId = battle.DefenderArmyId;
+                battle.SelectedUnit = GameManager.Instance.GetRandomAvailibleUnit(battle.DefenderArmy);
             }
             else
             {
                 battle.Turn = Turn.Attacker;
-                battle.CurrentUnitId = battle.AttackerArmyId;
+                battle.SelectedUnit = battle.SelectedUnit = GameManager.Instance.GetRandomAvailibleUnit(battle.AttackerArmy);
             }
 
             battle.LastTurnStartTime = Time.time;
-            battle.Log.Add("Turn time expired - switching turns! New Player is: " + battle.CurrentUnitId);
+            Debug.Log("Switching turns! New Player is: " + battle.Turn);
+            battle.Log.Add("Switching turns! New Player is: " + battle.Turn);
             this.SendSwitchTurnEvent(battle);
         }
 
@@ -74,35 +76,11 @@ namespace Assets.Scripts.Network.Services.TCP
         {
             Net_SwitchTurnEvent msg = new Net_SwitchTurnEvent();
             msg.BattleId = battle.Id;
-            msg.CurrentUnitId = battle.CurrentUnitId;
+            msg.CurrentUnitId = battle.SelectedUnit.Id;
             msg.Turn = battle.Turn;
 
-            bool shouldNotifyAttacker = false;
-            bool shouldNotifyDefender = false;
-
-            switch (battle.BattleScenario)
-            {
-                case BattleScenario.HUvsAI:
-                    shouldNotifyAttacker = true;
-                    shouldNotifyDefender = false;
-                    break;
-                case BattleScenario.AIvsAI:
-                    shouldNotifyAttacker = false;
-                    shouldNotifyDefender = false;
-                    break;
-                case BattleScenario.HUvsHU:
-                    shouldNotifyAttacker = true;
-                    shouldNotifyDefender = true;
-                    break;
-                case BattleScenario.AIvsHU:
-                    shouldNotifyAttacker = false;
-                    shouldNotifyDefender = true;
-                    break;
-                case BattleScenario.Unknown:
-                    break;
-                default:
-                    break;
-            }
+            bool shouldNotifyAttacker = !battle.AttackerDisconnected && battle.AttackerType == PlayerType.Human;
+            bool shouldNotifyDefender = !battle.DefenderDisconnected && battle.DefenderType == PlayerType.Human;
 
             if (shouldNotifyAttacker)
             {

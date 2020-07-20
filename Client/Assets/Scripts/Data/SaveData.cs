@@ -23,6 +23,7 @@ namespace Assets.Scripts.Data
         public string hashValue;
         public string activeHeroId;
         public int activeGameId;
+        public Guid? activeBattleId;
         public Avatar avatar;
         public Game activeGame;
         public BattleData battleData;
@@ -43,6 +44,7 @@ namespace Assets.Scripts.Data
             password = string.Empty;
             avatar = new Avatar();
             battleData = new BattleData();
+            activeBattleId = null;
         }
     }
 }

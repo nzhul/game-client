@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Assets.Scripts.InGame;
+using Assets.Scripts.InGame.Map.Entities;
 using Assets.Scripts.Shared.Models;
+using Assets.Scripts.Shared.Models.Units;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -14,7 +16,7 @@ public class GraphView : MonoBehaviour
     public GameObject walkableTilePrefab;
 
     [Header("Heroes")]
-    public GameObject heroViewPrefab;
+    public GameObject entityViewPrefab;
     public GameObject gridContainer;
     private GameObject contactPointsContainer;
     private GameObject occupiedPointsContainer;
@@ -140,42 +142,42 @@ public class GraphView : MonoBehaviour
         return parent;
     }
 
-    public void AddArmies(IList<Army> armies)
+    public void AddEntities(IEnumerable<GridEntity> entities)
     {
-        foreach (var army in armies)
+        foreach (var entity in entities)
         {
             //if (army.IsNPC)
             //{
             //    continue;
             //}
 
-            this.AddArmy(army, new Coord(army.X, army.Y), false);
+            this.AddEntity(entity, new Coord(entity.X, entity.Y), false);
         }
     }
 
-    public void AddArmy(Army army, Coord spawnCoordinates, bool playSpawnEffect)
+    public void AddEntity(GridEntity entity, Coord spawnCoordinates, bool playSpawnEffect)
     {
-        var armyView = InitArmy(army, spawnCoordinates, playSpawnEffect);
+        var armyView = InitEntity(entity, spawnCoordinates, playSpawnEffect);
 
-        if (AliveEntitiesManager.Instance.Entities.ContainsKey(army.Id))
+        if (EntitiesManager.Instance.Entities.ContainsKey(entity.Id))
         {
             // 1. If the heroView exist - we override
-            AliveEntitiesManager.Instance.Entities[army.Id] = armyView;
+            EntitiesManager.Instance.Entities[entity.Id] = armyView;
         }
         else
         {
             // 2. Else - create new
-            AliveEntitiesManager.Instance.Entities.Add(army.Id, armyView);
+            EntitiesManager.Instance.Entities.Add(entity.Id, armyView);
         }
     }
 
-    public ArmyView InitArmy(Army army, Coord spawnCoordinates, bool playSpawnEffect)
+    public EntityView InitEntity(GridEntity entity, Coord spawnCoordinates, bool playSpawnEffect)
     {
         //Vector3 worldPosition = MapManager.Instance.GetNodeWorldPosition(spawnCoordinates.X, spawnCoordinates.Y);
         Vector3 worldPosition = this.graph.GetNodeWorldPosition(spawnCoordinates.X, spawnCoordinates.Y);
-        Vector3 placementPosition = new Vector3(worldPosition.x, heroViewPrefab.transform.position.y, worldPosition.z);
-        GameObject instance = Instantiate(heroViewPrefab, placementPosition, Quaternion.identity);
-        ArmyView heroView = instance.GetComponent<ArmyView>();
+        Vector3 placementPosition = new Vector3(worldPosition.x, entityViewPrefab.transform.position.y, worldPosition.z);
+        GameObject instance = Instantiate(entityViewPrefab, placementPosition, Quaternion.identity);
+        var heroView = instance.GetComponent<EntityView>();
 
         if (playSpawnEffect)
         {
@@ -184,7 +186,7 @@ public class GraphView : MonoBehaviour
 
         if (heroView != null)
         {
-            heroView.Init(army, spawnCoordinates, worldPosition);
+            heroView.Init(entity, spawnCoordinates, worldPosition);
         }
 
         this.AddContentToNode(spawnCoordinates, heroView);

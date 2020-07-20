@@ -10,5 +10,5 @@ public class NodeContent : MonoBehaviour
 
     public bool BlocksPath => Type >= NodeContentType.Army;
 
-    public virtual void Interact(AliveEntityView interactingHero) { }
+    public virtual void Interact(EntityView interactingHero) { }
 }

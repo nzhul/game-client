@@ -1,8 +1,10 @@
-﻿namespace Assets.Scripts.Network.Services.TCP.Interfaces
+﻿using Assets.Scripts.Network.RequestModels.Users.View;
+
+namespace Assets.Scripts.Network.Services.TCP.Interfaces
 {
     public interface IUserService
     {
-        void SendAuthRequest(int userId, string username, string token);
+        void SendAuthRequest(LoginResponse loginInfo);
 
         void SendLogoutRequest();
     }

@@ -36,11 +36,11 @@ namespace Assets.Scripts.Network.MessageHandlers
                 return;
             }
 
-            if (battle.CurrentUnitId != msg.RequesterUnitId)
-            {
-                Debug.LogWarning($"End turn requester is not currently active! Hacking ?");
-                return;
-            }
+            //if (battle.CurrentUnitId != msg.RequesterUnitId)
+            //{
+            //    Debug.LogWarning($"End turn requester is not currently active! Hacking ?");
+            //    return;
+            //}
 
             // 2. Update last activity
             battle.UpdateLastActivity(msg.RequesterArmyId);

@@ -16,7 +16,7 @@ namespace Assets.Scripts.Network
         private const int MAX_USER = 100;
         private const int PORT = 26000;
         private const int WEB_PORT = 26001;
-        private const int BYTE_SIZE = 1024;
+        private const int BYTE_SIZE = 1024; // 1402
 
         private const string SERVER_IP = "127.0.0.1";
 

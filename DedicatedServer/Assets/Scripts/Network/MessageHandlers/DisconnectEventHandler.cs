@@ -24,9 +24,10 @@ namespace Assets.Scripts.Network.MessageHandlers
 
                 RequestManager.Instance.Put(endpoint, @params, connection.Token, OnSetOffline);
 
-
                 Matchmaker.Instance.UnRegisterPlayer(connection);
                 NetworkServer.Instance.Connections.Remove(connectionId);
+
+                this.MarkBattle(connectionId);
 
                 OnDisconnect?.Invoke(connection);
 
@@ -39,6 +40,26 @@ namespace Assets.Scripts.Network.MessageHandlers
             else
             {
                 Debug.Log("Someone disconnected from the server!");
+            }
+        }
+
+        private void MarkBattle(int connectionId)
+        {
+            var battle = NetworkServer.Instance.ActiveBattles.FirstOrDefault(x => x.AttackerConnectionId == connectionId || x.DefenderConnectionId == connectionId);
+            if (battle == null)
+            {
+                return;
+            }
+
+            if (battle.AttackerConnectionId == connectionId)
+            {
+                battle.AttackerDisconnected = true;
+                battle.AttackerConnectionId = 0;
+            }
+            else if (battle.DefenderConnectionId == connectionId)
+            {
+                battle.DefenderDisconnected = true;
+                battle.DefenderConnectionId = 0;
             }
         }
 

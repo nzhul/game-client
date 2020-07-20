@@ -68,24 +68,31 @@ namespace Assets.Scripts.Network.MessageHandlers
                 // MonsterAIvsHUAI
             }
 
-            var bd = new BattleData();
+            var playerIsAttacker = this.ResolveIsAttacker(msg.AttackerArmyId);
+            var bd = new BattleData(playerIsAttacker);
             bd.BattleScenario = msg.BattleScenario;
             bd.AttackerType = attackerType;
             bd.DefenderType = defenderType;
-            bd.AttackerArmy = attackArmy;
-            bd.DefenderArmy = defenderArmy;
-            bd.AttackerArmyId = msg.AttackerArmyId;
-            bd.DefenderArmyId = msg.DefenderArmyId;
+            bd.PlayerArmy = attackArmy;
+            bd.EnemyArmy = defenderArmy;
+            bd.PlayerArmyId = msg.AttackerArmyId;
+            bd.EnemyArmyId = msg.DefenderArmyId;
             bd.CurrentArmyId = currentArmyId;
             bd.SelectedUnit = DataManager.Instance.ActiveGame.GetUnit(msg.SelectedUnitId);
             bd.BattleId = msg.BattleId;
-            bd.Turn = Turn.Attacker;
+            bd.Turn = msg.Turn;
             bd.RemainingTimeForThisTurn = BattleManager.TURN_DURATION;
             bd.ActionsEnabled = true;
-            this.UpdateUnitsData(bd.AttackerArmy);
-            this.UpdateUnitsData(bd.DefenderArmy);
+            this.UpdateUnitsData(bd.PlayerArmy);
+            this.UpdateUnitsData(bd.EnemyArmy);
 
             return bd;
+        }
+
+        private bool ResolveIsAttacker(int attackerArmyId)
+        {
+            var army = DataManager.Instance.ActiveGame.GetArmy(attackerArmyId);
+            return army.Team == DataManager.Instance.Avatar.Team;
         }
 
         private void UpdateUnitsData(Army hero)

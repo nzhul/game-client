@@ -2260,7 +2260,7 @@ MonoBehaviour:
     m_Bits: 0
   walkableTilePrefab: {fileID: 1142955616043194, guid: 3766e68f848a4254f88abd025dabf596,
     type: 3}
-  heroViewPrefab: {fileID: 1463672758921370, guid: ba0b4319df1d3ac4a839f1de34b2d0f2,
+  entityViewPrefab: {fileID: 1463672758921370, guid: ba0b4319df1d3ac4a839f1de34b2d0f2,
     type: 3}
   gridContainer: {fileID: 606412788}
   monsterViewPrefab: {fileID: 726259910671950605, guid: c4c7b2e2815fadb4d90c5a8baedf8673,
@@ -2394,7 +2394,7 @@ GameObject:
   - component: {fileID: 1473860089}
   - component: {fileID: 1473860090}
   m_Layer: 0
-  m_Name: HeroesManager
+  m_Name: EntitiesManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2423,7 +2423,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1473860088}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a26d7e322b1bfb41ab323e9fbf0aef3, type: 3}
+  m_Script: {fileID: 11500000, guid: 6d268badffc804540807d5ab167c4a5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1496829740

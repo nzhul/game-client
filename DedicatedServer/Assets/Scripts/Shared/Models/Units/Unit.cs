@@ -77,6 +77,8 @@ namespace Assets.Scripts.Shared.Models.Units
         [JsonConverter(typeof(StringEnumConverter))]
         public ArmorType ArmorType { get; set; }
 
+        public bool ActionConsumed { get; set; }
+
         #endregion
     }
 }

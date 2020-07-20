@@ -88,6 +88,12 @@ namespace Assets.Scripts.Games
             var connection = NetworkServer.Instance.Connections.FirstOrDefault(x => x.Value.UserId == army.UserId);
             return connection.Value != null ? connection.Value.ConnectionId : 0;
         }
+
+        public Unit GetRandomAvailibleUnit(Army army)
+        {
+            var availibleUnits = army.Units.Where(x => !x.ActionConsumed).ToList();
+            return availibleUnits[UnityEngine.Random.Range(0, army.Units.Count - 1)];
+        }
     }
 
 }

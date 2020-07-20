@@ -25,8 +25,6 @@ namespace Assets.Scripts.Shared.NetMessages.World.ServerClient
 
         public BattleScenario BattleScenario { get; set; }
 
-        public string Error { get; set; }
-
-        public byte Success { get; set; }
+        public Turn Turn { get; set; }
     }
 }

@@ -5,6 +5,7 @@ using Assets.Scripts.Data;
 using Assets.Scripts.InGame.Console;
 using Assets.Scripts.Network.Services;
 using Assets.Scripts.Shared.Models;
+using Assets.Scripts.Shared.Models.Units;
 using BestHTTP;
 using Newtonsoft.Json;
 using UnityEngine;
@@ -89,7 +90,7 @@ public class MapManager : MonoBehaviour
             graph.Init(game.MatrixString);
             graphView.Init(graph);
             // graphView.AddNPCArmies(game.Armies);
-            graphView.AddArmies(game.Armies);
+            graphView.AddEntities(game.Armies.OfType<GridEntity>());
             PlayerController.Instance.SetActiveEntity(DataManager.Instance.ActiveArmyId);
             //graphView.Dwellings();
         }
