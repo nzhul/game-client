@@ -60,7 +60,7 @@ public class BattleManager : MonoBehaviour
     }
     #endregion
 
-    public const int TURN_DURATION = 10;
+    public const int TURN_DURATION = 20;
 
     private IBattleService battleService;
     private BattleData bd;
